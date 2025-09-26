@@ -66,17 +66,17 @@ const FeaturedProjects = () => {
   return (
     <section 
   className="relative py-20 
-             bg-slate-100/80"
+             bg-secondary-foreground"
 >
   {/* Subtle radial glow behind header for depth */}
-  <div className="absolute top-0 left-1/2 -translate-x-1/2 
+  {/* <div className="absolute top-0 left-1/2 -translate-x-1/2 
                   w-[600px] h-[300px] 
                   bg-gradient-radial from-white/5 via-transparent to-transparent 
-                  blur-3xl opacity-0 pointer-events-none" />
+                  blur-3xl opacity-0 pointer-events-none" /> */}
 
   {/* Optional top shadow for smoother section nesting */}
-  <div className="absolute inset-x-0 top-0 h-10 
-                  bg-gradient-to-b from-black/20 to-transparent" />
+  {/* <div className="absolute inset-x-0 top-0 h-10 
+                  bg-gradient-to-b from-black/20 to-transparent" /> */}
 
   <div className="relative max-w-6xl mx-auto px-6 sm:px-12">
     {/* Section Header */}
@@ -103,7 +103,7 @@ const FeaturedProjects = () => {
           {featuredProjects?.map((project, index) => (
             <div
               key={project?.id}
-              className="group bg-slate-100/80 border-white/20 text-secondary rounded-xl overflow-hidden hover:shadow-lg transition-all duration-slow hover:-translate-y-1"
+              className="group bg-slate-50  text-secondary rounded-xl overflow-hidden shadow-lg transition-all duration-slow hover:-translate-y-1"
             >
               {/* Project Image */}
               <div className="relative h-56 overflow-hidden">
@@ -162,7 +162,7 @@ const FeaturedProjects = () => {
                   {project?.technologies?.map((tech) => (
                     <span
                       key={tech}
-                      className="px-2 py-1 bg-muted text-foreground text-xs rounded-md"
+                      className="px-2 py-1 !bg-[#2c373d] text-foreground text-xs rounded-md"
                     >
                       {tech}
                     </span>
@@ -197,7 +197,7 @@ const FeaturedProjects = () => {
                     <Icon
                       name="CheckCircle"
                       size={14}
-                      className="mr-1 text-success"
+                      className="mr-1 text-primary"
                     />
                     {project?.status}
                   </div>
@@ -210,13 +210,12 @@ const FeaturedProjects = () => {
         {/* View All Projects CTA */}
         <div className="text-center">
           <Button
-            variant="outline"
             size="lg"
             iconName="ArrowRight"
             iconPosition="right"
             asChild
           >
-            <Link to="/portfolio-projects">View All Projects</Link>
+            <Link to="/portfolio-projects" className="text-white">View All Projects</Link>
           </Button>
         </div>
       </div>

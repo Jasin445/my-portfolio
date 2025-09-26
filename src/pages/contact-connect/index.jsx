@@ -1,79 +1,102 @@
-import React, { useState, useEffect } from 'react';
-import { Helmet } from 'react-helmet';
-import Header from '../../components/ui/Header';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import Button from '../../components/ui/Button';
+import Input from '../../components/ui/Input';
+import Icon from '../.././components/AppIcon'
+import { Helmet } from "react-helmet"
 import ScrollProgress from '../../components/ui/ScrollProgress';
-import ContactForm from './components/ContactForm';
-import ContactMethods from './components/ContactMethods';
-import ProjectInquiry from './components/ProjectInquiry';
-import LocationInfo from './components/LocationInfo';
-import Icon from '../../components/AppIcon';
+import Header from '../../components/ui/Header';
+
 
 const ContactConnect = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [activeSection, setActiveSection] = useState('form');
 
-  useEffect(() => {
-    // Smooth scroll behavior for anchor links
-    const handleHashChange = () => {
-      const hash = window.location?.hash?.substring(1);
-      if (hash) {
-        const element = document.getElementById(hash);
-        if (element) {
-          element?.scrollIntoView({ behavior: 'smooth' });
-        }
-      }
-    };
-
-    window.addEventListener('hashchange', handleHashChange);
-    handleHashChange(); // Handle initial hash
-
-    return () => window.removeEventListener('hashchange', handleHashChange);
-  }, []);
-
-  const handleFormSubmit = async (formData) => {
-    setIsSubmitting(true);
-    
-    try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
-      // Mock form submission
-      console.log('Form submitted:', formData);
-      
-      // In a real app, you would send this to your backend
-      // const response = await fetch('/api/contact', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify(formData)
-      // });
-      
-      return { success: true };
-    } catch (error) {
-      throw new Error('Failed to submit form');
-    } finally {
-      setIsSubmitting(false);
+  const socialLinks = [
+    {
+      name: "LinkedIn",
+      icon: "Linkedin",
+      url: "https://linkedin.com/in/alexjohnson-dev",
+      color: "text-blue-600",
+      followers: "2.5K"
+    },
+    {
+      name: "GitHub",
+      icon: "Github",
+      url: "https://github.com/alexjohnson-dev",
+      color: "text-gray-800",
+      followers: "1.8K"
+    },
+    {
+      name: "Twitter",
+      icon: "Twitter",
+      url: "https://twitter.com/alexjohnson_dev",
+      color: "text-blue-400",
+      followers: "950"
+    },
+    {
+      name: "Email",
+      icon: "Mail",
+      url: "mailto:alex@devportfolio.com",
+      color: "text-red-500",
+      followers: "Direct"
     }
-  };
-
-  const navigationSections = [
-    { id: 'form', label: 'Contact Form', icon: 'Mail' },
-    { id: 'methods', label: 'Get In Touch', icon: 'MessageSquare' },
-    { id: 'inquiry', label: 'Project Types', icon: 'Briefcase' },
-    { id: 'location', label: 'Location & Time', icon: 'MapPin' }
   ];
 
+  const handleInputChange = (e) => {
+    const { name, value } = e?.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e?.preventDefault();
+    setIsSubmitting(true);
+    
+    // Simulate form submission
+    await new Promise(resolve => setTimeout(resolve, 2000));
+    
+    // Reset form
+    setFormData({ name: '', email: '', message: '' });
+    setIsSubmitting(false);
+    
+    // Show success message (in real app, use toast/notification)
+    alert('Message sent successfully! I\'ll get back to you soon.');
+  };
+
   return (
-    <>
-      <Helmet>
+    <section className="py-20 bg-gradient-to-br from-primary/5 via-background to-accent/5">
+       <Helmet>
         <title>Contact Connect - DevPortfolio Pro</title>
-        <meta name="description" content="Get in touch with Alex Developer for your next project. Available for full-time positions, freelance work, consulting, and collaboration opportunities." />
-        <meta name="keywords" content="contact developer, hire react developer, freelance frontend, web development services, technical consulting" />
-        <meta property="og:title" content="Contact Connect - DevPortfolio Pro" />
-        <meta property="og:description" content="Ready to work together? Contact Alex Developer for professional frontend development services and opportunities." />
+        <meta
+          name="description"
+          content="Get in touch with Alex Developer for your next project. Available for full-time positions, freelance work, consulting, and collaboration opportunities."
+        />
+        <meta
+          name="keywords"
+          content="contact developer, hire react developer, freelance frontend, web development services, technical consulting"
+        />
+        <meta
+          property="og:title"
+          content="Contact Connect - DevPortfolio Pro"
+        />
+        <meta
+          property="og:description"
+          content="Ready to work together? Contact Alex Developer for professional frontend development services and opportunities."
+        />
         <meta property="og:type" content="website" />
-        <link rel="canonical" href="https://devportfolio-pro.com/contact-connect" />
+        <link
+          rel="canonical"
+          href="https://devportfolio-pro.com/contact-connect"
+        />
       </Helmet>
-      <div className="min-h-screen bg-background">
+      <div className="bg-background">
         <Header />
         <ScrollProgress />
 
@@ -85,180 +108,237 @@ const ContactConnect = () => {
                 <Icon name="MessageCircle" size={16} />
                 <span>Let's Connect</span>
               </div>
-              
+
               <h1 className="text-4xl lg:text-5xl font-bold text-foreground mb-6">
                 Ready to Build Something
                 <span className="text-primary"> Amazing Together?</span>
               </h1>
-              
+
               <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
-                Whether you're looking for a full-time developer, need help with a specific project, 
-                or want to explore collaboration opportunities, I'm here to help bring your ideas to life.
+                Whether you're looking for a full-time developer, need help with
+                a specific project, or want to explore collaboration
+                opportunities, I'm here to help bring your ideas to life.
               </p>
 
               {/* Quick Stats */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-2xl mx-auto">
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-primary mb-1">24h</div>
-                  <div className="text-sm text-muted-foreground">Response Time</div>
+                  <div className="text-2xl font-bold text-primary mb-1">
+                    24h
+                  </div>
+                  <div className="text-sm text-muted-foreground">
+                    Response Time
+                  </div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-primary mb-1">50+</div>
-                  <div className="text-sm text-muted-foreground">Projects Delivered</div>
+                  <div className="text-2xl font-bold text-primary mb-1">
+                    50+
+                  </div>
+                  <div className="text-sm text-muted-foreground">
+                    Projects Delivered
+                  </div>
                 </div>
                 <div className="text-center">
                   <div className="text-2xl font-bold text-primary mb-1">5★</div>
-                  <div className="text-sm text-muted-foreground">Client Rating</div>
+                  <div className="text-sm text-muted-foreground">
+                    Client Rating
+                  </div>
                 </div>
                 <div className="text-center">
                   <div className="text-2xl font-bold text-primary mb-1">3+</div>
-                  <div className="text-sm text-muted-foreground">Years Experience</div>
+                  <div className="text-sm text-muted-foreground">
+                    Years Experience
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </section>
-
-        {/* Navigation Tabs */}
-        <section className="sticky top-16 z-30 bg-background/95 backdrop-blur-sm border-b border-border">
-          <div className="4xl:max-w-9xl 3xl:max-w-8xl max-w-7xl mx-auto px-6">
-            <div className="flex items-center space-x-1 py-4 overflow-x-auto">
-              {navigationSections?.map((section) => (
-                <button
-                  key={section?.id}
-                  onClick={() => {
-                    setActiveSection(section?.id);
-                    document.getElementById(section?.id)?.scrollIntoView({ behavior: 'smooth' });
-                  }}
-                  className={`flex items-center space-x-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-fast whitespace-nowrap ${
-                    activeSection === section?.id
-                      ? 'bg-primary text-white' :'text-muted-foreground hover:text-foreground hover:bg-muted'
-                  }`}
-                >
-                  <Icon name={section?.icon} size={16} />
-                  <span>{section?.label}</span>
-                </button>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Main Content */}
-        <main className="4xl:max-w-9xl 3xl:max-w-8xl max-w-7xl mx-auto px-6 py-12">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* Left Column - Contact Form */}
-            <div className="lg:col-span-2 space-y-8">
-              {/* Contact Form Section */}
-              <section id="form">
-                <ContactForm 
-                  onSubmit={handleFormSubmit}
-                  isSubmitting={isSubmitting}
-                />
-              </section>
-
-              {/* Project Inquiry Section */}
-              <section id="inquiry">
-                <ProjectInquiry />
-              </section>
-            </div>
-
-            {/* Right Column - Contact Methods & Location */}
-            <div className="space-y-8">
-              {/* Contact Methods Section */}
-              <section id="methods">
-                <ContactMethods />
-              </section>
-
-              {/* Location Info Section */}
-              <section id="location">
-                <LocationInfo />
-              </section>
-            </div>
-          </div>
-        </main>
-
-        {/* CTA Section */}
-        <section className="py-16 bg-gradient-to-r from-primary/10 via-accent/5 to-primary/10">
-          <div className="max-w-4xl mx-auto px-6 text-center">
-            <h2 className="text-3xl font-bold text-foreground mb-4">
-              Still Have Questions?
-            </h2>
-            <p className="text-lg text-muted-foreground mb-8">
-              Don't hesitate to reach out. I'm always happy to discuss your project needs 
-              and explore how we can work together.
-            </p>
-            
-            <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4">
-              <a
-                href="mailto:alex.developer@email.com"
-                className="inline-flex items-center space-x-2 bg-primary text-white px-6 py-3 rounded-lg font-medium hover:bg-primary/90 transition-colors duration-fast"
-              >
-                <Icon name="Mail" size={18} />
-                <span>Send Quick Email</span>
-              </a>
-              
-              <a
-                href="https://calendly.com/alex-developer"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center space-x-2 bg-background text-foreground border border-border px-6 py-3 rounded-lg font-medium hover:bg-muted transition-colors duration-fast"
-              >
-                <Icon name="Calendar" size={18} />
-                <span>Schedule Call</span>
-              </a>
-            </div>
-          </div>
-        </section>
-
-        {/* Footer */}
-        <footer className="bg-card border-t border-border py-8">
-          <div className=" mx-auto px-6">
-            <div className="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
-              <div className="text-sm text-muted-foreground">
-                © {new Date()?.getFullYear()} DevPortfolio Pro. All rights reserved.
-              </div>
-              
-              <div className="flex items-center space-x-6">
-                <a
-                  href="mailto:alex.developer@email.com"
-                  className="text-muted-foreground hover:text-primary transition-colors duration-fast"
-                  aria-label="Email"
-                >
-                  <Icon name="Mail" size={18} />
-                </a>
-                <a
-                  href="https://linkedin.com/in/alex-developer-pro"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-muted-foreground hover:text-primary transition-colors duration-fast"
-                  aria-label="LinkedIn"
-                >
-                  <Icon name="Linkedin" size={18} />
-                </a>
-                <a
-                  href="https://github.com/alex-developer"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-muted-foreground hover:text-primary transition-colors duration-fast"
-                  aria-label="GitHub"
-                >
-                  <Icon name="Github" size={18} />
-                </a>
-                <a
-                  href="https://twitter.com/alexdevpro"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-muted-foreground hover:text-primary transition-colors duration-fast"
-                  aria-label="Twitter"
-                >
-                  <Icon name="Twitter" size={18} />
-                </a>
-              </div>
-            </div>
-          </div>
-        </footer>
       </div>
-    </>
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="grid lg:grid-cols-2 gap-16 items-start">
+          {/* Contact Info */}
+          <div className="space-y-8">
+            <div>
+              <div className="inline-flex items-center px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium mb-4">
+                <Icon name="MessageCircle" size={16} className="mr-2" />
+                Get In Touch
+              </div>
+              
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+                Let's Work Together
+              </h2>
+              
+              <p className="text-lg text-muted-foreground leading-relaxed">
+                I'm always interested in new opportunities and exciting projects. Whether you're a startup looking for a technical co-founder or an 
+                established company needing frontend expertise, let's discuss how 
+                we can create something amazing together.
+              </p>
+            </div>
+
+            {/* Contact Methods */}
+            <div className="space-y-4">
+              <div className="flex items-center space-x-4 p-4 bg-card rounded-lg border border-border">
+                <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
+                  <Icon name="Mail" size={20} className="text-primary" />
+                </div>
+                <div>
+                  <div className="font-medium text-foreground">Email</div>
+                  <div className="text-sm text-muted-foreground">alex@devportfolio.com</div>
+                </div>
+              </div>
+
+              <div className="flex items-center space-x-4 p-4 bg-card rounded-lg border border-border">
+                <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
+                  <Icon name="Phone" size={20} className="text-primary" />
+                </div>
+                <div>
+                  <div className="font-medium text-foreground">Phone</div>
+                  <div className="text-sm text-muted-foreground">+1 (555) 123-4567</div>
+                </div>
+              </div>
+
+              <div className="flex items-center space-x-4 p-4 bg-card rounded-lg border border-border">
+                <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
+                  <Icon name="MapPin" size={20} className="text-primary" />
+                </div>
+                <div>
+                  <div className="font-medium text-foreground">Location</div>
+                  <div className="text-sm text-muted-foreground">San Francisco, CA</div>
+                </div>
+              </div>
+            </div>
+
+            {/* Social Links */}
+            <div>
+              <h3 className="font-semibold text-foreground mb-4">Connect With Me</h3>
+              <div className="grid grid-cols-2 gap-3">
+                {socialLinks?.map((social) => (
+                  <a
+                    key={social?.name}
+                    href={social?.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center space-x-3 p-3 bg-card rounded-lg border border-border hover:shadow-md transition-all duration-fast group"
+                  >
+                    <Icon 
+                      name={social?.icon} 
+                      size={20} 
+                      className={`${social?.color} group-hover:scale-110 transition-transform duration-fast`} 
+                    />
+                    <div className="flex-1 min-w-0">
+                      <div className="font-medium text-foreground text-sm">{social?.name}</div>
+                      <div className="text-xs text-muted-foreground">{social?.followers}</div>
+                    </div>
+                    <Icon name="ExternalLink" size={14} className="text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-fast" />
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            {/* Quick Action */}
+            <div className="p-6 bg-primary/5 rounded-xl border border-primary/20">
+              <div className="flex items-start space-x-4">
+                <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <Icon name="Calendar" size={20} className="text-primary" />
+                </div>
+                <div className="flex-1">
+                  <h4 className="font-semibold text-foreground mb-2">Schedule a Call</h4>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    Prefer to talk? Let's schedule a 30-minute call to discuss your project needs.
+                  </p>
+                  <Button variant="outline" size="sm" iconName="Calendar" iconPosition="left">
+                    Book a Meeting
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Contact Form */}
+          <div className="bg-card rounded-xl border border-border p-8 shadow-sm">
+            <h3 className="text-xl font-semibold text-foreground mb-6">Send a Message</h3>
+            
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <Input
+                label="Full Name"
+                type="text"
+                name="name"
+                placeholder="Enter your full name"
+                value={formData?.name}
+                onChange={handleInputChange}
+                required
+              />
+
+              <Input
+                label="Email Address"
+                type="email"
+                name="email"
+                placeholder="Enter your email address"
+                value={formData?.email}
+                onChange={handleInputChange}
+                required
+              />
+
+              <div className="space-y-2">
+                <label className="block text-sm font-medium text-foreground">
+                  Message *
+                </label>
+                <textarea
+                  name="message"
+                  rows={5}
+                  placeholder="Tell me about your project or how I can help..."
+                  value={formData?.message}
+                  onChange={handleInputChange}
+                  required
+                  className="w-full px-4 py-3 border border-border rounded-lg bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent resize-none"
+                />
+              </div>
+
+              <Button
+                type="submit"
+                variant="default"
+                size="lg"
+                fullWidth
+                loading={isSubmitting}
+                iconName="Send"
+                iconPosition="left"
+              >
+                {isSubmitting ? 'Sending...' : 'Send Message'}
+              </Button>
+            </form>
+
+            <div className="mt-6 pt-6 border-t border-border text-center">
+              <p className="text-sm text-muted-foreground mb-4">
+                Or explore more about my work
+              </p>
+              <div className="flex flex-col sm:flex-row gap-3">
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  iconName="User" 
+                  iconPosition="left"
+                  fullWidth
+                  asChild
+                >
+                  <Link to="/about-professional">About Me</Link>
+                </Button>
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  iconName="FileText" 
+                  iconPosition="left"
+                  fullWidth
+                  asChild
+                >
+                  <Link to="/technical-blog">Read Blog</Link>
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 };
 

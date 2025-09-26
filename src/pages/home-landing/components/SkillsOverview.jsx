@@ -1,5 +1,30 @@
-import React, { useState, useEffect } from 'react';
-import Icon from '../../../components/AppIcon';
+import React, { useState, useEffect } from "react";
+import Icon from "../../../components/AppIcon";
+import { SiCss3, SiDocker, SiGithub, SiJavascript, SiJest, SiNextdotjs, SiReact, SiSmart, SiTailwindcss, SiTestinglibrary, SiTypescript, SiVercel, SiVite } from "react-icons/si";
+import { MdDesignServices } from "react-icons/md"
+import { Smartphone } from "lucide-react";
+
+const getIcons = (icon) => {
+  const map = {
+    SiReact,
+    SiTypescript,
+    SiJavascript,
+    SiNextdotjs,
+    SiTailwindcss,
+    SiCss3,
+    SiSmart,
+    SiGithub,
+    SiVite,
+    SiVercel,
+    SiDocker,
+    MdDesignServices,
+    Smartphone,
+  }
+  const ReactIcon = map[icon] || Smartphone
+  return (
+    <ReactIcon size={16} className="text-muted-foreground mr-2" />
+  );
+};
 
 const SkillsOverview = () => {
   const [animatedSkills, setAnimatedSkills] = useState({});
@@ -9,39 +34,39 @@ const SkillsOverview = () => {
       title: "Frontend Technologies",
       icon: "Monitor",
       skills: [
-        { name: "React", level: 95, icon: "Atom" },
-        { name: "TypeScript", level: 90, icon: "Code" },
-        { name: "Vue.js", level: 85, icon: "Layers" },
-        { name: "Next.js", level: 88, icon: "Zap" }
-      ]
+        { name: "React", level: 95, icon: "SiReact" },
+        { name: "TypeScript", level: 90, icon: "SiTypescript" },
+        { name: "JavaScript ES6+", level: 85, icon: "SiJavascript" },
+        { name: "Next.js", level: 88, icon: "SiNextdotjs" },
+      ],
     },
     {
       title: "Styling & Design",
       icon: "Palette",
       skills: [
-        { name: "Tailwind CSS", level: 92, icon: "Brush" },
-        { name: "CSS/SCSS", level: 90, icon: "Paintbrush" },
-        { name: "Figma", level: 80, icon: "Figma" },
-        { name: "Responsive Design", level: 95, icon: "Smartphone" }
-      ]
+        { name: "Tailwind CSS", level: 92, icon: "SiTailwindcss" },
+        { name: "CSS/SCSS", level: 90, icon: "SiCss3" },
+        { name: "UI/UX Proficiency", level: 80, icon: "MdDesignServices" },
+        { name: "Responsive Design", level: 95, icon: "Smartphone" },
+      ],
     },
     {
       title: "Tools & Workflow",
       icon: "Settings",
       skills: [
-        { name: "Git/GitHub", level: 90, icon: "GitBranch" },
-        { name: "Webpack/Vite", level: 85, icon: "Package" },
-        { name: "Jest/Testing", level: 80, icon: "CheckSquare" },
-        { name: "Docker", level: 75, icon: "Container" }
-      ]
-    }
+        { name: "Git/GitHub", level: 90, icon: "SiGithub" },
+        { name: "Webpack/Vite", level: 85, icon: "SiVite" },
+        { name: "Vercel", level: 80, icon: "SiVercel" },
+        { name: "Docker", level: 75, icon: "SiDocker" },
+      ],
+    },
   ];
 
   useEffect(() => {
     const timer = setTimeout(() => {
       const animated = {};
-      skillCategories?.forEach(category => {
-        category?.skills?.forEach(skill => {
+      skillCategories?.forEach((category) => {
+        category?.skills?.forEach((skill) => {
           animated[skill.name] = skill?.level;
         });
       });
@@ -52,14 +77,14 @@ const SkillsOverview = () => {
   }, []);
 
   const getSkillColor = (level) => {
-    if (level >= 90) return 'bg-success';
-    if (level >= 80) return 'bg-primary';
-    if (level >= 70) return 'bg-warning';
-    return 'bg-secondary';
+    if (level >= 90) return "bg-success";
+    if (level >= 80) return "bg-primary";
+    if (level >= 70) return "bg-warning";
+    return "bg-secondary";
   };
 
   return (
-    <section className="py-20 bg-card">
+    <section className="py-20 bg-gradient-to-b from-[#2a363c]/90 via-[#131426]/100 to-[#131426]/100">
       <div className="4xl:max-w-7xl 3xl:max-w-7xl max-w-6xl mx-auto px-6">
         {/* Section Header */}
         <div className="text-center mb-16">
@@ -67,14 +92,14 @@ const SkillsOverview = () => {
             <Icon name="Cpu" size={16} className="mr-2" />
             Technical Skills
           </div>
-          
+
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
             Expertise & Proficiency
           </h2>
-          
+
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            A comprehensive overview of my technical skills and proficiency levels 
-            across various technologies and tools.
+            A comprehensive overview of my technical skills and proficiency
+            levels across various technologies and tools.
           </p>
         </div>
 
@@ -83,12 +108,16 @@ const SkillsOverview = () => {
           {skillCategories?.map((category, categoryIndex) => (
             <div
               key={category?.title}
-              className="bg-background rounded-xl border border-border p-6 hover:shadow-md transition-shadow duration-slow"
+              className="bg-[#131426] rounded-xl border border-border p-6 hover:shadow-md transition-shadow duration-slow"
             >
               {/* Category Header */}
               <div className="flex items-center mb-6">
                 <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center mr-3">
-                  <Icon name={category?.icon} size={20} className="text-primary" />
+                  <Icon
+                    name={category?.icon}
+                    size={20}
+                    className="text-primary"
+                  />
                 </div>
                 <h3 className="text-lg font-semibold text-foreground">
                   {category?.title}
@@ -102,11 +131,7 @@ const SkillsOverview = () => {
                     {/* Skill Header */}
                     <div className="flex items-center justify-between">
                       <div className="flex items-center">
-                        <Icon 
-                          name={skill?.icon} 
-                          size={16} 
-                          className="text-muted-foreground mr-2" 
-                        />
+                        {getIcons(skill?.icon)}
                         <span className="text-sm font-medium text-foreground">
                           {skill?.name}
                         </span>
@@ -119,10 +144,14 @@ const SkillsOverview = () => {
                     {/* Progress Bar */}
                     <div className="w-full bg-muted rounded-full h-2 overflow-hidden">
                       <div
-                        className={`h-full ${getSkillColor(skill?.level)} rounded-full transition-all duration-slow ease-out`}
+                        className={`h-full ${getSkillColor(
+                          skill?.level
+                        )} rounded-full transition-all duration-slow ease-out`}
                         style={{
                           width: `${animatedSkills?.[skill?.name] || 0}%`,
-                          transitionDelay: `${(categoryIndex * 200) + (skillIndex * 100)}ms`
+                          transitionDelay: `${
+                            categoryIndex * 200 + skillIndex * 100
+                          }ms`,
                         }}
                       />
                     </div>
@@ -138,12 +167,21 @@ const SkillsOverview = () => {
           <h3 className="text-lg font-semibold text-foreground mb-6">
             Additional Technologies
           </h3>
-          
+
           <div className="flex flex-wrap justify-center gap-3">
             {[
-              "JavaScript ES6+", "Node.js", "Express.js", "MongoDB", "PostgreSQL",
-              "REST APIs", "GraphQL", "AWS", "Vercel", "Netlify", "Agile/Scrum",
-              "Performance Optimization", "SEO", "Accessibility", "PWA"
+              "Node.js",
+              "Express.js",
+              "MongoDB",
+              "PostgreSQL",
+              "REST APIs",
+              "GraphQL",
+              "AWS",
+              "Netlify",
+              "Performance Optimization",
+              "SEO",
+              "Accessibility",
+              "PWA",
             ]?.map((tech) => (
               <span
                 key={tech}

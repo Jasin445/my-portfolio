@@ -1,7 +1,7 @@
 import Image from "./AppImage";
 const Footer = () => {
   return (
-    <footer className="bg-card border-t border-border py-12">
+    <footer className="bg-background border-t border-border py-12">
       <div className="4xl:max-w-7xl 3xl:max-w-7xl max-w-6xl mx-auto px-6">
         <div className="grid md:grid-cols-3 gap-8 mb-8">
           {/* Brand */}
@@ -15,8 +15,7 @@ const Footer = () => {
               </span>
             </div>
             <p className="text-muted-foreground text-sm leading-relaxed">
-              Frontend Developer passionate about creating exceptional digital
-              experiences with modern web technologies.
+              More than just a name, A digital Experience!
             </p>
           </div>
 

@@ -19,7 +19,7 @@ const AppIcon: React.FC<AppIconProps> = ({
   
   if (!IconComponent) {
     console.warn(`Icon "${name}" not found`);
-    return <Icons.HelpCircle size={size} color={color} className={className} />;
+    return <Icons.File size={size} color={color} className={className} />;
   }
 
   return <IconComponent size={size} color={color} className={className} />;

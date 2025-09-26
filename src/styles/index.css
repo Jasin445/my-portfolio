@@ -5,7 +5,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: Plus Jakarta Sans !important;
-  --color-background: rgb(13, 9, 30);
+  --color-background: #131426;
   --color-foreground: white;
   --color-primary: rgb(1, 149, 255);
   --color-primary-foreground: black;

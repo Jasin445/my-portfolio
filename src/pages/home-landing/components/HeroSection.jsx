@@ -6,6 +6,7 @@ import Icon from "../../../components/AppIcon";
 import { Atom, Code2, ChevronDown } from "lucide-react";
 import { FaReact, FaGithub, FaLinkedin } from "react-icons/fa";
 import { SiNextdotjs, SiTailwindcss, SiTypescript } from "react-icons/si";
+import "../../../styles/hero-section-styles.css"
 
 const HeroSection = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -248,7 +249,7 @@ const HeroSection = () => {
                     <div className="absolute inset-0 bg-gradient-to-br from-black/40 via-transparent to-black/40"></div>
                   </div>
 
-                  <p className="absolute bottom-[23%] opacity-50 text-center left-[25%] w-[50%] hover-glow-1 text-white drop-shadow-[#118afc] animate-fadeUp text-md font-medium mt-4 tracking-wide">
+                  <p className="absolute bottom-[18%] opacity-50 text-center left-[25%] w-[50%] hover-glow-1 text-white drop-shadow-[#118afc] animate-fadeUp text-md font-medium mt-4 tracking-wide">
                     More than just a name, <br /> a digital experience.
                   </p>
                 </div>
@@ -302,164 +303,7 @@ const HeroSection = () => {
         </div> */}
       </div>
 
-      <style jsx>{`
-        @keyframes gradient-x {
-          0%,
-          100% {
-            background-size: 200% 200%;
-            background-position: left center;
-          }
-          50% {
-            background-size: 200% 200%;
-            background-position: right center;
-          }
-        }
-
-        @keyframes float {
-          0%,
-          100% {
-            transform: translateY(0px);
-          }
-          50% {
-            transform: translateY(-10px);
-          }
-        }
-
-        @keyframes float-delayed {
-          0%,
-          100% {
-            transform: translateY(0px);
-          }
-          50% {
-            transform: translateY(-15px);
-          }
-        }
-
-        @keyframes fadeUp {
-          from {
-            opacity: 0;
-            transform: translateY(10px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        .!animate-fadeUp {
-          animation: fadeUp 0.6s ease forwards;
-        }
-
-        @keyframes float-slow {
-          0%,
-          100% {
-            transform: translateY(0px);
-          }
-          50% {
-            transform: translateY(-8px);
-          }
-        }
-
-        @keyframes pulse-slow {
-          0%,
-          100% {
-            opacity: 0.8;
-          }
-          50% {
-            opacity: 0.4;
-          }
-        }
-
-        @keyframes spin-reverse {
-          from {
-            transform: rotate(360deg);
-          }
-          to {
-            transform: rotate(0deg);
-          }
-        }
-        .animate-spin-reverse {
-          animation: spin-reverse 40s linear infinite;
-        }
-
-        @keyframes spin-slow {
-          from {
-            transform: rotate(0deg);
-          }
-          to {
-            transform: rotate(360deg);
-          }
-        }
-
-        .animate-gradient-x {
-          animation: gradient-x 3s ease infinite;
-        }
-        .animate-float {
-          animation: float 3s ease-in-out infinite;
-        }
-        .animate-float-delayed {
-          animation: float-delayed 3s ease-in-out infinite 1s;
-        }
-        .animate-float-slow {
-          animation: float-slow 4s ease-in-out infinite;
-        }
-
-        .animate-pulse-slow {
-          animation: pulse-slow 4s ease-in-out infinite;
-        }
-        .animate-spin-slow {
-          animation: spin-slow 40s linear infinite;
-        }
-        .animate-spin-slow-1 {
-          animation: spin-slow 30s ease-in-out infinite;
-        }
-
-        .animate-pulse-slow-1 {
-          animation: pulse-slow 4s ease-in-out infinite;
-        }
-        .animate-pulse-slow-2 {
-          animation: pulse-slow 4s ease-in-out infinite 1s;
-        }
-        .animate-pulse-slow-3 {
-          animation: pulse-slow 4s ease-in-out infinite 2s;
-        }
-        .animate-pulse-slow-4 {
-          animation: pulse-slow 4s ease-in-out infinite 3s;
-        }
-        .hover-glow {
-          filter: drop-shadow(0 0 12px rgba(59, 130, 246, 0.8));
-        }
-        .hover-glow-1 {
-          text-shadow: 0 0 8px rgba(59, 130, 246, 0.6),
-            0 0 12px rgba(147, 51, 234, 0.6);
-        }
-
-        @keyframes logo-pulse {
-          0%,
-          100% {
-            opacity: 0.25;
-            transform: scale(1);
-          }
-          50% {
-            opacity: 0.4;
-            transform: scale(1.05);
-          }
-        }
-        .animate-logo-pulse {
-          animation: logo-pulse 4s ease-in-out infinite;
-        }
-        @keyframes glow-ring {
-          0%,
-          100% {
-            box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
-          }
-          50% {
-            box-shadow: 0 0 24px rgba(59, 130, 246, 0.7);
-          }
-        }
-        .animate-glow-ring {
-          animation: glow-ring 3s ease-in-out infinite;
-        }
-      `}</style>
+      
     </section>
   );
 };

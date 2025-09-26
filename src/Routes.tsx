@@ -6,8 +6,8 @@ import NotFound from "./pages/NotFound";
 import PortfolioProjects from './pages/portfolio-projects';
 import HomeLanding from './pages/home-landing';
 import TechnicalBlog from './pages/technical-blog';
-import ContactConnect from './pages/contact-connect';
 import AboutProfessional from './pages/about-professional';
+import ContactConnect from "./pages/contact-connect";
 
 const Routes: React.FC = () => {
   return (
