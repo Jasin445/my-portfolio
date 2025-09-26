@@ -79,7 +79,7 @@ const ContactConnect = () => {
 
         {/* Hero Section */}
         <section className="pt-24 pb-12 bg-gradient-to-br from-primary/5 via-background to-accent/5">
-          <div className="max-w-7xl mx-auto px-6">
+          <div className="4xl:max-w-9xl 3xl:max-w-8xl max-w-7xl mx-auto px-6">
             <div className="text-center max-w-3xl mx-auto">
               <div className="inline-flex items-center space-x-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-6">
                 <Icon name="MessageCircle" size={16} />
@@ -121,7 +121,7 @@ const ContactConnect = () => {
 
         {/* Navigation Tabs */}
         <section className="sticky top-16 z-30 bg-background/95 backdrop-blur-sm border-b border-border">
-          <div className="max-w-7xl mx-auto px-6">
+          <div className="4xl:max-w-9xl 3xl:max-w-8xl max-w-7xl mx-auto px-6">
             <div className="flex items-center space-x-1 py-4 overflow-x-auto">
               {navigationSections?.map((section) => (
                 <button
@@ -144,7 +144,7 @@ const ContactConnect = () => {
         </section>
 
         {/* Main Content */}
-        <main className="max-w-7xl mx-auto px-6 py-12">
+        <main className="4xl:max-w-9xl 3xl:max-w-8xl max-w-7xl mx-auto px-6 py-12">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Left Column - Contact Form */}
             <div className="lg:col-span-2 space-y-8">
@@ -212,7 +212,7 @@ const ContactConnect = () => {
 
         {/* Footer */}
         <footer className="bg-card border-t border-border py-8">
-          <div className="max-w-7xl mx-auto px-6">
+          <div className=" mx-auto px-6">
             <div className="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
               <div className="text-sm text-muted-foreground">
                 © {new Date()?.getFullYear()} DevPortfolio Pro. All rights reserved.

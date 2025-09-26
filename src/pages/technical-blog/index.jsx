@@ -251,7 +251,7 @@ const TechnicalBlog = () => {
         <main className="pt-16">
           {/* Hero Section */}
           <section className="bg-gradient-to-br from-primary/5 via-background to-accent/5 py-16">
-            <div className="max-w-7xl mx-auto px-6">
+            <div className="mx-auto px-6">
               <div className="text-center max-w-4xl mx-auto">
                 <div className="inline-flex items-center space-x-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-6">
                   <Icon name="BookOpen" size={16} />
@@ -275,14 +275,14 @@ const TechnicalBlog = () => {
 
           {/* Featured Articles Section */}
           <section className="py-16 lg:py-24">
-            <div className="max-w-7xl mx-auto px-6">
+            <div className="4xl:max-w-9xl 3xl:max-w-8xl max-w-7xl mx-auto px-6">
               <FeaturedArticles articles={featuredArticles} />
             </div>
           </section>
 
           {/* Main Content */}
           <section className="py-16 lg:py-24 bg-muted/30">
-            <div className="max-w-7xl mx-auto px-6">
+            <div className="mx-auto px-6 4xl:max-w-9xl 3xl:max-w-8xl max-w-7xl">
               <div className="flex flex-col lg:flex-row gap-8">
                 {/* Sidebar */}
                 <aside className="lg:w-80 space-y-8">

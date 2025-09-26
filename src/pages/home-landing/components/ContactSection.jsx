@@ -68,7 +68,7 @@ const ContactSection = () => {
 
   return (
     <section className="py-20 bg-gradient-to-br from-primary/5 via-background to-accent/5">
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="4xl:max-w-7xl 3xl:max-w-7xl max-w-6xl mx-auto px-6">
         <div className="grid lg:grid-cols-2 gap-16 items-start">
           {/* Contact Info */}
           <div className="space-y-8">

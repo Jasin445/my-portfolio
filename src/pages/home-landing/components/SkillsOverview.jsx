@@ -60,7 +60,7 @@ const SkillsOverview = () => {
 
   return (
     <section className="py-20 bg-card">
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="4xl:max-w-7xl 3xl:max-w-7xl max-w-6xl mx-auto px-6">
         {/* Section Header */}
         <div className="text-center mb-16">
           <div className="inline-flex items-center px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium mb-4">

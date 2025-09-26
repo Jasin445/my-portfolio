@@ -2,7 +2,7 @@ import Image from "./AppImage";
 const Footer = () => {
   return (
     <footer className="bg-card border-t border-border py-12">
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="4xl:max-w-7xl 3xl:max-w-7xl max-w-6xl mx-auto px-6">
         <div className="grid md:grid-cols-3 gap-8 mb-8">
           {/* Brand */}
           <div className="space-y-4">

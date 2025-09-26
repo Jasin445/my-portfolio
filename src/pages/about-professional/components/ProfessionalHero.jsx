@@ -5,7 +5,7 @@ import Icon from '../../../components/AppIcon';
 const ProfessionalHero = () => {
   return (
     <section className="relative bg-gradient-to-br from-primary/5 via-background to-accent/5 py-16 ">
-      <div className="max-w-7xl mx-auto px-6">
+      <div className=" mx-auto px-6">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Content */}
           <div className="space-y-8">
@@ -76,7 +76,7 @@ const ProfessionalHero = () => {
               <div className="relative bg-card rounded-2xl p-6 shadow-xl border border-border">
                 <div className="aspect-[4/5] rounded-xl overflow-hidden bg-muted">
                   <Image
-                    src="/assets/images/photo.jpg"
+                    src="/assets/images/jason.png"
                     alt="Alex Johnson - Frontend Developer"
                     className="w-full h-full object-cover"
                   />

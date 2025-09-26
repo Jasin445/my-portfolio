@@ -715,10 +715,10 @@ const calculateExpenseAnalytics = (expenses, timeframe) => {
       </Helmet>
       <Header />
       <ScrollProgress />
-      <main className="pt-16">
+      <main className="pt-16 4xl:max-w-9xl 3xl:max-w-8xl max-w-7xl mx-auto">
         {/* Hero Section */}
         <section className="bg-gradient-to-br from-primary/5 via-background to-accent/5 py-16">
-          <div className="max-w-7xl mx-auto px-6">
+          <div className="mx-auto px-6">
             <div className="text-center mb-12">
               <h1 className="text-4xl lg:text-5xl font-bold text-foreground mb-6">
                 My Portfolio
@@ -741,7 +741,7 @@ const calculateExpenseAnalytics = (expenses, timeframe) => {
 
         {/* Main Content */}
         <section className="py-12">
-          <div className="max-w-7xl mx-auto px-6">
+          <div className="mx-auto px-6">
             <div className="flex flex-col lg:flex-row gap-8">
               {/* Sidebar - Filters */}
               <aside className="lg:w-80 flex-shrink-0">
