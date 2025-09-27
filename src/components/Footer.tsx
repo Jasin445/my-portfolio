@@ -52,11 +52,11 @@ const Footer = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+        <div className="pt-8 border-t w-full border-border flex flex-col sm:flex-row justify-between items-center">
           <div className="text-sm text-muted-foreground">
             © {new Date()?.getFullYear()} Dagana Jason. All rights reserved.
           </div>
-          <div className="flex space-x-6">
+          <div className="flex gap-6">
             <a
               href="/privacy"
               className="text-sm text-muted-foreground hover:text-primary transition-colors duration-fast"

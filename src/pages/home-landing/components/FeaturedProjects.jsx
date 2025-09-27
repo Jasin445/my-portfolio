@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import Button from "../../../components/ui/Button";
 import Image from "../../../components/AppImage";
 import Icon from "../../../components/AppIcon";
+import { motion } from "framer-motion";
+import CarTransition from "../../../components/CarDrive";
 
 const FeaturedProjects = () => {
   const featuredProjects = [
@@ -64,35 +66,47 @@ const FeaturedProjects = () => {
   ];
 
   return (
-    <section 
-  className="relative py-20 
-             bg-secondary-foreground"
->
-  {/* Subtle radial glow behind header for depth */}
-  {/* <div className="absolute top-0 left-1/2 -translate-x-1/2 
-                  w-[600px] h-[300px] 
-                  bg-gradient-radial from-white/5 via-transparent to-transparent 
-                  blur-3xl opacity-0 pointer-events-none" /> */}
+    <section
+      className="relative py-20 
+              bg-gradient-to-b from-[#2a363c] via-[#131426]/95 to-[#2a363c]/90"
+    >
+      {/* Subtle radial glow behind header for depth */}
+      <div
+        className="absolute inset-0 bg-gradient-to-b from-white via-[#172034] to-white 
+                  blur-[340px] opacity-20 pointer-events-none"
+      />
+      {/* <div className="absolute inset-x-0 -top-[10px] h-4 
+                bg-gradient-to-b from-red-500 via-red-500 to-red-500 
+                blur-3xl opacity-50 pointer-events-none" /> */}
 
-  {/* Optional top shadow for smoother section nesting */}
-  {/* <div className="absolute inset-x-0 top-0 h-10 
-                  bg-gradient-to-b from-black/20 to-transparent" /> */}
+      {/* <div className="absolute inset-x-0 top-0 h-[2px] 
+                bg-gradient-to-r from-white/20 via-transparent to-white/20 opacity-40" /> */}
 
-  <div className="relative max-w-6xl mx-auto px-6 sm:px-12">
-    {/* Section Header */}
-    <div className="text-center mb-16">
-      <div className="inline-flex items-center px-4 py-2 
+      {/* Optional top shadow for smoother section nesting */}
+      <div
+        className="absolute inset-x-0 top-0 h-10 
+                  bg-gradient-to-b from-black/20 to-transparent blur-xs"
+      />
+
+      <CarTransition />
+
+      <div className="relative max-w-6xl mx-auto px-6 sm:px-12">
+        {/* Section Header */}
+        <div className="text-center mb-16">
+          <div
+            className="inline-flex items-center px-4 py-2 
                       bg-primary/10 text-primary rounded-full text-sm font-medium mb-4
-                      ring-1 ring-primary/20 backdrop-blur-sm">
-        <Icon name="Star" size={16} className="mr-2" />
+                      ring-1 ring-primary/20 backdrop-blur-sm"
+          >
+            <Icon name="Star" size={16} className="mr-2" />
             Featured Work
           </div>
 
-          <h2 className="text-3xl md:text-4xl font-bold text-background mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
             Selected Projects
           </h2>
 
-          <p className="text-lg text-background max-w-2xl mx-auto">
+          <p className="text-lg text-foreground max-w-2xl mx-auto">
             A showcase of my recent work demonstrating expertise in modern web
             technologies and user-centered design principles.
           </p>
@@ -103,7 +117,7 @@ const FeaturedProjects = () => {
           {featuredProjects?.map((project, index) => (
             <div
               key={project?.id}
-              className="group bg-slate-50  text-secondary rounded-xl overflow-hidden shadow-lg transition-all duration-slow hover:-translate-y-1"
+              className="group bg-[#2a363c]/80 text-secondary rounded-xl overflow-hidden shadow-2xl border transition-all duration-slow hover:-translate-y-1"
             >
               {/* Project Image */}
               <div className="relative h-56 overflow-hidden">
@@ -148,11 +162,11 @@ const FeaturedProjects = () => {
               {/* Project Content */}
               <div className="p-6">
                 <div className="mb-4">
-                  <h3 className="text-xl font-semibold  mb-2 group-hover:text-primary transition-colors duration-fast">
+                  <h3 className="text-xl font-semibold text-foreground mb-2 group-hover:text-primary transition-colors duration-fast">
                     {project?.title}
                   </h3>
 
-                  <p className="text-sm leading-relaxed">
+                  <p className="text-sm text-foreground leading-relaxed">
                     {project?.description}
                   </p>
                 </div>
@@ -177,7 +191,7 @@ const FeaturedProjects = () => {
                       size="sm"
                       iconName="ExternalLink"
                       iconPosition="left"
-                      className="text-xs"
+                      className="text-xs text-foreground"
                     >
                       Live Demo
                     </Button>
@@ -187,13 +201,13 @@ const FeaturedProjects = () => {
                       size="sm"
                       iconName="Github"
                       iconPosition="left"
-                      className="text-xs"
+                      className="text-xs text-foreground"
                     >
                       Code
                     </Button>
                   </div>
 
-                  <div className="flex items-center text-xs ">
+                  <div className="flex items-center text-xs text-foreground">
                     <Icon
                       name="CheckCircle"
                       size={14}
@@ -209,13 +223,10 @@ const FeaturedProjects = () => {
 
         {/* View All Projects CTA */}
         <div className="text-center">
-          <Button
-            size="lg"
-            iconName="ArrowRight"
-            iconPosition="right"
-            asChild
-          >
-            <Link to="/portfolio-projects" className="text-white">View All Projects</Link>
+          <Button size="lg" iconName="ArrowRight" iconPosition="right" asChild>
+            <Link to="/portfolio-projects" className="text-white">
+              View All Projects
+            </Link>
           </Button>
         </div>
       </div>

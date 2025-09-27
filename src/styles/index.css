@@ -17,6 +17,7 @@ body {
   --color-muted: rgb(47, 47, 87);
   --color-card: rgb(32, 40, 41);
   --color-muted-foreground: white;
+
 }
 
 * {
@@ -28,5 +29,12 @@ body {
 
 }
 
+@keyframes car-drive {
+  0% { transform: translateX(-50px); }
+  100% { transform: translateX(calc(100vw + 50px)); }
+}
 
+.animate-car-drive {
+  animation: car-drive 8s linear infinite;
+}
 

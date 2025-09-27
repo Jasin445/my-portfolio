@@ -8,11 +8,12 @@ import HomeLanding from './pages/home-landing';
 import TechnicalBlog from './pages/technical-blog';
 import AboutProfessional from './pages/about-professional';
 import ContactConnect from "./pages/contact-connect";
+import CarCursor from "./components/CarCursor";
 
 const Routes: React.FC = () => {
   return (
     <BrowserRouter>
-      <ErrorBoundary>
+      {/* <ErrorBoundary> */}
         <ScrollToTop />
         <RouterRoutes>
           {/* Define your route here */}
@@ -24,7 +25,7 @@ const Routes: React.FC = () => {
           <Route path="/about-professional" element={<AboutProfessional />} />
           <Route path="*" element={<NotFound />} />
         </RouterRoutes>
-      </ErrorBoundary>
+      {/* </ErrorBoundary> */}
     </BrowserRouter>
   );
 };
