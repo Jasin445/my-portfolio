@@ -10,7 +10,7 @@ const Header = () => {
   const location = useLocation();
 
   const navigationItems = [
-    { label: "Home", path: "/home-landing", icon: "Home" },
+    { label: "Home", path: "/", icon: "Home" },
     { label: "Portfolio", path: "/portfolio-projects", icon: "Briefcase" },
     { label: "About", path: "/about-professional", icon: "User" },
     { label: "Blog", path: "/technical-blog", icon: "FileText" },
@@ -50,7 +50,7 @@ const Header = () => {
         <nav className="flex items-center justify-between h-16 sm:px-6 4xl:max-w-9xl 3xl:max-w-8xl max-w-7xl mx-auto">
           {/* Logo */}
           <Link
-            to="/home-landing"
+            to="/"
             className="flex items-center space-x-2 group"
             aria-label="DevPortfolio Pro - Home"
           >
