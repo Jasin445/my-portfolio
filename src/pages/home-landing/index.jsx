@@ -10,7 +10,7 @@ import Footer from "../../components/Footer";
 const HomeLanding = () => {
   useEffect(() => {
     // Set page title
-    document.title = "Jason Dagana - Frontend Developer | DevPortfolio Pro";
+    document.title = "Jason Dagana | Frontend Developer";
 
     // Set meta description
     const metaDescription = document.querySelector('meta[name="description"]');
