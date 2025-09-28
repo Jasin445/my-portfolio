@@ -46,7 +46,7 @@ const HomeLanding = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      <div className="relative bg-[url('assets/images/background3.jpg')] bg-cover bg-center">
+      <div className="relative bg-[url('/assets/images/background3.jpg')] bg-cover bg-center">
         <div className="absolute inset-0 bg-black/50"></div>
         <Header />
         <ScrollProgress />

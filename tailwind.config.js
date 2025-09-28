@@ -27,6 +27,7 @@ module.exports = {
         "9xl": "1750px",
       },
       colors: {
+        transparent: "transparent", // 👈 force Tailwind to register it
         border: "var(--color-border)", // slate-200
         input: "var(--color-input)", // white
         ring: "var(--color-ring)", // blue-600

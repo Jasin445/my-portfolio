@@ -43,7 +43,7 @@ const HeroSection = () => {
   }, [currentIndex, isVisible, typewriterText]);
 
   return (
-    <section className="relative flex min-h-screen items-center justify-center overflow-hidden bg-gradient-to-br from-background via-card to-transparent">
+    <section className="relative flex min-h-screen items-center justify-center overflow-hidden bg-gradient-to-br from-background via-card to-muted/20">
       {/* Enhanced Background Pattern */}
       <div className="absolute inset-0 opacity-10">
         {/* Animated gradient orbs */}
