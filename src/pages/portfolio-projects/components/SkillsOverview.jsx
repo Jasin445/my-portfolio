@@ -84,7 +84,7 @@ const SkillsOverview = () => {
   };
 
   return (
-    <section className="py-20 bg-gradient-to-b from-[#2a363c]/90 via-[#131426]/100 to-[#131426]/100">
+    <section className="py-20 bg-gradient-to-b from-[#2a363c]/90 via-[#131426]/100 to-[#2a363c]/90">
       <div className="4xl:max-w-7xl 3xl:max-w-7xl max-w-6xl mx-auto px-6">
         {/* Section Header */}
         <div className="text-center mb-16">

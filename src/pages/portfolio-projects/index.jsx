@@ -12,6 +12,7 @@ import Icon from "../../components/AppIcon";
 import Button from "../../components/ui/Button";
 import Footer from "../../components/Footer";
 import SkillsOverview from "./components/SkillsOverview";
+import ContactCta from "./components/ContactCta";
 
 const PortfolioProjects = () => {
   const [selectedProject, setSelectedProject] = useState(null);
@@ -448,81 +449,81 @@ const calculateExpenseAnalytics = (expenses, timeframe) => {
         },
       ],
     },
-//     {
-//       id: 8,
-//       title: "Chat Application",
-//       description:
-//         "A real-time chat application with group messaging, file sharing, and video call integration for seamless communication.",
-//       fullDescription: `A modern real-time chat application built for both personal and professional communication. Features include instant messaging, group chats, file sharing, emoji reactions, and integrated video calling capabilities.\n\nThe application supports end-to-end encryption, message search, user presence indicators, and notification systems. It's designed to handle high-volume messaging with excellent performance and reliability.`,
-//       image:
-//         "https://images.unsplash.com/photo-1577563908411-5077b6dc7624?w=800&h=600&fit=crop",
-//       images: [
-//         "https://images.unsplash.com/photo-1577563908411-5077b6dc7624?w=800&h=600&fit=crop",
-//         "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&h=600&fit=crop",
-//         "https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=800&h=600&fit=crop",
-//       ],
-//       technologies: [
-//         "React",
-//         "Node.js",
-//         "Socket.io",
-//         "MongoDB",
-//         "WebRTC",
-//         "Tailwind CSS",
-//       ],
-//       status: "archived",
-//       completedDate: "Jun 2024",
-//       duration: "3 months",
-//       featured: false,
-//       liveUrl: null,
-//       githubUrl: "https://github.com/username/chat-app",
-//       architecture:
-//         "Real-time application using Socket.io for WebSocket connections and WebRTC for video calls. Built with React frontend and Node.js backend with MongoDB for message persistence.",
-//       keyFeatures: [
-//         "Real-time messaging with instant delivery",
-//         "Group chat creation and management",
-//         "File and media sharing with preview",
-//         "Integrated video and voice calling",
-//         "End-to-end message encryption",
-//         "Message search and history",
-//         "User presence and typing indicators",
-//       ],
-//       codeSnippet: `// Real-time message handling
-// const useSocket = () => {
-//   const [socket, setSocket] = useState(null);
-//   const [messages, setMessages] = useState([]);
-  
-//   useEffect(() => {
-//     const newSocket = io('/chat');
-//     setSocket(newSocket);
-    
-//     newSocket.on('message', (message) => {
-//       setMessages(prev => [...prev, message]);
-//     });
-    
-//     return () => newSocket.close();
-//   }, []);
-  
-//   const sendMessage = (content, roomId) => {
-//     socket.emit('send-message', { content, roomId });
-//   };
-  
-//   return { messages, sendMessage };
-// };`,
-//       challenges: [
-//         {
-//           problem:
-//             "Implementing reliable real-time messaging that handles network interruptions and ensures message delivery.",
-//           solution:
-//             "Built a robust message queue system with acknowledgment mechanisms and automatic retry logic to guarantee message delivery even during network issues.",
-//         },
-//         {
-//           problem:
-//             "Integrating video calling functionality while maintaining good performance and handling various network conditions.",
-//           solution:
-//             "Implemented WebRTC with adaptive bitrate streaming and fallback mechanisms to ensure stable video calls across different network conditions and devices.",
-//         },
-//       ],
-//     },
+    //     {
+    //       id: 8,
+    //       title: "Chat Application",
+    //       description:
+    //         "A real-time chat application with group messaging, file sharing, and video call integration for seamless communication.",
+    //       fullDescription: `A modern real-time chat application built for both personal and professional communication. Features include instant messaging, group chats, file sharing, emoji reactions, and integrated video calling capabilities.\n\nThe application supports end-to-end encryption, message search, user presence indicators, and notification systems. It's designed to handle high-volume messaging with excellent performance and reliability.`,
+    //       image:
+    //         "https://images.unsplash.com/photo-1577563908411-5077b6dc7624?w=800&h=600&fit=crop",
+    //       images: [
+    //         "https://images.unsplash.com/photo-1577563908411-5077b6dc7624?w=800&h=600&fit=crop",
+    //         "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&h=600&fit=crop",
+    //         "https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=800&h=600&fit=crop",
+    //       ],
+    //       technologies: [
+    //         "React",
+    //         "Node.js",
+    //         "Socket.io",
+    //         "MongoDB",
+    //         "WebRTC",
+    //         "Tailwind CSS",
+    //       ],
+    //       status: "archived",
+    //       completedDate: "Jun 2024",
+    //       duration: "3 months",
+    //       featured: false,
+    //       liveUrl: null,
+    //       githubUrl: "https://github.com/username/chat-app",
+    //       architecture:
+    //         "Real-time application using Socket.io for WebSocket connections and WebRTC for video calls. Built with React frontend and Node.js backend with MongoDB for message persistence.",
+    //       keyFeatures: [
+    //         "Real-time messaging with instant delivery",
+    //         "Group chat creation and management",
+    //         "File and media sharing with preview",
+    //         "Integrated video and voice calling",
+    //         "End-to-end message encryption",
+    //         "Message search and history",
+    //         "User presence and typing indicators",
+    //       ],
+    //       codeSnippet: `// Real-time message handling
+    // const useSocket = () => {
+    //   const [socket, setSocket] = useState(null);
+    //   const [messages, setMessages] = useState([]);
+
+    //   useEffect(() => {
+    //     const newSocket = io('/chat');
+    //     setSocket(newSocket);
+
+    //     newSocket.on('message', (message) => {
+    //       setMessages(prev => [...prev, message]);
+    //     });
+
+    //     return () => newSocket.close();
+    //   }, []);
+
+    //   const sendMessage = (content, roomId) => {
+    //     socket.emit('send-message', { content, roomId });
+    //   };
+
+    //   return { messages, sendMessage };
+    // };`,
+    //       challenges: [
+    //         {
+    //           problem:
+    //             "Implementing reliable real-time messaging that handles network interruptions and ensures message delivery.",
+    //           solution:
+    //             "Built a robust message queue system with acknowledgment mechanisms and automatic retry logic to guarantee message delivery even during network issues.",
+    //         },
+    //         {
+    //           problem:
+    //             "Integrating video calling functionality while maintaining good performance and handling various network conditions.",
+    //           solution:
+    //             "Implemented WebRTC with adaptive bitrate streaming and fallback mechanisms to ensure stable video calls across different network conditions and devices.",
+    //         },
+    //       ],
+    //     },
   ];
 
   // Simulate loading
@@ -718,44 +719,32 @@ const calculateExpenseAnalytics = (expenses, timeframe) => {
       <ScrollProgress />
       <main className="">
         {/* Hero Section */}
-        <section className="h-[55vh]  py-16">
-          <div className="flex justify-center items-center h-full pt-28 px-6">
-            <div className="text-center mb-12">
-              <h1 className="text-4xl lg:text-5xl font-bold text-foreground mb-6">
-                My Portfolio
-                <span className="block text-2xl lg:text-3xl text-primary mt-2">
-                  Crafted with Passion & Precision
-                </span>
-              </h1>
-              <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-                Explore a collection of carefully crafted projects that showcase
-                my expertise in modern web development. Each project represents
-                a unique challenge solved with innovative solutions and
-                cutting-edge technologies.
-              </p>
+        <section className="h-[55vh]">
+          <div className="relative h-full">
+          <div className="absolute w-0 h-0 border-l-[140px] border-r-[140px] opacity-10 hover-glow blur-2xl inset-0 -translate-x-32 left-1/2 border-t-[260px] border-l-transparent border-r-transparent border-primary" />
+            <div className="flex justify-center items-center h-full pt-28 px-6 bg-gradient-to-t from-[#131426]/95 via-[#272b34] to-[#2a363c]">
+              <div className="text-center mb-12 z-10 ">
+                <h1 className="text-4xl lg:text-5xl font-bold text-foreground mb-6">
+                  My Portfolio
+                  <span className="block text-2xl lg:text-3xl text-primary mt-2">
+                    Crafted with Passion & Precision
+                  </span>
+                </h1>
+                <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+                  Explore a collection of carefully crafted projects that
+                  showcase my expertise in modern web development. Each project
+                  represents a unique challenge solved with innovative solutions
+                  and cutting-edge technologies.
+                </p>
+              </div>
             </div>
-
-            {/* Project Stats */}
-            {/* <ProjectStats projects={mockProjects} className="mb-8" /> */}
           </div>
         </section>
 
         {/* Main Content */}
-        <section className="py-12">
+        <section className="py-12 bg-gradient-to-b from-[#131426]/90 via-[#131426]/100 to-[#2a363c]/100">
           <div className="4xl:max-w-7xl 3xl:max-w-7xl max-w-6xl mx-auto px-6">
             <div className="flex flex-col lg:flex-row gap-8">
-              {/* Sidebar - Filters */}
-              {/* <aside className="lg:w-80 flex-shrink-0">
-                <div className="sticky top-24">
-                  <ProjectFilter
-                    onFilterChange={setActiveFilters}
-                    onSearchChange={setSearchQuery}
-                    activeFilters={activeFilters}
-                    searchQuery={searchQuery}
-                  />
-                </div>
-              </aside> */}
-
               {/* Main Content Area */}
               <div className="flex-1 min-w-0">
                 {/* Controls */}
@@ -764,34 +753,7 @@ const calculateExpenseAnalytics = (expenses, timeframe) => {
                     <h2 className="text-xl font-semibold text-foreground">
                       Projects ({filteredAndSortedProjects?.length})
                     </h2>
-                    {/* {(activeFilters?.length > 0 || searchQuery) && (
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        iconName="X"
-                        iconPosition="left"
-                        onClick={() => {
-                          setActiveFilters([]);
-                          setSearchQuery("");
-                          setCurrentPage(1);
-                        }}
-                      >
-                        Clear filters
-                      </Button>
-                    )} */}
                   </div>
-
-                  {/* <SortControls
-                    sortBy={sortBy}
-                    sortOrder={sortOrder}
-                    onSortChange={(newSortBy, newSortOrder) => {
-                      setSortBy(newSortBy);
-                      setSortOrder(newSortOrder);
-                      setCurrentPage(1);
-                    }}
-                    viewMode={viewMode}
-                    onViewModeChange={setViewMode}
-                  /> */}
                 </div>
 
                 {/* Projects Grid/List */}
@@ -900,51 +862,8 @@ const calculateExpenseAnalytics = (expenses, timeframe) => {
         <section>
           <SkillsOverview />
         </section>
-
-        {/* Call to Action */}
-        <section className="bg-gradient-to-r from-primary/10 via-accent/5 to-primary/10 py-16">
-          <div className="max-w-4xl mx-auto px-6 text-center">
-            <h2 className="text-3xl font-bold text-foreground mb-4">
-              Interested in Working Together?
-            </h2>
-            <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
-              I'm always excited to take on new challenges and create amazing
-              digital experiences. Let's discuss how we can bring your ideas to
-              life.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button
-                variant="default"
-                size="lg"
-                iconName="Mail"
-                iconPosition="left"
-                onClick={() => (window.location.href = "/contact-connect")}
-              >
-                Get In Touch
-              </Button>
-              <Button
-                variant="outline"
-                size="lg"
-                iconName="Download"
-                iconPosition="left"
-                onClick={() => window.open("/resume.pdf", "_blank")}
-              >
-                Download Resume
-              </Button>
-            </div>
-          </div>
-        </section>
+        <ContactCta />
       </main>
-      {/* Project Modal */}
-      <ProjectModal
-        project={selectedProject}
-        isOpen={isModalOpen}
-        onClose={handleCloseModal}
-        onNavigate={handleNavigateProject}
-        hasNext={hasNextProject}
-        hasPrev={hasPrevProject}
-      />
-      {/* Footer */}
       <Footer />
     </div>
   );
