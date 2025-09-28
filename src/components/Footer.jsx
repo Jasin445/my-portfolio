@@ -1,5 +1,5 @@
 import Image from "./AppImage";
-const Footer = ({lightweight}: {lightweight: boolean}) => {
+const Footer = ({lightweight}) => {
 
   if (lightweight) {
     return (
