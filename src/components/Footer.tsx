@@ -1,7 +1,39 @@
 import Image from "./AppImage";
-const Footer = () => {
+const Footer = ({lightweight}: {lightweight: boolean}) => {
+
+  if (lightweight) {
+    return (
+    <footer className="bg-gradient-to-b from-[#2a363c] to-background border-t border-border py-8">
+      <div className="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+        
+        {/* Brand */}
+        <div className="flex items-center space-x-2">
+          <div className="w-8 h-8 bg-transparent border rounded-lg flex items-center justify-center">
+            <Image src="/assets/logo.png" alt="logo" />
+          </div>
+          <span className="text-sm font-medium text-muted-foreground">
+            © {new Date().getFullYear()} Dagana Jason
+          </span>
+        </div>
+
+        {/* Contact Info */}
+        <div className="text-sm text-muted-foreground flex gap-6">
+          <a href="mailto:daganajason72@gmail.com" className="hover:text-primary transition-colors">
+            Email
+          </a>
+          <a href="tel:+2349013642811" className="hover:text-primary transition-colors">
+            Call
+          </a>
+          <span>Abuja, Nigeria</span>
+        </div>
+      </div>
+      </footer>
+    )
+  }
+
+
   return (
-    <footer className="bg-background border-t border-border py-12">
+    <footer className="bg-gradient-to-b from-[#2a363c] to-background border-t border-border py-12">
       <div className="4xl:max-w-7xl 3xl:max-w-7xl max-w-6xl mx-auto px-6">
         <div className="grid md:grid-cols-3 gap-8 mb-8">
           {/* Brand */}
@@ -77,3 +109,38 @@ const Footer = () => {
 };
 
 export default Footer;
+
+
+// import Image from "./AppImage";
+
+// const Footer = () => {
+//   return (
+//     <footer className="bg-gradient-to-b from-[#2a363c] to-background border-t border-border py-8">
+//       <div className="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+        
+//         {/* Brand */}
+//         <div className="flex items-center space-x-2">
+//           <div className="w-8 h-8 bg-transparent border rounded-lg flex items-center justify-center">
+//             <Image src="/assets/logo.png" alt="logo" />
+//           </div>
+//           <span className="text-sm font-medium text-muted-foreground">
+//             © {new Date().getFullYear()} Dagana Jason
+//           </span>
+//         </div>
+
+//         {/* Contact Info */}
+//         <div className="text-sm text-muted-foreground flex gap-6">
+//           <a href="mailto:daganajason72@gmail.com" className="hover:text-primary transition-colors">
+//             Email
+//           </a>
+//           <a href="tel:+2349013642811" className="hover:text-primary transition-colors">
+//             Call
+//           </a>
+//           <span>Abuja, Nigeria</span>
+//         </div>
+//       </div>
+//     </footer>
+//   );
+// };
+
+// export default Footer;

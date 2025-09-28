@@ -11,6 +11,7 @@ import ProjectListItem from "./components/ProjectListItem";
 import Icon from "../../components/AppIcon";
 import Button from "../../components/ui/Button";
 import Footer from "../../components/Footer";
+import SkillsOverview from "./components/SkillsOverview";
 
 const PortfolioProjects = () => {
   const [selectedProject, setSelectedProject] = useState(null);
@@ -688,7 +689,7 @@ const calculateExpenseAnalytics = (expenses, timeframe) => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen bg-gradient-to-br from-background via-card to-muted/20">
         <Header />
         <div className="pt-16 flex items-center justify-center min-h-screen">
           <div className="text-center">
@@ -701,9 +702,9 @@ const calculateExpenseAnalytics = (expenses, timeframe) => {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-gradient-to-br from-background via-card to-muted/20">
       <Helmet>
-        <title>Portfolio Projects - DevPortfolio Pro</title>
+        <title>Portfolio Projects - Jason Dagana Portfolio</title>
         <meta
           name="description"
           content="Explore my portfolio of web development projects including React applications, full-stack solutions, and innovative digital experiences."
@@ -715,10 +716,10 @@ const calculateExpenseAnalytics = (expenses, timeframe) => {
       </Helmet>
       <Header />
       <ScrollProgress />
-      <main className="pt-16 4xl:max-w-9xl 3xl:max-w-8xl max-w-7xl mx-auto">
+      <main className="">
         {/* Hero Section */}
-        <section className="bg-gradient-to-br from-primary/5 via-background to-accent/5 py-16">
-          <div className="mx-auto px-6">
+        <section className="h-[55vh]  py-16">
+          <div className="flex justify-center items-center h-full pt-28 px-6">
             <div className="text-center mb-12">
               <h1 className="text-4xl lg:text-5xl font-bold text-foreground mb-6">
                 My Portfolio
@@ -735,16 +736,16 @@ const calculateExpenseAnalytics = (expenses, timeframe) => {
             </div>
 
             {/* Project Stats */}
-            <ProjectStats projects={mockProjects} className="mb-8" />
+            {/* <ProjectStats projects={mockProjects} className="mb-8" /> */}
           </div>
         </section>
 
         {/* Main Content */}
         <section className="py-12">
-          <div className="mx-auto px-6">
+          <div className="4xl:max-w-7xl 3xl:max-w-7xl max-w-6xl mx-auto px-6">
             <div className="flex flex-col lg:flex-row gap-8">
               {/* Sidebar - Filters */}
-              <aside className="lg:w-80 flex-shrink-0">
+              {/* <aside className="lg:w-80 flex-shrink-0">
                 <div className="sticky top-24">
                   <ProjectFilter
                     onFilterChange={setActiveFilters}
@@ -753,7 +754,7 @@ const calculateExpenseAnalytics = (expenses, timeframe) => {
                     searchQuery={searchQuery}
                   />
                 </div>
-              </aside>
+              </aside> */}
 
               {/* Main Content Area */}
               <div className="flex-1 min-w-0">
@@ -763,7 +764,7 @@ const calculateExpenseAnalytics = (expenses, timeframe) => {
                     <h2 className="text-xl font-semibold text-foreground">
                       Projects ({filteredAndSortedProjects?.length})
                     </h2>
-                    {(activeFilters?.length > 0 || searchQuery) && (
+                    {/* {(activeFilters?.length > 0 || searchQuery) && (
                       <Button
                         variant="ghost"
                         size="sm"
@@ -777,10 +778,10 @@ const calculateExpenseAnalytics = (expenses, timeframe) => {
                       >
                         Clear filters
                       </Button>
-                    )}
+                    )} */}
                   </div>
 
-                  <SortControls
+                  {/* <SortControls
                     sortBy={sortBy}
                     sortOrder={sortOrder}
                     onSortChange={(newSortBy, newSortOrder) => {
@@ -790,7 +791,7 @@ const calculateExpenseAnalytics = (expenses, timeframe) => {
                     }}
                     viewMode={viewMode}
                     onViewModeChange={setViewMode}
-                  />
+                  /> */}
                 </div>
 
                 {/* Projects Grid/List */}
@@ -894,6 +895,10 @@ const calculateExpenseAnalytics = (expenses, timeframe) => {
               </div>
             </div>
           </div>
+        </section>
+
+        <section>
+          <SkillsOverview />
         </section>
 
         {/* Call to Action */}

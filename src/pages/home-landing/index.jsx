@@ -3,9 +3,12 @@ import Header from "../../components/ui/Header";
 import ScrollProgress from "../../components/ui/ScrollProgress";
 import HeroSection from "./components/HeroSection";
 import FeaturedProjects from "./components/FeaturedProjects";
-import SkillsOverview from "./components/SkillsOverview";
+import SkillsOverview from "../portfolio-projects/components/SkillsOverview";
 import ContactSection from "../contact-connect";
 import Footer from "../../components/Footer";
+import TestimonialSection from "./components/TestimonialSection";
+import Skills from "./components/Skills";
+import ContactCta from "./components/ContactCta";
 
 const HomeLanding = () => {
   useEffect(() => {
@@ -45,23 +48,19 @@ const HomeLanding = () => {
     <div className="min-h-screen bg-white">
       <div className="relative bg-[url('assets/images/background3.jpg')] bg-cover bg-center">
         <div className="absolute inset-0 bg-black/50"></div>
-
         <Header />
         <ScrollProgress />
-        {/* Hero Section */}
         <div className="">
           <HeroSection />
         </div>
       </div>
       <main>
-        {/* Featured Projects Section */}
         <FeaturedProjects />
-
-        {/* Skills Overview Section */}
-        <SkillsOverview />
+        <Skills />
+        <TestimonialSection />
+        <ContactCta />
       </main>
-      {/* Footer */}
-      <Footer />
+      <Footer lightweight/>
     </div>
   );
 };
