@@ -11,6 +11,7 @@ import CategoryTags from './components/CategoryTags';
 import NewsletterSignup from './components/NewsletterSignup';
 import Icon from '../../components/AppIcon';
 import Button from '../../components/ui/Button';
+import GenericHeroSection from '../portfolio-projects/components/GenericHero';
 
 const TechnicalBlog = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -247,31 +248,8 @@ const TechnicalBlog = () => {
       <div className="min-h-screen bg-background">
         <Header />
         <ScrollProgress />
-        
+        <GenericHeroSection title={"Technical Blog"}/>
         <main className="pt-16">
-          {/* Hero Section */}
-          <section className="bg-gradient-to-br from-primary/5 via-background to-accent/5 py-16">
-            <div className="mx-auto px-6">
-              <div className="text-center max-w-4xl mx-auto">
-                <div className="inline-flex items-center space-x-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-6">
-                  <Icon name="BookOpen" size={16} />
-                  <span>Technical Blog</span>
-                </div>
-                
-                <h1 className="text-4xl lg:text-6xl font-bold text-foreground mb-6">
-                  Insights & Tutorials for
-                  <span className="text-primary"> Modern Developers</span>
-                </h1>
-                
-                <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
-                  Explore in-depth articles, practical tutorials, and industry insights covering the latest in web development, React, JavaScript, and emerging technologies.
-                </p>
-
-                {/* Blog Stats */}
-                <BlogStats stats={blogStats} className="mb-8" />
-              </div>
-            </div>
-          </section>
 
           {/* Featured Articles Section */}
           <section className="py-16 lg:py-24">

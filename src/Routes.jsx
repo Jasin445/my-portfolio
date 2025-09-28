@@ -17,7 +17,7 @@ const Routes = () => {
       <RouterRoutes>
         {/* Define your route here */}
         <Route path="/" element={<HomeLanding />} />
-        <Route path="/portfolio-projects" element={<PortfolioProjects />} />
+        <Route path="/projects" element={<PortfolioProjects />} />
         {/* <Route path="/home-landing" element={<HomeLanding />} /> */}
         <Route path="/technical-blog" element={<TechnicalBlog />} />
         <Route path="/contact-connect" element={<ContactConnect />} />

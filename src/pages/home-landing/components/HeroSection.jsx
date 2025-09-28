@@ -245,11 +245,11 @@ const HeroSection = () => {
 
                 {/* Animated border */}
                 <div className="absolute inset-0 rounded-full border-2 bg-cover bg-center border-transparent bg-gradient-to-br from-[#1d2427] via-card to-[#494f59] opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-spin-slow group-hover:animate-none">
-                  <div className="absolute -top-9 inset-0 flex items-center justify-center bg-[url('/assets/logo.png')] bg-contain animate-logo-pulse bg-no-repeat bg-center opacity-30">
+                  <div className="absolute -top-9 inset-0 flex items-center justify-center bg-[url('/assets/logo.png')] bg-contain bg-no-repeat bg-center !opacity-0 !transition-opacity delay-200 !duration-300 group-hover:!opacity-30">
                     <div className="absolute inset-0 bg-gradient-to-br from-black/40 via-transparent to-black/40"></div>
                   </div>
 
-                  <p className="absolute bottom-[18%] opacity-50 text-center left-[25%] w-[50%] hover-glow-1 text-white drop-shadow-[#118afc] animate-fadeUp text-md font-medium mt-4 tracking-wide">
+                  <p className="absolute flex inset-0 justify-center items-center opacity-50 text-center hover-glow-1 text-white/50 drop-shadow-[#118afc] transition-all duration-700 translate-y-[80%] delay-300 group-hover:translate-y-[20%] text-sm font-medium mt-4 tracking-wide">
                     More than just a name, <br /> a digital experience.
                   </p>
                 </div>

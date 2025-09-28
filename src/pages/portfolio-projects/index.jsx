@@ -13,6 +13,8 @@ import Button from "../../components/ui/Button";
 import Footer from "../../components/Footer";
 import SkillsOverview from "./components/SkillsOverview";
 import ContactCta from "./components/ContactCta";
+import CarTransition from "../../components/CarDrive";
+import GenericHeroSection from "./components/GenericHero";
 
 const PortfolioProjects = () => {
   const [selectedProject, setSelectedProject] = useState(null);
@@ -530,7 +532,7 @@ const calculateExpenseAnalytics = (expenses, timeframe) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 1000);
+    }, 0);
 
     return () => clearTimeout(timer);
   }, []);
@@ -705,53 +707,38 @@ const calculateExpenseAnalytics = (expenses, timeframe) => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-card to-muted/20">
       <Helmet>
-        <title>Portfolio Projects - Jason Dagana Portfolio</title>
+        <title>My Projects - Jason Dagana Projects</title>
         <meta
           name="description"
           content="Explore my portfolio of web development projects including React applications, full-stack solutions, and innovative digital experiences."
         />
         <meta
           name="keywords"
-          content="portfolio, projects, web development, React, JavaScript, frontend, fullstack"
+          content="projects, web development, React, JavaScript, frontend, fullstack"
         />
       </Helmet>
       <Header />
       <ScrollProgress />
       <main className="">
         {/* Hero Section */}
-        <section className="h-[55vh]">
-          <div className="relative h-full">
-          <div className="absolute w-0 h-0 border-l-[140px] border-r-[140px] opacity-10 hover-glow blur-2xl inset-0 -translate-x-32 left-1/2 border-t-[260px] border-l-transparent border-r-transparent border-primary" />
-            <div className="flex justify-center items-center h-full pt-28 px-6 bg-gradient-to-t from-[#131426]/95 via-[#272b34] to-[#2a363c]">
-              <div className="text-center mb-12 z-10 ">
-                <h1 className="text-4xl lg:text-5xl font-bold text-foreground mb-6">
-                  My Portfolio
-                  <span className="block text-2xl lg:text-3xl text-primary mt-2">
-                    Crafted with Passion & Precision
-                  </span>
-                </h1>
-                <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-                  Explore a collection of carefully crafted projects that
-                  showcase my expertise in modern web development. Each project
-                  represents a unique challenge solved with innovative solutions
-                  and cutting-edge technologies.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
+
+         <GenericHeroSection title={"Projects"}/>
 
         {/* Main Content */}
-        <section className="py-12 bg-gradient-to-b from-[#131426]/90 via-[#131426]/100 to-[#2a363c]/100">
-          <div className="4xl:max-w-7xl 3xl:max-w-7xl max-w-6xl mx-auto px-6">
+        <section className="relative py-12 h-full" id="projects">
+          <div className="absolute inset-0 bg-gradient-to-b from-[#2a363c]/90 via-[#131426]/100 to-[#2a363c]/90 blur-[10px]" />
+          <div
+            className="4xl:max-w-7xl 3xl:max-w-7xl max-w-6xl mx-auto px-6"
+            
+          >
             <div className="flex flex-col lg:flex-row gap-8">
               {/* Main Content Area */}
-              <div className="flex-1 min-w-0">
+              <div className="flex-1 min-w-0 py-8">
                 {/* Controls */}
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
                   <div className="flex items-center space-x-4">
-                    <h2 className="text-xl font-semibold text-foreground">
-                      Projects ({filteredAndSortedProjects?.length})
+                    <h2 className="text-2xl z-30 font-semibold text-foreground">
+                      {filteredAndSortedProjects?.length} Projects found
                     </h2>
                   </div>
                 </div>
@@ -855,6 +842,15 @@ const calculateExpenseAnalytics = (expenses, timeframe) => {
                   </div>
                 )}
               </div>
+
+              <ProjectModal
+                project={selectedProject}
+                isOpen={isModalOpen}
+                onClose={handleCloseModal}
+                onNavigate={handleNavigateProject}
+                hasNext={hasNextProject}
+                hasPrev={hasPrevProject}
+              />
             </div>
           </div>
         </section>
@@ -864,7 +860,7 @@ const calculateExpenseAnalytics = (expenses, timeframe) => {
         </section>
         <ContactCta />
       </main>
-      <Footer />
+      <Footer lightweight />
     </div>
   );
 };

@@ -11,7 +11,7 @@ const Header = () => {
 
   const navigationItems = [
     { label: "Home", path: "/", icon: "Home" },
-    { label: "Portfolio", path: "/portfolio-projects", icon: "Briefcase" },
+    { label: "Projects", path: "/projects", icon: "Briefcase" },
     { label: "About", path: "/about-professional", icon: "User" },
     { label: "Blog", path: "/technical-blog", icon: "FileText" },
     { label: "Contact", path: "/contact-connect", icon: "Mail" },

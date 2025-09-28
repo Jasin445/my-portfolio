@@ -1,15 +1,17 @@
 import { Car } from "lucide-react";
 import { useEffect, useState } from "react";
 
-const ToolTip = ({className}) => {
+const defaultText = "Connect with me. I'd take you on a Journey to Digital Freedom"
+
+const ToolTip = ({className, message = defaultText}) => {
   return (
     <div className={`w-44 p-4 bg-[#2a363c] text-foreground ${className}`}>
-      Connect with me. I'd take you on a Journey to Digital Freedom
+      {message}
     </div>
   );
 };
 
-const CarTransition = () => {
+const CarTransition = ({className, message}) => {
   const [carPosition, setCarPosition] = useState(0);
   const [isScrollingDown, setIsScrollingDown] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
@@ -37,7 +39,7 @@ const CarTransition = () => {
     const topPosition = showTooltip ? "-10rem" : "-30px";
 
   return (
-      <div className={`w-full absolute inset-x-0 bg-transparent overflow-hidden pointer-events-none`} style={{top: topPosition}}>
+      <div className={`w-full absolute z-40 inset-x-0 bg-transparent overflow-hidden pointer-events-none ${className}`} style={{top: topPosition}}>
       {/* Car for scrolling DOWN (moves right) */}
       <div
         style={{
@@ -47,8 +49,8 @@ const CarTransition = () => {
           transition: "opacity 0.2s ease",
         }}
       >
-          {showTooltip && <ToolTip />}
-          <Car className="w-10 h-10 text-white fill-primary" />
+          {showTooltip && <ToolTip message={message} />}
+          {carPosition > 0 && <Car className="w-10 h-10 text-white fill-primary" />}
       </div>
 
       {/* Car for scrolling UP (moves left, facing left) */}
@@ -62,7 +64,7 @@ const CarTransition = () => {
           transition: "opacity 0.2s ease",
         }}
       >
-        {showTooltip && <ToolTip className={"scale-x-[-1]"}/>}
+        {showTooltip && <ToolTip message={message} className={"scale-x-[-1]"}/>}
         <Car className="w-10 h-10 text-white fill-primary" />
       </div>
     </div>

@@ -18,7 +18,7 @@ const Routes: React.FC = () => {
         <RouterRoutes>
           {/* Define your route here */}
           <Route path="/" element={<AboutProfessional />} />
-          <Route path="/portfolio-projects" element={<PortfolioProjects />} />
+          <Route path="/projects" element={<PortfolioProjects />} />
           <Route path="/home-landing" element={<HomeLanding />} />
           <Route path="/technical-blog" element={<TechnicalBlog />} />
           <Route path="/contact-connect" element={<ContactConnect />} />

@@ -15,7 +15,7 @@ body {
   --color-secondary-background: black;
   --color-destructive-foreground: black;
   --color-muted: rgb(47, 47, 87);
-  --color-card: rgb(32, 40, 41);
+  --color-card: rgba(32, 40, 41, 0.95);
   --color-muted-foreground: white;
 
 }
@@ -37,4 +37,43 @@ body {
 .animate-car-drive {
   animation: car-drive 8s linear infinite;
 }
+
+/* Floating animation */
+@keyframes floatHex {
+  0% { transform: translateY(0px) scale(1); opacity: 0.4; }
+  50% { transform: translateY(-20px) scale(1.05); opacity: 0.6; }
+  100% { transform: translateY(0px) scale(1); opacity: 0.4; }
+}
+
+/* Add this to your bg container */
+.hexagon {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  background: rgba(59, 130, 246, 0.08); /* faint blue */
+  clip-path: polygon(
+    25% 6.7%, 75% 6.7%,
+    100% 50%, 75% 93.3%,
+    25% 93.3%, 0% 50%
+  );
+  animation: floatHex 6s ease-in-out infinite;
+}
+
+/* Variation with delays */
+.hexagon:nth-child(2) {
+  top: 30%;
+  left: 20%;
+  animation-delay: 2s;
+}
+.hexagon:nth-child(3) {
+  top: 50%;
+  right: 15%;
+  animation-delay: 4s;
+}
+.hexagon:nth-child(4) {
+  top: 70%;
+  left: 40%;
+  animation-delay: 6s;
+}
+
 
