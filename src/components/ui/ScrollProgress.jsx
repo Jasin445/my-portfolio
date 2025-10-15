@@ -26,10 +26,10 @@ const ScrollProgress = ({
     const currentPath = window.location?.pathname;
     const shouldShow = showOnPages?.some(page => currentPath?.includes(page));
     
-    if (shouldShow) {
+    // if (shouldShow) {
       window.addEventListener('scroll', handleScroll, { passive: true });
       calculateScrollProgress(); // Initial calculation
-    }
+    // }
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
@@ -40,24 +40,10 @@ const ScrollProgress = ({
   const currentPath = window.location?.pathname;
   const shouldRender = showOnPages?.some(page => currentPath?.includes(page));
   
-  if (!shouldRender) return null;
+  // if (!shouldRender) return null;
 
   return (
     <>
-      {/* Progress Bar */}
-      <div 
-        className={`fixed top-16 left-0 right-0 h-1 bg-border/30 z-40 transition-opacity duration-slow ${
-          isVisible ? 'opacity-100' : 'opacity-0'
-        } ${className}`}
-      >
-        <div 
-          className="h-full bg-gradient-to-r from-primary to-accent transition-all duration-fast ease-out"
-          style={{ 
-            width: `${scrollProgress}%`,
-            transform: `translateX(${scrollProgress < 100 ? '0' : '0'})` 
-          }}
-        />
-      </div>
 
       {/* Circular Progress Indicator (Alternative) */}
       <div 
