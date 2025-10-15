@@ -13,7 +13,6 @@ import SkillsOverview from "./components/SkillsOverview";
 import ContactCta from "./components/ContactCta";
 import GenericHeroSection from "./components/GenericHero";
 import { mockProjects } from "../../data";
-import OverlayDesign from "../../components/OverlayDesign";
 
 const PortfolioProjects = () => {
   const [selectedProject, setSelectedProject] = useState(null);
@@ -243,7 +242,7 @@ const PortfolioProjects = () => {
                         ))}
                       </div>
                     ) : (
-                      <div className="space-y-6 mb-12">
+                      <div className="grid grid-cols-1 space-y-6 mb-12">
                         {paginatedProjects?.map((project) => (
                           <ProjectListItem
                             key={project?.id}

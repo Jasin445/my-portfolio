@@ -1,4 +1,3 @@
-import React from 'react';
 import Image from '../../../components/AppImage';
 import Icon from '../../../components/AppIcon';
 import Button from '../../../components/ui/Button';
@@ -36,11 +35,11 @@ const ProjectListItem = ({ project, onViewDetails, className = '' }) => {
   };
 
   return (
-    <div className={`bg-card border border-border rounded-lg p-6 hover:shadow-md hover:border-primary/20 transition-all duration-normal ${className}`}>
+    <div className={`z-30 bg-[#2a363c]/80 border border-border rounded-lg p-6 hover:shadow-md hover:border-primary/20 transition-all duration-normal ${className}`}>
       <div className="flex flex-col sm:flex-row gap-6">
         {/* Project Image */}
         <div className="sm:w-48 sm:flex-shrink-0">
-          <div className="relative h-32 sm:h-24 overflow-hidden rounded-lg">
+          <div className="relative h-32 sm:h-full overflow-hidden rounded-lg">
             <Image
               src={project?.image}
               alt={project?.title}
