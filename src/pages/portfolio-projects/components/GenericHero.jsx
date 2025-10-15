@@ -3,7 +3,7 @@ import CarTransition from '../../../components/CarDrive'
 
 const GenericHeroSection = ({title}) => {
   return (
-     <section className="md:h-[50vh] bg-[url('/assets/images/project-background.jpg')] bg-cover bg-center">
+     <section className="md:h-[500px] bg-[url('/assets/images/project-background.jpg')] bg-cover bg-center">
           <div className="relative h-full">
             <div  className={"absolute inset-x-0 bottom-1 top-52 z-40 translate-y-[100%]"}>
 

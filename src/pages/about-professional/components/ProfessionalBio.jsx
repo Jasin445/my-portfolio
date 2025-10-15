@@ -49,8 +49,8 @@ These interests aren't separate from my professional life—they inform and enri
   };
 
   return (
-    <section className="py-16 lg:py-24 bg-background">
-      <div className="max-w-4xl mx-auto px-6">
+    <section className="relative py-16 lg:py-24 bg-transparent">
+      <div className="max-w-5xl mx-auto px-6">
         <div className="text-center mb-12">
           <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
             Getting to Know Me
@@ -77,7 +77,7 @@ These interests aren't separate from my professional life—they inform and enri
         </div>
 
         {/* Content */}
-        <div className="bg-card rounded-xl border border-border p-8 lg:p-12 shadow-sm">
+        <div className="bg-transparent rounded-xl border border-border p-8 lg:p-12 shadow-sm">
           <div className="space-y-6">
             <h3 className="text-2xl font-semibold text-foreground">
               {content?.[activeTab]?.title}

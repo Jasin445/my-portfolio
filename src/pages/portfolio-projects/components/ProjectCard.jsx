@@ -39,7 +39,7 @@ const ProjectCard = ({ project, onViewDetails, className = '' }) => {
 
   return (
     <div 
-      className={`group relative bg-card border border-border rounded-lg overflow-hidden transition-all duration-normal hover:shadow-lg hover:border-primary/20 ${className}`}
+      className={`group relative bg-[#2a363c]/80 border border-border rounded-lg overflow-hidden transition-all duration-normal hover:shadow-lg hover:border-primary/20 ${className}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >

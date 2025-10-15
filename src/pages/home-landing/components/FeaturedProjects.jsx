@@ -224,7 +224,7 @@ const FeaturedProjects = () => {
         {/* View All Projects CTA */}
         <div className="text-center">
           <Button size="lg" iconName="ArrowRight" iconPosition="right" asChild>
-            <Link to="/portfolio-projects" className="text-white">
+            <Link to="/projects" className="text-white">
               View All Projects
             </Link>
           </Button>

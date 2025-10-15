@@ -11,6 +11,7 @@ import Footer from "../../components/Footer";
 import BlogStats from "../technical-blog/components/BlogStats";
 import Icon from "../../components/AppIcon";
 import GenericHeroSection from "../portfolio-projects/components/GenericHero";
+import PagesLayout from "../../components/PagesLayout";
 
 const AboutProfessional = () => {
   useEffect(() => {
@@ -31,32 +32,26 @@ const AboutProfessional = () => {
   }, []);
 
   return (
-    <div className="min-h-screen  bg-background">
+    <div className="min-h-screen bg-background">
       <Header />
       <ScrollProgress />
         <GenericHeroSection title={"About Me"} />
-      <main className="pt-16 4xl:max-w-9xl 3xl:max-w-8xl max-w-7xl mx-auto">
-        
+    
+        <PagesLayout>
+
         {/* Professional Biography */}
         <ProfessionalBio />
 
-        {/* Career Timeline */}
-        <CareerTimeline />
-
-        {/* Skills Visualization */}
-        <SkillsVisualization />
-
-        {/* Testimonials */}
-        <TestimonialsSection />
-
-        {/* Download Resume */}
+       
+        </PagesLayout>
         <DownloadResume />
+        {/* Download Resume */}
 
         {/* Social Proof */}
         {/* <SocialProof /> */}
-      </main>
+    
       {/* Footer */}
-      <Footer />
+      <Footer lightweight/>
     </div>
   );
 };
