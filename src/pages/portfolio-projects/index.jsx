@@ -209,7 +209,13 @@ const PortfolioProjects = () => {
         <GenericHeroSection title={"Projects"} />
 
         {/* Main Content */}
-          <OverlayDesign>
+           <section className="relative py-12 h-full">
+    <div className="absolute inset-0 pointer-events-none">
+      <div className="absolute inset-0 bg-gradient-to-b from-[#2a363c]/90 via-[#131426] to-[#2a363c]/90 blur-[10px]" />
+      <div className="absolute inset-x-0 bg-gradient-to-b from-[#131426]/70 to-[#2a363c] h-20 blur-xl bottom-0 translate-y-4"></div>
+      <div className="absolute inset-x-0 bg-gradient-to-b from-[#131426]/90 via-[#2a363c] to-[#131426]/60 blur-[340px] z-40 h-20 -bottom-10 translate-y-14"></div>
+      </div>
+      <div className="4xl:max-w-7xl 3xl:max-w-7xl max-w-6xl mx-auto px-6">
          
             <div className="flex flex-col lg:flex-row gap-8">
               {/* Main Content Area */}
@@ -334,7 +340,8 @@ const PortfolioProjects = () => {
                 hasPrev={hasPrevProject}
               />
           </div>
-          </OverlayDesign >
+          </div>
+          </section>
 
         <section>
           <SkillsOverview />
