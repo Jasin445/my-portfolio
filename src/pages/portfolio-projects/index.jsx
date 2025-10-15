@@ -1,22 +1,19 @@
-import React, { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Helmet } from "react-helmet";
 import Header from "../../components/ui/Header";
-import ProjectFilter from "../../components/ui/ProjectFilter";
 import ScrollProgress from "../../components/ui/ScrollProgress";
 import ProjectCard from "./components/ProjectCard";
 import ProjectModal from "./components/ProjectModal";
-import ProjectStats from "./components/ProjectStats";
-import SortControls from "./components/SortControls";
+
 import ProjectListItem from "./components/ProjectListItem";
 import Icon from "../../components/AppIcon";
 import Button from "../../components/ui/Button";
 import Footer from "../../components/Footer";
 import SkillsOverview from "./components/SkillsOverview";
 import ContactCta from "./components/ContactCta";
-import CarTransition from "../../components/CarDrive";
 import GenericHeroSection from "./components/GenericHero";
 import { mockProjects } from "../../data";
-import PagesLayout from "../../components/PagesLayout";
+import OverlayDesign from "../../components/OverlayDesign";
 
 const PortfolioProjects = () => {
   const [selectedProject, setSelectedProject] = useState(null);
@@ -32,7 +29,7 @@ const PortfolioProjects = () => {
   const projectsPerPage = 6;
 
   useEffect(() => {
-    window.scrollTo({top: 0, behavior: "smooth"});
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, [currentPage]);
   // Filter and sort projects
   const filteredAndSortedProjects = useMemo(() => {
@@ -191,7 +188,6 @@ const PortfolioProjects = () => {
     setCurrentPage(1);
   }, [searchQuery, activeFilters, sortBy, sortOrder]);
 
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-card to-muted/20">
       <Helmet>
@@ -210,10 +206,11 @@ const PortfolioProjects = () => {
       <main className="">
         {/* Hero Section */}
 
-         <GenericHeroSection title={"Projects"}/>
+        <GenericHeroSection title={"Projects"} />
 
         {/* Main Content */}
-        <PagesLayout>
+          <OverlayDesign>
+         
             <div className="flex flex-col lg:flex-row gap-8">
               {/* Main Content Area */}
               <div className="flex-1 min-w-0 py-8">
@@ -336,8 +333,8 @@ const PortfolioProjects = () => {
                 hasNext={hasNextProject}
                 hasPrev={hasPrevProject}
               />
-            </div>
-         </PagesLayout>
+          </div>
+          </OverlayDesign >
 
         <section>
           <SkillsOverview />

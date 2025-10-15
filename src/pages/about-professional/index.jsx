@@ -1,17 +1,11 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import Header from "../../components/ui/Header";
 import ScrollProgress from "../../components/ui/ScrollProgress";
-import ProfessionalHero from "./components/ProfessionalHero";
 import ProfessionalBio from "./components/ProfessionalBio";
-import CareerTimeline from "./components/CareerTimeline";
-import SkillsVisualization from "./components/SkillsVisualization";
-import TestimonialsSection from "./components/TestimonialsSection";
 import DownloadResume from "./components/DownloadResume";
 import Footer from "../../components/Footer";
-import BlogStats from "../technical-blog/components/BlogStats";
-import Icon from "../../components/AppIcon";
 import GenericHeroSection from "../portfolio-projects/components/GenericHero";
-import PagesLayout from "../../components/PagesLayout";
+import OverlayDesign from "../../components/OverlayDesign";
 
 const AboutProfessional = () => {
   useEffect(() => {
@@ -35,23 +29,20 @@ const AboutProfessional = () => {
     <div className="min-h-screen bg-background">
       <Header />
       <ScrollProgress />
-        <GenericHeroSection title={"About Me"} />
-    
-        <PagesLayout>
+      <GenericHeroSection title={"About Me"} />
 
+      <OverlayDesign id="about">
         {/* Professional Biography */}
         <ProfessionalBio />
+      </OverlayDesign>
+      <DownloadResume />
+      {/* Download Resume */}
 
-       
-        </PagesLayout>
-        <DownloadResume />
-        {/* Download Resume */}
+      {/* Social Proof */}
+      {/* <SocialProof /> */}
 
-        {/* Social Proof */}
-        {/* <SocialProof /> */}
-    
       {/* Footer */}
-      <Footer lightweight/>
+      <Footer lightweight />
     </div>
   );
 };
