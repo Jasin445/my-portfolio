@@ -81,13 +81,13 @@ These interests aren't separate from my professional life—they inform and enri
         {/* Content */}
         <div className="bg-transparent rounded-xl border border-border p-8 lg:p-12 shadow-sm">
           <div className="space-y-6">
-            <h3 className="text-2xl font-semibold text-foreground">
+            <h3 className="text-3xl text-center font-semibold text-foreground">
               {content?.[activeTab]?.title}
             </h3>
 
             <div className="prose prose-lg max-w-none">
-              <div className="relative h-88 w-[450px] mt-14 mb-10 mx-auto rounded-lg overflow-hidden border border-border shadow-lg p-2">
-                <div className="absolute inset-0 h-full"></div>
+              <div className="relative h-88 w-[450px] mt-14 mb-10 mx-auto rounded-lg overflow-hidden border border-gray-600 p-2 shadow-inner">
+                {/* <div className="absolute inset-0 h-full bg-white/5"></div> */}
                 <Image
                   src="/assets/images/image.png"
                   fill
@@ -114,7 +114,7 @@ These interests aren't separate from my professional life—they inform and enri
                   return (
                     <p
                       key={index}
-                      className="text-muted-foreground leading-relaxed mb-4"
+                      className="text-foreground leading-relaxed mb-4"
                     >
                       {paragraph}
                     </p>
