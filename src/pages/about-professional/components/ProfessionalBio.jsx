@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-import Button from '../../../components/ui/Button';
+import Button from "../../../components/ui/Button";
+import Image from "../../../components/AppImage";
 
 const ProfessionalBio = () => {
-  const [activeTab, setActiveTab] = useState('story');
+  const [activeTab, setActiveTab] = useState("story");
 
   const tabs = [
-    { id: 'story', label: 'My Story', icon: 'User' },
-    { id: 'philosophy', label: 'Philosophy', icon: 'Lightbulb' },
-    { id: 'interests', label: 'Interests', icon: 'Heart' }
+    { id: "story", label: "My Story", icon: "User" },
+    { id: "philosophy", label: "Philosophy", icon: "Lightbulb" },
+    { id: "interests", label: "Interests", icon: "Heart" },
   ];
 
   const content = {
@@ -20,7 +21,7 @@ After graduating in 2018, I joined TechCorp as a Junior Frontend Developer, wher
 
 The turning point came when I led the redesign of our main product dashboard, resulting in a 40% increase in user engagement. This experience taught me that great frontend development isn't just about code—it's about understanding users, solving real problems, and creating delightful experiences. Over the years, I've had the privilege of working with startups and established companies, each presenting unique challenges that shaped my approach to development. From building scalable component libraries to optimizing applications for millions of users, every project has been a learning opportunity.
 
-Today, I continue to push the boundaries of what's possible in frontend development, always staying curious and eager to learn new technologies while maintaining a strong foundation in proven methodologies.`
+Today, I continue to push the boundaries of what's possible in frontend development, always staying curious and eager to learn new technologies while maintaining a strong foundation in proven methodologies.`,
     },
     philosophy: {
       title: "Development Philosophy",
@@ -30,7 +31,7 @@ Today, I continue to push the boundaries of what's possible in frontend developm
 
 **Continuous Learning:** The frontend landscape evolves rapidly, and staying current requires intentional effort. I dedicate time weekly to exploring new technologies, contributing to open source projects, and sharing knowledge with the community. Learning isn't just about keeping up—it's about pushing the industry forward.
 
-I also believe in the power of collaboration. The best solutions emerge when designers, developers, and stakeholders work together with mutual respect and open communication. My role extends beyond writing code to being a bridge between technical possibilities and business objectives.`
+I also believe in the power of collaboration. The best solutions emerge when designers, developers, and stakeholders work together with mutual respect and open communication. My role extends beyond writing code to being a bridge between technical possibilities and business objectives.`,
     },
     interests: {
       title: "Beyond the Code",
@@ -44,8 +45,8 @@ I also believe in the power of collaboration. The best solutions emerge when des
 
 **Fitness & Mindfulness:** Regular exercise and meditation help me maintain focus and creativity. I find that my best solutions often come during morning runs or quiet moments away from the screen.
 
-These interests aren't separate from my professional life—they inform and enrich my approach to development, making me more creative, empathetic, and effective in my work.`
-    }
+These interests aren't separate from my professional life—they inform and enrich my approach to development, making me more creative, empathetic, and effective in my work.`,
+    },
   };
 
   return (
@@ -56,7 +57,8 @@ These interests aren't separate from my professional life—they inform and enri
             Getting to Know Me
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Beyond the technical skills and professional achievements, here's what drives my passion for development
+            Beyond the technical skills and professional achievements, here's
+            what drives my passion for development
           </p>
         </div>
 
@@ -65,7 +67,7 @@ These interests aren't separate from my professional life—they inform and enri
           {tabs?.map((tab) => (
             <Button
               key={tab?.id}
-              variant={activeTab === tab?.id ? 'default' : 'outline'}
+              variant={activeTab === tab?.id ? "default" : "outline"}
               onClick={() => setActiveTab(tab?.id)}
               iconName={tab?.icon}
               iconPosition="left"
@@ -82,23 +84,41 @@ These interests aren't separate from my professional life—they inform and enri
             <h3 className="text-2xl font-semibold text-foreground">
               {content?.[activeTab]?.title}
             </h3>
-            
+
             <div className="prose prose-lg max-w-none">
-              {content?.[activeTab]?.content?.split('\n\n')?.map((paragraph, index) => {
-                if (paragraph?.startsWith('**') && paragraph?.endsWith('**')) {
-                  const title = paragraph?.slice(2, -2);
+              <div className="relative h-56 w-56 mt-14 mb-10 mx-auto rounded-lg overflow-hidden">
+                <div className="absolute inset-0 h-full"></div>
+                <Image
+                  src="/assets/images/image.png"
+                  className="h-full w-full object-cover scale-[1.15] hover:scale-125 transition-transform duration-500"
+                />
+              </div>
+              {content?.[activeTab]?.content
+                ?.split("\n\n")
+                ?.map((paragraph, index) => {
+                  if (
+                    paragraph?.startsWith("**") &&
+                    paragraph?.endsWith("**")
+                  ) {
+                    const title = paragraph?.slice(2, -2);
+                    return (
+                      <h4
+                        key={index}
+                        className="text-lg font-semibold text-foreground mt-8 mb-3"
+                      >
+                        {title}
+                      </h4>
+                    );
+                  }
                   return (
-                    <h4 key={index} className="text-lg font-semibold text-foreground mt-8 mb-3">
-                      {title}
-                    </h4>
+                    <p
+                      key={index}
+                      className="text-muted-foreground leading-relaxed mb-4"
+                    >
+                      {paragraph}
+                    </p>
                   );
-                }
-                return (
-                  <p key={index} className="text-muted-foreground leading-relaxed mb-4">
-                    {paragraph}
-                  </p>
-                );
-              })}
+                })}
             </div>
           </div>
         </div>
@@ -110,10 +130,16 @@ These interests aren't separate from my professional life—they inform and enri
               Let's Build Something Amazing Together
             </h3>
             <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
-              I'm always excited to discuss new opportunities, collaborate on interesting projects, or simply chat about the latest in frontend development.
+              I'm always excited to discuss new opportunities, collaborate on
+              interesting projects, or simply chat about the latest in frontend
+              development.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
-              <Button variant="default" iconName="MessageCircle" iconPosition="left">
+              <Button
+                variant="default"
+                iconName="MessageCircle"
+                iconPosition="left"
+              >
                 Start a Conversation
               </Button>
               <Button variant="outline" iconName="Calendar" iconPosition="left">
