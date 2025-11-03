@@ -86,12 +86,12 @@ These interests aren't separate from my professional life—they inform and enri
             </h3>
 
             <div className="prose prose-lg max-w-none">
-              <div className="relative h-88 w-[450px] mt-14 mb-10 mx-auto rounded-lg overflow-hidden bg-gray-400/10 border border-border">
+              <div className="relative h-88 w-[450px] mt-14 mb-10 mx-auto rounded-lg overflow-hidden border border-border shadow-lg p-2">
                 <div className="absolute inset-0 h-full"></div>
                 <Image
                   src="/assets/images/image.png"
                   fill
-                  className="h-full w-full object-cover object-[65%_50%] scale-[1.10] hover:scale-[1.18] transition-transform duration-500"
+                  className="h-full w-full object-cover object-[65%_50%] scale-[1.10] hover:scale-[1.14] transition-transform duration-500"
                 />
               </div>
               {content?.[activeTab]?.content
