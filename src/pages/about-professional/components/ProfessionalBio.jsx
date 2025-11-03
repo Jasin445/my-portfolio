@@ -91,7 +91,7 @@ These interests aren't separate from my professional life—they inform and enri
                 <Image
                   src="/assets/images/image.png"
                   fill
-                  className="h-full w-full object-cover object-[65%_50%] scale-[1.14] hover:scale-[1.18] transition-transform duration-500"
+                  className="h-full w-full object-cover object-[65%_50%] scale-[1.10] hover:scale-[1.18] transition-transform duration-500"
                 />
               </div>
               {content?.[activeTab]?.content
