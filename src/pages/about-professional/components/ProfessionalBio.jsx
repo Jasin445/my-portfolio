@@ -86,7 +86,7 @@ These interests aren't separate from my professional life—they inform and enri
             </h3>
 
             <div className="prose prose-lg max-w-none">
-              <div className="relative h-88 w-[450px] mt-14 mb-10 mx-auto rounded-lg overflow-hidden border border-gray-600 p-2 shadow-inner">
+              <div className="relative h-88 w-[450px] mt-14 mb-10 mx-auto rounded-lg overflow-hidden border border-border p-2 shadow-inner">
                 {/* <div className="absolute inset-0 h-full bg-white/5"></div> */}
                 <Image
                   src="/assets/images/image.png"
