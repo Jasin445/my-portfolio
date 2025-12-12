@@ -84,7 +84,7 @@ const Header = () => {
                   <span
                     className={`text-[16px] ${
                       item.label === "Contact"
-                        ? "bg-primary py-1 px-5 rounded-xl"
+                        ? "bg-primary py-2 px-5 rounded-xl"
                         : ""
                     }`}
                   >

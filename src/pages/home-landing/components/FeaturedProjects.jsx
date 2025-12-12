@@ -70,19 +70,10 @@ const FeaturedProjects = () => {
       className="relative py-20 
               bg-gradient-to-b from-[#2a363c] via-[#131426]/95 to-[#2a363c]/90"
     >
-      {/* Subtle radial glow behind header for depth */}
       <div
         className="absolute inset-0 bg-gradient-to-b from-white via-[#172034] to-white 
                   blur-[340px] opacity-20 pointer-events-none"
       />
-      {/* <div className="absolute inset-x-0 -top-[10px] h-4 
-                bg-gradient-to-b from-red-500 via-red-500 to-red-500 
-                blur-3xl opacity-50 pointer-events-none" /> */}
-
-      {/* <div className="absolute inset-x-0 top-0 h-[2px] 
-                bg-gradient-to-r from-white/20 via-transparent to-white/20 opacity-40" /> */}
-
-      {/* Optional top shadow for smoother section nesting */}
       <div
         className="absolute inset-x-0 top-0 h-10 
                   bg-gradient-to-b from-black/20 to-transparent blur-xs"

@@ -1,15 +1,14 @@
-import React, { useState } from "react";
-
-import Button from "../../../components/ui/Button";
-import Image from "../../../components/AppImage";
+import { useState } from "react";
+import { User, Lightbulb, Heart } from "lucide-react";
+import AppIcon from "../../../components/AppIcon";
 
 const ProfessionalBio = () => {
   const [activeTab, setActiveTab] = useState("story");
 
   const tabs = [
-    { id: "story", label: "My Story", icon: "User" },
-    { id: "philosophy", label: "Philosophy", icon: "Lightbulb" },
-    { id: "interests", label: "Interests", icon: "Heart" },
+    { id: "story", label: "My Story", icon: User },
+    { id: "philosophy", label: "Philosophy", icon: Lightbulb },
+    { id: "interests", label: "Interests", icon: Heart },
   ];
 
   const content = {
@@ -49,51 +48,131 @@ These interests aren't separate from my professional life—they inform and enri
     },
   };
 
+  const Button = ({
+    children,
+    variant = "default",
+    icon: Icon,
+    onClick,
+    className = "",
+  }) => {
+    const baseStyles =
+      "px-6 py-3 rounded-lg font-medium transition-all duration-300 flex items-center gap-2 hover:scale-105";
+    const variants = {
+      default:
+        "bg-primary text-white hover:bg-primary/95 shadow-lg shadow-primary/30",
+      outline:
+        "border-2 border-blue-50/70 text-blue-50/80 hover:bg-blue-500/10 hover:border-blue-100",
+    };
+
+    return (
+      <button
+        onClick={onClick}
+        className={`${baseStyles} ${variants[variant]} ${className}`}
+      >
+        {Icon && <Icon size={18} />}
+        {children}
+      </button>
+    );
+  };
+
   return (
-    <section className="relative py-16 lg:py-24 bg-transparent">
-      <div className="max-w-5xl mx-auto px-6">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
+    <section className="relative py-20 lg:py-28 bg-transparent text-white">
+      {/* Animated background elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-20 left-10 w-72 h-72 bg-blue-500/5 rounded-full blur-3xl animate-pulse"></div>
+        <div
+          className="absolute bottom-20 right-10 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl animate-pulse"
+          style={{ animationDelay: "1s" }}
+        ></div>
+      </div>
+
+      <div className="max-w-6xl mx-auto px-6 relative z-10">
+        {/* Header Section */}
+        <div className="text-center mb-16">
+          <div className=" mb-4">
+            <div
+              className="inline-flex items-center px-4 py-2 
+                      bg-primary/10 text-primary rounded-full text-base font-medium mb-4
+                      ring-1 ring-primary/20 backdrop-blur-sm"
+            >
+              <AppIcon name="Smile" size={16} className="mr-2" />
+              About Me
+            </div>
+          </div>
+          <h2 className="text-4xl lg:text-5xl font-bold mb-6 py-2 bg-gradient-to-r from-white via-blue-100 to-white bg-clip-text text-transparent">
             Getting to Know Me
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-lg text-gray-400 max-w-2xl mx-auto leading-relaxed">
             Beyond the technical skills and professional achievements, here's
             what drives my passion for development
           </p>
         </div>
 
-        {/* Tab Navigation */}
-        <div className="flex flex-wrap justify-center gap-2 mb-8">
+        {/* Enhanced Tab Navigation */}
+        <div className="flex flex-wrap justify-center gap-3 mb-12">
           {tabs?.map((tab) => (
             <Button
               key={tab?.id}
               variant={activeTab === tab?.id ? "default" : "outline"}
               onClick={() => setActiveTab(tab?.id)}
-              iconName={tab?.icon}
-              iconPosition="left"
-              className="transition-all duration-normal"
+              icon={tab.icon}
             >
               {tab?.label}
             </Button>
           ))}
         </div>
 
-        {/* Content */}
-        <div className="bg-transparent rounded-xl border border-border p-8 lg:p-12 shadow-sm">
-          <div className="space-y-6">
-            <h3 className="text-3xl text-center font-semibold text-foreground">
-              {content?.[activeTab]?.title}
-            </h3>
+        {/* Content Card */}
+        <div className="relative bg-gradient-to-br from-[#2a363c]/20 via-[#2a363c]/50 to-slate-[#2a363c]/60 rounded-3xl border border-blue-200/50 p-8 lg:p-14 shadow-2xl backdrop-blur-sm overflow-hidden">
+          {/* Decorative corner accents */}
+          <div className="absolute top-0 left-0 w-32 h-32 border-t-2 border-l-2 border-blue-500/20 rounded-tl-3xl"></div>
+          <div className="absolute bottom-0 right-0 w-32 h-32 border-b-2 border-r-2 border-blue-500/20 rounded-br-3xl"></div>
 
-            <div className="prose prose-lg max-w-none">
-              <div className="relative h-88 w-[450px] mt-14 mb-10 mx-auto rounded-lg overflow-hidden border border-border p-2 shadow-inner">
-                {/* <div className="absolute inset-0 h-full bg-white/5"></div> */}
-                <Image
-                  src="/assets/images/image.png"
-                  fill
-                  className="h-full w-full object-cover object-[65%_50%] scale-[1.10] hover:scale-[1.14] transition-transform duration-500"
+          {/* Subtle glow effects */}
+          <div className="absolute top-0 right-0 w-80 h-80 bg-blue-500/5 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 left-0 w-64 h-64 bg-purple-500/5 rounded-full blur-3xl"></div>
+
+          <div className="relative space-y-10">
+            {/* Title */}
+            <div className="text-center space-y-4">
+              <h3 className="text-3xl lg:text-4xl font-bold tracking-tight">
+                {content?.[activeTab]?.title}
+              </h3>
+              <div className="flex items-center justify-center gap-2">
+                <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                <div className="w-16 h-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"></div>
+                <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+              </div>
+            </div>
+
+            {/* Image Container */}
+            <div
+              className="relative h-[400px] w-full max-w-[550px] mx-auto rounded-2xl overflow-hidden border-2 border-blue-500/20 shadow-2xl shadow-blue-500/10 group"
+              style={{
+                boxShadow: "0 0 40px rgba(59, 130, 246, 0.15",
+              }}
+            >
+              <div className="absolute inset-0 bg-gradient-to-t from-blue-500/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"></div>
+
+              <div className="relative h-full w-full p-3 bg-gradient-to-br from-blue-500/10 via-transparent to-purple-500/5">
+                <div className="absolute inset-0 bg-slate-900/30 rounded-xl z-10"></div>
+                <img
+                  src="public/assets/images/Jason_main2.png"
+                  className="relative h-full w-full object-cover grayscale rounded-xl scale-[1.02] group-hover:scale-[1.06] group-hover:brightness-110 group-hover:contrast-110 transition-all duration-700 ease-out z-0"
+                  alt={content?.[activeTab]?.title}
                 />
               </div>
+
+              {/* Floating badges */}
+              <div className="absolute top-4 left-4 px-3 py-1.5 bg-blue-600/90 backdrop-blur-sm text-white text-xs font-semibold rounded-full border border-blue-400/30">
+                {activeTab === "story" && "Journey"}
+                {activeTab === "philosophy" && "Principles"}
+                {activeTab === "interests" && "Passion"}
+              </div>
+            </div>
+
+            {/* Content */}
+            <div className="space-y-6 px-2 lg:px-10">
               {content?.[activeTab]?.content
                 ?.split("\n\n")
                 ?.map((paragraph, index) => {
@@ -103,49 +182,29 @@ These interests aren't separate from my professional life—they inform and enri
                   ) {
                     const title = paragraph?.slice(2, -2);
                     return (
-                      <h4
+                      <div
                         key={index}
-                        className="text-lg font-semibold text-foreground mt-8 mb-3"
+                        className="flex items-start gap-4 mt-12 mb-6 group"
                       >
-                        {title}
-                      </h4>
+                        <div className="flex flex-col items-center gap-2 pt-1">
+                          <div className="w-2 h-2 bg-blue-500 rounded-full group-hover:scale-150 transition-transform"></div>
+                          <div className="w-0.5 h-8 bg-gradient-to-b from-blue-500 to-transparent"></div>
+                        </div>
+                        <h4 className="text-xl lg:text-2xl font-bold text-blue-400 group-hover:text-blue-300 transition-colors">
+                          {title}
+                        </h4>
+                      </div>
                     );
                   }
                   return (
                     <p
                       key={index}
-                      className="text-foreground leading-relaxed mb-4"
+                      className="text-gray-300 leading-relaxed text-base lg:text-lg pl-6 relative before:content-[''] before:absolute before:left-0 before:top-0 before:bottom-0 before:w-0.5 before:bg-gradient-to-b before:from-blue-500/50 before:to-transparent hover:text-white transition-colors duration-300"
                     >
                       {paragraph}
                     </p>
                   );
                 })}
-            </div>
-          </div>
-        </div>
-
-        {/* Call to Action */}
-        <div className="text-center mt-12">
-          <div className="bg-gradient-to-r from-primary/5 to-accent/5 rounded-xl p-8 border border-border">
-            <h3 className="text-xl font-semibold text-foreground mb-3">
-              Let's Build Something Amazing Together
-            </h3>
-            <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
-              I'm always excited to discuss new opportunities, collaborate on
-              interesting projects, or simply chat about the latest in frontend
-              development.
-            </p>
-            <div className="flex flex-wrap justify-center gap-4">
-              <Button
-                variant="default"
-                iconName="MessageCircle"
-                iconPosition="left"
-              >
-                Start a Conversation
-              </Button>
-              <Button variant="outline" iconName="Calendar" iconPosition="left">
-                Schedule a Call
-              </Button>
             </div>
           </div>
         </div>
