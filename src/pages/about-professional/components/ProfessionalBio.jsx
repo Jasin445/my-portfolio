@@ -76,7 +76,7 @@ These interests aren't separate from my professional life—they inform and enri
   };
 
   return (
-    <section className="relative py-20 lg:py-28 bg-transparent text-white">
+    <section className="relative py-7 lg:py-8 bg-transparent text-white">
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-20 left-10 w-72 h-72 bg-blue-500/5 rounded-full blur-3xl animate-pulse"></div>

@@ -156,7 +156,7 @@ const HeroSection = () => {
                 className="text-base text-muted-foreground bg-gradient-to-r from-primary to-blue-600 hover:from-primary/90 hover:to-blue-600/90 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-primary/25 hover:shadow-xl"
                 asChild
               >
-                <Link to="/portfolio-projects">
+                <Link to="/projects">
                   <span className="relative z-10">Explore My Projects</span>
                 </Link>
               </Button>
