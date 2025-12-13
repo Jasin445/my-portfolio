@@ -99,7 +99,7 @@ These interests aren't separate from my professional life—they inform and enri
               About Me
             </div>
           </div>
-          <h2 className="text-4xl lg:text-5xl font-bold mb-6 py-2 bg-gradient-to-r from-white via-blue-100 to-white bg-clip-text text-transparent">
+          <h2 className="text-4xl lg:text-5xl font-bold mb-6 py-2 bg-gradient-to-r from-white via-white to-white bg-clip-text text-transparent">
             Getting to Know Me
           </h2>
           <p className="text-lg text-gray-400 max-w-2xl mx-auto leading-relaxed">
