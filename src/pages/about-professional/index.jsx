@@ -5,7 +5,6 @@ import ProfessionalBio from "./components/ProfessionalBio";
 import DownloadResume from "./components/DownloadResume";
 import Footer from "../../components/Footer";
 import GenericHeroSection from "../portfolio-projects/components/GenericHero";
-import OverlayDesign from "../../components/OverlayDesign";
 
 const AboutProfessional = () => {
   useEffect(() => {

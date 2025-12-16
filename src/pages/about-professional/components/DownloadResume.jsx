@@ -4,7 +4,7 @@ import Button from '../../../components/ui/Button';
 const DownloadResume = () => {
   const handleDownload = () => {
     // Trigger actual file download here
-    window.open('/files/Jason-Dagana-Resume.pdf', '_blank');
+    window.open('/assets/Jason_Dagana_CV (1).pdf', '_blank');
   };
 
   return (

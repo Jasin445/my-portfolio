@@ -14,11 +14,13 @@ const ProfessionalBio = () => {
   const content = {
     story: {
       title: "The Journey So Far",
-      content: `My journey into frontend development began during my Computer Science studies at Stanford University, where I discovered my passion for creating intuitive user interfaces. What started as curiosity about how websites work evolved into a deep fascination with the intersection of technology and human experience.
+      content: `My journey into the world of front-end development began during my NYSC, where I uncovered a profound passion for coding and web development. From a young age, I was always fascinated by technology and the endless possibilities it offers. This early enthusiasm naturally evolved into a deep-seated love for web development.
 
-After graduating in 2018, I joined TechCorp as a Junior Frontend Developer, where I quickly learned the importance of writing clean, maintainable code. Working alongside seasoned developers, I absorbed best practices in React development, state management, and performance optimization.
+Over the past year, I've dedicated myself to mastering front-end technologies, and it has been a transformative experience. I've gained a solid understanding of frameworks, responsive design, and user experience, and I've seen significant growth in my skills and confidence. Each project has been a stepping stone, allowing me to explore innovative solutions and refine my craft.
 
-The turning point came when I led the redesign of our main product dashboard, resulting in a 40% increase in user engagement. This experience taught me that great frontend development isn't just about code—it's about understanding users, solving real problems, and creating delightful experiences. Over the years, I've had the privilege of working with startups and established companies, each presenting unique challenges that shaped my approach to development. From building scalable component libraries to optimizing applications for millions of users, every project has been a learning opportunity.
+After graduating in 2022, I ventured into various fields, including teaching and the transportation sector. However, my passion for technology and research remained unwavering. I realized that my true calling lies in the ever-evolving world of web development, where I can continuously learn and contribute.
+
+With a blend of creativity, technical expertise, and a genuine enthusiasm for technology, I’m excited to continue this journey and contribute to innovative projects and dynamic teams.
 
 Today, I continue to push the boundaries of what's possible in frontend development, always staying curious and eager to learn new technologies while maintaining a strong foundation in proven methodologies.`,
     },
@@ -34,17 +36,17 @@ I also believe in the power of collaboration. The best solutions emerge when des
     },
     interests: {
       title: "Beyond the Code",
-      content: `While I'm passionate about development, I believe that diverse interests make me a better developer and collaborator.**Photography:** I'm an avid landscape photographer, which has sharpened my eye for composition, color theory, and visual storytelling. These skills directly translate to better UI design sensibilities and help me communicate more effectively with design teams.
+      content: `While I’m passionate about development, I believe that diverse interests make me a better developer and collaborator.
 
-**Open Source Contribution:** I maintain several open source projects, including a React component library with over 2,000 GitHub stars. Contributing to the community isn't just about giving back—it's about learning from developers worldwide and staying connected to emerging trends.
+**Attention to Detail:** I have a keen eye for even the smallest details, ensuring that every aspect of my work is polished and precise.
 
-**Mentorship:** I volunteer as a mentor for coding bootcamp graduates and junior developers. Teaching others reinforces my own understanding and keeps me grounded in the fundamentals that sometimes get overlooked in complex projects.
+**Love for Art:** My passion for art gives me a unique aesthetic perspective, enriching my front-end development with creativity and a distinct style.
 
-**Travel & Culture:** Having visited 25+ countries, I've gained appreciation for diverse perspectives and approaches to problem-solving. This global mindset influences how I think about internationalization, accessibility, and inclusive design.
+**Fitness & Mindfulness:** Regular exercise and meditation help me maintain focus and clarity, allowing me to approach challenges with a clear mind and creativity.
 
-**Fitness & Mindfulness:** Regular exercise and meditation help me maintain focus and creativity. I find that my best solutions often come during morning runs or quiet moments away from the screen.
+**Mentorship:** I volunteer as a mentor for those new to web development and software engineering, sharing knowledge and reinforcing my own understanding in the process.
 
-These interests aren't separate from my professional life—they inform and enrich my approach to development, making me more creative, empathetic, and effective in my work.`,
+These interests aren’t separate from my professional life—they enrich and inform my approach to development, making me more creative, empathetic, and effective in my work.`,
     },
   };
 

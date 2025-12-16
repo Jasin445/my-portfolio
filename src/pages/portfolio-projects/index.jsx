@@ -13,6 +13,7 @@ import SkillsOverview from "./components/SkillsOverview";
 import ContactCta from "./components/ContactCta";
 import GenericHeroSection from "./components/GenericHero";
 import { mockProjects } from "../../data";
+import { useGetAllProjects } from "../../apis/queries";
 
 const PortfolioProjects = () => {
   const [selectedProject, setSelectedProject] = useState(null);
@@ -23,7 +24,6 @@ const PortfolioProjects = () => {
   const [sortOrder, setSortOrder] = useState("desc");
   const [viewMode, setViewMode] = useState("grid");
   const [currentPage, setCurrentPage] = useState(1);
-  const [isLoading, setIsLoading] = useState(false);
 
   const projectsPerPage = 6;
 
@@ -31,6 +31,22 @@ const PortfolioProjects = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [currentPage]);
   // Filter and sort projects
+  //   const apiService = new APIService()
+  //   const { get } = apiService;
+
+  // useEffect(() => {
+  //   const fetchProjects = async () => {
+  //     const allProjects = await get("/projects");
+  //     console.log(allProjects);
+  //   };
+
+  //   fetchProjects();
+  // }, []); // 👈 runs once on mount
+
+  // const { projects, loading, isEmpty, error } = useGetAllProjects();
+  // console.log(projects);
+  const loading = false
+
   const filteredAndSortedProjects = useMemo(() => {
     let filtered = mockProjects;
 
@@ -188,7 +204,7 @@ const PortfolioProjects = () => {
   }, [searchQuery, activeFilters, sortBy, sortOrder]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-card to-muted/20">
+    <div className="relative min-h-screen bg-gradient-to-br from-background via-card to-muted/20">
       <Helmet>
         <title>My Projects - Jason Dagana Projects</title>
         <meta
@@ -205,17 +221,16 @@ const PortfolioProjects = () => {
       <main className="">
         {/* Hero Section */}
 
-        <GenericHeroSection title={"Projects"} />
+        <GenericHeroSection title={"Projects"} loading={loading} />
 
         {/* Main Content */}
-           <section className="relative py-12 h-full">
-    <div className="absolute inset-0 pointer-events-none">
-      <div className="absolute inset-0 bg-gradient-to-b from-[#2a363c]/90 via-[#131426] to-[#2a363c]/90 blur-[10px]" />
-      <div className="absolute inset-x-0 bg-gradient-to-b from-[#131426]/70 to-[#2a363c] h-20 blur-xl bottom-0 translate-y-4"></div>
-      <div className="absolute inset-x-0 bg-gradient-to-b from-[#131426]/90 via-[#2a363c] to-[#131426]/60 blur-[340px] z-40 h-20 -bottom-10 translate-y-14"></div>
-      </div>
-      <div className="4xl:max-w-7xl 3xl:max-w-7xl max-w-6xl mx-auto px-6">
-         
+        <section className="relative py-12 h-full">
+          <div className="absolute inset-0 pointer-events-none">
+            <div className="absolute inset-0 bg-gradient-to-b from-[#2a363c]/90 via-[#131426] to-[#2a363c]/90 blur-[10px]" />
+            <div className="absolute inset-x-0 bg-gradient-to-b from-[#131426]/70 to-[#2a363c] h-20 blur-xl bottom-0 translate-y-4"></div>
+            <div className="absolute inset-x-0 bg-gradient-to-b from-[#131426]/90 via-[#2a363c] to-[#131426]/60 blur-[340px] z-40 h-20 -bottom-10 translate-y-14"></div>
+          </div>
+          <div className="4xl:max-w-7xl 3xl:max-w-7xl max-w-6xl mx-auto px-6">
             <div className="flex flex-col lg:flex-row gap-8">
               {/* Main Content Area */}
               <div className="flex-1 min-w-0 py-8">
@@ -223,7 +238,9 @@ const PortfolioProjects = () => {
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
                   <div className="flex items-center space-x-4">
                     <h2 className="text-2xl z-30 font-semibold text-foreground">
-                      {filteredAndSortedProjects?.length} Projects found
+                      {loading
+                        ? "Fetching projects..."
+                        : `${filteredAndSortedProjects?.length} Projects found`}
                     </h2>
                   </div>
                 </div>
@@ -338,9 +355,9 @@ const PortfolioProjects = () => {
                 hasNext={hasNextProject}
                 hasPrev={hasPrevProject}
               />
+            </div>
           </div>
-          </div>
-          </section>
+        </section>
 
         <section>
           <SkillsOverview />

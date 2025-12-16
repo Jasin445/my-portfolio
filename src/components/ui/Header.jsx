@@ -13,7 +13,7 @@ const Header = () => {
     { label: "Home", path: "/", icon: "Home" },
     { label: "Projects", path: "/projects", icon: "Briefcase" },
     { label: "About", path: "/about-professional", icon: "User" },
-    { label: "Blog", path: "/technical-blog", icon: "FileText" },
+    // { label: "Blog", path: "/technical-blog", icon: "FileText" },
     { label: "Contact", path: "/contact-connect", icon: "Mail" },
   ];
 
@@ -84,7 +84,7 @@ const Header = () => {
                   <span
                     className={`text-[16px] ${
                       item.label === "Contact"
-                        ? "bg-primary py-2 px-5 rounded-xl"
+                        ? "bg-primary py-2 px-5 rounded-xl text-white"
                         : ""
                     }`}
                   >
