@@ -14,7 +14,7 @@ export default defineConfig({
 },
   plugins: [tsconfigPaths(), react(), tagger()],
   server: {
-    port: "3001",
+    port: "3000",
     host: "0.0.0.0",
     strictPort: true,
   }

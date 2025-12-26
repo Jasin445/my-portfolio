@@ -4,7 +4,6 @@ import Header from "../../components/ui/Header";
 import ScrollProgress from "../../components/ui/ScrollProgress";
 import ProjectCard from "./components/ProjectCard";
 import ProjectModal from "./components/ProjectModal";
-
 import ProjectListItem from "./components/ProjectListItem";
 import Icon from "../../components/AppIcon";
 import Button from "../../components/ui/Button";
@@ -12,8 +11,8 @@ import Footer from "../../components/Footer";
 import SkillsOverview from "./components/SkillsOverview";
 import ContactCta from "./components/ContactCta";
 import GenericHeroSection from "./components/GenericHero";
-import { mockProjects } from "../../data";
 import { useGetAllProjects } from "../../apis/queries";
+import { mockProjects } from "../../data";
 
 const PortfolioProjects = () => {
   const [selectedProject, setSelectedProject] = useState(null);
@@ -27,51 +26,44 @@ const PortfolioProjects = () => {
 
   const projectsPerPage = 6;
 
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }, [currentPage]);
+  const { projects, loading, isEmpty, error } = useGetAllProjects();
+  console.log(projects)
+  // const loading = true;
+  // Helper function to determine project type
+  const getProjectType = (project) => {
+    const techs = project?.technologies?.map((t) => t?.toLowerCase()) || [];
+
+    if (techs.some((t) => ["react", "vue.js", "angular"].includes(t))) {
+      return "web-app";
+    }
+    if (techs.some((t) => ["node.js", "express"].includes(t))) {
+      return "api";
+    } ugly
+    return "website";
+  };
+
   // Filter and sort projects
-  //   const apiService = new APIService()
-  //   const { get } = apiService;
-
-  // useEffect(() => {
-  //   const fetchProjects = async () => {
-  //     const allProjects = await get("/projects");
-  //     console.log(allProjects);
-  //   };
-
-  //   fetchProjects();
-  // }, []); // 👈 runs once on mount
-
-  // const { projects, loading, isEmpty, error } = useGetAllProjects();
-  // console.log(projects);
-  const loading = false
-
   const filteredAndSortedProjects = useMemo(() => {
-    let filtered = mockProjects;
+    let filtered = (error || isEmpty) ? mockProjects : projects || [];
 
     // Apply search filter
     if (searchQuery) {
-      filtered = filtered?.filter(
+      const query = searchQuery.toLowerCase();
+      filtered = filtered.filter(
         (project) =>
-          project?.title?.toLowerCase()?.includes(searchQuery?.toLowerCase()) ||
-          project?.description
-            ?.toLowerCase()
-            ?.includes(searchQuery?.toLowerCase()) ||
+          project?.title?.toLowerCase()?.includes(query) ||
+          project?.description?.toLowerCase()?.includes(query) ||
           project?.technologies?.some((tech) =>
-            tech?.toLowerCase()?.includes(searchQuery?.toLowerCase())
+            tech?.toLowerCase()?.includes(query)
           )
       );
     }
 
     // Apply category filters
-    if (activeFilters?.length > 0) {
-      filtered = filtered?.filter((project) => {
-        return activeFilters?.every((filter) => {
-          // Safer filter parsing to avoid initialization issues
-          const filterParts = filter?.split(":") || [];
-          const category = filterParts?.[0] || "";
-          const value = filterParts?.[1] || "";
+    if (activeFilters.length > 0) {
+      filtered = filtered.filter((project) => {
+        return activeFilters.every((filter) => {
+          const [category, value] = filter.split(":");
 
           switch (category) {
             case "technology":
@@ -79,9 +71,7 @@ const PortfolioProjects = () => {
                 tech?.toLowerCase()?.includes(value?.toLowerCase())
               );
             case "type":
-              // Map project types based on technologies and characteristics
-              const projectType = getProjectType(project);
-              return projectType === value;
+              return getProjectType(project) === value;
             case "status":
               return project?.status === value;
             default:
@@ -92,66 +82,73 @@ const PortfolioProjects = () => {
     }
 
     // Apply sorting
-    filtered?.sort((sortA, sortB) => {
+    
+    if (!Array.isArray(filtered)) {
+      filtered = [];
+    }
+    const sorted =  [...filtered].sort((a, b) => {
       let aValue, bValue;
 
       switch (sortBy) {
         case "title":
-          aValue = sortA?.title?.toLowerCase() || "";
-          bValue = sortB?.title?.toLowerCase() || "";
+          aValue = a?.title?.toLowerCase() || "";
+          bValue = b?.title?.toLowerCase() || "";
           break;
         case "date":
-          aValue = new Date(sortA?.completedDate || "2024-01-01");
-          bValue = new Date(sortB?.completedDate || "2024-01-01");
+          aValue = new Date(a?.completedDate || "2024-01-01");
+          bValue = new Date(b?.completedDate || "2024-01-01");
           break;
         case "technology":
-          aValue = sortA?.technologies?.[0] || "";
-          bValue = sortB?.technologies?.[0] || "";
+          aValue = a?.technologies?.[0] || "";
+          bValue = b?.technologies?.[0] || "";
           break;
         case "status":
-          aValue = sortA?.status || "";
-          bValue = sortB?.status || "";
+          aValue = a?.status || "";
+          bValue = b?.status || "";
           break;
         default:
           return 0;
       }
 
-      if (sortOrder === "asc") {
-        return aValue > bValue ? 1 : -1;
-      } else {
-        return aValue < bValue ? 1 : -1;
-      }
+      const comparison = aValue > bValue ? 1 : aValue < bValue ? -1 : 0;
+      return sortOrder === "asc" ? comparison : -comparison;
     });
 
-    return filtered;
-  }, [mockProjects, searchQuery, activeFilters, sortBy, sortOrder]);
+    return sorted;
+  }, [projects, error, searchQuery, activeFilters, sortBy, sortOrder]);
 
-  const getProjectType = (project) => {
-    const techs = project?.technologies?.map((t) => t?.toLowerCase());
-
-    if (
-      techs?.includes("react") ||
-      techs?.includes("vue.js") ||
-      techs?.includes("angular")
-    ) {
-      return "web-app";
-    }
-    if (techs?.includes("node.js") || techs?.includes("express")) {
-      return "api";
-    }
-    return "website";
-  };
-
-  // Pagination
+  // Pagination calculations
   const totalPages = Math.ceil(
-    filteredAndSortedProjects?.length / projectsPerPage
+    filteredAndSortedProjects.length / projectsPerPage
   );
   const startIndex = (currentPage - 1) * projectsPerPage;
-  const paginatedProjects = filteredAndSortedProjects?.slice(
+  const paginatedProjects = filteredAndSortedProjects.slice(
     startIndex,
     startIndex + projectsPerPage
   );
 
+  // Navigation helpers
+  const getCurrentProjectIndex = () => {
+    return selectedProject
+      ? filteredAndSortedProjects.findIndex(
+          (p) => p?.id === selectedProject?.id
+        )
+      : -1;
+  };
+
+  const hasNextProject = () => {
+    const currentIndex = getCurrentProjectIndex();
+    return (
+      currentIndex >= 0 && currentIndex < filteredAndSortedProjects.length - 1
+    );
+  };
+
+  const hasPrevProject = () => {
+    const currentIndex = getCurrentProjectIndex();
+    return currentIndex > 0;
+  };
+
+  // Event handlers
   const handleViewDetails = (project) => {
     setSelectedProject(project);
     setIsModalOpen(true);
@@ -165,43 +162,48 @@ const PortfolioProjects = () => {
   const handleNavigateProject = (direction) => {
     if (!selectedProject) return;
 
-    const currentIndex = filteredAndSortedProjects?.findIndex(
-      (p) => p?.id === selectedProject?.id
-    );
-    let newIndex;
+    const currentIndex = getCurrentProjectIndex();
+    const newIndex = direction === "next" ? currentIndex + 1 : currentIndex - 1;
 
-    if (direction === "next") {
-      newIndex = currentIndex + 1;
-    } else {
-      newIndex = currentIndex - 1;
-    }
-
-    if (newIndex >= 0 && newIndex < filteredAndSortedProjects?.length) {
-      setSelectedProject(filteredAndSortedProjects?.[newIndex]);
+    if (newIndex >= 0 && newIndex < filteredAndSortedProjects.length) {
+      setSelectedProject(filteredAndSortedProjects[newIndex]);
     }
   };
-
-  const hasNextProject = selectedProject
-    ? filteredAndSortedProjects?.findIndex(
-        (p) => p?.id === selectedProject?.id
-      ) <
-      filteredAndSortedProjects?.length - 1
-    : false;
-
-  const hasPrevProject = selectedProject
-    ? filteredAndSortedProjects?.findIndex(
-        (p) => p?.id === selectedProject?.id
-      ) > 0
-    : false;
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  const handleResetFilters = () => {
+    setActiveFilters([]);
+    setSearchQuery("");
+    setCurrentPage(1);
+  };
+
+  // Reset to page 1 when filters change
   useEffect(() => {
     setCurrentPage(1);
   }, [searchQuery, activeFilters, sortBy, sortOrder]);
+
+  // Scroll to top on page change
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [currentPage]);
+
+  const ProjectCardSkeleton = () => (
+    <div className="bg-card rounded-lg border border-gray-500 p-6 animate-pulse">
+      <div className="w-full h-48 bg-muted opacity-45 rounded-md mb-4" />
+      <div className="h-6 bg-muted opacity-45 rounded w-3/4 mb-3" />
+      <div className="h-4 bg-muted opacity-45 rounded w-full mb-2" />
+      <div className="h-4 bg-muted opacity-45 rounded w-5/6 mb-4" />
+      <div className="flex gap-2">
+        <div className="h-6 w-16 bg-muted opacity-45 rounded-full" />
+        <div className="h-6 w-16 bg-muted opacity-45 rounded-full" />
+        <div className="h-6 w-16 bg-muted opacity-45 rounded-full" />
+      </div>
+    </div>
+  );
 
   return (
     <div className="relative min-h-screen bg-gradient-to-br from-background via-card to-muted/20">
@@ -216,41 +218,43 @@ const PortfolioProjects = () => {
           content="projects, web development, React, JavaScript, frontend, fullstack"
         />
       </Helmet>
+
       <Header />
       <ScrollProgress />
-      <main className="">
-        {/* Hero Section */}
 
-        <GenericHeroSection title={"Projects"} loading={loading} />
+      <main>
+        <GenericHeroSection title="Projects" loading={loading} />
 
         {/* Main Content */}
         <section className="relative py-12 h-full">
+          {/* Background Gradients */}
           <div className="absolute inset-0 pointer-events-none">
             <div className="absolute inset-0 bg-gradient-to-b from-[#2a363c]/90 via-[#131426] to-[#2a363c]/90 blur-[10px]" />
-            <div className="absolute inset-x-0 bg-gradient-to-b from-[#131426]/70 to-[#2a363c] h-20 blur-xl bottom-0 translate-y-4"></div>
-            <div className="absolute inset-x-0 bg-gradient-to-b from-[#131426]/90 via-[#2a363c] to-[#131426]/60 blur-[340px] z-40 h-20 -bottom-10 translate-y-14"></div>
+            <div className="absolute inset-x-0 bg-gradient-to-b from-[#131426]/70 to-[#2a363c] h-20 blur-xl bottom-0 translate-y-4" />
+            <div className="absolute inset-x-0 bg-gradient-to-b from-[#131426]/90 via-[#2a363c] to-[#131426]/60 blur-[340px] z-40 h-20 -bottom-10 translate-y-14" />
           </div>
+
           <div className="4xl:max-w-7xl 3xl:max-w-7xl max-w-6xl mx-auto px-6">
             <div className="flex flex-col lg:flex-row gap-8">
               {/* Main Content Area */}
               <div className="flex-1 min-w-0 py-8">
                 {/* Controls */}
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
-                  <div className="flex items-center space-x-4">
-                    <h2 className="text-2xl z-30 font-semibold text-foreground">
-                      {loading
-                        ? "Fetching projects..."
-                        : `${filteredAndSortedProjects?.length} Projects found`}
-                    </h2>
-                  </div>
+                  <h2 className="text-2xl z-30 font-semibold text-foreground">
+                    {loading
+                      ? "Fetching projects..."
+                      : `${
+                          filteredAndSortedProjects.length || "No"
+                        } Projects found`}
+                  </h2>
                 </div>
-
-                {/* Projects Grid/List */}
-                {paginatedProjects?.length > 0 ? (
+                {/* Projects Display */}
+                {paginatedProjects.length > 0 ? (
                   <>
+                    {/* Grid or List View */}
                     {viewMode === "grid" ? (
                       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mb-12">
-                        {paginatedProjects?.map((project) => (
+                        {paginatedProjects.map((project) => (
                           <ProjectCard
                             key={project?.id}
                             project={project}
@@ -260,7 +264,7 @@ const PortfolioProjects = () => {
                       </div>
                     ) : (
                       <div className="grid grid-cols-1 space-y-6 mb-12">
-                        {paginatedProjects?.map((project) => (
+                        {paginatedProjects.map((project) => (
                           <ProjectListItem
                             key={project?.id}
                             project={project}
@@ -288,7 +292,7 @@ const PortfolioProjects = () => {
                           {Array.from(
                             { length: totalPages },
                             (_, i) => i + 1
-                          )?.map((page) => (
+                          ).map((page) => (
                             <Button
                               key={page}
                               variant={
@@ -317,8 +321,14 @@ const PortfolioProjects = () => {
                       </div>
                     )}
                   </>
+                ) : loading ? (
+                  <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mb-12">
+                    {[1, 2, 3, 4, 5, 6].map((i) => (
+                      <ProjectCardSkeleton key={i} />
+                    ))}
+                  </div>
                 ) : (
-                  <div className="text-center py-16">
+                  <div className="relative text-center py-16 ">
                     <Icon
                       name="Search"
                       size={48}
@@ -335,11 +345,7 @@ const PortfolioProjects = () => {
                       variant="outline"
                       iconName="RotateCcw"
                       iconPosition="left"
-                      onClick={() => {
-                        setActiveFilters([]);
-                        setSearchQuery("");
-                        setCurrentPage(1);
-                      }}
+                      onClick={handleResetFilters}
                     >
                       Reset filters
                     </Button>
@@ -347,23 +353,23 @@ const PortfolioProjects = () => {
                 )}
               </div>
 
+              {/* Project Modal */}
               <ProjectModal
                 project={selectedProject}
                 isOpen={isModalOpen}
                 onClose={handleCloseModal}
                 onNavigate={handleNavigateProject}
-                hasNext={hasNextProject}
-                hasPrev={hasPrevProject}
+                hasNext={hasNextProject()}
+                hasPrev={hasPrevProject()}
               />
             </div>
           </div>
         </section>
 
-        <section>
-          <SkillsOverview />
-        </section>
+        <SkillsOverview />
         <ContactCta />
       </main>
+
       <Footer lightweight />
     </div>
   );
