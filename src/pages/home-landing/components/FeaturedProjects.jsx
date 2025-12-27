@@ -2,68 +2,17 @@ import { Link } from "react-router-dom";
 import Button from "../../../components/ui/Button";
 import Image from "../../../components/AppImage";
 import Icon from "../../../components/AppIcon";
-import { motion } from "framer-motion";
 import CarTransition from "../../../components/CarDrive";
+import { mockProjects } from "../../../data";
+import { useGetAllProjects } from "../../../apis/queries";
 
 const FeaturedProjects = () => {
-  const featuredProjects = [
-    {
-      id: 1,
-      title: "E-Commerce Dashboard",
-      description:
-        "A comprehensive admin dashboard for managing online stores with real-time analytics, inventory management, and customer insights.",
-      image:
-        "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop",
-      technologies: ["React", "TypeScript", "Tailwind CSS", "Chart.js"],
-      category: "Web Application",
-      status: "Completed",
-      demoUrl: "#",
-      githubUrl: "#",
-      featured: true,
-    },
-    {
-      id: 2,
-      title: "Task Management App",
-      description:
-        "A collaborative project management tool with drag-and-drop functionality, team collaboration features, and progress tracking.",
-      image:
-        "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=600&h=400&fit=crop",
-      technologies: ["Vue.js", "Node.js", "MongoDB", "Socket.io"],
-      category: "Web Application",
-      status: "Completed",
-      demoUrl: "#",
-      githubUrl: "#",
-      featured: true,
-    },
-    {
-      id: 3,
-      title: "Weather Forecast Widget",
-      description:
-        "An interactive weather widget with location-based forecasts, animated weather icons, and detailed meteorological data.",
-      image:
-        "https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?w=600&h=400&fit=crop",
-      technologies: ["React", "OpenWeather API", "CSS Animations"],
-      category: "Widget",
-      status: "Completed",
-      demoUrl: "#",
-      githubUrl: "#",
-      featured: true,
-    },
-    {
-      id: 4,
-      title: "Portfolio Website",
-      description:
-        "A responsive portfolio website showcasing creative work with smooth animations, optimized performance, and SEO best practices.",
-      image:
-        "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=600&h=400&fit=crop",
-      technologies: ["Next.js", "Framer Motion", "Tailwind CSS"],
-      category: "Website",
-      status: "Completed",
-      demoUrl: "#",
-      githubUrl: "#",
-      featured: true,
-    },
-  ];
+  const { projects, loading, isEmpty, error } = useGetAllProjects();
+  const featuredMockProjects = mockProjects?.filter(projects => projects?.featured);
+  const filteredProjects = projects?.filter(projects => projects?.featured);
+
+  let featuredProjects = (isEmpty || error) ? featuredMockProjects : filteredProjects;
+  featuredProjects = featuredProjects.splice(0, 4)
 
   return (
     <section
@@ -104,7 +53,7 @@ const FeaturedProjects = () => {
         </div>
 
         {/* Projects Grid */}
-        <div className="grid md:grid-cols-2 gap-8 mb-12">
+        {loading ? <div className="h-32 flex justify-center items-center"><div className="w-20 h-20 rounded-full animate-spin border border-white border-t-blue-500"></div></div> : <div className="grid md:grid-cols-2 gap-8 mb-12">
           {featuredProjects?.map((project, index) => (
             <div
               key={project?.id}
@@ -210,16 +159,16 @@ const FeaturedProjects = () => {
               </div>
             </div>
           ))}
-        </div>
+        </div>}
 
         {/* View All Projects CTA */}
-        <div className="text-center">
+        {!loading && <div className="text-center">
           <Button size="lg" iconName="ArrowRight" iconPosition="right" asChild>
             <Link to="/projects" className="text-white">
               View All Projects
             </Link>
           </Button>
-        </div>
+        </div>}
       </div>
     </section>
   );

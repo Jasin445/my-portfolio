@@ -3,8 +3,6 @@ import Header from "../../components/ui/Header";
 import ScrollProgress from "../../components/ui/ScrollProgress";
 import HeroSection from "./components/HeroSection";
 import FeaturedProjects from "./components/FeaturedProjects";
-import SkillsOverview from "../portfolio-projects/components/SkillsOverview";
-import ContactSection from "../contact-connect";
 import Footer from "../../components/Footer";
 import TestimonialSection from "./components/TestimonialSection";
 import Skills from "./components/Skills";
@@ -39,7 +37,6 @@ const HomeLanding = () => {
         }
       }
     };
-
     document.addEventListener("click", handleSmoothScroll);
     return () => document.removeEventListener("click", handleSmoothScroll);
   }, []);

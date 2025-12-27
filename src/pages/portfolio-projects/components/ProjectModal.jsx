@@ -188,7 +188,7 @@ const ProjectModal = ({
                   className="w-full h-full object-cover"
                 />
               )}
-              {project?.images?.length > 1 && (
+              {!project?.liveUrl && project?.images?.length > 1 && (
                 <>
                   <button
                     onClick={prevImage}
@@ -205,7 +205,7 @@ const ProjectModal = ({
                   </button>
 
                   {/* Image Indicators */}
-                  <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+                 {!project?.liveUrl && <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
                     {project?.images?.map((_, index) => (
                       <button
                         key={index}
@@ -217,7 +217,7 @@ const ProjectModal = ({
                         }`}
                       />
                     ))}
-                  </div>
+                  </div>}
                 </>
               )}
             </div>
