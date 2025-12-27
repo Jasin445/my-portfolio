@@ -13,12 +13,14 @@ const ProjectModal = ({
 }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [activeTab, setActiveTab] = useState("overview");
+  const [iframeLoading, setIframeLoading] = useState(true);
 
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
       setCurrentImageIndex(0);
       setActiveTab("overview");
+      setIframeLoading(true); // Reset loading state when modal opens
     } else {
       document.body.style.overflow = "unset";
     }
@@ -48,6 +50,13 @@ const ProjectModal = ({
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [isOpen, hasNext, hasPrev, onNavigate, onClose]);
+
+  // Reset loading state when project changes
+  useEffect(() => {
+    if (project?.liveUrl) {
+      setIframeLoading(true);
+    }
+  }, [project?.liveUrl]);
 
   if (!isOpen || !project) return null;
 
@@ -150,14 +159,28 @@ const ProjectModal = ({
           <div className="lg:w-1/2 relative">
             <div className="relative h-64 lg:h-full">
               {project?.liveUrl ? (
-                <iframe
-                  src={project.liveUrl}
-                  title={project?.title}
-                  style={{ backgroundColor: "white" }}
-                  className="w-full h-full"
-                  loading="lazy"
-                  sandbox="allow-scripts allow-forms allow-same-origin"
-                />
+                <>
+                  {/* Loading Spinner */}
+                  {iframeLoading && (
+                    <div className="absolute inset-0 flex items-center justify-center bg-muted">
+                      <div className="flex flex-col items-center space-y-3">
+                        <div className="w-10 h-10 border-4 border-primary/30 border-t-primary rounded-full animate-spin" />
+                        <p className="text-sm text-muted-foreground">Loading preview...</p>
+                      </div>
+                    </div>
+                  )}
+                  
+                  <iframe
+                    src={project.liveUrl}
+                    title={project?.title}
+                    style={{ backgroundColor: "white" }}
+                    className="w-full h-full"
+                    loading="lazy"
+                    sandbox="allow-scripts allow-forms allow-same-origin"
+                    onLoad={() => setIframeLoading(false)}
+                    onError={() => setIframeLoading(false)}
+                  />
+                </>
               ) : (
                 <Image
                   src={project?.images?.[currentImageIndex]}
