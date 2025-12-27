@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "../../../components/ui/Button";
 import Image from "../../../components/AppImage";
 import Icon from "../../../components/AppIcon";
@@ -10,6 +10,19 @@ const FeaturedProjects = () => {
   const { projects, loading, isEmpty, error } = useGetAllProjects();
   const featuredMockProjects = mockProjects?.filter(projects => projects?.featured);
   const filteredProjects = projects?.filter(projects => projects?.featured);
+  const navigate = useNavigate();
+
+  const handleNavigate = (url) => {
+    if (!url) return;
+    
+    // Check if it's an external URL
+    if (url.startsWith('http://') || url.startsWith('https://')) {
+      window.open(url, '_blank');
+    } else {
+      // Internal route
+      navigate(url);
+    }
+  };
 
   let featuredProjects = (isEmpty || error) ? featuredMockProjects : filteredProjects;
   featuredProjects = featuredProjects?.splice(0, 4) || []
@@ -73,6 +86,7 @@ const FeaturedProjects = () => {
                 {/* Quick Actions */}
                 <div className="absolute top-4 right-4 flex space-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-slow">
                   <Button
+                    onClick={() => navigate(project?.liveUrl)}
                     variant="secondary"
                     size="icon"
                     className="w-8 h-8 bg-white/90 hover:bg-white"
@@ -123,29 +137,35 @@ const FeaturedProjects = () => {
                   ))}
                 </div>
 
-                {/* Actions */}
-                <div className="flex items-center justify-between">
-                  <div className="flex space-x-3">
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      iconName="ExternalLink"
-                      iconPosition="left"
-                      className="text-xs text-foreground"
-                    >
-                      Live Demo
-                    </Button>
+                 {/* Actions */}
+                  <div className="flex items-center justify-between">
+                    <div className="flex space-x-3">
+                      {project?.liveUrl && (
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          iconName="ExternalLink"
+                          iconPosition="left"
+                          className="text-xs text-foreground"
+                          onClick={() => handleNavigate(project?.liveUrl)}
+                        >
+                          Live Demo
+                        </Button>
+                      )}
 
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      iconName="Github"
-                      iconPosition="left"
-                      className="text-xs text-foreground"
-                    >
-                      Code
-                    </Button>
-                  </div>
+                      {project?.githubUrl && (
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          iconName="Github"
+                          iconPosition="left"
+                          className="text-xs text-foreground"
+                          onClick={() => handleNavigate(project?.githubUrl)}
+                        >
+                          Code
+                        </Button>
+                      )}
+                    </div>
 
                   <div className="flex items-center text-xs text-foreground">
                     <Icon
