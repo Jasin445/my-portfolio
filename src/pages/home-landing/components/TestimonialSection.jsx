@@ -1,6 +1,34 @@
 import Image from "../../../components/AppImage";
 import Icon from "../../../components/AppIcon"
 
+// Testimonials data
+const testimonials = [
+  {
+    id: 1,
+    quote: "Jason combines strong technical skills with a sharp eye for design. He delivered our project on time and exceeded expectations.",
+    name: "Bobson Prosper",
+    role: "Software Engineer",
+    company: "9Stack",
+    image: "assets/images/testimonial1.jpg"
+  },
+  {
+    id: 2,
+    quote: "Working with Jason was a fantastic experience. His attention to detail and problem-solving abilities are outstanding.",
+    name: "Isaac Adedokun",
+    role: "Data Scientist & AI Engineer",
+    company: "Newsbridge",
+    image: "assets/images/testimonial2.jpg"
+  },
+  {
+    id: 3,
+    quote: "Jason's expertise in modern web technologies helped us build a scalable and performant application. Highly recommended!",
+    name: "Brumen Pascal",
+    role: "CEO",
+    company: "Datatechhub",
+    image: "assets/images/testimonial3.jpg"
+  }
+];
+
 const TestimonialSection = () => {
   return (
     <section className="pt-11 pb-14 bg-gradient-to-b from-[#131426]/95 via-[#272b34] to-[#2a363c]">
@@ -25,34 +53,34 @@ const TestimonialSection = () => {
           </div>
 
           {/* Testimonial Grid */}
-          <div className="grid md:grid-cols-[30%_35%_30%] gap-8">
-            {/* Testimonial 1 */}
-            <div
-              className="bg-gradient-to-b z-30 from-[#1d1f2e]/70 via-white/10 to-transparent hover:shadow-[0_0_12px_rgba(1,149,255,0.25)] rounded-xl border border-border shadow-xl transition p-8"
-            >
-              <p className="text-muted-foreground mb-4 italic">
-                "Jason combines strong technical skills with a sharp eye for
-                design. He delivered our project on time and exceeded
-                expectations."
-              </p>
-              <div className="flex items-center gap-4">
-                <Image
-                  src="assets/images/testimonial1.jpg"
-                  alt="Client"
-                  className="w-12 h-12 rounded-full object-cover"
-                />
-                <div className="text-left">
-                  <h4 className="text-foreground font-semibold">
-                    Sarah Johnson
-                  </h4>
-                  <span className="text-sm text-muted-foreground">
-                    Product Manager, TechCorp
-                  </span>
-                </div>
-              </div>
+          <div className="grid md:grid-cols-[33.3%_33.3%_33.3%] gap-8">
+            {testimonials?.map((testimonial) => (
+        <div
+          key={testimonial?.id}
+          className="bg-gradient-to-b z-30 from-[#1d1f2e]/70 via-white/10 to-transparent hover:shadow-[0_0_12px_rgba(1,149,255,0.25)] rounded-xl border border-border shadow-xl transition p-8"
+        >
+          <p className="text-muted-foreground mb-4 italic">
+            "{testimonial?.quote}"
+          </p>
+          <div className="flex justify-center items-center gap-4">
+            <Image
+              src={testimonial?.image}
+              alt={testimonial?.name}
+              className="w-12 h-12 rounded-full object-cover"
+            />
+            <div className="text-left">
+              <h4 className="text-foreground font-semibold">
+                {testimonial?.name}
+              </h4>
+              <span className="text-sm text-muted-foreground">
+                {testimonial?.role}, {testimonial?.company}
+              </span>
             </div>
+          </div>
+        </div>
+      ))}
 
-            {/* Testimonial 2 */}
+            {/* Testimonial 2
             <div
               className="bg-gradient-to-b z-30 from-[#1d1f2e]/70 via-white/10 to-transparent hover:shadow-[0_0_12px_rgba(1,149,255,0.25)] rounded-xl border border-border shadow-xl transition p-8"
             >
@@ -77,7 +105,6 @@ const TestimonialSection = () => {
               </div>
             </div>
 
-            {/* Testimonial 3 */}
             <div
               className="bg-gradient-to-b z-30 from-[#1d1f2e]/70 via-white/10 to-transparent hover:shadow-[0_0_12px_rgba(1,149,255,0.25)] rounded-xl border border-border shadow-xl transition p-8"
             >
@@ -98,7 +125,7 @@ const TestimonialSection = () => {
                   </span>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
