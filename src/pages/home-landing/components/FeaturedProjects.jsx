@@ -12,7 +12,7 @@ const FeaturedProjects = () => {
   const filteredProjects = projects?.filter(projects => projects?.featured);
 
   let featuredProjects = (isEmpty || error) ? featuredMockProjects : filteredProjects;
-  featuredProjects = featuredProjects.splice(0, 4)
+  featuredProjects = featuredProjects?.splice(0, 4) || []
 
   return (
     <section
