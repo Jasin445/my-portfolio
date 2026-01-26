@@ -6,7 +6,7 @@ import Icon from "../../../components/AppIcon";
 import { Atom, Code2, ChevronDown } from "lucide-react";
 import { FaReact, FaGithub, FaLinkedin } from "react-icons/fa";
 import { SiNextdotjs, SiTailwindcss, SiTypescript } from "react-icons/si";
-import "../../../styles/hero-section-styles.css"
+import "../../../styles/hero-section-styles.css";
 
 const HeroSection = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -238,8 +238,11 @@ const HeroSection = () => {
                 <div className="absolute w-full h-full z-10 group-hover:opacity-50 transition-opacity duration-300"></div>
 
                 <Image
-                  src="/assets/images/jason.png"
+                  src="./assets/images/jason.png"
                   alt="Jason Dagana - Frontend Developer"
+                  title="Jason Dagana | Frontend Developer"
+                  width={800}
+                  height={800}
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
 
@@ -302,8 +305,6 @@ const HeroSection = () => {
           </div>
         </div> */}
       </div>
-
-      
     </section>
   );
 };
