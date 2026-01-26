@@ -444,7 +444,7 @@ const calculateExpenseAnalytics = (expenses, timeframe) => {
     status: "In Progress",
     completedDate: "Project in progress...",
     duration: "8 months",
-    featured: true,
+    featured: false,
     liveUrl: "https://housesconnect.vercel.app",
     githubUrl: "https://github.com/Jasin445/houseconnect",
     githubBackendUrl: "https://github.com/Jasin445/house_connect_backend",
