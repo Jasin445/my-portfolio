@@ -159,7 +159,7 @@ These interests aren’t separate from my professional life—they enrich and in
               <div className="relative h-full w-full p-3 bg-gradient-to-br from-blue-500/10 via-transparent to-purple-500/5">
                 <div className="absolute inset-0 bg-slate-900/30 rounded-xl z-10"></div>
                 <img
-                  src="/assets/images/Jason_main2.png"
+                  src="/assets/images/Jason_main2.webp"
                   className="relative h-full w-full object-cover grayscale rounded-xl scale-[1.02] group-hover:scale-[1.06] group-hover:brightness-110 group-hover:contrast-110 transition-all duration-700 ease-out z-0"
                   alt={content?.[activeTab]?.title}
                 />

@@ -76,7 +76,7 @@ const ProfessionalHero = () => {
               <div className="relative bg-card rounded-2xl p-6 shadow-xl border border-border">
                 <div className="aspect-[4/5] rounded-xl overflow-hidden bg-muted">
                   <Image
-                    src="/assets/images/jason.png"
+                    src="/assets/images/jason.webp"
                     alt="Alex Johnson - Frontend Developer"
                     className="w-full h-full object-cover"
                   />

@@ -11,136 +11,63 @@ import Footer from "../../components/Footer";
 import SkillsOverview from "./components/SkillsOverview";
 import ContactCta from "./components/ContactCta";
 import GenericHeroSection from "./components/GenericHero";
-import { useGetAllProjects } from "../../apis/queries";
 import { mockProjects } from "../../data";
+
+const PROJECTS_PER_PAGE = 6;
+
 
 const PortfolioProjects = () => {
   const [selectedProject, setSelectedProject] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [activeFilters, setActiveFilters] = useState([]);
+  const [activeFilter, setActiveFilter] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState("date");
   const [sortOrder, setSortOrder] = useState("desc");
   const [viewMode, setViewMode] = useState("grid");
   const [currentPage, setCurrentPage] = useState(1);
+  const [openFilterDropdown, setOpenFilterDropdown] = useState(false);
 
-  const projectsPerPage = 6;
+  const filterOptions = [
+    { label: "All", value: "all" },
+    { label: "Featured", value: "featured" },
+    { label: "Non Featured", value: "non-featured" },
+    { label: "Completed", value: "completed" },
+  ];
 
-  const { projects, loading, isEmpty, error } = useGetAllProjects();
-  console.log(projects)
-  // const loading = true;
-  // Helper function to determine project type
-  const getProjectType = (project) => {
-    const techs = project?.technologies?.map((t) => t?.toLowerCase()) || [];
-
-    if (techs.some((t) => ["react", "vue.js", "angular"].includes(t))) {
-      return "web-app";
+  // Filter logic
+  const filteredProjects = useMemo(() => {
+    switch (activeFilter) {
+      case "featured":
+        return mockProjects.filter((p) => p.featured);
+      case "non-featured":
+        return mockProjects.filter((p) => !p.featured);
+      case "completed":
+        return mockProjects.filter(
+          (p) => p.status?.toLowerCase() === "completed"
+        );
+      default:
+        return mockProjects;
     }
-    if (techs.some((t) => ["node.js", "express"].includes(t))) {
-      return "api";
-    } ugly
-    return "website";
-  };
+  }, [activeFilter]);
 
-  // Filter and sort projects
-  const filteredAndSortedProjects = useMemo(() => {
-    let filtered = (error || isEmpty) ? mockProjects : projects || [];
-
-    // Apply search filter
-    if (searchQuery) {
-      const query = searchQuery.toLowerCase();
-      filtered = filtered.filter(
-        (project) =>
-          project?.title?.toLowerCase()?.includes(query) ||
-          project?.description?.toLowerCase()?.includes(query) ||
-          project?.technologies?.some((tech) =>
-            tech?.toLowerCase()?.includes(query)
-          )
-      );
-    }
-
-    // Apply category filters
-    if (activeFilters.length > 0) {
-      filtered = filtered.filter((project) => {
-        return activeFilters.every((filter) => {
-          const [category, value] = filter.split(":");
-
-          switch (category) {
-            case "technology":
-              return project?.technologies?.some((tech) =>
-                tech?.toLowerCase()?.includes(value?.toLowerCase())
-              );
-            case "type":
-              return getProjectType(project) === value;
-            case "status":
-              return project?.status === value;
-            default:
-              return true;
-          }
-        });
-      });
-    }
-
-    // Apply sorting
-    
-    if (!Array.isArray(filtered)) {
-      filtered = [];
-    }
-    const sorted =  [...filtered].sort((a, b) => {
-      let aValue, bValue;
-
-      switch (sortBy) {
-        case "title":
-          aValue = a?.title?.toLowerCase() || "";
-          bValue = b?.title?.toLowerCase() || "";
-          break;
-        case "date":
-          aValue = new Date(a?.completedDate || "2024-01-01");
-          bValue = new Date(b?.completedDate || "2024-01-01");
-          break;
-        case "technology":
-          aValue = a?.technologies?.[0] || "";
-          bValue = b?.technologies?.[0] || "";
-          break;
-        case "status":
-          aValue = a?.status || "";
-          bValue = b?.status || "";
-          break;
-        default:
-          return 0;
-      }
-
-      const comparison = aValue > bValue ? 1 : aValue < bValue ? -1 : 0;
-      return sortOrder === "asc" ? comparison : -comparison;
-    });
-
-    return sorted;
-  }, [projects, error, searchQuery, activeFilters, sortBy, sortOrder]);
-
-  // Pagination calculations
-  const totalPages = Math.ceil(
-    filteredAndSortedProjects.length / projectsPerPage
-  );
-  const startIndex = (currentPage - 1) * projectsPerPage;
-  const paginatedProjects = filteredAndSortedProjects.slice(
+  // Pagination calculated from filtered list
+  const totalPages = Math.ceil(filteredProjects.length / PROJECTS_PER_PAGE);
+  const startIndex = (currentPage - 1) * PROJECTS_PER_PAGE;
+  const paginatedProjects = filteredProjects.slice(
     startIndex,
-    startIndex + projectsPerPage
+    startIndex + PROJECTS_PER_PAGE
   );
 
   // Navigation helpers
   const getCurrentProjectIndex = () => {
     return selectedProject
-      ? filteredAndSortedProjects.findIndex(
-          (p) => p?.id === selectedProject?.id
-        )
+      ? filteredProjects.findIndex((p) => p?.id === selectedProject?.id)
       : -1;
   };
 
   const hasNextProject = () => {
     const currentIndex = getCurrentProjectIndex();
-    return (
-      currentIndex >= 0 && currentIndex < filteredAndSortedProjects.length - 1
-    );
+    return currentIndex >= 0 && currentIndex < filteredProjects.length - 1;
   };
 
   const hasPrevProject = () => {
@@ -161,12 +88,10 @@ const PortfolioProjects = () => {
 
   const handleNavigateProject = (direction) => {
     if (!selectedProject) return;
-
     const currentIndex = getCurrentProjectIndex();
     const newIndex = direction === "next" ? currentIndex + 1 : currentIndex - 1;
-
-    if (newIndex >= 0 && newIndex < filteredAndSortedProjects.length) {
-      setSelectedProject(filteredAndSortedProjects[newIndex]);
+    if (newIndex >= 0 && newIndex < filteredProjects.length) {
+      setSelectedProject(filteredProjects[newIndex]);
     }
   };
 
@@ -175,8 +100,17 @@ const PortfolioProjects = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [currentPage])
+
+  const handleFilterSelect = (filter) => {
+    setActiveFilter(filter);
+    setOpenFilterDropdown(false);
+  };
+
   const handleResetFilters = () => {
-    setActiveFilters([]);
+    setActiveFilter("all");
     setSearchQuery("");
     setCurrentPage(1);
   };
@@ -184,12 +118,23 @@ const PortfolioProjects = () => {
   // Reset to page 1 when filters change
   useEffect(() => {
     setCurrentPage(1);
-  }, [searchQuery, activeFilters, sortBy, sortOrder]);
+  }, [activeFilter, searchQuery, sortBy, sortOrder]);
 
-  // Scroll to top on page change
+  // Close dropdown on outside click
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }, [currentPage]);
+    const handleClickOutside = (e) => {
+      if (!e.target.closest("#filter-dropdown")) {
+        setOpenFilterDropdown(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  console.log("currentPage:", currentPage);
+console.log("paginatedProjects length:", paginatedProjects.length);
+console.log("startIndex:", startIndex);
+console.log("filteredProjects length:", filteredProjects.length);
 
   const ProjectCardSkeleton = () => (
     <div className="bg-card rounded-lg border border-gray-500 p-6 animate-pulse">
@@ -223,7 +168,7 @@ const PortfolioProjects = () => {
       <ScrollProgress />
 
       <main>
-        <GenericHeroSection title="Projects" loading={loading} />
+        <GenericHeroSection title="Projects" />
 
         {/* Main Content */}
         <section className="relative py-12 h-full">
@@ -241,17 +186,52 @@ const PortfolioProjects = () => {
                 {/* Controls */}
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
                   <h2 className="text-2xl z-30 font-semibold text-foreground">
-                    {loading
-                      ? "Fetching projects..."
-                      : `${
-                          filteredAndSortedProjects.length || "No"
-                        } Projects found`}
+                    {filteredProjects.length || "No"} Projects found
                   </h2>
+
+                  {/* Filter Dropdown */}
+                  <div id="filter-dropdown" className="relative z-40 rounded-lg w-60">
+                    <button
+                      onClick={() => setOpenFilterDropdown((prev) => !prev)}
+                      className={`cursor-pointer w-full ${
+                        !openFilterDropdown ? "rounded-lg" : "rounded-t-lg"
+                      } text-left bg-[#20203c] px-4 py-3 flex items-center justify-between`}
+                    >
+                      <span>
+                        {filterOptions.find((o) => o.value === activeFilter)?.label ?? "Filter By"}
+                      </span>
+                      <Icon
+                        name={openFilterDropdown ? "ChevronUp" : "ChevronDown"}
+                        size={14}
+                      />
+                    </button>
+
+                    {openFilterDropdown && (
+                      <div className="absolute text-sm rounded-b-lg top-[46px] left-0 bg-[#20203c] pt-2 w-full shadow-xl">
+                        <ul className="flex flex-col">
+                          {filterOptions.map((option, index) => (
+                            <li
+                              key={option.value}
+                              onClick={() => handleFilterSelect(option.value)}
+                              className={`hover:bg-[#4b4b6d] cursor-pointer px-4 py-4 flex items-center justify-between transition-colors
+                                ${index === filterOptions.length - 1 ? "rounded-b-lg" : ""}
+                                ${activeFilter === option.value ? "text-primary" : ""}`}
+                            >
+                              {option.label}
+                              {activeFilter === option.value && (
+                                <Icon name="Check" size={14} className="text-primary" />
+                              )}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                  </div>
                 </div>
+
                 {/* Projects Display */}
                 {paginatedProjects.length > 0 ? (
                   <>
-                    {/* Grid or List View */}
                     {viewMode === "grid" ? (
                       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mb-12">
                         {paginatedProjects.map((project) => (
@@ -274,7 +254,6 @@ const PortfolioProjects = () => {
                       </div>
                     )}
 
-                    {/* Pagination */}
                     {totalPages > 1 && (
                       <div className="flex items-center justify-center space-x-2">
                         <Button
@@ -295,9 +274,7 @@ const PortfolioProjects = () => {
                           ).map((page) => (
                             <Button
                               key={page}
-                              variant={
-                                currentPage === page ? "default" : "ghost"
-                              }
+                              variant={currentPage === page ? "default" : "ghost"}
                               size="sm"
                               onClick={() => handlePageChange(page)}
                               className="w-10"
@@ -321,14 +298,8 @@ const PortfolioProjects = () => {
                       </div>
                     )}
                   </>
-                ) : loading ? (
-                  <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mb-12">
-                    {[1, 2, 3, 4, 5, 6].map((i) => (
-                      <ProjectCardSkeleton key={i} />
-                    ))}
-                  </div>
                 ) : (
-                  <div className="relative text-center py-16 ">
+                  <div className="relative text-center py-16">
                     <Icon
                       name="Search"
                       size={48}
@@ -338,8 +309,7 @@ const PortfolioProjects = () => {
                       No projects found
                     </h3>
                     <p className="text-muted-foreground mb-6">
-                      Try adjusting your search criteria or clearing the
-                      filters.
+                      Try adjusting your search criteria or clearing the filters.
                     </p>
                     <Button
                       variant="outline"

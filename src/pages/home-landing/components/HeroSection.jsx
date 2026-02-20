@@ -238,7 +238,7 @@ const HeroSection = () => {
                 <div className="absolute w-full h-full z-10 group-hover:opacity-50 transition-opacity duration-300"></div>
 
                 <Image
-                  src="./assets/images/jason.png"
+                  src="./assets/images/jason.webp"
                   alt="Jason Dagana - Frontend Developer"
                   title="Jason Dagana | Frontend Developer"
                   width={800}
@@ -247,12 +247,12 @@ const HeroSection = () => {
                 />
 
                 {/* Animated border */}
-                <div className="absolute inset-0 rounded-full border-2 bg-cover bg-center border-transparent bg-gradient-to-br from-[#1d2427] via-card to-[#494f59] opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-spin-slow group-hover:animate-none">
-                  <div className="absolute -top-9 inset-0 flex items-center justify-center bg-[url('/assets/logo.png')] bg-contain bg-no-repeat bg-center !opacity-0 !transition-opacity delay-200 !duration-300 group-hover:!opacity-30">
-                    <div className="absolute inset-0 bg-gradient-to-br from-black/40 via-transparent to-black/40"></div>
+                <div className="absolute inset-0 rounded-full border-2 bg-cover bg-center border-transparent bg-gradient-to-br from-[#c9cccd] via-card to-[#c4c8cf] opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-spin-slow group-hover:animate-none">
+                  <div className="absolute -top-9 inset-0 flex items-center justify-center bg-[url('/assets/logo.png')] bg-contain bg-no-repeat bg-center !opacity-0 !transition-opacity delay-200 !duration-300 group-hover:!opacity-90">
+                    <div className="absolute inset-0 bg-gradient-to-br from-black/10 via-transparent to-black/10"></div>
                   </div>
 
-                  <p className="absolute flex inset-0 justify-center items-center opacity-50 text-center hover-glow-1 text-white/50 drop-shadow-[#118afc] transition-all duration-700 translate-y-[80%] delay-300 group-hover:translate-y-[20%] text-sm font-medium mt-4 tracking-wide">
+                  <p className="absolute flex inset-0 justify-center items-center opacity-90 text-center hover-glow-1 text-white/50 drop-shadow-[#118afc] transition-all duration-700 translate-y-[80%] delay-300 group-hover:translate-y-[20%] text-sm font-medium mt-4 tracking-wide">
                     More than just a name, <br /> a digital experience.
                   </p>
                 </div>

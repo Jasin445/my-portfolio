@@ -7,28 +7,25 @@ import { mockProjects } from "../../../data";
 import { useGetAllProjects } from "../../../apis/queries";
 
 const FeaturedProjects = () => {
-  const { projects, loading, isEmpty, error } = useGetAllProjects();
-  const featuredMockProjects = mockProjects?.filter(
-    (projects) => projects?.featured
-  );
-  const filteredProjects = projects?.filter((projects) => projects?.featured);
-  const navigate = useNavigate();
+  // const { projects, loading, isEmpty, error } = useGetAllProjects();
+  const featuredMockProjects = mockProjects?.filter((p) => p?.featured);
+  // const filteredProjects = projects?.filter((p) => p?.featured);
+  // const navigate = useNavigate();
+
+  console.log(featuredMockProjects)
 
   const handleNavigate = (url) => {
     if (!url) return;
-
-    // Check if it's an external URL
     if (url.startsWith("http://") || url.startsWith("https://")) {
       window.open(url, "_blank");
     } else {
-      // Internal route
       navigate(url);
     }
   };
 
-  let featuredProjects =
-    isEmpty || error ? featuredMockProjects : filteredProjects;
-  featuredProjects = featuredProjects?.splice(0, 4) || [];
+  // let featuredProjects =
+  //   isEmpty || error ? featuredMockProjects : filteredProjects;
+  let featuredProjects = featuredMockProjects?.slice(0, 4) || [];
 
   return (
     <section
@@ -48,51 +45,71 @@ const FeaturedProjects = () => {
 
       <div className="relative max-w-6xl mx-auto px-6 sm:px-12">
         {/* Section Header */}
-        <div className="text-center mb-16">
-          <div
-            className="inline-flex items-center px-4 py-2 
-                      bg-primary/10 text-primary rounded-full text-sm font-medium mb-4
-                      ring-1 ring-primary/20 backdrop-blur-sm"
-          >
-            <Icon name="Star" size={16} className="mr-2" />
-            Featured Work
+        <div className="mb-16">
+          <div className="flex items-center justify-center gap-3 mb-8">
+            <div
+              className="inline-flex items-center justify-center px-4 py-2 
+                        bg-primary/10 text-primary rounded-full text-sm font-medium
+                        ring-1 ring-primary/20 backdrop-blur-sm"
+            >
+              <Icon name="Star" size={16} className="mr-2" />
+              Featured Work
+            </div>
+            {/* <div className="flex-1 h-px bg-gradient-to-r from-primary/30 to-transparent" /> */}
           </div>
 
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Selected Projects
-          </h2>
+          <div className="flex flex-col md:items-center justify-center gap-6">
+            <div>
+              <h2 className="text-4xl md:text-5xl font-bold text-foreground leading-tight tracking-tight mb-3 text-center">
+                Selected{" "}
+                <span className="relative inline-block">
+                  Projects
+                  <span className="absolute -bottom-1 left-0 w-full h-[3px] bg-gradient-to-r from-primary to-transparent rounded-full" />
+                </span>
+              </h2>
+              <p className="text-lg text-foreground max-w-xl leading-relaxed opacity-80">
+                A showcase of my recent work demonstrating expertise in modern
+                web technologies and user-centered design principles.
+              </p>
+            </div>
 
-          <p className="text-lg text-foreground max-w-2xl mx-auto">
-            A showcase of my recent work demonstrating expertise in modern web
-            technologies and user-centered design principles.
-          </p>
+            
+          </div>
         </div>
 
         {/* Projects Grid */}
-        {loading ? (
-          <div className="h-32 flex justify-center items-center">
-            <div className="w-20 h-20 rounded-full animate-spin border border-white border-t-blue-500"></div>
+        {/* {loading ? ( */}
+          {/* <div className="h-32 flex justify-center items-center">
+            <div className="w-20 h-20 rounded-full animate-spin border border-white border-t-blue-500" />
           </div>
-        ) : (
-          <div className="grid md:grid-cols-2 gap-8 mb-12">
+        ) : ( */}
+          <div className="grid md:grid-cols-2 gap-6 mb-12">
             {featuredProjects?.map((project, index) => (
               <div
                 key={project?.id}
-                className="group bg-[#2a363c]/80 text-secondary rounded-xl overflow-hidden shadow-2xl border transition-all duration-slow hover:-translate-y-1"
+                className="group bg-[#2a363c]/80 text-secondary rounded-2xl overflow-hidden shadow-2xl border border-white/5 transition-all duration-500 hover:-translate-y-2 hover:border-primary/20 hover:shadow-[0_24px_48px_-12px_rgba(0,0,0,0.5)]"
               >
                 {/* Project Image */}
                 <div className="relative h-56 overflow-hidden">
                   <Image
                     src={project?.image}
                     alt={`Screenshot of ${project?.title} project`}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-slow"
+                    className="w-full h-full object-cover transition-transform duration-700"
                   />
 
-                  {/* Overlay */}
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-slow" />
+                  {/* Bottom gradient so content reads on image */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#2a363c]/90 via-transparent to-transparent" />
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-500" />
+
+                  {/* Category Badge */}
+                  <div className="absolute top-4 left-4">
+                    <span className="px-3 py-1 bg-primary/90 backdrop-blur-sm text-white text-xs font-medium rounded-full shadow-lg">
+                      {project?.category}
+                    </span>
+                  </div>
 
                   {/* Quick Actions */}
-                  <div className="absolute top-4 right-4 flex space-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-slow">
+                  <div className="absolute top-4 right-4 flex space-x-2 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-1 group-hover:translate-y-0">
                     <Button
                       onClick={() => navigate(project?.liveUrl)}
                       variant="secondary"
@@ -102,7 +119,6 @@ const FeaturedProjects = () => {
                     >
                       <Icon name="ExternalLink" size={14} />
                     </Button>
-
                     <Button
                       variant="secondary"
                       size="icon"
@@ -113,61 +129,60 @@ const FeaturedProjects = () => {
                     </Button>
                   </div>
 
-                  {/* Category Badge */}
-                  <div className="absolute top-4 left-4">
-                    <span className="px-3 py-1 bg-primary/90 text-white text-xs font-medium rounded-full">
-                      {project?.category}
-                    </span>
+                  {/* Ghost index number */}
+                  <div className="absolute bottom-3 right-4 text-white/[0.07] font-black text-6xl leading-none select-none">
+                    {String(index + 1).padStart(2, "0")}
                   </div>
                 </div>
 
                 {/* Project Content */}
                 <div className="p-6">
                   <div className="mb-4">
-                    <h3 className="text-xl font-semibold text-foreground mb-2 group-hover:text-primary transition-colors duration-fast">
+                    <h3 className="text-xl font-semibold text-foreground mb-2 transition-colors duration-300">
                       {project?.title}
                     </h3>
-
-                    <p className="text-sm text-foreground leading-relaxed">
+                    <p className="text-sm text-foreground leading-relaxed opacity-80 line-clamp-2">
                       {project?.description}
                     </p>
                   </div>
 
                   {/* Technologies */}
-                  <div className="flex flex-wrap gap-2 mb-4">
+                  <div className="flex flex-wrap gap-2 mb-5">
                     {project?.technologies?.map((tech) => (
                       <span
                         key={tech}
-                        className="px-2 py-1 !bg-[#2c373d] text-foreground text-xs rounded-md"
+                        className="px-2.5 py-1 bg-white/5 border border-white text-foreground text-xs rounded-lg opacity-80 hover:opacity-100 hover:border-primary/30 transition-all duration-200"
                       >
                         {tech}
                       </span>
                     ))}
                   </div>
 
+                  {/* Divider */}
+                  <div className="h-px bg-white/5 mb-4" />
+
                   {/* Actions */}
                   <div className="flex items-center justify-between">
-                    <div className="flex space-x-3">
+                    <div className="flex space-x-1">
                       {project?.liveUrl && (
                         <Button
                           variant="ghost"
                           size="sm"
                           iconName="ExternalLink"
                           iconPosition="left"
-                          className="text-xs text-foreground"
+                          className="text-xs text-foreground opacity-80 hover:opacity-100 hover:text-primary"
                           onClick={() => handleNavigate(project?.liveUrl)}
                         >
                           Live Demo
                         </Button>
                       )}
-
                       {project?.githubUrl && (
                         <Button
                           variant="ghost"
                           size="sm"
                           iconName="Github"
                           iconPosition="left"
-                          className="text-xs text-foreground"
+                          className="text-xs text-foreground opacity-80 hover:opacity-100"
                           onClick={() => handleNavigate(project?.githubUrl)}
                         >
                           Code
@@ -175,12 +190,8 @@ const FeaturedProjects = () => {
                       )}
                     </div>
 
-                    <div className="flex items-center text-xs text-foreground">
-                      <Icon
-                        name="CheckCircle"
-                        size={14}
-                        className="mr-1 text-primary"
-                      />
+                    <div className="flex items-center gap-1.5 text-xs text-foreground opacity-80">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 opacity-100" />
                       {project?.status}
                     </div>
                   </div>
@@ -188,10 +199,10 @@ const FeaturedProjects = () => {
               </div>
             ))}
           </div>
-        )}
+        {/* )} */}
 
         {/* View All Projects CTA */}
-        {!loading && (
+        {/* {!loading && ( */}
           <div className="text-center">
             <Button
               size="lg"
@@ -204,7 +215,7 @@ const FeaturedProjects = () => {
               </Link>
             </Button>
           </div>
-        )}
+        {/* )} */}
       </div>
     </section>
   );

@@ -5,7 +5,7 @@ const GenericHeroSection = ({title, message="Scroll to view some of my astonishi
   return (
      <section className="md:h-[500px] bg-[url('/assets/images/project-background.jpg')] bg-cover bg-center">
           <div className="relative h-full">
-            <div  className={"absolute inset-x-0 bottom-1 top-52 z-40 translate-y-[100%]"}>
+            <div  className={"absolute inset-x-0 bottom-1 top-52 z-20 translate-y-[100%]"}>
 
             <CarTransition message={message}/>
             </div>
