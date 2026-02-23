@@ -4,7 +4,7 @@ const Footer = ({lightweight}) => {
   if (lightweight) {
     return (
     <footer className="bg-gradient-to-b from-[#2a363c] to-background border-t border-border py-8">
-      <div className="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         
         {/* Brand */}
         <div className="flex items-center space-x-2">
@@ -34,7 +34,7 @@ const Footer = ({lightweight}) => {
 
   return (
     <footer className="bg-gradient-to-b from-[#2a363c] to-background border-t border-border py-12">
-      <div className="4xl:max-w-7xl 3xl:max-w-7xl max-w-6xl mx-auto px-6">
+      <div className="4xl:max-w-7xl 3xl:max-w-7xl max-w-6xl mx-auto px-4 sm:px-6">
         <div className="grid md:grid-cols-3 gap-8 mb-8">
           {/* Brand */}
           <div className="space-y-4">

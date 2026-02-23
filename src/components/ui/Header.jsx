@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import Icon from "../AppIcon";
-import Button from "./Button";
 import Image from "../AppImage";
 
 const Header = () => {
@@ -13,7 +12,6 @@ const Header = () => {
     { label: "Home", path: "/", icon: "Home" },
     { label: "Projects", path: "/projects", icon: "Briefcase" },
     { label: "About", path: "/about-professional", icon: "User" },
-    // { label: "Blog", path: "/technical-blog", icon: "FileText" },
     { label: "Contact", path: "/contact-connect", icon: "Mail" },
   ];
 
@@ -21,7 +19,6 @@ const Header = () => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 10);
     };
-
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -30,8 +27,20 @@ const Header = () => {
     setIsMobileMenuOpen(false);
   }, [location?.pathname]);
 
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isMobileMenuOpen]);
+
   const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
+    setIsMobileMenuOpen((prev) => !prev);
   };
 
   const isActivePath = (path) => {
@@ -42,22 +51,22 @@ const Header = () => {
     <>
       <header
         className={`fixed top-0 left-0 right-0 py-4 z-50 transition-all duration-normal ${
-          scrolled
-            ? "bg-background/95 backdrop-blur-sm shadow-sm "
+          scrolled || isMobileMenuOpen
+            ? "bg-background/95 backdrop-blur-sm shadow-sm"
             : "bg-transparent"
         }`}
       >
-        <nav className="flex items-center justify-between h-16 sm:px-6 4xl:max-w-9xl 3xl:max-w-8xl max-w-7xl mx-auto">
+        <nav className="flex items-center justify-between h-16 px-4 sm:px-6 4xl:max-w-9xl 3xl:max-w-8xl max-w-7xl mx-auto">
           {/* Logo */}
           <Link
             to="/"
             className="flex items-center space-x-2 group"
-            aria-label="DevPortfolio Pro - Home"
+            aria-label="Jason Dagana - Home"
           >
             <div className="w-20 h-20 bg-transparent rounded-lg flex items-center justify-center group-hover:scale-105 transition-transform duration-fast">
               <Image src={"/assets/logo.png"} alt={"Logo"} />
             </div>
-            <span className="text-3xl font-semibold text-foreground group-hover:text-primary transition-colors duration-fast">
+            <span className="text-2xl sm:text-3xl font-semibold text-foreground group-hover:text-primary transition-colors duration-fast">
               Jason Dagana
             </span>
           </Link>
@@ -74,13 +83,6 @@ const Header = () => {
                 aria-current={isActivePath(item?.path) ? "page" : undefined}
               >
                 <span className="flex items-center space-x-2">
-                  {/* <Icon 
-                    name={item?.icon} 
-                    size={16} 
-                    className={`transition-colors duration-fast ${
-                      isActivePath(item?.path) ? 'text-primary' : 'text-current'
-                    }`}
-                  /> */}
                   <span
                     className={`text-[16px] ${
                       item.label === "Contact"
@@ -91,28 +93,49 @@ const Header = () => {
                     {item?.label}
                   </span>
                 </span>
-
                 <div
                   className={`absolute bottom-0 hidden ${
-                    item.label === "Contact" ? "hidden" : "group-hover:block "
-                  } left-1/2 transform -translate-x-1/2 w-1 h-1 bg-primary rounded-full `}
+                    item.label === "Contact" ? "hidden" : "group-hover:block"
+                  } left-1/2 transform -translate-x-1/2 w-1 h-1 bg-primary rounded-full`}
                 />
               </Link>
             ))}
           </div>
 
-          {/* Theme Toggle & Mobile Menu Button */}
+          {/* Hamburger Button — mobile only */}
+          <button
+            onClick={toggleMobileMenu}
+            className="md:hidden flex flex-col justify-center items-center w-10 h-10 rounded-lg hover:bg-muted transition-colors duration-fast focus:outline-none"
+            aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={isMobileMenuOpen}
+          >
+            <span
+              className={`block w-5 h-0.5 bg-foreground rounded-full transition-all duration-300 ${
+                isMobileMenuOpen ? "rotate-45 translate-y-1.5" : ""
+              }`}
+            />
+            <span
+              className={`block w-5 h-0.5 bg-foreground rounded-full transition-all duration-300 my-1 ${
+                isMobileMenuOpen ? "opacity-0 scale-x-0" : ""
+              }`}
+            />
+            <span
+              className={`block w-5 h-0.5 bg-foreground rounded-full transition-all duration-300 ${
+                isMobileMenuOpen ? "-rotate-45 -translate-y-1.5" : ""
+              }`}
+            />
+          </button>
         </nav>
 
         {/* Mobile Navigation Menu */}
         <div
-          className={`md:hidden absolute top-full left-0 right-0 bg-background border-b border-border shadow-lg transition-all duration-slow ${
+          className={`md:hidden absolute top-full left-0 right-0 bg-background/95 backdrop-blur-sm border-b border-border shadow-lg transition-all duration-300 h-screen ${
             isMobileMenuOpen
-              ? "opacity-100 translate-y-0"
+              ? "opacity-100 translate-y-0 pointer-events-auto"
               : "opacity-0 -translate-y-2 pointer-events-none"
           }`}
         >
-          <div className="px-6 py-4 space-y-2">
+          <div className="px-4 sm:px-6 py-4 space-y-2">
             {navigationItems?.map((item) => (
               <Link
                 key={item?.path}
@@ -140,10 +163,11 @@ const Header = () => {
           </div>
         </div>
       </header>
+
       {/* Mobile Menu Overlay */}
       {isMobileMenuOpen && (
         <div
-          className="fixed inset-0 bg-black/20 z-40 md:hidden"
+          className="fixed inset-0 bg-black z-40 md:hidden"
           onClick={toggleMobileMenu}
           aria-hidden="true"
         />
@@ -151,6 +175,8 @@ const Header = () => {
     </>
   );
 };
+
+export default Header;
 
 const ThemeToggle = () => {
   const [isDark, setIsDark] = useState(false);
@@ -191,4 +217,3 @@ const ThemeToggle = () => {
   );
 };
 
-export default Header;

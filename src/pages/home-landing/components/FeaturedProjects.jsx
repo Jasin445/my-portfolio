@@ -29,7 +29,7 @@ const FeaturedProjects = () => {
 
   return (
     <section
-      className="relative py-20 
+      className="relative py-12 sm:py-20 
               bg-gradient-to-b from-[#2a363c] via-[#131426]/95 to-[#2a363c]/90"
     >
       <div
@@ -43,7 +43,7 @@ const FeaturedProjects = () => {
 
       <CarTransition />
 
-      <div className="relative max-w-6xl mx-auto px-6 sm:px-12">
+      <div className="relative max-w-6xl mx-auto px-4 sm:px-12">
         {/* Section Header */}
         <div className="mb-16">
           <div className="flex items-center justify-center gap-3 mb-8">
@@ -60,14 +60,14 @@ const FeaturedProjects = () => {
 
           <div className="flex flex-col md:items-center justify-center gap-6">
             <div>
-              <h2 className="text-4xl md:text-5xl font-bold text-foreground leading-tight tracking-tight mb-3 text-center">
-                Selected{" "}
-                <span className="relative inline-block">
-                  Projects
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground leading-tight tracking-tight mb-3 text-center">
+                Selected
+                <span className="ml-2 sm:ml-3 relative inline-block">
+                   Projects
                   <span className="absolute -bottom-1 left-0 w-full h-[3px] bg-gradient-to-r from-primary to-transparent rounded-full" />
                 </span>
               </h2>
-              <p className="text-lg text-foreground max-w-xl leading-relaxed opacity-80">
+              <p className="text-lg text-center text-foreground max-w-xl leading-relaxed opacity-80">
                 A showcase of my recent work demonstrating expertise in modern
                 web technologies and user-centered design principles.
               </p>

@@ -5,7 +5,7 @@ import Icon from '../../../components/AppIcon';
 const ProfessionalHero = () => {
   return (
     <section className="relative bg-gradient-to-br from-primary/5 via-background to-accent/5 py-16 ">
-      <div className=" mx-auto px-6">
+      <div className=" mx-auto px-4 sm:px-6">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Content */}
           <div className="space-y-8">

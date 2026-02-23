@@ -133,7 +133,7 @@ const ProjectInquiry = () => {
 
             {/* Expanded Content */}
             {selectedInquiry?.id === inquiry?.id && (
-              <div className="px-6 pb-6 bg-muted/20 border-t border-border">
+              <div className="px-4 sm:px-6 pb-6 bg-muted/20 border-t border-border">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
                   {/* Features */}
                   <div>

@@ -83,14 +83,14 @@ const HeroSection = () => {
         ></div>
       </div>
 
-      <div className="relative z-10 4xl:max-w-9xl 3xl:max-w-8xl max-w-7xl w-full mx-auto px-6 sm:px-12 py-20">
+      <div className="relative z-10 4xl:max-w-9xl 3xl:max-w-8xl max-w-7xl w-full mx-auto px-4 sm:px-12 py-20">
         <div className="grid lg:grid-cols-[60%_40%] gap-12 items-center">
           {/* Enhanced Content */}
           <div className="space-y-8 text-center lg:text-left">
             <div className="space-y-6">
               {/* Enhanced Badge */}
               <div
-                className={`inline-flex items-center px-6 py-1 bg-gradient-to-r from-primary/20 mt-9 to-blue-500/20 text-primary rounded-full text-sm font-medium border border-primary/20 backdrop-blur-sm shadow-lg transform transition-all duration-700 hover:scale-105 hover:shadow-primary/20 hover:shadow-xl ${
+                className={`inline-flex items-center px-4 sm:px-6 py-1 bg-gradient-to-r from-primary/20 mt-9 to-blue-500/20 text-primary rounded-full text-sm font-medium border border-primary/20 backdrop-blur-sm shadow-lg transform transition-all duration-700 hover:scale-105 hover:shadow-primary/20 hover:shadow-xl ${
                   isVisible
                     ? "translate-y-0 opacity-100"
                     : "translate-y-4 opacity-0"
@@ -107,9 +107,9 @@ const HeroSection = () => {
               </div>
 
               {/* Typewriter Title */}
-              <div className="min-h-[200px] lg:min-h-[180px]">
+              <div className=" lg:min-h-[180px]">
                 <h1
-                  className={`text-4xl md:text-7xl lg:text-[48px] 3xl:text-[4vw] lg:leading-tight font-normal text-foreground tracking-widest leading-tight transform transition-all duration-1000 ${
+                  className={`text-3xl sm:text-5xl lg:text-5xl lg:text-[48px] 3xl:text-[4vw] lg:leading-tight font-normal text-foreground tracking-widest leading-tight transform transition-all duration-1000 ${
                     isVisible
                       ? "translate-y-0 opacity-100"
                       : "translate-y-8 opacity-0"
@@ -129,7 +129,7 @@ const HeroSection = () => {
               </div>
 
               <p
-                className={`text-lg md:text-xl text-muted-foreground !mt-0 max-w-2xl pt-2 leading-relaxed transform transition-all duration-1000 delay-300 ${
+                className={`text-lg md:text-xl text-muted-foreground !mt-0 max-w-2xl mx-auto pt-2 leading-relaxed transform transition-all duration-1000 delay-300 ${
                   isVisible
                     ? "translate-y-0 opacity-100"
                     : "translate-y-8 opacity-0"

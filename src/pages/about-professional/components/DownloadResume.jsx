@@ -12,7 +12,7 @@ const DownloadResume = () => {
   return (
     <section className="relative py-16 lg:py-24 bg-gradient-to-b from-[#2a363c] via-[#182330] to-muted/20 to-[#2a363c] border-blue-50/40 border-t-2">
       {/* <div className='absolute -top-7 left-0 bg-gradient-to-b from-[#2a363c] via-[#182330] to-[#2a363c] backdrop-blur-sm to-slate-80/40 w-full h-[9%]'></div> */}
-      <div className="max-w-3xl mx-auto px-6 text-center">
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center">
         <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
           Download My Resume
         </h2>

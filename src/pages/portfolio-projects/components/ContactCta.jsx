@@ -12,7 +12,7 @@ const ContactCta = () => {
         <div className="absolute bg-red-400/25 h-40 w-20 rounded-full blur-[120px] right-[8%] top-[10%]"></div>
       </div>
 
-      <div className="relative max-w-4xl mx-auto px-6 text-center">
+      <div className="relative max-w-4xl mx-auto px-4 sm:px-6 text-center">
         {/* Heading */}
         <h2 className="text-3xl md:text-4xl font-bold text-secondary-foreground mb-4">
           Let’s Solve the Hard Problems

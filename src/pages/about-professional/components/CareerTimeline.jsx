@@ -102,7 +102,7 @@ const CareerTimeline = () => {
 
   return (
     <section className="py-16 lg:py-24 bg-muted/30">
-      <div className="max-w-6xl mx-auto px-6">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="text-center mb-16">
           <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
             Career Journey

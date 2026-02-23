@@ -36,7 +36,7 @@ const TestimonialSection = () => {
         <div className="absolute top-[18%] right-0 bg-gradient-to-r from-muted opacity-50 rounded-full w-40 h-40 via-muted to-muted blur-3xl animate-pulse-slow"></div>
         <div className="absolute top-[60%] -left-10 bg-gradient-to-r from-muted opacity-70 rounded-full w-40 h-40 via-muted to-muted blur-3xl animate-float" />
         <div className="absolute top-[5%] right-[50%] bg-gradient-to-r from-[#4e575d] opacity-70 rounded-full w-40 h-40 via-[#4e575d] to-[#4e575d] blur-3xl animate-pulse-slow"></div>
-        <div className="max-w-6xl mx-auto px-6 text-center">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center">
           {/* Section Header */}
           <div className="mb-8">
             <span className="inline-flex items-center px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium mb-2">

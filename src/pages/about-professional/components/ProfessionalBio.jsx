@@ -58,7 +58,7 @@ These interests aren’t separate from my professional life—they enrich and in
     className = "",
   }) => {
     const baseStyles =
-      "px-6 py-3 rounded-lg font-medium transition-all duration-300 flex items-center gap-2 hover:scale-105";
+      "px-4 sm:px-6 py-3 rounded-lg font-medium transition-all duration-300 flex items-center gap-2 hover:scale-105";
     const variants = {
       default:
         "bg-primary text-white hover:bg-primary/95 shadow-lg shadow-primary/30",
@@ -88,7 +88,7 @@ These interests aren’t separate from my professional life—they enrich and in
         ></div>
       </div>
 
-      <div className="max-w-6xl mx-auto px-6 relative z-10">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
         {/* Header Section */}
         <div className="text-center mb-16">
           <div className=" mb-4">

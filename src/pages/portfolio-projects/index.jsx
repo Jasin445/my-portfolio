@@ -179,7 +179,7 @@ console.log("filteredProjects length:", filteredProjects.length);
             <div className="absolute inset-x-0 bg-gradient-to-b from-[#131426]/90 via-[#2a363c] to-[#131426]/60 blur-[340px] z-40 h-20 -bottom-10 translate-y-14" />
           </div>
 
-          <div className="4xl:max-w-7xl 3xl:max-w-7xl max-w-6xl mx-auto px-6">
+          <div className="4xl:max-w-7xl 3xl:max-w-7xl max-w-6xl mx-auto px-4 sm:px-6">
             <div className="flex flex-col lg:flex-row gap-8">
               {/* Main Content Area */}
               <div className="flex-1 min-w-0 py-8">
@@ -190,7 +190,7 @@ console.log("filteredProjects length:", filteredProjects.length);
                   </h2>
 
                   {/* Filter Dropdown */}
-                  <div id="filter-dropdown" className="relative z-40 rounded-lg w-60">
+                  <div id="filter-dropdown" className="relative z-20 rounded-lg w-60">
                     <button
                       onClick={() => setOpenFilterDropdown((prev) => !prev)}
                       className={`cursor-pointer w-full ${

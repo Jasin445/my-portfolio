@@ -183,7 +183,7 @@ const ContactConnect = () => {
             />
           </section>
         </div>
-        <section className="relative max-w-7xl mx-auto py-28 px-6 z-20">
+        <section className="relative max-w-7xl mx-auto py-28 px-4 sm:px-6 z-20">
           <div className="absolute inset-0 pointer-events-none -z-10">
             <div className="absolute inset-0 bg-gradient-to-b from-[#2a363c]/90 via-[#131426] to-[#2a363c]/90 blur-[10px]" />
             <div className="absolute inset-x-0 bg-gradient-to-b from-[#131426]/70 to-[#2a363c] h-20 blur-xl bottom-0 translate-y-4"></div>

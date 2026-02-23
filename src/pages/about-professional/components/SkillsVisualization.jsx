@@ -96,7 +96,7 @@ const SkillsVisualization = () => {
 
   return (
     <section className="py-16 lg:py-24 bg-background">
-      <div className="max-w-6xl mx-auto px-6">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="text-center mb-16">
           <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
             Skills & Expertise
@@ -112,7 +112,7 @@ const SkillsVisualization = () => {
             <button
               key={key}
               onClick={() => setActiveCategory(key)}
-              className={`flex items-center space-x-2 px-6 py-3 rounded-lg font-medium transition-all duration-normal ${
+              className={`flex items-center space-x-2 px-4 sm:px-6 py-3 rounded-lg font-medium transition-all duration-normal ${
                 activeCategory === key
                   ? 'bg-primary text-primary-foreground shadow-md'
                   : 'bg-card text-muted-foreground hover:text-foreground hover:bg-muted border border-border'
