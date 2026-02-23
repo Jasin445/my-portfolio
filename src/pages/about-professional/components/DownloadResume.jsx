@@ -3,9 +3,11 @@ import Button from '../../../components/ui/Button';
 
 const DownloadResume = () => {
   const handleDownload = () => {
-    // Trigger actual file download here
-    window.open('/assets/Jason_Dagana_CV (1).pdf', '_blank');
-  };
+  const link = document.createElement('a');
+  link.href = '/assets/Jason_Dagana_CV.pdf';
+  link.download = 'Jason_Dagana_Resume.pdf';
+  link.click();
+};
 
   return (
     <section className="relative py-16 lg:py-24 bg-gradient-to-b from-[#2a363c] via-[#182330] to-muted/20 to-[#2a363c] border-blue-50/40 border-t-2">

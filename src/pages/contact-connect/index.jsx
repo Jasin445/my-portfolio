@@ -17,7 +17,7 @@ const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
 const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
 
 const ContactConnect = () => {
-    const { toasts, toast, removeToast } = useToast();
+  const { toasts, toast, removeToast } = useToast();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -29,30 +29,30 @@ const ContactConnect = () => {
     {
       name: "LinkedIn",
       icon: "Linkedin",
-      url: "https://linkedin.com/in/alexjohnson-dev",
+      url: "https://www.linkedin.com/in/jason-dagana-73a470317/",
       color: "text-blue-600",
-      followers: "2.5K",
+      followers: "Let's connect",
     },
     {
       name: "GitHub",
       icon: "Github",
-      url: "https://github.com/alexjohnson-dev",
-      color: "text-gray-800",
-      followers: "1.8K",
+      url: "https://github.com/Jasin445",
+      color: "text-gray-300",
+      followers: "Follow me",
     },
     {
       name: "Twitter",
       icon: "Twitter",
-      url: "https://twitter.com/alexjohnson_dev",
+      url: "#",
       color: "text-blue-400",
       followers: "950",
     },
     {
-      name: "Email",
-      icon: "Mail",
-      url: "mailto:alex@devportfolio.com",
-      color: "text-red-500",
-      followers: "Direct",
+      name: "WhatsApp",
+      icon: "MessageCircle",
+      url: "https://wa.me/2349013642811",
+      color: "text-green-500",
+      followers: "Chat me",
     },
   ];
 
@@ -68,7 +68,7 @@ const ContactConnect = () => {
     e?.preventDefault();
     setIsSubmitting(true);
 
-        const loadingId = toast.loading("Sending your message...");
+    const loadingId = toast.loading("Sending your message...");
 
     try {
       await emailJs.send(
@@ -210,7 +210,6 @@ const ContactConnect = () => {
                   together.
                 </p>
               </div>
-
               {/* Contact Methods */}
               <div className="space-y-4">
                 <div className="flex items-center space-x-4 p-4 bg-[#2a363c]/80  overflow-hidden rounded-lg border border-border">
@@ -249,7 +248,6 @@ const ContactConnect = () => {
                   </div>
                 </div>
               </div>
-
               {/* Social Links */}
               {/* <div>
       <h3 className="font-semibold text-foreground mb-4">
@@ -286,32 +284,43 @@ const ContactConnect = () => {
         ))}
       </div>
     </div> */}
-
               {/* Quick Action */}
-              <div className="p-6 bg-primary/5 rounded-xl border border-primary/20">
-                <div className="flex items-start space-x-4">
-                  <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <Icon name="Calendar" size={20} className="text-primary" />
-                  </div>
-                  <div className="flex-1">
-                    <h4 className="font-semibold text-foreground mb-2">
-                      Schedule a Call
-                    </h4>
-                    <p className="text-sm text-muted-foreground mb-4">
-                      Prefer to talk? Let's schedule a 30-minute call to discuss
-                      your project needs.
-                    </p>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      iconName="Calendar"
-                      iconPosition="left"
+              {/* Social Links */}
+              <div>
+                <h3 className="font-semibold text-foreground mb-4">
+                  Connect With Me
+                </h3>
+                <div className="grid grid-cols-2 gap-3">
+                  {socialLinks?.map((social) => (
+                    <a
+                      key={social?.name}
+                      href={social?.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center space-x-3 p-3 bg-[#2a363c]/80 overflow-hidden rounded-lg border border-border hover:shadow-md transition-all duration-fast group"
                     >
-                      Book a Meeting
-                    </Button>
-                  </div>
+                      <Icon
+                        name={social?.icon}
+                        size={20}
+                        className={`${social?.color} group-hover:scale-110 transition-transform duration-fast`}
+                      />
+                      <div className="flex-1 min-w-0">
+                        <div className="font-medium text-foreground text-sm">
+                          {social?.name}
+                        </div>
+                        <div className="text-xs text-muted-foreground">
+                          {social?.followers}
+                        </div>
+                      </div>
+                      <Icon
+                        name="ExternalLink"
+                        size={14}
+                        className="text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-fast"
+                      />
+                    </a>
+                  ))}
                 </div>
-              </div>
+              </div>{" "}
             </div>
 
             {/* Contact Form */}

@@ -195,7 +195,7 @@ console.log("filteredProjects length:", filteredProjects.length);
                       onClick={() => setOpenFilterDropdown((prev) => !prev)}
                       className={`cursor-pointer w-full ${
                         !openFilterDropdown ? "rounded-lg" : "rounded-t-lg"
-                      } text-left bg-[#20203c] px-4 py-3 flex items-center justify-between`}
+                      } text-left bg-[#1b202f] px-4 py-3 flex items-center justify-between`}
                     >
                       <span>
                         {filterOptions.find((o) => o.value === activeFilter)?.label ?? "Filter By"}
@@ -207,7 +207,7 @@ console.log("filteredProjects length:", filteredProjects.length);
                     </button>
 
                     {openFilterDropdown && (
-                      <div className="absolute text-sm rounded-b-lg top-[46px] left-0 bg-[#20203c] pt-2 w-full shadow-xl">
+                      <div className="absolute text-sm rounded-b-lg top-[46px] left-0 bg-[#1b202f] pt-2 w-full shadow-xl">
                         <ul className="flex flex-col">
                           {filterOptions.map((option, index) => (
                             <li
