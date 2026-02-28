@@ -83,7 +83,7 @@ const HeroSection = () => {
         ></div>
       </div>
 
-      <div className="relative z-10 4xl:max-w-9xl 3xl:max-w-8xl max-w-7xl w-full mx-auto px-4 sm:px-12 py-20">
+      <div className="relative z-10 4xl:max-w-9xl 3xl:max-w-8xl max-w-7xl w-full mx-auto px-4 sm:px-12  py-20 sm:py-28 lg:py-20">
         <div className="grid lg:grid-cols-[60%_40%] gap-12 items-center">
           {/* Enhanced Content */}
           <div className="space-y-8 text-center lg:text-left">
@@ -129,7 +129,7 @@ const HeroSection = () => {
               </div>
 
               <p
-                className={`text-lg md:text-xl text-muted-foreground !mt-0 max-w-2xl mx-auto pt-2 leading-relaxed transform transition-all duration-1000 delay-300 ${
+                className={`text-lg md:text-xl text-muted-foreground !mt-0 max-w-2xl mx-auto lg:ml-0 pt-2 leading-relaxed transform transition-all duration-1000 delay-300 ${
                   isVisible
                     ? "translate-y-0 opacity-100"
                     : "translate-y-8 opacity-0"
@@ -225,7 +225,7 @@ const HeroSection = () => {
             <div className="relative group cursor-pointer">
               {/* Main image container */}
               <div
-                className="relative w-[100%] rounded-full overflow-hidden group-hover:border-2 group-hover:border-white/80 animate-glow-ring border-4 border-primary shadow-2xl transform group-hover:scale-105 transition-all duration-500 hover:shadow-primary/20 hover:shadow-3xl"
+                className="relative rounded-2xl lg:rounded-full w-[100%] aspect-square lg:aspect-auto overflow-hidden lg:group-hover:border-2 group-hover:border-white/80 lg:animate-glow-ring lg:border-4 border-primary shadow-2xl transform group-hover:scale-105 transition-all duration-500 hover:shadow-primary/20 hover:shadow-3xl"
                 style={{
                   background:
                     "linear-gradient(45deg, rgba(59, 130, 246, 0.1), rgba(147, 51, 234, 0.1))",
@@ -245,17 +245,6 @@ const HeroSection = () => {
                   height={800}
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
-
-                {/* Animated border */}
-                <div className="absolute inset-0 rounded-full border-2 bg-cover bg-center border-transparent bg-gradient-to-br from-[#c9cccd] via-card to-[#c4c8cf] opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-spin-slow group-hover:animate-none">
-                  <div className="absolute -top-9 inset-0 flex items-center justify-center bg-[url('/assets/logo.png')] bg-contain bg-no-repeat bg-center !opacity-0 !transition-opacity delay-200 !duration-300 group-hover:!opacity-90">
-                    <div className="absolute inset-0 bg-gradient-to-br from-black/10 via-transparent to-black/10"></div>
-                  </div>
-
-                  <p className="absolute flex inset-0 justify-center items-center opacity-90 text-center hover-glow-1 text-white/50 drop-shadow-[#118afc] transition-all duration-700 translate-y-[80%] delay-300 group-hover:translate-y-[20%] text-sm font-medium mt-4 tracking-wide">
-                    More than just a name, <br /> a digital experience.
-                  </p>
-                </div>
               </div>
 
               {/* Orbit Container */}

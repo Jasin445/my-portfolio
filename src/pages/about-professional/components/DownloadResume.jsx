@@ -31,7 +31,7 @@ const DownloadResume = () => {
               Jason Dagana — Frontend Developer
             </h3>
             <p className="text-sm text-muted-foreground">
-              Updated: October 2025 &middot; PDF &middot; 2.2 MB
+              Updated: October 2025 &middot; PDF &middot; 126 KB
             </p>
           </div>
 

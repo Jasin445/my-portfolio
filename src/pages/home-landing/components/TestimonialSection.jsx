@@ -15,7 +15,7 @@ const testimonials = [
     id: 2,
     quote: "Working with Jason was a fantastic experience. His attention to detail and problem-solving abilities are outstanding.",
     name: "Isaac Adedokun",
-    role: "Data Scientist & AI Engineer",
+    role: "Data Scientist",
     company: "Newsbridge",
     image: "assets/images/testimonial2.jpg"
   },
@@ -24,7 +24,7 @@ const testimonials = [
     quote: "Jason's expertise in modern web technologies helped us build a scalable and performant application. Highly recommended!",
     name: "Brumen Pascal",
     role: "CEO",
-    company: "Datatechhub",
+    company: "Datatechhub Edtech",
     image: "assets/images/testimonial3.jpg"
   }
 ];
@@ -46,14 +46,14 @@ const TestimonialSection = () => {
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
               What People Say
             </h2>
-            <p className="text-lg text-gray-100 max-w-2xl mx-auto">
+            <p className="text-lg text-gray-100 max-w-xl mx-auto">
               A few words from colleagues and clients I’ve worked with on
               projects and collaborations.
             </p>
           </div>
 
           {/* Testimonial Grid */}
-          <div className="grid md:grid-cols-[33.3%_33.3%_33.3%] gap-8">
+          <div className="grid xl:grid-cols-[33.3%_33.3%_33.3%] gap-8 max-w-xl mx-auto xl:ml-0 xl:max-w-full">
             {testimonials?.map((testimonial) => (
         <div
           key={testimonial?.id}
@@ -62,7 +62,7 @@ const TestimonialSection = () => {
           <p className="text-muted-foreground mb-4 italic">
             "{testimonial?.quote}"
           </p>
-          <div className="flex justify-center items-center gap-4">
+          <div className="flex justify-end xl:justify-center items-center gap-4">
             <Image
               src={testimonial?.image}
               alt={testimonial?.name}

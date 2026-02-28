@@ -58,7 +58,7 @@ These interests aren’t separate from my professional life—they enrich and in
     className = "",
   }) => {
     const baseStyles =
-      "px-4 sm:px-6 py-3 rounded-lg font-medium transition-all duration-300 flex items-center gap-2 hover:scale-105";
+      "px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-medium text-sm sm:text-base transition-all duration-300 flex items-center gap-2 hover:scale-105";
     const variants = {
       default:
         "bg-primary text-white hover:bg-primary/95 shadow-lg shadow-primary/30",
@@ -88,7 +88,7 @@ These interests aren’t separate from my professional life—they enrich and in
         ></div>
       </div>
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
+      <div className="max-w-6xl mx-auto px-2 sm:px-6 relative z-10">
         {/* Header Section */}
         <div className="text-center mb-16">
           <div className=" mb-4">
@@ -101,7 +101,7 @@ These interests aren’t separate from my professional life—they enrich and in
               About Me
             </div>
           </div>
-          <h2 className="text-4xl lg:text-5xl font-bold mb-6 py-2 bg-gradient-to-r from-white via-white to-white bg-clip-text text-transparent">
+          <h2 className="text-2xl sm:text-3xl lg:text-5xl font-bold mb-6 py-2 bg-gradient-to-r from-white via-white to-white bg-clip-text text-transparent">
             Getting to Know Me
           </h2>
           <p className="text-lg text-gray-400 max-w-2xl mx-auto leading-relaxed">
@@ -125,7 +125,7 @@ These interests aren’t separate from my professional life—they enrich and in
         </div>
 
         {/* Content Card */}
-        <div className="relative bg-gradient-to-br from-[#2a363c]/20 via-[#2a363c]/50 to-slate-[#2a363c]/60 rounded-3xl border border-blue-200/50 p-8 lg:p-14 shadow-2xl backdrop-blur-sm overflow-hidden">
+        <div className="relative bg-gradient-to-br from-[#2a363c]/20 via-[#2a363c]/50 to-slate-[#2a363c]/60 rounded-3xl lg:border border-blue-200/50 px-2 py-8 lg:p-14 lg:shadow-2xl backdrop-blur-sm overflow-hidden">
           {/* Decorative corner accents */}
           <div className="absolute top-0 left-0 w-32 h-32 border-t-2 border-l-2 border-blue-500/20 rounded-tl-3xl"></div>
           <div className="absolute bottom-0 right-0 w-32 h-32 border-b-2 border-r-2 border-blue-500/20 rounded-br-3xl"></div>
@@ -137,7 +137,7 @@ These interests aren’t separate from my professional life—they enrich and in
           <div className="relative space-y-10">
             {/* Title */}
             <div className="text-center space-y-4">
-              <h3 className="text-3xl lg:text-4xl font-bold tracking-tight">
+              <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight">
                 {content?.[activeTab]?.title}
               </h3>
               <div className="flex items-center justify-center gap-2">
@@ -149,7 +149,7 @@ These interests aren’t separate from my professional life—they enrich and in
 
             {/* Image Container */}
             <div
-              className="relative h-[400px] w-full max-w-[550px] mx-auto rounded-2xl overflow-hidden border-2 border-blue-500/20 shadow-2xl shadow-blue-500/10 group"
+              className="relative aspect-video sm:h-[400px] w-full max-w-[550px] mx-auto rounded-2xl overflow-hidden border-2 border-blue-500/20 shadow-2xl shadow-blue-500/10 group"
               style={{
                 boxShadow: "0 0 40px rgba(59, 130, 246, 0.15",
               }}

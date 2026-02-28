@@ -72,7 +72,7 @@ const Header = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-12">
+          <div className="hidden lg:flex items-center gap-12">
             {navigationItems?.map((item) => (
               <Link
                 key={item?.path}
@@ -105,7 +105,7 @@ const Header = () => {
           {/* Hamburger Button — mobile only */}
           <button
             onClick={toggleMobileMenu}
-            className="md:hidden flex flex-col justify-center items-center w-10 h-10 rounded-lg hover:bg-muted transition-colors duration-fast focus:outline-none"
+            className="lg:hidden flex flex-col justify-center items-center w-10 h-10 rounded-lg hover:bg-muted transition-colors duration-fast focus:outline-none"
             aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
             aria-expanded={isMobileMenuOpen}
           >
@@ -129,7 +129,7 @@ const Header = () => {
 
         {/* Mobile Navigation Menu */}
         <div
-          className={`md:hidden absolute top-full left-0 right-0 bg-background/95 backdrop-blur-sm border-b border-border shadow-lg transition-all duration-300 h-screen ${
+          className={`lg:hidden absolute top-full left-0 right-0 bg-background/95 backdrop-blur-sm border-b border-border shadow-lg transition-all duration-300 h-screen ${
             isMobileMenuOpen
               ? "opacity-100 translate-y-0 pointer-events-auto"
               : "opacity-0 -translate-y-2 pointer-events-none"
@@ -142,7 +142,7 @@ const Header = () => {
                 to={item?.path}
                 className={`flex items-center space-x-3 px-4 py-3 rounded-lg text-sm font-medium transition-all duration-fast ${
                   isActivePath(item?.path)
-                    ? "text-primary bg-primary/5 border border-primary/20"
+                    ? "text-primary bg-primary/5 border-b border-primary/20"
                     : "text-muted-foreground hover:text-foreground hover:bg-muted"
                 }`}
                 aria-current={isActivePath(item?.path) ? "page" : undefined}

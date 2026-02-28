@@ -114,7 +114,7 @@ const FeaturedProjects = () => {
                       onClick={() => navigate(project?.liveUrl)}
                       variant="secondary"
                       size="icon"
-                      className="w-8 h-8 bg-white/90 hover:bg-white"
+                      className="w-8 h-8 bg-blue/90 hover:bg-blue-600"
                       aria-label="View live demo"
                     >
                       <Icon name="ExternalLink" size={14} />
@@ -122,7 +122,7 @@ const FeaturedProjects = () => {
                     <Button
                       variant="secondary"
                       size="icon"
-                      className="w-8 h-8 bg-white/90 hover:bg-white"
+                      className="w-8 h-8 bg-blue/90 hover:bg-blue-600"
                       aria-label="View source code"
                     >
                       <Icon name="Github" size={14} />
