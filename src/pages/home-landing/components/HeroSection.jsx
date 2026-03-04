@@ -90,7 +90,7 @@ const HeroSection = () => {
             <div className="space-y-6">
               {/* Enhanced Badge */}
               <div
-                className={`inline-flex items-center px-2 sm:px-6 py-1 bg-gradient-to-r from-primary/20 mt-9 to-blue-500/20 text-primary rounded-full text-[9px] sm:text-sm font-medium border border-primary/20 backdrop-blur-sm shadow-lg transform transition-all duration-700 hover:scale-105 hover:shadow-primary/20 hover:shadow-xl ${
+                className={`hidden sm:inline-flex items-center px-2 sm:px-6 py-1 bg-gradient-to-r from-primary/20 mt-9 to-blue-500/20 text-primary rounded-full text-[9px] sm:text-sm font-medium border border-primary/20 backdrop-blur-sm shadow-lg transform transition-all duration-700 hover:scale-105 hover:shadow-primary/20 hover:shadow-xl ${
                   isVisible
                     ? "translate-y-0 opacity-100"
                     : "translate-y-4 opacity-0"
