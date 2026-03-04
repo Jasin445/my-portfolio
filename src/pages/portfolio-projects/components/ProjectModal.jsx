@@ -137,7 +137,7 @@ const ProjectModal = ({
           className={`
             modal-drawer lg:modal-dialog
             relative w-full bg-background shadow-2xl overflow-hidden flex flex-col
-            rounded-t-2xl max-h-[92vh]
+            rounded-t-2xl max-h-[82vh]
             lg:rounded-lg lg:max-w-6xl lg:max-h-[75vh]
           `}
         >
