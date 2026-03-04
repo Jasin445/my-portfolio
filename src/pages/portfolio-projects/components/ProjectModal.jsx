@@ -286,16 +286,16 @@ const ProjectModal = ({
                 {activeTab === "overview" && (
                   <div className="space-y-5">
                     <div>
-                      <h3 className="text-base sm:text-lg font-semibold text-foreground mb-2">
+                      <h3 className="text-sm sm:text-base font-semibold text-foreground mb-2">
                         Description
                       </h3>
-                      <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
+                      <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
                         {project?.fullDescription}
                       </p>
                     </div>
 
                     <div>
-                      <h3 className="text-base sm:text-lg font-semibold text-foreground mb-2">
+                      <h3 className="text-sm sm:text-base font-semibold text-foreground mb-2">
                         Technology Stack
                       </h3>
                       <div className="grid grid-cols-2 gap-2">
@@ -319,7 +319,7 @@ const ProjectModal = ({
                           Duration
                         </h4>
                         <p className="text-xs sm:text-sm text-muted-foreground">
-                          {project?.duration}
+                          {project?.duration || "Not provided"}
                         </p>
                       </div>
                       <div>
@@ -327,7 +327,7 @@ const ProjectModal = ({
                           Completed
                         </h4>
                         <p className="text-xs sm:text-sm text-muted-foreground">
-                          {project?.completedDate}
+                          {project?.completedDate || "Not provided"}
                         </p>
                       </div>
                     </div>
@@ -360,16 +360,16 @@ const ProjectModal = ({
                 {activeTab === "technical" && (
                   <div className="space-y-5">
                     <div>
-                      <h3 className="text-base sm:text-lg font-semibold text-foreground mb-2">
+                      <h3 className="text-sm sm:text-base font-semibold text-foreground mb-2">
                         Architecture
                       </h3>
-                      <p className="text-sm sm:text-base text-muted-foreground leading-relaxed mb-4">
+                      <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed mb-4">
                         {project?.architecture}
                       </p>
                     </div>
 
                     <div>
-                      <h3 className="text-base sm:text-lg font-semibold text-foreground mb-2">
+                      <h3 className="text-sm sm:text-base font-semibold text-foreground mb-2">
                         Key Features
                       </h3>
                       <ul className="space-y-2">
@@ -384,7 +384,7 @@ const ProjectModal = ({
 
                     {project?.codeSnippet && (
                       <div>
-                        <h3 className="text-base sm:text-lg font-semibold text-foreground mb-2">
+                        <h3 className="ttext-sm sm:text-base font-semibold text-foreground mb-2">
                           Code Example
                         </h3>
                         <div className="bg-muted rounded-lg p-3 sm:p-4 overflow-x-auto">
