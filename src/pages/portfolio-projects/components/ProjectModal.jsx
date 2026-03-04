@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Image from "../../../components/AppImage";
 import Icon from "../../../components/AppIcon";
 import Button from "../../../components/ui/Button";
@@ -16,16 +16,42 @@ const ProjectModal = ({
   const [iframeLoading, setIframeLoading] = useState(true);
   const [animateIn, setAnimateIn] = useState(false);
 
+  const [dragY, setDragY] = useState(0);
+  const dragStartY = useRef(null);
+
+  const handleTouchStart = (e) => {
+    dragStartY.current = e.touches[0].clientY;
+  };
+
+  const handleTouchMove = (e) => {
+    const delta = e.touches[0].clientY - dragStartY.current;
+    if (delta > 0) setDragY(delta);
+  };
+
+  const handleTouchEnd = () => {
+    if (dragY > 80) {
+      setDragY(0);
+      dragStartY.current = null;
+      onClose();
+    } else {
+      setDragY(0);
+      dragStartY.current = null;
+    }
+  };
+
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
       setCurrentImageIndex(0);
       setActiveTab("overview");
       setIframeLoading(true);
-      // Trigger animation on next frame
+      setDragY(0);
+      dragStartY.current = null;
       requestAnimationFrame(() => setAnimateIn(true));
     } else {
       setAnimateIn(false);
+      setDragY(0);
+      dragStartY.current = null;
       document.body.style.overflow = "unset";
     }
 
@@ -65,13 +91,13 @@ const ProjectModal = ({
 
   const nextImage = () => {
     setCurrentImageIndex((prev) =>
-      prev === project?.images?.length - 1 ? 0 : prev + 1
+      prev === project?.images?.length - 1 ? 0 : prev + 1,
     );
   };
 
   const prevImage = () => {
     setCurrentImageIndex((prev) =>
-      prev === 0 ? project?.images?.length - 1 : prev - 1
+      prev === 0 ? project?.images?.length - 1 : prev - 1,
     );
   };
 
@@ -140,9 +166,18 @@ const ProjectModal = ({
             rounded-t-2xl max-h-[82vh]
             lg:rounded-lg lg:max-w-6xl lg:max-h-[75vh]
           `}
+          style={{
+            transform: `translateY(${dragY}px)`,
+            transition: dragY === 0 ? "transform 0.3s ease" : "none",
+          }}
         >
           {/* Drag handle — mobile only */}
-          <div className="flex-shrink-0 flex justify-center pt-3 pb-1 lg:hidden">
+          <div
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+            className="flex justify-center pt-3 pb-1 lg:hidden cursor-grab"
+          >
             <div className="w-10 h-1 rounded-full bg-border" />
           </div>
 
@@ -195,7 +230,6 @@ const ProjectModal = ({
 
           {/* Body */}
           <div className="flex-1 flex flex-col lg:flex-row overflow-hidden min-h-0">
-
             {/* Image / iframe panel — hidden on mobile & tablet, shown lg+ only */}
             <div className="hidden lg:flex lg:w-1/2 relative bg-muted border-r border-border">
               {project?.liveUrl ? (
@@ -204,7 +238,9 @@ const ProjectModal = ({
                     <div className="absolute inset-0 flex items-center justify-center bg-muted z-10">
                       <div className="flex flex-col items-center gap-3">
                         <div className="w-9 h-9 border-4 border-primary/30 border-t-primary rounded-full animate-spin" />
-                        <p className="text-sm text-muted-foreground">Loading preview...</p>
+                        <p className="text-sm text-muted-foreground">
+                          Loading preview...
+                        </p>
                       </div>
                     </div>
                   )}
@@ -249,7 +285,9 @@ const ProjectModal = ({
                             key={index}
                             onClick={() => setCurrentImageIndex(index)}
                             className={`w-2 h-2 rounded-full transition-colors ${
-                              index === currentImageIndex ? "bg-white" : "bg-white/50"
+                              index === currentImageIndex
+                                ? "bg-white"
+                                : "bg-white/50"
                             }`}
                           />
                         ))}
@@ -262,7 +300,6 @@ const ProjectModal = ({
 
             {/* Details panel — full width on mobile, half on lg */}
             <div className="flex-1 lg:w-1/2 flex flex-col overflow-hidden min-h-0">
-
               {/* Tabs */}
               <div className="flex-shrink-0 flex border-b border-border overflow-x-auto">
                 {tabs?.map((tab) => (
@@ -304,7 +341,11 @@ const ProjectModal = ({
                             key={index}
                             className="flex items-center gap-2 p-2.5 bg-muted rounded-lg"
                           >
-                            <Icon name={getTechIcon(tech)} size={15} className="text-primary flex-shrink-0" />
+                            <Icon
+                              name={getTechIcon(tech)}
+                              size={15}
+                              className="text-primary flex-shrink-0"
+                            />
                             <span className="text-xs sm:text-sm font-medium text-foreground truncate">
                               {tech}
                             </span>
@@ -338,7 +379,9 @@ const ProjectModal = ({
                           variant="default"
                           iconName="ExternalLink"
                           iconPosition="left"
-                          onClick={() => window.open(project?.liveUrl, "_blank")}
+                          onClick={() =>
+                            window.open(project?.liveUrl, "_blank")
+                          }
                         >
                           Live Demo
                         </Button>
@@ -348,7 +391,9 @@ const ProjectModal = ({
                           variant="outline"
                           iconName="Github"
                           iconPosition="left"
-                          onClick={() => window.open(project?.githubUrl, "_blank")}
+                          onClick={() =>
+                            window.open(project?.githubUrl, "_blank")
+                          }
                         >
                           View Code
                         </Button>
@@ -375,8 +420,14 @@ const ProjectModal = ({
                       <ul className="space-y-2">
                         {project?.keyFeatures?.map((feature, index) => (
                           <li key={index} className="flex items-start gap-2">
-                            <Icon name="Check" size={15} className="text-success mt-0.5 flex-shrink-0" />
-                            <span className="text-xs sm:text-sm text-muted-foreground">{feature}</span>
+                            <Icon
+                              name="Check"
+                              size={15}
+                              className="text-success mt-0.5 flex-shrink-0"
+                            />
+                            <span className="text-xs sm:text-sm text-muted-foreground">
+                              {feature}
+                            </span>
                           </li>
                         ))}
                       </ul>
@@ -384,7 +435,7 @@ const ProjectModal = ({
 
                     {project?.codeSnippet && (
                       <div>
-                        <h3 className="ttext-sm sm:text-base font-semibold text-foreground mb-2">
+                        <h3 className="text-sm sm:text-base font-semibold text-foreground mb-2">
                           Code Example
                         </h3>
                         <div className="bg-muted rounded-lg p-3 sm:p-4 overflow-x-auto">
@@ -400,9 +451,16 @@ const ProjectModal = ({
                 {activeTab === "challenges" && (
                   <div className="space-y-4">
                     {project?.challenges?.map((challenge, index) => (
-                      <div key={index} className="border border-border rounded-lg p-3 sm:p-4">
+                      <div
+                        key={index}
+                        className="border border-border rounded-lg p-3 sm:p-4"
+                      >
                         <div className="flex items-start gap-2 mb-2">
-                          <Icon name="AlertCircle" size={15} className="text-warning mt-0.5 flex-shrink-0" />
+                          <Icon
+                            name="AlertCircle"
+                            size={15}
+                            className="text-warning mt-0.5 flex-shrink-0"
+                          />
                           <h4 className="text-xs sm:text-sm font-semibold text-foreground">
                             Challenge {index + 1}
                           </h4>
@@ -411,7 +469,11 @@ const ProjectModal = ({
                           {challenge?.problem}
                         </p>
                         <div className="flex items-start gap-2">
-                          <Icon name="CheckCircle" size={15} className="text-success mt-0.5 flex-shrink-0" />
+                          <Icon
+                            name="CheckCircle"
+                            size={15}
+                            className="text-success mt-0.5 flex-shrink-0"
+                          />
                           <div>
                             <h5 className="text-xs sm:text-sm font-medium text-foreground mb-1">
                               Solution
