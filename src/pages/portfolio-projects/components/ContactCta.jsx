@@ -14,10 +14,10 @@ const ContactCta = () => {
 
       <div className="relative max-w-4xl mx-auto px-4 sm:px-6 text-center">
         {/* Heading */}
-        <h2 className="text-3xl md:text-4xl font-bold text-secondary-foreground mb-4">
+        <h2 className="text-xl sm:text-2xl md:text-4xl font-bold text-secondary-foreground mb-4">
           Let’s Solve the Hard Problems
         </h2>
-        <p className="text-lg text-muted-foreground mb-8 leading-relaxed max-w-2xl mx-auto">
+        <p className="text-sm sm:text-lg text-muted-foreground mb-8 leading-relaxed max-w-2xl mx-auto">
           I thrive on challenges that push creativity and technical skill. If
           you’re tackling something ambitious, whether it’s a startup idea or a
           product at scale, I’d love to help design and build the solution.

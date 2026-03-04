@@ -81,16 +81,16 @@ const SkillsOverview = () => {
       ],
     },
 
-    {
-      title: "Testing & Reliability",
-      icon: "TestTube",
-      skills: [
-        { name: "Jest Unit Testing", icon: "SiJest" },
-        { name: "React Testing Library", icon: "SiTestinglibrary" },
-        { name: "Component & Integration Testing", icon: "SiReact" },
-        { name: "Debugging Production Issues", icon: "SiJavascript" },
-      ],
-    },
+    // {
+    //   title: "Testing & Reliability",
+    //   icon: "TestTube",
+    //   skills: [
+    //     { name: "Jest Unit Testing", icon: "SiJest" },
+    //     { name: "React Testing Library", icon: "SiTestinglibrary" },
+    //     { name: "Component & Integration Testing", icon: "SiReact" },
+    //     { name: "Debugging Production Issues", icon: "SiJavascript" },
+    //   ],
+    // },
 
     {
       title: "Engineering Workflow",
@@ -115,11 +115,11 @@ const SkillsOverview = () => {
             Technical Skills
           </div>
 
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+          <h2 className="text-xl sm:text-2xl lg:text-4xl font-bold text-foreground mb-4">
             Core Engineering Skills
           </h2>
 
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-sm sm:text-lg text-muted-foreground max-w-2xl mx-auto">
             Here’s a snapshot of the technologies and tools I work with.
           </p>
         </div>
@@ -139,7 +139,7 @@ const SkillsOverview = () => {
                     className="text-primary"
                   />
                 </div>
-                <h3 className="text-lg font-semibold text-foreground">
+                <h3 className="text-base sm:text-lg font-semibold text-foreground">
                   {category.title}
                 </h3>
               </div>
@@ -151,7 +151,7 @@ const SkillsOverview = () => {
                     <div className="flex items-center justify-between">
                       <div className="flex items-center">
                         {getIcons(skill.icon)}
-                        <span className="text-sm text-foreground">
+                        <span className="text-xs sm:text-sm text-foreground">
                           {skill.name}
                         </span>
                       </div>
@@ -188,7 +188,7 @@ const SkillsOverview = () => {
             ].map((tech) => (
               <span
                 key={tech}
-                className="px-4 py-2 bg-muted text-muted-foreground text-sm rounded-full hover:bg-primary/10 hover:text-primary transition-colors duration-fast cursor-default"
+                className="px-4 py-2 bg-muted text-muted-foreground text-xs sm:text-sm rounded-full hover:bg-primary/10 hover:text-primary transition-colors duration-fast cursor-default"
               >
                 {tech}
               </span>
