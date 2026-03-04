@@ -60,14 +60,14 @@ const FeaturedProjects = () => {
 
           <div className="flex flex-col md:items-center justify-center gap-6">
             <div>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground leading-tight tracking-tight mb-3 text-center">
+              <h2 className="text-xl md:text-3xl lg:text-5xl font-bold text-foreground leading-tight tracking-tight mb-3 text-center">
                 Selected
                 <span className="ml-2 sm:ml-3 relative inline-block">
                    Projects
                   <span className="absolute -bottom-1 left-0 w-full h-[3px] bg-gradient-to-r from-primary to-transparent rounded-full" />
                 </span>
               </h2>
-              <p className="text-lg text-center text-foreground max-w-xl leading-relaxed opacity-80">
+              <p className="text-sm sm:text-lg text-center text-foreground max-w-xl leading-relaxed opacity-80">
                 A showcase of my recent work demonstrating expertise in modern
                 web technologies and user-centered design principles.
               </p>
@@ -138,10 +138,10 @@ const FeaturedProjects = () => {
                 {/* Project Content */}
                 <div className="p-6">
                   <div className="mb-4">
-                    <h3 className="text-xl font-semibold text-foreground mb-2 transition-colors duration-300">
+                    <h3 className="text-base sm:text-xl font-semibold text-foreground mb-2 transition-colors duration-300">
                       {project?.title}
                     </h3>
-                    <p className="text-sm text-foreground leading-relaxed opacity-80 line-clamp-2">
+                    <p className="text-xs sm:text-sm text-foreground leading-relaxed opacity-80 line-clamp-2">
                       {project?.description}
                     </p>
                   </div>

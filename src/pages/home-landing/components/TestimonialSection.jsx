@@ -43,10 +43,10 @@ const TestimonialSection = () => {
               <Icon name="Quote" size={16} className="mr-2" />
               Testimonials
             </span>
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+            <h2 className="text-xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">
               What People Say
             </h2>
-            <p className="text-lg text-gray-100 max-w-xl mx-auto">
+            <p className="text-sm sm:text-lg text-gray-100 max-w-xl mx-auto">
               A few words from colleagues and clients I’ve worked with on
               projects and collaborations.
             </p>
@@ -59,10 +59,10 @@ const TestimonialSection = () => {
           key={testimonial?.id}
           className="bg-gradient-to-b z-30 from-[#1d1f2e]/70 via-white/10 to-transparent hover:shadow-[0_0_12px_rgba(1,149,255,0.25)] rounded-xl border border-border shadow-xl transition p-8"
         >
-          <p className="text-muted-foreground mb-4 italic">
+          <p className="text-sm sm:text-lg text-muted-foreground mb-4 italic">
             "{testimonial?.quote}"
           </p>
-          <div className="flex justify-end xl:justify-center items-center gap-4">
+          <div className="flex justify-center sm:justify-end xl:justify-center items-center gap-4">
             <Image
               src={testimonial?.image}
               alt={testimonial?.name}

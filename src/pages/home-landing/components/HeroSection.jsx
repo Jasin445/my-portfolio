@@ -84,9 +84,9 @@ const HeroSection = () => {
       </div>
 
       <div className="relative z-10 4xl:max-w-9xl 3xl:max-w-8xl max-w-7xl w-full mx-auto px-4 sm:px-12  py-20 sm:py-28 lg:py-20">
-        <div className="grid lg:grid-cols-[60%_40%] gap-12 items-center">
+        <div className="grid lg:grid-cols-[60%_40%] mt-6 sm:mt-12 gap-12 items-center">
           {/* Enhanced Content */}
-          <div className="space-y-8 text-center lg:text-left">
+          <div className="space-y-8 sm:pt-0 text-center lg:text-left">
             <div className="space-y-6">
               {/* Enhanced Badge */}
               <div
@@ -109,7 +109,7 @@ const HeroSection = () => {
               {/* Typewriter Title */}
               <div className=" lg:min-h-[180px]">
                 <h1
-                  className={`text-[7vw] sm:text-5xl lg:text-5xl lg:text-[48px] 3xl:text-[4vw] lg:leading-tight font-normal text-foreground tracking-widest leading-tight transform transition-all duration-1000 ${
+                  className={`text-[7.3vw] sm:text-5xl lg:text-5xl lg:text-[48px] 3xl:text-[4vw] lg:leading-tight font-normal text-foreground tracking-widest leading-tight transform transition-all duration-1000 ${
                     isVisible
                       ? "translate-y-0 opacity-100"
                       : "translate-y-8 opacity-0"
@@ -150,7 +150,7 @@ const HeroSection = () => {
             <div className="relative group cursor-pointer">
               {/* Main image container */}
               <div
-                className="relative rounded-2xl lg:rounded-full h-auto w-full sm:w-[60vw] aspect-square sm:h-[40vw] sm:aspect-auto overflow-hidden lg:group-hover:border-2 group-hover:border-white/80 lg:animate-glow-ring lg:border-4 border-primary shadow-2xl transform group-hover:scale-105 transition-all duration-500 hover:shadow-primary/20 hover:shadow-3xl"
+                className="relative rounded-2xl lg:rounded-full h-auto w-full sm:w-[70vw] aspect-square sm:h-[50vw] sm:aspect-auto overflow-hidden lg:group-hover:border-2 group-hover:border-white/80 lg:animate-glow-ring lg:border-4 border-primary shadow-2xl transform group-hover:scale-105 transition-all duration-500 hover:shadow-primary/20 hover:shadow-3xl"
                 style={{
                   background:
                     "linear-gradient(45deg, rgba(59, 130, 246, 0.1), rgba(147, 51, 234, 0.1))",
@@ -288,7 +288,7 @@ const HeroSection = () => {
             <div className="relative group cursor-pointer">
               {/* Main image container */}
               <div
-                className="relative rounded-2xl lg:rounded-full w-[100%] aspect-square lg:aspect-auto overflow-hidden lg:group-hover:border-2 group-hover:border-white/80 lg:animate-glow-ring lg:border-4 border-primary shadow-2xl transform group-hover:scale-105 transition-all duration-500 hover:shadow-primary/20 hover:shadow-3xl"
+                className="relative rounded-2xl lg:rounded-full w-[100%] aspect-square lg:aspect-auto overflow-hidden lg:group-hover:border-2 lg:animate-glow-ring lg:border-4 border-primary shadow-2xl transform group-hover:scale-105 transition-all duration-500 hover:shadow-primary/20 hover:shadow-3xl"
                 style={{
                   background:
                     "linear-gradient(45deg, rgba(59, 130, 246, 0.1), rgba(147, 51, 234, 0.1))",

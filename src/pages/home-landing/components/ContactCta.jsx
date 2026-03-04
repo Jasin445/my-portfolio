@@ -10,10 +10,10 @@ const ContactCta = () => {
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
         
-        <h2 className="text-3xl font-bold text-secondary-foreground mb-4">
+        <h2 className="text-xl sm:text-3xl font-bold text-secondary-foreground mb-4">
           Interested in Working Together?
         </h2>
-        <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
+        <p className="text-sm sm:text-lg text-muted-foreground mb-8 leading-relaxed">
           I'm always excited to take on new challenges and create amazing
           digital experiences. Let's discuss how we can bring your ideas to
           life.

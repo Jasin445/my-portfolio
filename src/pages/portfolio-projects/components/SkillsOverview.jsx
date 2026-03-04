@@ -92,16 +92,16 @@ const SkillsOverview = () => {
     //   ],
     // },
 
-    {
-      title: "Engineering Workflow",
-      icon: "GitBranch",
-      skills: [
-        { name: "Git-based Collaboration & PR Reviews", icon: "SiGithub" },
-        { name: "CI/CD Deployment (Vercel)", icon: "SiVercel" },
-        { name: "Dockerized Development Environments", icon: "SiDocker" },
-        { name: "Cross-team API Collaboration", icon: "SiJavascript" },
-      ],
-    },
+    // {
+    //   title: "Engineering Workflow",
+    //   icon: "GitBranch",
+    //   skills: [
+    //     { name: "Git-based Collaboration & PR Reviews", icon: "SiGithub" },
+    //     { name: "CI/CD Deployment (Vercel)", icon: "SiVercel" },
+    //     { name: "Dockerized Development Environments", icon: "SiDocker" },
+    //     { name: "Cross-team API Collaboration", icon: "SiJavascript" },
+    //   ],
+    // },
   ];
 
 

@@ -26,6 +26,7 @@ const CarTransition = ({ className, message }) => {
         setShowCar(false);
       }
     };
+    configWidth();
     window.addEventListener("resize", configWidth);
 
     return () => window.removeEventListener("resize", configWidth);
@@ -53,46 +54,44 @@ const CarTransition = ({ className, message }) => {
   const showTooltip = carPosition > 20 && carPosition < 70;
   const topPosition = showTooltip ? "-10rem" : "-30px";
 
-  return (
-    showCar && (
+  return showCar ? (
+    <div
+      className={`w-full absolute z-40 inset-x-0 bg-transparent overflow-hidden pointer-events-none ${className}`}
+      style={{ top: topPosition }}
+    >
+      {/* Car for scrolling DOWN (moves right) */}
       <div
-        className={`w-full absolute z-40 inset-x-0 bg-transparent overflow-hidden pointer-events-none ${className}`}
-        style={{ top: topPosition }}
+        style={{
+          left: `${carPosition}%`,
+          position: "relative",
+          opacity: isScrollingDown ? 1 : 0,
+          transition: "opacity 0.2s ease",
+        }}
       >
-        {/* Car for scrolling DOWN (moves right) */}
-        <div
-          style={{
-            left: `${carPosition}%`,
-            position: "relative",
-            opacity: isScrollingDown ? 1 : 0,
-            transition: "opacity 0.2s ease",
-          }}
-        >
-          {showTooltip && <ToolTip message={message} />}
-          {carPosition > 0 && (
-            <Car className="w-10 h-10 text-white fill-primary" />
-          )}
-        </div>
-
-        {/* Car for scrolling UP (moves left, facing left) */}
-        <div
-          style={{
-            left: `${carPosition}%`,
-            position: "absolute",
-            top: 0,
-            transform: "scaleX(-1)",
-            opacity: !isScrollingDown ? 1 : 0,
-            transition: "opacity 0.2s ease",
-          }}
-        >
-          {showTooltip && (
-            <ToolTip message={message} className={"scale-x-[-1]"} />
-          )}
+        {showTooltip && <ToolTip message={message} />}
+        {carPosition > 0 && (
           <Car className="w-10 h-10 text-white fill-primary" />
-        </div>
+        )}
       </div>
-    )
-  );
+
+      {/* Car for scrolling UP (moves left, facing left) */}
+      <div
+        style={{
+          left: `${carPosition}%`,
+          position: "absolute",
+          top: 0,
+          transform: "scaleX(-1)",
+          opacity: !isScrollingDown ? 1 : 0,
+          transition: "opacity 0.2s ease",
+        }}
+      >
+        {showTooltip && (
+          <ToolTip message={message} className={"scale-x-[-1]"} />
+        )}
+        <Car className="w-10 h-10 text-white fill-primary" />
+      </div>
+    </div>
+  ) : null;
 };
 
 export default CarTransition;

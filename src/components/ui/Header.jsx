@@ -43,6 +43,8 @@ const Header = () => {
     setIsMobileMenuOpen((prev) => !prev);
   };
 
+  console.log(isMobileMenuOpen);
+
   const isActivePath = (path) => {
     return location?.pathname === path;
   };
@@ -63,10 +65,10 @@ const Header = () => {
             className="flex items-center space-x-2 group"
             aria-label="Jason Dagana - Home"
           >
-            <div className="w-20 h-20 bg-transparent rounded-lg flex items-center justify-center group-hover:scale-105 transition-transform duration-fast">
+            <div className="w-16 h-16 sm:w-20 sm:h-20 -ml-2 sm:ml-0 bg-transparent rounded-lg flex items-center justify-center group-hover:scale-105 transition-transform duration-fast">
               <Image src={"/assets/logo.png"} alt={"Logo"} />
             </div>
-            <span className="text-2xl sm:text-3xl font-semibold text-foreground group-hover:text-primary transition-colors duration-fast">
+            <span className="text-[clamp(16px,6vw,22px)] sm:text-3xl font-semibold text-foreground group-hover:text-primary transition-colors duration-fast">
               Jason Dagana
             </span>
           </Link>
@@ -167,7 +169,7 @@ const Header = () => {
       {/* Mobile Menu Overlay */}
       {isMobileMenuOpen && (
         <div
-          className="fixed inset-0 bg-black z-40 md:hidden"
+          className="fixed inset-0 bg-black z-40 lg:hidden"
           onClick={toggleMobileMenu}
           aria-hidden="true"
         />
