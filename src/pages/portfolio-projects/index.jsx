@@ -151,7 +151,7 @@ console.log("filteredProjects length:", filteredProjects.length);
   );
 
   return (
-    <div className="relative min-h-screen bg-gradient-to-br from-background via-card to-muted/20">
+    <main className="relative min-h-screen bg-gradient-to-br from-background via-card to-muted/20">
       <Helmet>
         <title>My Projects - Jason Dagana Projects</title>
         <meta
@@ -167,7 +167,7 @@ console.log("filteredProjects length:", filteredProjects.length);
       <Header />
       <ScrollProgress />
 
-      <main>
+      <div>
         <GenericHeroSection title="Projects" />
 
         {/* Main Content */}
@@ -338,10 +338,10 @@ console.log("filteredProjects length:", filteredProjects.length);
 
         <SkillsOverview />
         <ContactCta />
-      </main>
+      </div>
 
       <Footer lightweight />
-    </div>
+    </main>
   );
 };
 

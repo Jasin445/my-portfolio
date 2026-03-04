@@ -22,7 +22,7 @@ const Skills = () => {
   return (
     <section className="py-2 px-4 sm: bg-gradient-to-b from-[#2a363c]/90 to-[#131426]/95">
       <div
-        className="bg-gradient-to-b from-[#2a363c]/80 to-transparent hover:shadow-[0_0_12px_rgba(1,149,255,0.25)] backdrop-blur-sm border-white max-w-5xl border py-8 sm:py-12  px-6 lg:px-8 rounded-2xl shadow-xl
+        className="bg-gradient-to-b from-[#2a363c]/80 to-transparent hover:shadow-[0_0_12px_rgba(1,149,255,0.25)] backdrop-blur-sm border-white/45 max-w-5xl border py-8 sm:py-12  px-6 lg:px-8 rounded-2xl shadow-xl
  mx-auto text-center"
       >
         <h2 className="text-xl sm:text-3xl md:text-4xl font-bold text-foreground mb-2 sm:mb-6">
