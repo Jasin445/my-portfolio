@@ -90,7 +90,7 @@ const HeroSection = () => {
             <div className="space-y-6">
               {/* Enhanced Badge */}
               <div
-                className={`inline-flex items-center px-4 sm:px-6 py-1 bg-gradient-to-r from-primary/20 mt-9 to-blue-500/20 text-primary rounded-full text-sm font-medium border border-primary/20 backdrop-blur-sm shadow-lg transform transition-all duration-700 hover:scale-105 hover:shadow-primary/20 hover:shadow-xl ${
+                className={`inline-flex items-center px-2 sm:px-6 py-1 bg-gradient-to-r from-primary/20 mt-9 to-blue-500/20 text-primary rounded-full text-[9px] sm:text-sm font-medium border border-primary/20 backdrop-blur-sm shadow-lg transform transition-all duration-700 hover:scale-105 hover:shadow-primary/20 hover:shadow-xl ${
                   isVisible
                     ? "translate-y-0 opacity-100"
                     : "translate-y-4 opacity-0"
@@ -109,7 +109,7 @@ const HeroSection = () => {
               {/* Typewriter Title */}
               <div className=" lg:min-h-[180px]">
                 <h1
-                  className={`text-3xl sm:text-5xl lg:text-5xl lg:text-[48px] 3xl:text-[4vw] lg:leading-tight font-normal text-foreground tracking-widest leading-tight transform transition-all duration-1000 ${
+                  className={`text-[7vw] sm:text-5xl lg:text-5xl lg:text-[48px] 3xl:text-[4vw] lg:leading-tight font-normal text-foreground tracking-widest leading-tight transform transition-all duration-1000 ${
                     isVisible
                       ? "translate-y-0 opacity-100"
                       : "translate-y-8 opacity-0"
@@ -139,6 +139,69 @@ const HeroSection = () => {
                 TypeScript — combining clean code and thoughtful design.
               </p>
             </div>
+
+             <div
+            className={`flex justify-center lg:hidden lg:justify-end lg:mr-[20%] transform transition-all duration-1000 delay-300 ${
+              isVisible
+                ? "translate-x-0 opacity-100"
+                : "translate-x-8 opacity-0"
+            }`}
+          >
+            <div className="relative group cursor-pointer">
+              {/* Main image container */}
+              <div
+                className="relative rounded-2xl lg:rounded-full h-auto w-full sm:w-[60vw] aspect-square sm:h-[40vw] sm:aspect-auto overflow-hidden lg:group-hover:border-2 group-hover:border-white/80 lg:animate-glow-ring lg:border-4 border-primary shadow-2xl transform group-hover:scale-105 transition-all duration-500 hover:shadow-primary/20 hover:shadow-3xl"
+                style={{
+                  background:
+                    "linear-gradient(45deg, rgba(59, 130, 246, 0.1), rgba(147, 51, 234, 0.1))",
+                  transform: `perspective(1000px) rotateY(${
+                    mousePosition.x * 0.1
+                  }deg) rotateX(${-mousePosition.y * 0.1}deg)`,
+                }}
+              >
+                {/* Enhanced overlay */}
+                <div className="absolute w-full h-full z-10 group-hover:opacity-50 transition-opacity duration-300"></div>
+
+                <Image
+                  src="./assets/images/jason.webp"
+                  alt="Jason Dagana - Frontend Developer"
+                  title="Jason Dagana | Frontend Developer"
+                  width={800}
+                  height={800}
+                  className="w-full h-full object-cover object-[0_30%] transition-transform duration-500 group-hover:scale-110"
+                />
+              </div>
+
+              {/* Orbit Container */}
+              <div className="absolute !rounded-full inset-0 w-[110%] flex items-center justify-center">
+                {/* Clockwise group */}
+                <div className="absolute !rounded-full inset-0 animate-spin-slow-1">
+                  {/* React */}
+                  <div className="absolute -right-5 w-12 h-12 bg-gradient-to-r from-primary to-blue-600 rounded-full flex items-center justify-center shadow-xl animate-pulse-slow-1">
+                    <FaReact size={22} color="white" />
+                  </div>
+
+                  {/* Next.js */}
+                  <div className="absolute -left-5  w-12 h-12 bg-gradient-to-r from-gray-500 to-black rounded-full flex items-center justify-center shadow-xl animate-pulse-slow-2">
+                    <SiNextdotjs size={22} color="white" />
+                  </div>
+                </div>
+
+                {/* Counter-clockwise group */}
+                <div className="absolute inset-0 animate-spin-reverse !rounded-full">
+                  {/* Tailwind */}
+                  <div className="absolute -left-5 w-12 h-12 bg-gradient-to-r from-sky-400 to-sky-600 rounded-full flex items-center justify-center shadow-xl animate-pulse-slow-3">
+                    <SiTailwindcss size={22} color="white" />
+                  </div>
+
+                  {/* TypeScript */}
+                  <div className="absolute -right-5 w-12 h-12 bg-gradient-to-r from-blue-500 to-blue-700 rounded-full flex items-center justify-center shadow-xl animate-pulse-slow-4">
+                    <SiTypescript size={22} color="white" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
             {/* Enhanced CTA Buttons */}
             <div
@@ -174,7 +237,7 @@ const HeroSection = () => {
 
             {/* Enhanced Quick Stats */}
             <div
-              className={`flex flex-wrap gap-8 justify-center lg:justify-start pt-8 transform transition-all duration-1000 delay-700 ${
+              className={`flex gap-8 justify-center lg:justify-start pt-8 transform transition-all duration-1000 delay-700 ${
                 isVisible
                   ? "translate-y-0 opacity-100"
                   : "translate-y-8 opacity-0"
@@ -202,11 +265,11 @@ const HeroSection = () => {
                   className="text-center group cursor-pointer transform hover:scale-110 transition-all duration-300"
                 >
                   <div
-                    className={`text-3xl font-bold ${stat.color} group-hover:animate-pulse group-hover:text-blue-200`}
+                    className={`text-sm sm:text-2xl md:text-3xl font-bold ${stat.color} group-hover:animate-pulse group-hover:text-blue-200`}
                   >
                     {stat.number}
                   </div>
-                  <div className="text-sm text-muted-foreground group-hover:text-blue-200 transition-colors">
+                  <div className="text-xs text-muted-foreground group-hover:text-blue-200 transition-colors">
                     {stat.label}
                   </div>
                 </div>
@@ -216,7 +279,7 @@ const HeroSection = () => {
 
           {/* Enhanced Profile Image */}
           <div
-            className={`flex justify-center lg:justify-end lg:mr-[20%] transform transition-all duration-1000 delay-300 ${
+            className={`lg:flex hidden justify-center lg:justify-end lg:mr-[20%] transform transition-all duration-1000 delay-300 ${
               isVisible
                 ? "translate-x-0 opacity-100"
                 : "translate-x-8 opacity-0"

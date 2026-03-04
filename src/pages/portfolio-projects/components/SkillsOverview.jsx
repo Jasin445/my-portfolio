@@ -59,16 +59,16 @@ const SkillsOverview = () => {
       ],
     },
 
-    {
-      title: "Performance Engineering",
-      icon: "Gauge",
-      skills: [
-        { name: "Code Splitting & Lazy Loading", icon: "SiJavascript" },
-        { name: "Bundle & Rendering Optimization", icon: "SiVite" },
-        { name: "Image & Asset Optimization", icon: "SiNextdotjs" },
-        { name: "Lighthouse Performance Optimization", icon: "SiVercel" },
-      ],
-    },
+    // {
+    //   title: "Performance Engineering",
+    //   icon: "Gauge",
+    //   skills: [
+    //     { name: "Code Splitting & Lazy Loading", icon: "SiJavascript" },
+    //     { name: "Bundle & Rendering Optimization", icon: "SiVite" },
+    //     { name: "Image & Asset Optimization", icon: "SiNextdotjs" },
+    //     { name: "Lighthouse Performance Optimization", icon: "SiVercel" },
+    //   ],
+    // },
 
     {
       title: "Authentication & Security",
