@@ -183,7 +183,7 @@ const ContactConnect = () => {
             />
           </section>
         </div>
-        <section className="relative max-w-7xl mx-auto py-28 px-4 sm:px-6 z-20">
+        <section className="relative max-w-7xl mx-auto py-8 sm:py-14 lg:py-28 px-4 sm:px-6 z-20">
           <div className="absolute inset-0 pointer-events-none -z-10">
             <div className="absolute inset-0 bg-gradient-to-b from-[#2a363c]/90 via-[#131426] to-[#2a363c]/90 blur-[10px]" />
             <div className="absolute inset-x-0 bg-gradient-to-b from-[#131426]/70 to-[#2a363c] h-20 blur-xl bottom-0 translate-y-4"></div>
@@ -193,16 +193,16 @@ const ContactConnect = () => {
             {/* Contact Info */}
             <div className="space-y-8">
               <div>
-                <div className="inline-flex items-center px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium mb-4">
+                <div className="inline-flex items-center pl-0 md:pl-4 px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium mb-4">
                   <Icon name="MessageCircle" size={16} className="mr-2" />
                   Get In Touch
                 </div>
 
-                <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+                <h2 className="text-xl sm:text-2xl md:text-4xl font-bold text-foreground mb-4">
                   Let's Work Together
                 </h2>
 
-                <p className="text-lg text-muted-foreground leading-relaxed">
+                <p className="text-sm sm:text-lg text-muted-foreground leading-relaxed">
                   I'm always interested in new opportunities and exciting
                   projects. Whether you're a startup looking for a technical
                   co-founder or an established company needing frontend
@@ -217,8 +217,8 @@ const ContactConnect = () => {
                     <Icon name="Mail" size={20} className="text-primary" />
                   </div>
                   <div>
-                    <div className="font-medium text-foreground">Email</div>
-                    <div className="text-sm text-muted-foreground">
+                    <div className="text-sm sm:text-base font-medium text-foreground">Email</div>
+                    <div className="text-xs sm:text-sm text-muted-foreground">
                       daganajason72@gmail.com
                     </div>
                   </div>
@@ -229,8 +229,8 @@ const ContactConnect = () => {
                     <Icon name="Phone" size={20} className="text-primary" />
                   </div>
                   <div>
-                    <div className="font-medium text-foreground">Phone</div>
-                    <div className="text-sm text-muted-foreground">
+                    <div className="font-medium text-foreground text-sm sm:text-base">Phone</div>
+                    <div className="text-xs sm:text-sm text-muted-foreground">
                       +234 9013642811
                     </div>
                   </div>
@@ -241,8 +241,8 @@ const ContactConnect = () => {
                     <Icon name="MapPin" size={20} className="text-primary" />
                   </div>
                   <div>
-                    <div className="font-medium text-foreground">Location</div>
-                    <div className="text-sm text-muted-foreground">
+                    <div className="font-medium text-foreground text-sm sm:text-base">Location</div>
+                    <div className="text-sm text-muted-foregroundtext-xs sm:text-sm ">
                       Abuja, Nigeria
                     </div>
                   </div>
@@ -305,10 +305,10 @@ const ContactConnect = () => {
                         className={`${social?.color} group-hover:scale-110 transition-transform duration-fast`}
                       />
                       <div className="flex-1 min-w-0">
-                        <div className="font-medium text-foreground text-sm">
+                        <div className="font-medium text-foreground text-xs sm:text-sm">
                           {social?.name}
                         </div>
-                        <div className="text-xs text-muted-foreground">
+                        <div className="text-[11px] sm:text-sm leading-loose text-muted-foreground/40">
                           {social?.followers}
                         </div>
                       </div>
@@ -324,8 +324,8 @@ const ContactConnect = () => {
             </div>
 
             {/* Contact Form */}
-            <div className="bg-[#2a363c]/80 overflow-hidden relative z-[9999] rounded-xl border border-border p-8 shadow-sm">
-              <h3 className="text-xl font-semibold text-foreground mb-6">
+            <div className="bg-[#2a363c]/80 overflow-hidden relative z-[9999] rounded-xl border border-border px-4 py-8 sm:p-8 shadow-sm">
+              <h3 className="text-lg sm:text-xl font-semibold text-foreground mb-6">
                 Send a Message
               </h3>
 
@@ -380,10 +380,10 @@ const ContactConnect = () => {
               </form>
 
               <div className="mt-6 pt-6 border-t border-border text-center">
-                <p className="text-sm text-muted-foreground mb-4">
+                <p className="text-xs sm:text-sm text-muted-foreground mb-4">
                   Or explore more about my work
                 </p>
-                <div className="flex flex-col sm:flex-row gap-3">
+                <div className="flex flex-col sm:flex-row gap-0 sm:gap-3">
                   <Button
                     variant="ghost"
                     size="sm"
@@ -392,7 +392,7 @@ const ContactConnect = () => {
                     fullWidth
                     asChild
                   >
-                    <Link to="/about-professional">About Me</Link>
+                    <Link className="text-xs sm:text-sm" to="/about-professional">About Me</Link>
                   </Button>
                   <Button
                     variant="ghost"
@@ -402,7 +402,7 @@ const ContactConnect = () => {
                     fullWidth
                     asChild
                   >
-                    <Link to="/technical-blog">Read Blog</Link>
+                    <Link className="text-xs sm:text-sm" to="/technical-blog">Read Blog</Link>
                   </Button>
                 </div>
               </div>

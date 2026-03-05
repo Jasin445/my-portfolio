@@ -16,7 +16,7 @@ const AboutProfessional = () => {
     if (metaDescription) {
       metaDescription?.setAttribute(
         "content",
-        "Learn about Jason Dagana, a passionate frontend developer with 6+ years of experience in React, TypeScript, and modern web technologies. Download resume and connect for opportunities."
+        "Learn about Jason Dagana, a passionate frontend developer with 6+ years of experience in React, TypeScript, and modern web technologies. Download resume and connect for opportunities.",
       );
     }
 
@@ -25,7 +25,7 @@ const AboutProfessional = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-background">
+    <main className="min-h-screen bg-background">
       <Header />
       <ScrollProgress />
       <GenericHeroSection title={"About Me"} />
@@ -49,7 +49,7 @@ const AboutProfessional = () => {
 
       {/* Footer */}
       <Footer lightweight />
-    </div>
+    </main>
   );
 };
 

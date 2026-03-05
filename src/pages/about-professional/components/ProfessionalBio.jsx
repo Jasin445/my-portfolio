@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { User, Lightbulb, Heart } from "lucide-react";
 import AppIcon from "../../../components/AppIcon";
 
 const ProfessionalBio = () => {
   const [activeTab, setActiveTab] = useState("story");
+  const [expanded, setExpanded] = useState(false);
+  const expandRef = useRef(null);
 
   const tabs = [
     { id: "story", label: "My Story", icon: User },
@@ -20,7 +22,7 @@ Over the past year, I've dedicated myself to mastering front-end technologies, a
 
 After graduating in 2022, I ventured into various fields, including teaching and the transportation sector. However, my passion for technology and research remained unwavering. I realized that my true calling lies in the ever-evolving world of web development, where I can continuously learn and contribute.
 
-With a blend of creativity, technical expertise, and a genuine enthusiasm for technology, I’m excited to continue this journey and contribute to innovative projects and dynamic teams.
+With a blend of creativity, technical expertise, and a genuine enthusiasm for technology, I'm excited to continue this journey and contribute to innovative projects and dynamic teams.
 
 Today, I continue to push the boundaries of what's possible in frontend development, always staying curious and eager to learn new technologies while maintaining a strong foundation in proven methodologies.`,
     },
@@ -36,7 +38,7 @@ I also believe in the power of collaboration. The best solutions emerge when des
     },
     interests: {
       title: "Beyond the Code",
-      content: `While I’m passionate about development, I believe that diverse interests make me a better developer and collaborator.
+      content: `While I'm passionate about development, I believe that diverse interests make me a better developer and collaborator.
 
 **Attention to Detail:** I have a keen eye for even the smallest details, ensuring that every aspect of my work is polished and precise.
 
@@ -46,7 +48,7 @@ I also believe in the power of collaboration. The best solutions emerge when des
 
 **Mentorship:** I volunteer as a mentor for those new to web development and software engineering, sharing knowledge and reinforcing my own understanding in the process.
 
-These interests aren’t separate from my professional life—they enrich and inform my approach to development, making me more creative, empathetic, and effective in my work.`,
+These interests aren't separate from my professional life—they enrich and inform my approach to development, making me more creative, empathetic, and effective in my work.`,
     },
   };
 
@@ -77,8 +79,37 @@ These interests aren’t separate from my professional life—they enrich and in
     );
   };
 
+  const allParagraphs = content?.[activeTab]?.content?.split("\n\n");
+  const previewParagraphs = allParagraphs?.slice(0, 2);
+  const extraParagraphs = allParagraphs?.slice(2);
+
+  const renderParagraph = (paragraph, index) => {
+    if (paragraph?.startsWith("**") && paragraph?.endsWith("**")) {
+      const title = paragraph?.slice(2, -2);
+      return (
+        <div key={index} className="flex items-start gap-4 mt-12 mb-6 group">
+          <div className="flex flex-col items-center gap-2 pt-1">
+            <div className="w-2 h-2 bg-blue-500 rounded-full group-hover:scale-150 transition-transform"></div>
+            <div className="w-0.5 h-8 bg-gradient-to-b from-blue-500 to-transparent"></div>
+          </div>
+          <h4 className="text-xl lg:text-2xl font-bold text-blue-400 group-hover:text-blue-300 transition-colors">
+            {title}
+          </h4>
+        </div>
+      );
+    }
+    return (
+      <p
+        key={index}
+        className="text-gray-300 leading-relaxed text-sm lg:text-lg pl-3 sm:pl-6 relative before:content-[''] before:absolute before:left-0 before:top-0 before:bottom-0 before:w-0.5 before:bg-gradient-to-b before:from-blue-500/50 before:to-transparent hover:text-white transition-colors duration-300"
+      >
+        {paragraph}
+      </p>
+    );
+  };
+
   return (
-    <section className="relative py-7 lg:py-8 bg-transparent text-white">
+    <section className="relative py-2 lg:py-8 bg-transparent text-white">
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-20 left-10 w-72 h-72 bg-blue-500/5 rounded-full blur-3xl animate-pulse"></div>
@@ -88,23 +119,23 @@ These interests aren’t separate from my professional life—they enrich and in
         ></div>
       </div>
 
-      <div className="max-w-6xl mx-auto px-2 sm:px-6 relative z-10">
+      <div className="max-w-6xl mx-auto px-0 sm:px-6 relative z-10">
         {/* Header Section */}
-        <div className="text-center mb-16">
-          <div className=" mb-4">
+        <div className="text-center mb-8 sm:mb-16">
+          <div className=" sm:mb-4">
             <div
               className="inline-flex items-center px-4 py-2 
-                      bg-primary/10 text-primary rounded-full text-base font-medium mb-4
+                      bg-primary/10 text-primary rounded-full text-sm sm:text-base font-medium mb-4
                       ring-1 ring-primary/20 backdrop-blur-sm"
             >
               <AppIcon name="Smile" size={16} className="mr-2" />
               About Me
             </div>
           </div>
-          <h2 className="text-2xl sm:text-3xl lg:text-5xl font-bold mb-6 py-2 bg-gradient-to-r from-white via-white to-white bg-clip-text text-transparent">
+          <h2 className="text-xl sm:text-3xl lg:text-5xl font-bold mb-2 sm:mb-6 py-2 bg-gradient-to-r from-white via-white to-white bg-clip-text text-transparent">
             Getting to Know Me
           </h2>
-          <p className="text-lg text-gray-400 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-sm sm:text-lg text-gray-400 max-w-2xl mx-auto leading-relaxed">
             Beyond the technical skills and professional achievements, here's
             what drives my passion for development
           </p>
@@ -116,7 +147,7 @@ These interests aren’t separate from my professional life—they enrich and in
             <Button
               key={tab?.id}
               variant={activeTab === tab?.id ? "default" : "outline"}
-              onClick={() => setActiveTab(tab?.id)}
+              onClick={() => { setActiveTab(tab?.id); setExpanded(false); }}
               icon={tab.icon}
             >
               {tab?.label}
@@ -137,7 +168,7 @@ These interests aren’t separate from my professional life—they enrich and in
           <div className="relative space-y-10">
             {/* Title */}
             <div className="text-center space-y-4">
-              <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight">
+              <h3 className="text-xl sm:text-2xl lg:text-4xl font-bold tracking-tight">
                 {content?.[activeTab]?.title}
               </h3>
               <div className="flex items-center justify-center gap-2">
@@ -149,7 +180,7 @@ These interests aren’t separate from my professional life—they enrich and in
 
             {/* Image Container */}
             <div
-              className="relative aspect-video sm:h-[400px] w-full max-w-[550px] mx-auto rounded-2xl overflow-hidden border-2 border-blue-500/20 shadow-2xl shadow-blue-500/10 group"
+              className="relative h-[60vw] sm:h-[400px] w-full max-w-[550px] mx-auto rounded-2xl overflow-hidden border-2 border-blue-500/20 shadow-2xl shadow-blue-500/10 group"
               style={{
                 boxShadow: "0 0 40px rgba(59, 130, 246, 0.15",
               }}
@@ -175,38 +206,39 @@ These interests aren’t separate from my professional life—they enrich and in
 
             {/* Content */}
             <div className="space-y-6 px-2 lg:px-10">
-              {content?.[activeTab]?.content
-                ?.split("\n\n")
-                ?.map((paragraph, index) => {
-                  if (
-                    paragraph?.startsWith("**") &&
-                    paragraph?.endsWith("**")
-                  ) {
-                    const title = paragraph?.slice(2, -2);
-                    return (
-                      <div
-                        key={index}
-                        className="flex items-start gap-4 mt-12 mb-6 group"
-                      >
-                        <div className="flex flex-col items-center gap-2 pt-1">
-                          <div className="w-2 h-2 bg-blue-500 rounded-full group-hover:scale-150 transition-transform"></div>
-                          <div className="w-0.5 h-8 bg-gradient-to-b from-blue-500 to-transparent"></div>
-                        </div>
-                        <h4 className="text-xl lg:text-2xl font-bold text-blue-400 group-hover:text-blue-300 transition-colors">
-                          {title}
-                        </h4>
-                      </div>
-                    );
-                  }
-                  return (
-                    <p
-                      key={index}
-                      className="text-gray-300 leading-relaxed text-base lg:text-lg pl-6 relative before:content-[''] before:absolute before:left-0 before:top-0 before:bottom-0 before:w-0.5 before:bg-gradient-to-b before:from-blue-500/50 before:to-transparent hover:text-white transition-colors duration-300"
-                    >
-                      {paragraph}
-                    </p>
-                  );
-                })}
+              {/* Always visible — first 2 paragraphs */}
+              {previewParagraphs?.map((paragraph, index) => renderParagraph(paragraph, index))}
+
+              {/* Expandable section */}
+              <div
+                ref={expandRef}
+                style={{
+                  maxHeight: expanded ? expandRef.current?.scrollHeight + "px" : "0px",
+                  overflow: "hidden",
+                  transition: "max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
+                }}
+              >
+                <div className="space-y-6 pt-2">
+                  {extraParagraphs?.map((paragraph, index) => renderParagraph(paragraph, index + 2))}
+                </div>
+              </div>
+
+              {/* See More / See Less */}
+              {extraParagraphs?.length > 0 && (
+                <div className="flex justify-center pt-2 !mt-2">
+                  <button
+                    onClick={() => setExpanded((prev) => !prev)}
+                    className="flex items-center gap-2 px-5 py-2 rounded-full text-sm font-medium text-blue-400 border border-blue-500/30 hover:bg-blue-500/10 hover:border-blue-400 transition-all duration-300"
+                  >
+                    <span>{expanded ? "See Less" : "See More"}</span>
+                    <AppIcon
+                      name="ChevronDown"
+                      size={16}
+                      className={`transition-transform duration-300 ${expanded ? "rotate-180" : "rotate-0"}`}
+                    />
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </div>

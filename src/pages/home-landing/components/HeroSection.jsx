@@ -265,7 +265,7 @@ const HeroSection = () => {
                   className="text-center group cursor-pointer transform hover:scale-110 transition-all duration-300"
                 >
                   <div
-                    className={`text-sm sm:text-2xl md:text-3xl font-bold ${stat.color} group-hover:animate-pulse group-hover:text-blue-200`}
+                    className={`text-xl sm:text-2xl md:text-3xl font-bold ${stat.color} group-hover:animate-pulse group-hover:text-blue-200`}
                   >
                     {stat.number}
                   </div>

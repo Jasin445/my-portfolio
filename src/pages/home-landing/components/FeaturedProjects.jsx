@@ -45,11 +45,11 @@ const FeaturedProjects = () => {
 
       <div className="relative max-w-6xl mx-auto px-4 sm:px-12">
         {/* Section Header */}
-        <div className="mb-16">
-          <div className="flex items-center justify-center gap-3 mb-8">
+        <div className="mb-10 sm:mb-16">
+          <div className="flex items-center justify-center gap-3 mb-4 sm:mb-8">
             <div
               className="inline-flex items-center justify-center px-4 py-2 
-                        bg-primary/10 text-primary rounded-full text-sm font-medium
+                        bg-primary/10 text-primary rounded-full text-xs sm:text-sm font-medium
                         ring-1 ring-primary/20 backdrop-blur-sm"
             >
               <Icon name="Star" size={16} className="mr-2" />

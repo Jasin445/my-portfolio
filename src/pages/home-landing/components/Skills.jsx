@@ -33,7 +33,7 @@ const Skills = () => {
           tools.
         </p>
 
-        <div className="grid grid-cols-3 sm:flex mt-14 md:mt-0 justify-center gap-12">
+        <div className="grid grid-cols-3 sm:flex mt-11 md:mt-0 justify-center gap-12">
           {skills.map(({ icon: Icon, label, className, hiddenOnMobile }) => (
             <div
               key={label}
