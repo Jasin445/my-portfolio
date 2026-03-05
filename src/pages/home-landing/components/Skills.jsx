@@ -51,7 +51,7 @@ const Skills = () => {
         <Button
           variant="link"
           className="mt-2 text-primary hover:underline"
-          onClick={() => (window.location.href = "/portfolio-projects")}
+          onClick={() => (window.location.href = "/projects")}
         >
           See full breakdown →
         </Button>
