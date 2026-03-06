@@ -76,3 +76,65 @@ body {
   left: 40%;
   animation-delay: 6s;
 }
+
+/* .glow-title {
+  text-shadow:
+    0 0 8px rgba(255,255,255,0.8),
+    0 0 16px rgba(120, 200, 255, 0.8),
+    0 0 32px rgba(0, 170, 255, 0.8),
+    0 0 48px rgba(0, 120, 255, 0.7);
+} */
+
+.glow-title {
+  text-shadow:
+    0 0 8px rgba(255,255,255,0.5),
+    0 0 16px rgba(120, 200, 255, 0.4),
+    0 0 32px rgba(0, 170, 255, 0.4),
+    0 0 48px rgba(0, 120, 255, 0.4);
+}
+
+.cursor::after {
+  content: "|";
+  margin-left: 4px;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%, 50%, 100% { opacity: 1; }
+  25%, 75% { opacity: 0; }
+}
+
+.draw-text {
+  font-size: clamp(26px, 4vw, 61px);
+  fill: transparent;
+  stroke: #ffffff;
+  stroke-width: 0.5;
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  filter: drop-shadow(0 0 5px #aae6f1);
+  animation: drawText 12s ease forwards;
+}
+
+@keyframes drawText {
+  0% {
+    stroke-dashoffset: 1000;
+    fill: transparent;
+  }
+  70% {
+    stroke-dashoffset: 0;
+    fill: #ffffff;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    fill: #ffffff;
+  }
+}
+
+@keyframes glow {
+  from {
+    filter: drop-shadow(0 0 5px #6be6ff);
+  }
+  to {
+    filter: drop-shadow(0 0 10px #6be6ff);
+  }
+}
