@@ -171,7 +171,7 @@ console.log("filteredProjects length:", filteredProjects.length);
         <GenericHeroSection title="Projects" />
 
         {/* Main Content */}
-        <section className="relative py-12 h-full">
+        <section className="relative pb-4 sm:py-12 h-full">
           {/* Background Gradients */}
           <div className="absolute inset-0 pointer-events-none">
             <div className="absolute inset-0 bg-gradient-to-b from-[#2a363c]/90 via-[#131426] to-[#2a363c]/90 blur-[10px]" />
@@ -185,7 +185,7 @@ console.log("filteredProjects length:", filteredProjects.length);
               <div className="flex-1 min-w-0 py-8">
                 {/* Controls */}
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
-                  <h2 className="text-2xl z-30 font-semibold text-foreground">
+                  <h2 className="text-base sm:text-2xl z-30 font-semibold text-foreground">
                     {filteredProjects.length || "No"} Projects found
                   </h2>
 

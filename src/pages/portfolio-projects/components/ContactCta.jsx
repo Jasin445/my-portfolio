@@ -5,7 +5,7 @@ const ContactCta = () => {
   const navigate = useNavigate();
 
   return (
-    <section className="relative bg-gradient-to-b from-[#2a363c]/90 via-blue-200/5 to-[#2a363c]/5 py-20">
+    <section className="relative bg-gradient-to-b from-[#2a363c]/90 via-blue-200/5 to-[#2a363c]/5 py-10 sm:py-20">
       {/* Overlay */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute inset-0 bg-black/10"></div>
