@@ -5,27 +5,56 @@ import Icon from "../../../components/AppIcon";
 import CarTransition from "../../../components/CarDrive";
 import { mockProjects } from "../../../data";
 import { useGetAllProjects } from "../../../apis/queries";
+import ProjectModal from "../../portfolio-projects/components/ProjectModal";
+import { useState } from "react";
 
 const FeaturedProjects = () => {
   // const { projects, loading, isEmpty, error } = useGetAllProjects();
   const featuredMockProjects = mockProjects?.filter((p) => p?.featured);
+  const [selectedProject, setSelectedProject] = useState(null);
+  const [selectedIndex, setSelectedIndex] = useState(null);
   // const filteredProjects = projects?.filter((p) => p?.featured);
   // const navigate = useNavigate();
 
-  console.log(featuredMockProjects)
+  console.log(featuredMockProjects);
 
-  const handleNavigate = (url) => {
-    if (!url) return;
-    if (url.startsWith("http://") || url.startsWith("https://")) {
-      window.open(url, "_blank");
-    } else {
-      navigate(url);
-    }
-  };
+  // const handleNavigate = (url) => {
+  //   if (!url) return;
+  //   if (url.startsWith("http://") || url.startsWith("https://")) {
+  //     window.open(url, "_blank");
+  //   } else {
+  //     navigate(url);
+  //   }
+  // };
+
+  const [modalOpen, setModalOpen] = useState(false);
 
   // let featuredProjects =
   //   isEmpty || error ? featuredMockProjects : filteredProjects;
   let featuredProjects = featuredMockProjects?.slice(0, 4) || [];
+
+  const hasNextProject = () => {
+    return selectedIndex < featuredProjects.length - 1;
+  };
+  const hasPrevProject = () => {
+    return selectedIndex > 0;
+  };
+
+  const handleOpenModal = (project, index) => {
+    setSelectedIndex(index);
+    setSelectedProject(project);
+    setModalOpen(true);
+  };
+
+  const handleNavigateProject = (direction) => {
+    if (!selectedProject) return;
+    const newIndex =
+      direction === "next" ? selectedIndex + 1 : selectedIndex - 1;
+    if (newIndex >= 0 && newIndex < featuredProjects.length - 1) {
+      setSelectedProject(featuredProjects[newIndex]);
+      setSelectedIndex(newIndex)
+    }
+  };
 
   return (
     <section
@@ -63,7 +92,7 @@ const FeaturedProjects = () => {
               <h2 className="text-xl md:text-3xl lg:text-5xl font-bold text-foreground leading-tight tracking-tight mb-3 text-center">
                 Selected
                 <span className="ml-2 sm:ml-3 relative inline-block">
-                   Projects
+                  Projects
                   <span className="absolute -bottom-1 left-0 w-full h-[3px] bg-gradient-to-r from-primary to-transparent rounded-full" />
                 </span>
               </h2>
@@ -72,19 +101,18 @@ const FeaturedProjects = () => {
                 web technologies and user-centered design principles.
               </p>
             </div>
-
-            
           </div>
         </div>
 
         {/* Projects Grid */}
         {/* {loading ? ( */}
-          {/* <div className="h-32 flex justify-center items-center">
+        {/* <div className="h-32 flex justify-center items-center">
             <div className="w-20 h-20 rounded-full animate-spin border border-white border-t-blue-500" />
           </div>
         ) : ( */}
-          <div className="grid md:grid-cols-2 gap-6 mb-12">
-            {featuredProjects?.map((project, index) => (
+        <div className="grid md:grid-cols-2 gap-6 mb-12">
+          {featuredProjects?.map((project, index) => {
+            return (
               <div
                 key={project?.id}
                 className="group bg-[#2a363c]/80 text-secondary rounded-2xl overflow-hidden shadow-2xl border border-white/5 transition-all duration-500 hover:-translate-y-2 hover:border-primary/20 hover:shadow-[0_24px_48px_-12px_rgba(0,0,0,0.5)]"
@@ -164,30 +192,17 @@ const FeaturedProjects = () => {
                   {/* Actions */}
                   <div className="flex items-center justify-between">
                     <div className="flex space-x-1">
-                      {project?.liveUrl && (
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          iconName="ExternalLink"
-                          iconPosition="left"
-                          className="text-xs text-foreground opacity-80 hover:opacity-100 hover:text-primary"
-                          onClick={() => handleNavigate(project?.liveUrl)}
-                        >
-                          Live Demo
-                        </Button>
-                      )}
-                      {project?.githubUrl && (
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          iconName="Github"
-                          iconPosition="left"
-                          className="text-xs text-foreground opacity-80 hover:opacity-100"
-                          onClick={() => handleNavigate(project?.githubUrl)}
-                        >
-                          Code
-                        </Button>
-                      )}
+                      {/* {project?.liveUrl && ( */}
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        iconName="ExternalLink"
+                        iconPosition="left"
+                        className="text-xs text-foreground opacity-80 hover:opacity-100 hover:text-primary"
+                        onClick={() => handleOpenModal(project, index)}
+                      >
+                        View Details
+                      </Button>
                     </div>
 
                     <div className="flex items-center gap-1.5 text-xs text-foreground opacity-80">
@@ -197,25 +212,28 @@ const FeaturedProjects = () => {
                   </div>
                 </div>
               </div>
-            ))}
-          </div>
+            );
+          })}
+        </div>
         {/* )} */}
 
         {/* View All Projects CTA */}
         {/* {!loading && ( */}
-          <div className="text-center">
-            <Button
-              size="lg"
-              iconName="ArrowRight"
-              iconPosition="right"
-              asChild
-            >
-              <Link to="/projects" className="text-white">
-                View All Projects
-              </Link>
-            </Button>
-          </div>
-        {/* )} */}
+        <div className="text-center">
+          <Button size="lg" iconName="ArrowRight" iconPosition="right" asChild>
+            <Link to="/projects" className="text-white">
+              View All Projects
+            </Link>
+          </Button>
+        </div>
+        <ProjectModal
+          project={selectedProject}
+          isOpen={modalOpen}
+          onClose={() => setModalOpen(false)}
+          onNavigate={handleNavigateProject}
+          hasNext={hasNextProject()}
+          hasPrev={hasPrevProject()}
+        />
       </div>
     </section>
   );
