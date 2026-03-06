@@ -28,7 +28,7 @@ const PortfolioProjects = () => {
   const [openFilterDropdown, setOpenFilterDropdown] = useState(false);
 
   const filterOptions = [
-    { label: "All", value: "all" },
+    { label: "All Projects", value: "all" },
     { label: "Featured", value: "featured" },
     { label: "Non Featured", value: "non-featured" },
     { label: "Completed", value: "completed" },
@@ -190,12 +190,12 @@ console.log("filteredProjects length:", filteredProjects.length);
                   </h2>
 
                   {/* Filter Dropdown */}
-                  <div id="filter-dropdown" className="relative z-20 rounded-lg w-60">
+                  <div id="filter-dropdown" className="relative z-20 rounded-lg w-40 sm:w-60">
                     <button
                       onClick={() => setOpenFilterDropdown((prev) => !prev)}
                       className={`cursor-pointer w-full ${
                         !openFilterDropdown ? "rounded-lg" : "rounded-t-lg"
-                      } text-left bg-[#1b202f] px-4 py-3 flex items-center justify-between`}
+                      } text-left bg-[#1b202f] px-4 py-2 sm:py-3 text-xs sm:text-base flex items-center justify-between`}
                     >
                       <span>
                         {filterOptions.find((o) => o.value === activeFilter)?.label ?? "Filter By"}
@@ -207,13 +207,13 @@ console.log("filteredProjects length:", filteredProjects.length);
                     </button>
 
                     {openFilterDropdown && (
-                      <div className="absolute text-sm rounded-b-lg top-[46px] left-0 bg-[#1b202f] pt-2 w-full shadow-xl">
+                      <div className="absolute text-xs sm:text-sm rounded-b-lg top-[46px] left-0 bg-[#1b202f] sm:pt-2 w-full shadow-xl">
                         <ul className="flex flex-col">
                           {filterOptions.map((option, index) => (
                             <li
                               key={option.value}
                               onClick={() => handleFilterSelect(option.value)}
-                              className={`hover:bg-[#4b4b6d] cursor-pointer px-4 py-4 flex items-center justify-between transition-colors
+                              className={`hover:bg-[#4b4b6d] cursor-pointer px-4 py-2 sm:py-4 flex items-center justify-between transition-colors
                                 ${index === filterOptions.length - 1 ? "rounded-b-lg" : ""}
                                 ${activeFilter === option.value ? "text-primary" : ""}`}
                             >
