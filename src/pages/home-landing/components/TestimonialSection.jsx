@@ -7,25 +7,28 @@ const testimonials = [
     id: 1,
     quote: "Jason combines strong technical skills with a sharp eye for design. He delivered our project on time and exceeded expectations.",
     name: "Bobson Prosper",
-    role: "Software Engineer",
+    avatar: "BP",
+    role: "CEO",
     company: "9Stack",
-    image: "assets/images/testimonial1.jpg"
+    image: ""
   },
   {
     id: 2,
     quote: "Working with Jason was a fantastic experience. His attention to detail and problem-solving abilities are outstanding.",
     name: "Isaac Adedokun",
+    avatar: "IA",
     role: "Data Scientist",
     company: "Newsbridge",
-    image: "assets/images/testimonial2.jpg"
+    image: ""
   },
   {
     id: 3,
     quote: "Jason's expertise in modern web technologies helped us build a scalable and performant application. Highly recommended!",
     name: "Brumen Pascal",
+    avatar: "BP",
     role: "CEO",
     company: "Datatechhub Edtech",
-    image: "assets/images/testimonial3.jpg"
+    image: ""
   }
 ];
 
@@ -63,11 +66,11 @@ const TestimonialSection = () => {
             "{testimonial?.quote}"
           </p>
           <div className="flex justify-center sm:justify-end xl:justify-center items-center gap-4">
-            <Image
+           {testimonial?.image ? <Image
               src={testimonial?.image}
               alt={testimonial?.name}
               className="w-12 h-12 rounded-full object-cover"
-            />
+                  /> : <div className="w-12 h-12 rounded-full bg-slate-500 font-bold text-gray-200 flex items-center justify-center">{testimonial?.avatar}</div>}
             <div className="text-left">
               <h4 className="text-foreground font-semibold">
                 {testimonial?.name}

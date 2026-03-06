@@ -188,7 +188,7 @@ const SkillsOverview = () => {
             ].map((tech) => (
               <span
                 key={tech}
-                className="px-4 py-2 bg-muted text-muted-foreground text-xs sm:text-sm rounded-full hover:bg-primary/10 hover:text-primary transition-colors duration-fast cursor-default"
+                className="px-4 py-2 bg-muted text-muted-foreground text-[11px] sm:text-sm rounded-full hover:bg-primary/10 hover:text-primary transition-colors duration-fast cursor-default"
               >
                 {tech}
               </span>

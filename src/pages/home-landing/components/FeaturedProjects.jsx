@@ -130,14 +130,14 @@ const FeaturedProjects = () => {
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-500" />
 
                   {/* Category Badge */}
-                  <div className="absolute top-4 left-4">
+                  {/* <div className="absolute top-4 left-4">
                     <span className="px-3 py-1 bg-primary/90 backdrop-blur-sm text-white text-xs font-medium rounded-full shadow-lg">
                       {project?.category}
                     </span>
-                  </div>
+                  </div> */}
 
                   {/* Quick Actions */}
-                  <div className="absolute top-4 right-4 flex space-x-2 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-1 group-hover:translate-y-0">
+                  {/* <div className="absolute top-4 right-4 flex space-x-2 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-1 group-hover:translate-y-0">
                     <Button
                       onClick={() => navigate(project?.liveUrl)}
                       variant="secondary"
@@ -155,7 +155,7 @@ const FeaturedProjects = () => {
                     >
                       <Icon name="Github" size={14} />
                     </Button>
-                  </div>
+                  </div> */}
 
                   {/* Ghost index number */}
                   <div className="absolute bottom-3 right-4 text-white/[0.07] font-black text-6xl leading-none select-none">
