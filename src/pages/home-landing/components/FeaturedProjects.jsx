@@ -50,7 +50,7 @@ const FeaturedProjects = () => {
     if (!selectedProject) return;
     const newIndex =
       direction === "next" ? selectedIndex + 1 : selectedIndex - 1;
-    if (newIndex >= 0 && newIndex < featuredProjects.length - 1) {
+    if (newIndex >= 0 && newIndex < featuredProjects.length) {
       setSelectedProject(featuredProjects[newIndex]);
       setSelectedIndex(newIndex)
     }
