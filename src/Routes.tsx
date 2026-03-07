@@ -8,7 +8,7 @@ import HomeLanding from './pages/home-landing';
 import TechnicalBlog from './pages/technical-blog';
 import AboutProfessional from './pages/about-professional';
 import ContactConnect from "./pages/contact-connect";
-import CarCursor from "./components/CarCursor";
+import CarCursor from "./components/MagneticCursor";
 
 const Routes: React.FC = () => {
   return (

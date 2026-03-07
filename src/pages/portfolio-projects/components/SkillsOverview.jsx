@@ -14,6 +14,7 @@ import {
 } from "react-icons/si";
 import { MdDesignServices } from "react-icons/md";
 import { Smartphone } from "lucide-react";
+import { RevealSection } from "..";
 
 const getIcons = (icon) => {
   const map = {
@@ -35,7 +36,7 @@ const getIcons = (icon) => {
   return <ReactIcon size={16} className="text-muted-foreground mr-2" />;
 };
 
-const SkillsOverview = () => {
+const SkillsOverview = ({RevealCard}) => {
   const skillCategories = [
     {
       title: "Application Architecture",
@@ -109,6 +110,7 @@ const SkillsOverview = () => {
     <section className="py-8 sm:py-16 bg-gradient-to-b from-[#2a363c]/90 via-[#131426]/100 to-[#2a363c]/90">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Section Header */}
+        <RevealSection direction="down">
         <div className="text-center mb-16">
           <div className="inline-flex items-center px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium mb-4">
             <Icon name="Cpu" size={16} className="mr-2" />
@@ -123,12 +125,13 @@ const SkillsOverview = () => {
             Here’s a snapshot of the technologies and tools I work with.
           </p>
         </div>
+        </RevealSection>
 
         {/* Skills Grid */}
         <div className="grid lg:grid-cols-3 gap-8">
-          {skillCategories.map((category) => (
+          {skillCategories.map((category, index) => (
+            <RevealSection key={category.title} index={index} direction="right">
             <div
-              key={category.title}
               className="bg-[#2a363c]/30 rounded-xl border border-border p-6 hover:shadow-md transition-shadow duration-slow"
             >
               <div className="flex items-center mb-6">
@@ -142,7 +145,7 @@ const SkillsOverview = () => {
                 <h3 className="text-base sm:text-lg font-semibold text-foreground">
                   {category.title}
                 </h3>
-              </div>
+                </div>
 
               {/* Skills List */}
               <div className="space-y-4">
@@ -159,18 +162,20 @@ const SkillsOverview = () => {
 
                     {/* <div className="w-full bg-muted rounded-full h-2 overflow-hidden">
                       <div
-                        className={`h-full ${getSkillColor(skill.level)} rounded-full transition-all duration-slow ease-out`}
-                        style={{ width: getSkillWidth(skill.level) }}
+                      className={`h-full ${getSkillColor(skill.level)} rounded-full transition-all duration-slow ease-out`}
+                      style={{ width: getSkillWidth(skill.level) }}
                       />
-                    </div> */}
+                      </div> */}
                   </div>
                 ))}
               </div>
             </div>
+                </RevealSection>
           ))}
         </div>
 
         {/* Additional Skills */}
+        <RevealSection direction="left">
         <div className="mt-16 text-center">
           <h3 className="text-lg font-semibold text-foreground mb-6">
             Additional Engineering Skills
@@ -194,7 +199,8 @@ const SkillsOverview = () => {
               </span>
             ))}
           </div>
-        </div>
+          </div>
+          </RevealSection>
       </div>
     </section>
   );

@@ -32,7 +32,7 @@
     --color-secondary-foreground: #FFFFFF; /* white */
     
     /* Accent Colors */
-    --color-accent: #F59E0B; /* amber-500 */
+    --color-accent: #8ae2f6; /* amber-500 */
     --color-accent-foreground: #FFFFFF; /* white */
     
     /* State Colors */
@@ -84,7 +84,7 @@
   }
   
   code, pre {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'JetBrains Mono', monospace !important;
     font-weight: 400;
   }
   

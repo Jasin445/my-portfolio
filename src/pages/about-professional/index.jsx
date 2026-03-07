@@ -28,7 +28,8 @@ const AboutProfessional = () => {
     <main className="min-h-screen bg-background">
       <Header />
       <ScrollProgress />
-      <GenericHeroSection title={"About Me"} />
+      <GenericHeroSection title={"About Me"} image="bg-[url('/assets/images/about-hero.png')] !bg-cover bg-top" overlay="from-[#131426]/70 via-[#0f1115]/70 to-[#2a363c]/70 sm:from-[#131426]/60 sm:via-[#0f1115]/60 sm:to-[#2a363c]/60"
+ />
 
       <section className="relative py-12 h-full">
         <div className="absolute inset-0 pointer-events-none">

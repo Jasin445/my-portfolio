@@ -404,7 +404,7 @@ const BlogComingSoon = () => {
         <div className="w-full max-w-xl text-center">
 
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/20 bg-primary/10 text-primary text-xs font-medium mb-8 backdrop-blur-sm">
+          <div className="inline-flex items-center mt-8 sm:mt-0 gap-2 px-2 sm:px-4 py-2 rounded-full border border-primary/20 bg-primary/10 text-primary text-xs font-medium mb-4 sm:mb-8 backdrop-blur-sm">
             <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
             Something is brewing
           </div>

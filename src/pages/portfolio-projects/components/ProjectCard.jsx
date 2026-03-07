@@ -1,47 +1,53 @@
-import React, { useState } from 'react';
-import Image from '../../../components/AppImage';
-import Icon from '../../../components/AppIcon';
-import Button from '../../../components/ui/Button';
+import React, { useState } from "react";
+import Image from "../../../components/AppImage";
+import Icon from "../../../components/AppIcon";
+import Button from "../../../components/ui/Button";
 
-const ProjectCard = ({ project, onViewDetails, className = '' }) => {
+const ProjectCard = ({ project, onViewDetails, className = "" }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   const getTechIcon = (tech) => {
     const techIcons = {
-      'React': 'Code2',
-      'Vue.js': 'Layers',
-      'Angular': 'Triangle',
-      'Node.js': 'Server',
-      'Python': 'FileCode',
-      'TypeScript': 'FileType',
-      'JavaScript': 'Braces',
-      'MongoDB': 'Database',
-      'PostgreSQL': 'Database',
-      'Express': 'Zap',
-      'Next.js': 'ArrowRight',
-      'Tailwind CSS': 'Palette'
+      React: "Code2",
+      "Vue.js": "Layers",
+      Angular: "Triangle",
+      "Node.js": "Server",
+      Python: "FileCode",
+      TypeScript: "FileType",
+      JavaScript: "Braces",
+      MongoDB: "Database",
+      PostgreSQL: "Database",
+      Express: "Zap",
+      "Next.js": "ArrowRight",
+      "Tailwind CSS": "Palette",
     };
-    return techIcons?.[tech] || 'Code';
+    return techIcons?.[tech] || "Code";
   };
 
   const getStatusColor = (status) => {
     switch (status) {
-      case 'completed':
-        return 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20';
-      case 'in-progress':
-        return 'bg-amber-500/10 text-amber-400 border-amber-500/20';
-      case 'archived':
-        return 'bg-muted text-muted-foreground border-border';
+      case "completed":
+        return "bg-emerald-500/10 text-emerald-400 border-emerald-500/20";
+      case "in-progress":
+        return "bg-amber-500/10 text-amber-400 border-amber-500/20";
+      case "archived":
+        return "bg-muted text-muted-foreground border-border";
       default:
-        return 'bg-primary/10 text-primary border-primary/20';
+        return "bg-primary/10 text-primary border-primary/20";
     }
   };
 
   return (
     <div
-      className={`group relative z-30 bg-[#2a363c]/80 border border-white/5 rounded-2xl overflow-hidden transition-all duration-500 sm:hover:-translate-y-1.5 sm:hover:border-primary/20 sm:hover:shadow-[0_20px_40px_-12px_rgba(0,0,0,0.5)] ${className}`}
+      className={`group relative z-20 bg-[#2a363c]/80 border border-white/5 rounded-2xl overflow-hidden transition-all duration-500 sm:hover:-translate-y-1.5 sm:hover:border-primary/20 sm:hover:shadow-[0_20px_40px_-12px_rgba(0,0,0,0.5)] ${className}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      style={{
+        background: "rgba(255, 255, 255, 0.04)",
+        border: " 1px solid rgba(255, 255, 255, 0.08)",
+        backdropFilter: "blur(2px)",
+        WebkitBackdropFilter: "blur(2px)",
+      }}
     >
       {/* Project Image */}
       <div className="relative h-48 overflow-hidden">
@@ -57,9 +63,11 @@ const ProjectCard = ({ project, onViewDetails, className = '' }) => {
         <div className="absolute inset-0 bg-black/20" />
 
         {/* Hover overlay */}
-        <div className={`absolute inset-0 bg-black/50 flex items-center justify-center gap-3 transition-opacity duration-300 ${
-          isHovered ? 'hidden sm:flex sm:opacity-100' : 'opacity-0'
-        }`}>
+        <div
+          className={`absolute inset-0 bg-black/50 flex items-center justify-center gap-3 transition-opacity duration-300 ${
+            isHovered ? "hidden sm:flex sm:opacity-100" : "opacity-0"
+          }`}
+        >
           {project?.liveUrl && (
             <Button
               variant="secondary"
@@ -68,7 +76,7 @@ const ProjectCard = ({ project, onViewDetails, className = '' }) => {
               iconPosition="left"
               onClick={(e) => {
                 e?.stopPropagation();
-                window.open(project?.liveUrl, '_blank');
+                window.open(project?.liveUrl, "_blank");
               }}
             >
               Live Demo
@@ -82,7 +90,7 @@ const ProjectCard = ({ project, onViewDetails, className = '' }) => {
               iconPosition="left"
               onClick={(e) => {
                 e?.stopPropagation();
-                window.open(project?.githubUrl, '_blank');
+                window.open(project?.githubUrl, "_blank");
               }}
             >
               Code
@@ -92,16 +100,19 @@ const ProjectCard = ({ project, onViewDetails, className = '' }) => {
 
         {/* Status Badge */}
         <div className="absolute top-3 right-3">
-          <span className={`px-2.5 py-1 text-[10px] font-semibold rounded-full border backdrop-blur-sm tracking-wide ${getStatusColor(project?.status)}`}>
-            {project?.status?.charAt(0)?.toUpperCase() + project?.status?.slice(1)?.replace('-', ' ')}
+          <span
+            className={`px-2.5 py-1 text-[10px] font-semibold rounded-full border backdrop-blur-sm tracking-wide ${getStatusColor(project?.status)}`}
+          >
+            {project?.status?.charAt(0)?.toUpperCase() +
+              project?.status?.slice(1)?.replace("-", " ")}
           </span>
         </div>
 
         {/* Featured badge */}
         {project?.featured && (
           <div className="absolute top-3 left-3">
-            <span className="flex items-center gap-1 px-2.5 py-1 bg-primary/80 backdrop-blur-sm text-white text-[10px] font-semibold rounded-full">
-              <Icon name="Star" size={10} />
+            <span className="flex items-center gap-1 px-2.5 py-1 bg-[#1b202f] shadow-inner text-accent text-[10px] font-semibold rounded-full">
+              <Icon name="Star" className="fill-accent" size={10} />
               Featured
             </span>
           </div>
@@ -169,7 +180,7 @@ const ProjectCard = ({ project, onViewDetails, className = '' }) => {
           iconName="Eye"
           iconPosition="left"
           onClick={() => onViewDetails(project)}
-          className="group-hover:border-primary group-hover:text-primary transition-colors duration-300 rounded-xl text-xs"
+          className="hover:border-primary hover:text-primary transition-all duration-300 rounded-xl text-xs"
         >
           View Details
         </Button>

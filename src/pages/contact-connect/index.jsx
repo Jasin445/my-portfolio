@@ -179,6 +179,8 @@ const ContactConnect = () => {
     </div> */}
             <GenericHeroSection
               message="Hi there! Lets do something amazing together!"
+              image="bg-[url('/assets/images/contact-hero.jpg')]"
+              overlay="from-[#131426]/80 via-[#0f1115]/80 to-[#2a363c]/80"
               title={"Contact Me"}
             />
           </section>

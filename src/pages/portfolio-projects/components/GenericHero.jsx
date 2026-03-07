@@ -5,11 +5,13 @@ import useTypewriter from "../../../utils/typewrite";
 const GenericHeroSection = ({
   title,
   message = "Scroll to view some of my astonishing projects",
+  image = "bg-[url('/assets/images/projects-hero.png')]",
+  overlay = "from-[#131426]/50 via-[#0f1115]/50 to-[#2a363c]/50",
   loading = false,
 }) => {
   const typedTitle = useTypewriter(title || "", 500);
   return (
-    <section className="h-[300px] md:h-[500px] bg-[url('/assets/images/projects-hero.png')] bg-cover bg-center">
+    <section className={`h-[300px] md:h-[500px] ${image} bg-cover bg-center`}>
       <div className="relative h-full">
         <div
           className={
@@ -27,7 +29,7 @@ const GenericHeroSection = ({
               <div className="hexagon bottom-20 left-1/3"></div>
             </div> */}
 
-        <div className="flex justify-center items-center h-full pt-28 px-4 sm:px-6 bg-gradient-to-b from-[#131426]/50 via-[#0f1115]/50 to-[#2a363c]/50">
+        <div className={`flex justify-center items-center h-full pt-28 px-4 sm:px-6 bg-gradient-to-b ${overlay}`}>
           <div className="text-center mb-12 z-10 ">
             <h1 className="text-foreground text-3xl md:text-[48px] 3xl:text-[4vw] font-bold mb-8 w-full">
               {loading ? (

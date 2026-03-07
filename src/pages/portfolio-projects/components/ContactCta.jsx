@@ -1,10 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import Button from "../../../components/ui/Button";
+import { RevealSection } from "..";
 
 const ContactCta = () => {
   const navigate = useNavigate();
 
   return (
+    <RevealSection direction="down">
     <section className="relative bg-gradient-to-b from-[#2a363c]/90 via-blue-200/5 to-[#2a363c]/5 py-10 sm:py-20">
       {/* Overlay */}
       <div className="absolute inset-0 pointer-events-none">
@@ -50,7 +52,8 @@ const ContactCta = () => {
           </Button>
         </div>
       </div>
-    </section>
+      </section>
+      </RevealSection>
   );
 };
 

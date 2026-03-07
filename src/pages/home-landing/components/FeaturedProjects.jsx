@@ -58,7 +58,8 @@ const FeaturedProjects = () => {
 
   return (
     <section
-      className="relative py-12 sm:py-20 
+      id="featuredProjects"
+      className="scroll-mt-14 relative py-12 sm:py-20 
               bg-gradient-to-b from-[#2a363c] via-[#131426]/95 to-[#2a363c]/90"
     >
       <div
