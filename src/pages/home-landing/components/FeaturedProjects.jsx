@@ -115,7 +115,7 @@ const FeaturedProjects = () => {
             return (
               <div
                 key={project?.id}
-                className="group bg-[#2a363c]/80 text-secondary rounded-2xl overflow-hidden shadow-2xl border border-white/5 transition-all duration-500 hover:-translate-y-2 hover:border-primary/20 hover:shadow-[0_24px_48px_-12px_rgba(0,0,0,0.5)]"
+                className="group bg-[#2a363c]/80 text-secondary rounded-2xl overflow-hidden shadow-2xl border border-white/5 transition-all duration-500 sm:hover:-translate-y-2 sm:hover:border-primary/20 sm:hover:shadow-[0_24px_48px_-12px_rgba(0,0,0,0.5)]"
               >
                 {/* Project Image */}
                 <div className="relative h-56 overflow-hidden">
@@ -127,7 +127,7 @@ const FeaturedProjects = () => {
 
                   {/* Bottom gradient so content reads on image */}
                   <div className="absolute inset-0 bg-gradient-to-t from-[#2a363c]/90 via-transparent to-transparent" />
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-500" />
+                  <div className="absolute inset-0 bg-black/20 sm:group-hover:bg-black/40 transition-colors duration-500" />
 
                   {/* Category Badge */}
                   {/* <div className="absolute top-4 left-4">

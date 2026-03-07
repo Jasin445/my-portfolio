@@ -125,14 +125,14 @@ These interests aren't separate from my professional life—they enrich and info
           <div className=" sm:mb-4">
             <div
               className="inline-flex items-center px-4 py-2 
-                      bg-primary/10 text-primary rounded-full text-sm sm:text-base font-medium mb-4
+                      bg-primary/10 text-primary rounded-full text-xs sm:text-base font-medium mb-4
                       ring-1 ring-primary/20 backdrop-blur-sm"
             >
               <AppIcon name="Smile" size={16} className="mr-2" />
               About Me
             </div>
           </div>
-          <h2 className="text-xl sm:text-3xl lg:text-5xl font-bold mb-2 sm:mb-6 py-2 bg-gradient-to-r from-white via-white to-white bg-clip-text text-transparent">
+          <h2 className="text-xl sm:text-3xl lg:text-4xl font-bold mb-2 sm:mb-6 py-2 bg-gradient-to-r from-white via-white to-white bg-clip-text text-transparent">
             Getting to Know Me
           </h2>
           <p className="text-sm sm:text-lg text-gray-400 max-w-2xl mx-auto leading-relaxed">
@@ -168,7 +168,7 @@ These interests aren't separate from my professional life—they enrich and info
           <div className="relative space-y-10">
             {/* Title */}
             <div className="text-center space-y-4">
-              <h3 className="text-xl sm:text-2xl lg:text-4xl font-bold tracking-tight">
+              <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold tracking-tight">
                 {content?.[activeTab]?.title}
               </h3>
               <div className="flex items-center justify-center gap-2">

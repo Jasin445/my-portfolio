@@ -335,7 +335,7 @@ const ContactConnect = () => {
                   type="text"
                   name="name"
                   placeholder="Enter your full name"
-                  className=""
+                  className="placeholder:text-xs sm:placeholder:text-sm bg-transparent"
                   value={formData?.name}
                   onChange={handleInputChange}
                   required
@@ -345,6 +345,7 @@ const ContactConnect = () => {
                   label="Email Address"
                   type="email"
                   name="email"
+                  className="placeholder:text-xs sm:placeholder:text-sm bg-transparent"
                   placeholder="Enter your email address"
                   value={formData?.email}
                   onChange={handleInputChange}
@@ -362,7 +363,7 @@ const ContactConnect = () => {
                     value={formData?.message}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-3 border border-border rounded-lg bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent resize-none"
+                    className="w-full px-4 py-3 border border-border rounded-lg bg-transparent text-foreground placeholder:text-xs sm:placeholder:text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent resize-none"
                   />
                 </div>
 
@@ -383,7 +384,7 @@ const ContactConnect = () => {
                 <p className="text-xs sm:text-sm text-muted-foreground mb-4">
                   Or explore more about my work
                 </p>
-                <div className="flex flex-col sm:flex-row gap-0 sm:gap-3">
+                <div className="flex flex-row gap-0 sm:gap-3">
                   <Button
                     variant="ghost"
                     size="sm"

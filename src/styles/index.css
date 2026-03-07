@@ -1,10 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus Jakarta Sans:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap');
-
+@import url("https://fonts.googleapis.com/css2?family=Plus Jakarta Sans:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap");
 
 body {
   margin: 0;
   padding: 0;
-  font-family: Plus Jakarta Sans !important;
+  /* font-family: Plus Jakarta Sans !important; */
   --color-background: #131426;
   --color-foreground: white;
   --color-primary: rgb(1, 149, 255);
@@ -17,22 +16,24 @@ body {
   --color-muted: rgb(47, 47, 87);
   --color-card: rgba(32, 40, 41, 0.95);
   --color-muted-foreground: white;
-
 }
-
 
 * {
   box-sizing: border-box;
   line-height: normal;
   font-family: inherit;
   margin: unset;
-  font-family: Poppins !important;
-  
+  /* font-family: Poppins !important; */
+  font-family: 'Space Grotesk', sans-serif !important;
 }
 
 @keyframes car-drive {
-  0% { transform: translateX(-50px); }
-  100% { transform: translateX(calc(100vw + 50px)); }
+  0% {
+    transform: translateX(-50px);
+  }
+  100% {
+    transform: translateX(calc(100vw + 50px));
+  }
 }
 
 .animate-car-drive {
@@ -41,9 +42,18 @@ body {
 
 /* Floating animation */
 @keyframes floatHex {
-  0% { transform: translateY(0px) scale(1); opacity: 0.4; }
-  50% { transform: translateY(-20px) scale(1.05); opacity: 0.6; }
-  100% { transform: translateY(0px) scale(1); opacity: 0.4; }
+  0% {
+    transform: translateY(0px) scale(1);
+    opacity: 0.4;
+  }
+  50% {
+    transform: translateY(-20px) scale(1.05);
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(0px) scale(1);
+    opacity: 0.4;
+  }
 }
 
 /* Add this to your bg container */
@@ -53,17 +63,20 @@ body {
   height: 60px;
   background: rgba(59, 130, 246, 0.08); /* faint blue */
   clip-path: polygon(
-    25% 6.7%, 75% 6.7%,
-    100% 50%, 75% 93.3%,
-    25% 93.3%, 0% 50%
-    );
-    animation: floatHex 6s ease-in-out infinite;
-  }
-  
-  /* Variation with delays */
-  .hexagon:nth-child(2) {
-    top: 30%;
-    left: 20%;
+    25% 6.7%,
+    75% 6.7%,
+    100% 50%,
+    75% 93.3%,
+    25% 93.3%,
+    0% 50%
+  );
+  animation: floatHex 6s ease-in-out infinite;
+}
+
+/* Variation with delays */
+.hexagon:nth-child(2) {
+  top: 30%;
+  left: 20%;
   animation-delay: 2s;
 }
 .hexagon:nth-child(3) {
@@ -87,7 +100,7 @@ body {
 
 .glow-title {
   text-shadow:
-    0 0 8px rgba(255,255,255,0.5),
+    0 0 8px rgba(255, 255, 255, 0.5),
     0 0 16px rgba(120, 200, 255, 0.4),
     0 0 32px rgba(0, 170, 255, 0.4),
     0 0 48px rgba(0, 120, 255, 0.4);
@@ -100,19 +113,27 @@ body {
 }
 
 @keyframes blink {
-  0%, 50%, 100% { opacity: 1; }
-  25%, 75% { opacity: 0; }
+  0%,
+  50%,
+  100% {
+    opacity: 1;
+  }
+  25%,
+  75% {
+    opacity: 0;
+  }
 }
 
 .draw-text {
-  font-size: clamp(26px, 4vw, 61px);
+  font-size: clamp(18px, 2vw, 34px);
   fill: transparent;
   stroke: #ffffff;
+  width: 100%;
   stroke-width: 0.5;
   stroke-dasharray: 1000;
   stroke-dashoffset: 1000;
-  filter: drop-shadow(0 0 5px #aae6f1);
-  animation: drawText 28s ease forwards;
+  filter: drop-shadow(0 0 5px #d3f3f9);
+  animation: drawText 16s ease forwards;
 }
 
 @keyframes drawText {
@@ -136,5 +157,18 @@ body {
   }
   to {
     filter: drop-shadow(0 0 10px #6be6ff);
+  }
+}
+
+@media (max-width: 640px) {
+  .draw-text {
+    font-size: clamp(44px, 4vw, 111px);
+    fill: transparent;
+    stroke: #ffffff;
+    stroke-width: 0.2;
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    filter: drop-shadow(0 0 5px #aae6f1);
+    animation: drawText 25s ease forwards;
   }
 }

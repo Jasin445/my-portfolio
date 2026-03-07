@@ -39,7 +39,7 @@ const ProjectCard = ({ project, onViewDetails, className = '' }) => {
 
   return (
     <div
-      className={`group relative bg-[#2a363c]/80 border border-white/5 rounded-2xl overflow-hidden transition-all duration-500 hover:-translate-y-1.5 hover:border-primary/20 hover:shadow-[0_20px_40px_-12px_rgba(0,0,0,0.5)] ${className}`}
+      className={`group relative z-30 bg-[#2a363c]/80 border border-white/5 rounded-2xl overflow-hidden transition-all duration-500 sm:hover:-translate-y-1.5 sm:hover:border-primary/20 sm:hover:shadow-[0_20px_40px_-12px_rgba(0,0,0,0.5)] ${className}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -54,9 +54,11 @@ const ProjectCard = ({ project, onViewDetails, className = '' }) => {
         {/* Persistent bottom gradient */}
         <div className="absolute inset-0 bg-gradient-to-t from-[#2a363c]/90 via-transparent to-transparent" />
 
+        <div className="absolute inset-0 bg-black/20" />
+
         {/* Hover overlay */}
         <div className={`absolute inset-0 bg-black/50 flex items-center justify-center gap-3 transition-opacity duration-300 ${
-          isHovered ? 'opacity-100' : 'opacity-0'
+          isHovered ? 'hidden sm:flex sm:opacity-100' : 'opacity-0'
         }`}>
           {project?.liveUrl && (
             <Button

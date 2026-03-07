@@ -145,7 +145,7 @@ const Header = () => {
                 className={`flex items-center space-x-3 px-4 py-3 rounded-lg text-sm font-medium transition-all duration-fast ${
                   isActivePath(item?.path)
                     ? "text-primary bg-primary/5 border-b border-primary/20"
-                    : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                    : "text-muted-foreground hover:text-foreground sm:hover:bg-muted"
                 }`}
                 aria-current={isActivePath(item?.path) ? "page" : undefined}
               >

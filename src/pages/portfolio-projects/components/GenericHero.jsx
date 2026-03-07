@@ -27,7 +27,7 @@ const GenericHeroSection = ({
               <div className="hexagon bottom-20 left-1/3"></div>
             </div> */}
 
-        <div className="flex justify-center items-center h-full pt-28 px-4 sm:px-6 bg-gradient-to-b from-[#131426]/75 via-[#0f1115]/75 to-[#2a363c]/75">
+        <div className="flex justify-center items-center h-full pt-28 px-4 sm:px-6 bg-gradient-to-b from-[#131426]/50 via-[#0f1115]/50 to-[#2a363c]/50">
           <div className="text-center mb-12 z-10 ">
             <h1 className="text-foreground text-3xl md:text-[48px] 3xl:text-[4vw] font-bold mb-8 w-full">
               {loading ? (
@@ -41,7 +41,7 @@ const GenericHeroSection = ({
                   </div>
                 </div>
               ) : (
-                <svg viewBox="0 0 260 200" className="w-full max-w-[900px]">
+                <svg viewBox="0 0 370 200" className="w-full sm:min-w-[650px]">
                   <text
                     x="50%"
                       y="50%"
