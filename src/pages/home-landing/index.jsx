@@ -9,8 +9,7 @@ import Skills from "./components/Skills";
 import ContactCta from "./components/ContactCta";
 
 /* ─── Cinematic curtain ──────────────────────────────────────── */
-const CinematicCurtain = () => {
-  const [done, setDone] = useState(false);
+const CinematicCurtain = ({ done, setDone }) => {
   const [lifting, setLifting] = useState(false);
 
   useEffect(() => {
@@ -50,20 +49,35 @@ const CinematicCurtain = () => {
         }
       `}</style>
 
-      <div style={{
-        position: "fixed", inset: 0, zIndex: 9999,
-        pointerEvents: "none", display: "flex", flexDirection: "column",
-      }}>
+      <div
+        style={{
+          position: "fixed",
+          inset: 0,
+          zIndex: 9999,
+          pointerEvents: "none",
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
         {/* Logo + text centered between the two curtain halves */}
-        <div style={{
-          position: "absolute", inset: 0, zIndex: 10,
-          display: "flex", flexDirection: "column",
-          alignItems: "center", justifyContent: "center", gap: "0px",
-        }}>
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            zIndex: 10,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "0px",
+          }}
+        >
           {/* Logo */}
-          <div style={{
-            animation: "logoPulse 3.8s cubic-bezier(0.4,0,0.2,1) forwards",
-          }}>
+          <div
+            style={{
+              animation: "logoPulse 3.8s cubic-bezier(0.4,0,0.2,1) forwards",
+            }}
+          >
             <img
               src="/assets/logo.png"
               alt="Logo"
@@ -73,30 +87,43 @@ const CinematicCurtain = () => {
           </div>
 
           {/* Glowing text */}
-          <p style={{
-            color: "#6be6ff",
-            fontSize: "clamp(10px, 3vw, 26px)",
-            fontWeight: 500,
-            letterSpacing: "0.3em",
-            // transform: "translateY(-40px)",
-            textTransform: "uppercase",
-            animation: "textGlow 3.8s cubic-bezier(0.4,0,0.2,1) forwards, glowPulse 1.5s ease-in-out infinite",
-          }}>
+          <p
+            style={{
+              color: "#6be6ff",
+              fontSize: "clamp(10px, 3vw, 26px)",
+              fontWeight: 500,
+              letterSpacing: "0.3em",
+              // transform: "translateY(-40px)",
+              textTransform: "uppercase",
+              animation:
+                "textGlow 3.8s cubic-bezier(0.4,0,0.2,1) forwards, glowPulse 1.5s ease-in-out infinite",
+            }}
+          >
             Not just a name. A digital experience.
           </p>
         </div>
 
         {/* Top curtain */}
-        <div style={{
-          flex: 1, background: "#0a0e1a",
-          animation: lifting ? "curtainDown 1.4s cubic-bezier(0.76, 0, 0.24, 1) forwards" : "none",
-        }} />
+        <div
+          style={{
+            flex: 1,
+            background: "#0a0e1a",
+            animation: lifting
+              ? "curtainDown 1.4s cubic-bezier(0.22, 1, 0.36, 1) forwards"
+              : "none",
+          }}
+        />
 
         {/* Bottom curtain */}
-        <div style={{
-          flex: 1, background: "#0a0e1a",
-          animation: lifting ? "curtainUp 1.4s cubic-bezier(0.76, 0, 0.24, 1) forwards" : "none",
-        }} />
+        <div
+          style={{
+            flex: 1,
+            background: "#0a0e1a",
+            animation: lifting
+              ? "curtainUp 1.4s cubic-bezier(0.22, 1, 0.36, 1) forwards"
+              : "none",
+          }}
+        />
       </div>
     </>
   );
@@ -104,13 +131,14 @@ const CinematicCurtain = () => {
 
 /* ════════════════════════════════════════════════════════════ */
 const HomeLanding = () => {
+  const [done, setDone] = useState(false);
   useEffect(() => {
     document.title = "Jason Dagana | Frontend Developer";
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
       metaDescription?.setAttribute(
         "content",
-        "Professional frontend developer specializing in React, TypeScript, and modern web technologies. Building digital experiences that drives result."
+        "Professional frontend developer specializing in React, TypeScript, and modern web technologies. Building digital experiences that drives result.",
       );
     }
     const handleSmoothScroll = (e) => {
@@ -128,10 +156,10 @@ const HomeLanding = () => {
     return () => document.removeEventListener("click", handleSmoothScroll);
   }, []);
 
-  return (
+  return !done ? (
+    <CinematicCurtain done={done} setDone={setDone} />
+  ) : (
     <main className="min-h-screen bg-white">
-      <CinematicCurtain />
-
       <div className="relative bg-[url('/assets/images/background3.jpg')] bg-cover bg-center">
         <div className="absolute inset-0 bg-black/50" />
         <Header />
