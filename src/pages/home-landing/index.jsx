@@ -89,13 +89,13 @@ const CinematicCurtain = () => {
         {/* Top curtain */}
         <div style={{
           flex: 1, background: "#0a0e1a",
-          animation: lifting ? "curtainDown 0.9s cubic-bezier(0.76, 0, 0.24, 1) forwards" : "none",
+          animation: lifting ? "curtainDown 1.4s cubic-bezier(0.76, 0, 0.24, 1) forwards" : "none",
         }} />
 
         {/* Bottom curtain */}
         <div style={{
           flex: 1, background: "#0a0e1a",
-          animation: lifting ? "curtainUp 0.9s cubic-bezier(0.76, 0, 0.24, 1) forwards" : "none",
+          animation: lifting ? "curtainUp 1.4s cubic-bezier(0.76, 0, 0.24, 1) forwards" : "none",
         }} />
       </div>
     </>
