@@ -378,7 +378,7 @@ const PortfolioProjects = () => {
   );
 
   return (
-    <main className="relative min-h-screen bg-gradient-to-br from-background via-card to-muted/20">
+    <main className="relative min-h-screen bg-gradient-to-br overflow-hidden from-background via-card to-muted/20">
       <style>{`
         @keyframes borderSpin {
           0%   { background-position: 0% 50%; }
