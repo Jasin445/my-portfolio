@@ -1,13 +1,15 @@
 import Button from "../../../components/ui/Button";
+import { RevealSection } from "../../portfolio-projects";
 
 const ContactCta = () => {
   return (
-      <section className="relative bg-gradient-to-b from-[#2a363c] to-[#1c1f25] py-12 sm:py-20">
+    <section className="relative bg-gradient-to-b from-[#283439] to-[#1f2229] py-12 sm:py-20">
            <div className="absolute inset-0 pointer-events-none">
         <div className="w-full h-full opacity-20 bg-[radial-gradient(circle_at_center,_rgba(36,40,49,1)_0%,_rgba(36,40,49,0)_80%)]
 " />
       </div>
 
+        <RevealSection direction="down">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
         
         <h2 className="text-xl sm:text-3xl font-bold text-secondary-foreground mb-4">
@@ -26,11 +28,12 @@ const ContactCta = () => {
             iconPosition="left"
             className="text-white"
             onClick={() => (window.location.href = "/contact-connect")}
-          >
+            >
             Get In Touch
           </Button>
         </div>
       </div>
+            </RevealSection>
     </section>
   );
 };

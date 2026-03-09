@@ -8,6 +8,7 @@ import {
   SiTailwindcss,
   SiTypescript,
 } from "react-icons/si";
+import { RevealSection } from "../../portfolio-projects";
 
 const Skills = () => {
   const skills = [
@@ -20,7 +21,8 @@ const Skills = () => {
   { icon: SiCss3, label: "Css3", className: "text-[#1572B6]", hiddenOnMobile: true },
 ];
   return (
-    <section className="py-2 px-4 sm: bg-gradient-to-b from-[#2a363c]/90 to-[#131426]/95">
+    <section className="pt-20 px-4 sm: bg-gradient-to-b from-[#2a363c]/90 to-[#131426]/95">
+    <RevealSection direction="left">
       <div
         className="bg-gradient-to-b from-[#2a363c]/80 to-transparent hover:shadow-[0_0_12px_rgba(1,149,255,0.25)] backdrop-blur-sm border-white/45 max-w-5xl border py-8 sm:py-12 px-6 lg:px-8 rounded-2xl shadow-2xl
  mx-auto text-center"
@@ -56,7 +58,8 @@ const Skills = () => {
           See full breakdown →
         </Button>
       </div>
-    </section>
+      </RevealSection>
+      </section>
   );
 };
 

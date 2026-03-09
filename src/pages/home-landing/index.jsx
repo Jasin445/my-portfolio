@@ -99,7 +99,7 @@ const CinematicCurtain = ({ done, setDone }) => {
                 "textGlow 3.8s cubic-bezier(0.4,0,0.2,1) forwards, glowPulse 1.5s ease-in-out infinite",
             }}
           >
-            Not just a name. A digital experience.
+            Not just a name. A digital experience!.
           </p>
         </div>
 
