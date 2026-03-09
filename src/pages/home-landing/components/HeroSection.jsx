@@ -3,44 +3,21 @@ import { Link } from "react-router-dom";
 import Button from "../../../components/ui/Button";
 import Image from "../../../components/AppImage";
 import Icon from "../../../components/AppIcon";
-import { Atom, Code2, ChevronDown } from "lucide-react";
-import { FaReact, FaGithub, FaLinkedin } from "react-icons/fa";
-import { SiNextdotjs, SiTailwindcss, SiTypescript } from "react-icons/si";
+import { ChevronDown } from "lucide-react";
 import "../../../styles/hero-section-styles.css";
+import {
+  NextJsIcon,
+  ReactIcon,
+  TailwindIcon,
+  TypeScriptIcon,
+} from "../../../components/BrandIcons";
 
 const HeroSection = () => {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    // Trigger animations on mount
     setIsVisible(true);
-
-    // Mouse tracking for parallax effect
-    const handleMouseMove = (e) => {
-      setMousePosition({
-        x: (e.clientX / window.innerWidth - 0.5) * 20,
-        y: (e.clientY / window.innerHeight - 0.5) * 20,
-      });
-    };
-
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
-
-  const typewriterText = ["Building Digital Experiences That Drives Result"];
-  const [displayText, setDisplayText] = useState("");
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  useEffect(() => {
-    if (currentIndex < typewriterText.length && isVisible) {
-      const timer = setTimeout(() => {
-        setDisplayText((prev) => prev + typewriterText[currentIndex]);
-        setCurrentIndex((prev) => prev + 1);
-      }, 50);
-      return () => clearTimeout(timer);
-    }
-  }, [currentIndex, isVisible, typewriterText]);
 
   return (
     <section className="relative flex min-h-screen items-center overflow-x-hidden justify-center bg-gradient-to-br from-background via-card to-muted/20">
@@ -50,14 +27,12 @@ const HeroSection = () => {
         <div
           className="absolute top-20 left-20 w-72 h-72 bg-gradient-to-r from-primary to-blue-500 rounded-full blur-3xl animate-pulse-slow"
           style={{
-            transform: `translate(${mousePosition.x}px, ${mousePosition.y}px)`,
             transition: "transform 0.1s ease-out",
           }}
         ></div>
         <div
           className="absolute bottom-20 right-20 w-96 h-96 bg-gradient-to-r from-accent to-purple-500 rounded-full blur-3xl animate-pulse-slow"
           style={{
-            transform: `translate(${-mousePosition.x}px, ${-mousePosition.y}px)`,
             transition: "transform 0.1s ease-out",
             animationDelay: "1s",
           }}
@@ -115,15 +90,13 @@ const HeroSection = () => {
                       : "translate-y-8 opacity-0"
                   }`}
                 >
-                  {displayText.split(" ")[0]}
+                  Building
                   <br />
                   {/* {displayText.split('Digital')[1]} */}
-
                   <span className="block bg-gradient-to-r font-bold from-primary via-blue-500 to-purple-600 bg-clip-text text-transparent animate-gradient-x">
-                    {displayText.slice(8, 29)}
+                    Digital Experiences
                   </span>
-                  {displayText.slice(29)}
-
+                  That Drives Result
                   {/* <span className="inline-block w-1 h-12 lg:h-16 bg-primary ml-1 animate-pulse"></span> */}
                 </h1>
               </div>
@@ -154,9 +127,7 @@ const HeroSection = () => {
                   style={{
                     background:
                       "linear-gradient(45deg, rgba(59, 130, 246, 0.1), rgba(147, 51, 234, 0.1))",
-                    transform: `perspective(1000px) rotateY(${
-                      mousePosition.x * 0.1
-                    }deg) rotateX(${-mousePosition.y * 0.1}deg)`,
+                    transform: `perspective(1000px)`,
                   }}
                 >
                   {/* Enhanced overlay */}
@@ -178,12 +149,12 @@ const HeroSection = () => {
                   <div className="absolute !rounded-full inset-0 animate-spin-slow-1">
                     {/* React */}
                     <div className="absolute -right-5 w-12 h-12 bg-gradient-to-r from-primary to-blue-600 rounded-full flex items-center justify-center shadow-xl animate-pulse-slow-1">
-                      <FaReact size={22} color="white" />
+                      <ReactIcon size={22} color="white" />
                     </div>
 
                     {/* Next.js */}
                     <div className="absolute -left-5  w-12 h-12 bg-gradient-to-r from-gray-500 to-black rounded-full flex items-center justify-center shadow-xl animate-pulse-slow-2">
-                      <SiNextdotjs size={22} color="white" />
+                      <NextJsIcon size={22} color="white" />
                     </div>
                   </div>
 
@@ -191,12 +162,12 @@ const HeroSection = () => {
                   <div className="absolute inset-0 animate-spin-reverse !rounded-full">
                     {/* Tailwind */}
                     <div className="absolute -left-5 w-12 h-12 bg-gradient-to-r from-sky-400 to-sky-600 rounded-full flex items-center justify-center shadow-xl animate-pulse-slow-3">
-                      <SiTailwindcss size={22} color="white" />
+                      <TailwindIcon size={22} color="white" />
                     </div>
 
                     {/* TypeScript */}
                     <div className="absolute -right-5 w-12 h-12 bg-gradient-to-r from-blue-500 to-blue-700 rounded-full flex items-center justify-center shadow-xl animate-pulse-slow-4">
-                      <SiTypescript size={22} color="white" />
+                      <TypeScriptIcon size={22} color="white" />
                     </div>
                   </div>
                 </div>
@@ -292,9 +263,7 @@ const HeroSection = () => {
                 style={{
                   background:
                     "linear-gradient(45deg, rgba(59, 130, 246, 0.1), rgba(147, 51, 234, 0.1))",
-                  transform: `perspective(1000px) rotateY(${
-                    mousePosition.x * 0.1
-                  }deg) rotateX(${-mousePosition.y * 0.1}deg)`,
+                  transform: `perspective(1000px)`,
                 }}
               >
                 {/* Enhanced overlay */}
@@ -316,12 +285,12 @@ const HeroSection = () => {
                 <div className="absolute !rounded-full inset-0 animate-spin-slow-1">
                   {/* React */}
                   <div className="absolute -right-5 w-12 h-12 bg-gradient-to-r from-primary to-blue-600 rounded-full flex items-center justify-center shadow-xl animate-pulse-slow-1">
-                    <FaReact size={22} color="white" />
+                    <ReactIcon size={22} color="white" />
                   </div>
 
                   {/* Next.js */}
                   <div className="absolute -left-5  w-12 h-12 bg-gradient-to-r from-gray-500 to-black rounded-full flex items-center justify-center shadow-xl animate-pulse-slow-2">
-                    <SiNextdotjs size={22} color="white" />
+                    <NextJsIcon size={22} color="white" />
                   </div>
                 </div>
 
@@ -329,12 +298,12 @@ const HeroSection = () => {
                 <div className="absolute inset-0 animate-spin-reverse !rounded-full">
                   {/* Tailwind */}
                   <div className="absolute -left-5 w-12 h-12 bg-gradient-to-r from-sky-400 to-sky-600 rounded-full flex items-center justify-center shadow-xl animate-pulse-slow-3">
-                    <SiTailwindcss size={22} color="white" />
+                    <TailwindIcon size={22} color="white" fill="white" />
                   </div>
 
                   {/* TypeScript */}
                   <div className="absolute -right-5 w-12 h-12 bg-gradient-to-r from-blue-500 to-blue-700 rounded-full flex items-center justify-center shadow-xl animate-pulse-slow-4">
-                    <SiTypescript size={22} color="white" />
+                    <TypeScriptIcon size={22} color="white" fill="white" />
                   </div>
                 </div>
               </div>

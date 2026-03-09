@@ -1,97 +1,93 @@
 import { Car } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
-const defaultText =
-  "Connect with me. I'd take you on a Journey to Digital Freedom";
+const defaultText = "Connect with me. I'd take you on a Journey to Digital Freedom";
 
-const ToolTip = ({ className, message = defaultText }) => {
-  return (
-    <div className={`w-44 p-4 bg-[#2a363c] text-foreground ${className}`}>
-      {message}
-    </div>
-  );
-};
+
+const ToolTip = ({ className, message = defaultText }) => (
+  <div
+    className={`w-44 p-4 bg-[#2a363c] text-foreground absolute bottom-full mb-2 ${className}`}
+  >
+    {message}
+  </div>
+);
 
 const CarTransition = ({ className, message }) => {
-  const [carPosition, setCarPosition] = useState(0);
-  const [isScrollingDown, setIsScrollingDown] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
-  const [showCar, setShowCar] = useState(0);
+  const [carState, setCarState] = useState({ position: 0, scrollingDown: true });
+  const [showCar, setShowCar] = useState(false);
+  const lastScrollY = useRef(0);
+  const rafRef = useRef(null);
 
   useEffect(() => {
-    const configWidth = () => {
-      if (window.innerWidth >= 1024) {
-        setShowCar(true);
-      } else {
-        setShowCar(false);
-      }
-    };
+    const configWidth = () => setShowCar(window.innerWidth >= 1024);
     configWidth();
     window.addEventListener("resize", configWidth);
-
     return () => window.removeEventListener("resize", configWidth);
   }, []);
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollY = window.scrollY;
-      const heroHeight = window.innerHeight;
-
-      // Detect direction
-      const scrollingDown = scrollY > lastScrollY;
-      setIsScrollingDown(scrollingDown);
-      setLastScrollY(scrollY);
-
-      // Calculate position (0 to 100)
-      const progress = Math.min(Math.max((scrollY / heroHeight) * 100, 0), 100);
-      setCarPosition(progress);
+      if (rafRef.current) return;
+      rafRef.current = requestAnimationFrame(() => {
+        const scrollY = window.scrollY;
+        const scrollingDown = scrollY > lastScrollY.current;
+        lastScrollY.current = scrollY;
+        const position = Math.min(Math.max((scrollY / window.innerHeight) * 100, 0), 100);
+        setCarState({ position, scrollingDown });
+        rafRef.current = null;
+      });
     };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [lastScrollY]);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    };
+  }, []);
 
-  const showTooltip = carPosition > 20 && carPosition < 70;
-  const topPosition = showTooltip ? "-10rem" : "-30px";
+  const { position, scrollingDown } = carState;
+  const showTooltip = position > 20 && position < 70;
+  const edgeOpacity = position < 5 ? position / 5 : position > 95 ? (100 - position) / 5 : 1;
 
-  return showCar ? (
+
+  if (!showCar) return null;
+
+  return (
     <div
-      className={`w-full absolute z-40 inset-x-0 bg-transparent overflow-hidden pointer-events-none ${className}`}
-      style={{ top: topPosition }}
+      className={`w-full absolute z-40 inset-x-0 bg-transparent pointer-events-none ${className}`}
+      style={{ top: 0 }} // ← never moves
     >
-      {/* Car for scrolling DOWN (moves right) */}
+      {/* Car scrolling DOWN → moves right */}
       <div
         style={{
-          left: `${carPosition}%`,
+          left: `${position}%`,
+          top: "-29px",
           position: "relative",
-          opacity: isScrollingDown ? 1 : 0,
+    opacity: scrollingDown ? edgeOpacity : 0,  // ← edgeOpacity instead of 1
           transition: "opacity 0.2s ease",
         }}
       >
+        {/* tooltip floats above the car via absolute positioning */}
         {showTooltip && <ToolTip message={message} />}
-        {carPosition > 0 && (
-          <Car className="w-10 h-10 text-white fill-primary" />
-        )}
+        {position > 0 && <Car className="w-10 h-10 text-white fill-primary" />}
       </div>
 
-      {/* Car for scrolling UP (moves left, facing left) */}
+      {/* Car scrolling UP → moves left, mirrored */}
       <div
         style={{
-          left: `${carPosition}%`,
+          left: `${position}%`,
           position: "absolute",
-          top: 0,
+          top: "-29px",
           transform: "scaleX(-1)",
-          opacity: !isScrollingDown ? 1 : 0,
+    opacity: !scrollingDown ? edgeOpacity : 0,  // ← edgeOpacity instead of 1
           transition: "opacity 0.2s ease",
         }}
       >
-        {showTooltip && (
-          <ToolTip message={message} className={"scale-x-[-1]"} />
-        )}
+        {showTooltip && <ToolTip message={message} className="scale-x-[-1]" />}
         <Car className="w-10 h-10 text-white fill-primary" />
       </div>
     </div>
-  ) : null;
+  );
 };
 
 export default CarTransition;

@@ -1,4 +1,3 @@
-// OverlayDesign.tsx
 import React from "react";
 
 const OverlayDesign: React.FC<{children: React.ReactNode, id: string}> = ({children, id}) => {

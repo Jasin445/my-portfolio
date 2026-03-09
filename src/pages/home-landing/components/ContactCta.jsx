@@ -1,5 +1,5 @@
 import Button from "../../../components/ui/Button";
-import { RevealSection } from "../../portfolio-projects";
+import { RevealSection } from "../../../utils/animation.utils";
 
 const ContactCta = () => {
   return (

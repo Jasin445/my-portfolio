@@ -1,6 +1,6 @@
 import Image from "../../../components/AppImage";
 import Icon from "../../../components/AppIcon"
-import { RevealSection, TiltCard } from "../../portfolio-projects";
+import { RevealSection, TiltCard } from "../../../utils/animation.utils";
 
 // Testimonials data
 const testimonials = [
@@ -24,7 +24,7 @@ const testimonials = [
   },
   {
     id: 3,
-    quote: "Jason's expertise in modern web technologies helped us build a scalable and performant application. Highly recommended!",
+    quote: "Jason's expertise in Engineering helped us build a scalable and performant application. Highly recommended!",
     name: "Brumen Pascal",
     avatar: "BP",
     role: "CEO",
@@ -89,53 +89,6 @@ const TestimonialSection = () => {
               </TiltCard>
               </RevealSection>
       ))}
-
-            {/* Testimonial 2
-            <div
-              className="bg-gradient-to-b z-30 from-[#1d1f2e]/70 via-white/10 to-transparent hover:shadow-[0_0_12px_rgba(1,149,255,0.25)] rounded-xl border border-border shadow-xl transition p-8"
-            >
-              <p className="text-muted-foreground mb-4 italic">
-                "His ability to merge clean code with user-centered design is
-                outstanding. Jason brought real innovation to our web platform."
-              </p>
-              <div className="flex items-center gap-4">
-                <Image
-                  src="assets/images/testimonial2.jpg"
-                  alt="Client"
-                  className="w-12 h-12 rounded-full object-cover"
-                />
-                <div className="text-left">
-                  <h4 className="text-foreground font-semibold">
-                    Michael Chen
-                  </h4>
-                  <span className="text-sm text-muted-foreground">
-                    Lead Developer, InnovateX
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            <div
-              className="bg-gradient-to-b z-30 from-[#1d1f2e]/70 via-white/10 to-transparent hover:shadow-[0_0_12px_rgba(1,149,255,0.25)] rounded-xl border border-border shadow-xl transition p-8"
-            >
-              <p className="text-muted-foreground mb-4 italic">
-                "Jason’s design sense and technical know-how transformed our
-                idea into a seamless digital product. Highly recommended!"
-              </p>
-              <div className="flex items-center gap-4">
-                <Image
-                  src="assets/images/testimonial3.jpg"
-                  alt="Client"
-                  className="w-12 h-12 rounded-full object-cover"
-                />
-                <div className="text-left">
-                  <h4 className="text-foreground font-semibold">Aisha Bello</h4>
-                  <span className="text-sm text-muted-foreground">
-                    Founder, StartupHub
-                  </span>
-                </div>
-              </div>
-            </div> */}
           </div>
         </div>
       </div>

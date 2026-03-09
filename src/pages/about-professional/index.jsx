@@ -27,7 +27,6 @@ const AboutProfessional = () => {
   return (
     <main className="min-h-screen bg-background">
       <Header />
-      <ScrollProgress />
       <GenericHeroSection title={"About Me"} image="bg-[url('/assets/images/about-hero.png')] !bg-cover bg-top" overlay="from-[#131426]/70 via-[#0f1115]/70 to-[#2a363c]/70 sm:from-[#131426]/60 sm:via-[#0f1115]/60 sm:to-[#2a363c]/60"
  />
 
@@ -38,17 +37,10 @@ const AboutProfessional = () => {
           <div className="absolute inset-x-0 bg-gradient-to-b from-[#131426]/90 via-[#2a363c] to-[#131426]/60 blur-[340px] z-40 h-20 -bottom-10 translate-y-14"></div>
         </div>
         <div className="4xl:max-w-7xl 3xl:max-w-7xl max-w-6xl mx-auto px-4 sm:px-6">
-          {/* Professional Biography */}
           <ProfessionalBio />
         </div>
       </section>
       <DownloadResume />
-      {/* Download Resume */}
-
-      {/* Social Proof */}
-      {/* <SocialProof /> */}
-
-      {/* Footer */}
       <Footer lightweight />
     </main>
   );

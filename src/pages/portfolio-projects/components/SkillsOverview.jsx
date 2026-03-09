@@ -1,39 +1,42 @@
 import Icon from "../../../components/AppIcon";
-import {
-  SiCss3,
-  SiDocker,
-  SiGithub,
-  SiJavascript,
-  SiNextdotjs,
-  SiReact,
-  SiSmart,
-  SiTailwindcss,
-  SiTypescript,
-  SiVercel,
-  SiVite,
-} from "react-icons/si";
-import { MdDesignServices } from "react-icons/md";
 import { Smartphone } from "lucide-react";
-import { RevealSection, TiltCard } from "..";
+import { RevealSection, TiltCard } from "../../../utils/animation.utils";
+import {
+  CSS3Icon,
+  DockerIcon,
+  GithubIcon,
+  JavaScriptIcon,
+  NextJsIcon,
+  ReactIcon,
+  TailwindIcon,
+  TypeScriptIcon,
+} from "../../../components/BrandIcons";
 
 const getIcons = (icon) => {
   const map = {
-    SiReact,
-    SiTypescript,
-    SiJavascript,
-    SiNextdotjs,
-    SiTailwindcss,
-    SiCss3,
-    SiSmart,
-    SiGithub,
-    SiVite,
-    SiVercel,
-    SiDocker,
-    MdDesignServices,
-    Smartphone,
+    SiReact: ReactIcon,
+    SiTypescript: TypeScriptIcon,
+    SiJavascript: JavaScriptIcon,
+    SiNextdotjs: NextJsIcon,
+    SiTailwindcss: TailwindIcon,
+    SiCss3: CSS3Icon,
+    SiSmart: Smartphone,
+    SiGithub: GithubIcon,
+    SiVite: Smartphone,
+    SiVercel: Smartphone,
+    SiDocker: DockerIcon,
+    Smartphone: Smartphone,
   };
-  const ReactIcon = map[icon] || Smartphone;
-  return <ReactIcon size={16} className="text-muted-foreground mr-2" />;
+  const Icon = map[icon] || Smartphone;
+  const isReactIcon = icon === "SiReact";
+  return (
+    <Icon
+      size={20}
+      addedSize={isReactIcon ? 2 : 0}
+      color={isReactIcon ? "white" : undefined}
+      className="text-muted-foreground mr-2 fill-white"
+    />
+  );
 };
 
 const SkillsOverview = () => {
@@ -42,7 +45,7 @@ const SkillsOverview = () => {
       title: "Application Architecture",
       icon: "Cpu",
       skills: [
-        { name: "React & Next.js Application Architecture", icon: "SiReact" },
+        { name: "React & Next.js Architecture", icon: "SiReact" },
         { name: "TypeScript-driven Development", icon: "SiTypescript" },
         { name: "Component & Feature-based Design", icon: "SiJavascript" },
         { name: "Server & Client Component Patterns", icon: "SiNextdotjs" },
@@ -53,7 +56,7 @@ const SkillsOverview = () => {
       title: "Data & State Management",
       icon: "Database",
       skills: [
-        { name: "Server State Management (TanStack Query)", icon: "SiReact" },
+        { name: "Server State Management", icon: "SiReact" },
         { name: "API Integration & Contract Handling", icon: "SiJavascript" },
         { name: "Caching & Data Synchronization", icon: "SiNextdotjs" },
         { name: "Optimistic UI Updates", icon: "SiTypescript" },
@@ -105,26 +108,25 @@ const SkillsOverview = () => {
     // },
   ];
 
-
   return (
     <section className="py-8 sm:py-16 bg-gradient-to-b from-[#2a363c]/90 via-[#131426]/100 to-[#2a363c]/90">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Section Header */}
         <RevealSection direction="down">
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium mb-4">
-            <Icon name="Cpu" size={16} className="mr-2" />
-            Technical Skills
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium mb-4">
+              <Icon name="Cpu" size={16} className="mr-2" />
+              Technical Skills
+            </div>
+
+            <h2 className="text-xl sm:text-2xl lg:text-4xl font-bold text-foreground mb-4">
+              Core Engineering Skills
+            </h2>
+
+            <p className="text-sm sm:text-lg text-muted-foreground max-w-2xl mx-auto">
+              Here’s a snapshot of the technologies and tools I work with.
+            </p>
           </div>
-
-          <h2 className="text-xl sm:text-2xl lg:text-4xl font-bold text-foreground mb-4">
-            Core Engineering Skills
-          </h2>
-
-          <p className="text-sm sm:text-lg text-muted-foreground max-w-2xl mx-auto">
-            Here’s a snapshot of the technologies and tools I work with.
-          </p>
-        </div>
         </RevealSection>
 
         {/* Skills Grid */}
@@ -132,78 +134,75 @@ const SkillsOverview = () => {
           {skillCategories.map((category, index) => (
             <RevealSection key={category.title} index={index} direction="right">
               <TiltCard>
-
-            <div
-              className="bg-[#2a363c]/30 rounded-xl border border-border p-6 hover:shadow-md transition-shadow duration-slow"
-              >
-              <div className="flex items-center mb-6">
-                <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center mr-3">
-                  <Icon
-                    name={category.icon}
-                    size={20}
-                    className="text-primary"
-                  />
-                </div>
-                <h3 className="text-base sm:text-lg font-semibold text-foreground">
-                  {category.title}
-                </h3>
-                </div>
-
-              {/* Skills List */}
-              <div className="space-y-4">
-                {category.skills.map((skill) => (
-                  <div key={skill.name} className="space-y-2">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center">
-                        {getIcons(skill.icon)}
-                        <span className="text-xs sm:text-sm text-foreground">
-                          {skill.name}
-                        </span>
-                      </div>
+                <div className="bg-[#2a363c]/30 rounded-xl border border-border p-6 hover:shadow-md transition-shadow duration-slow">
+                  <div className="flex items-center mb-6">
+                    <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center mr-3">
+                      <Icon
+                        name={category.icon}
+                        size={20}
+                        className="text-primary"
+                      />
                     </div>
+                    <h3 className="text-base sm:text-lg font-semibold text-foreground">
+                      {category.title}
+                    </h3>
+                  </div>
 
-                    {/* <div className="w-full bg-muted rounded-full h-2 overflow-hidden">
+                  {/* Skills List */}
+                  <div className="space-y-4">
+                    {category.skills.map((skill) => (
+                      <div key={skill.name} className="space-y-2">
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-2">
+                            {getIcons(skill.icon)}
+                            <span className="text-xs sm:text-sm text-foreground">
+                              {skill.name}
+                            </span>
+                          </div>
+                        </div>
+
+                        {/* <div className="w-full bg-muted rounded-full h-2 overflow-hidden">
                       <div
                       className={`h-full ${getSkillColor(skill.level)} rounded-full transition-all duration-slow ease-out`}
                       style={{ width: getSkillWidth(skill.level) }}
                       />
                       </div> */}
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
-            </div>
-                </TiltCard>
-                </RevealSection>
+                </div>
+              </TiltCard>
+            </RevealSection>
           ))}
         </div>
 
         {/* Additional Skills */}
         <RevealSection direction="left">
-        <div className="mt-16 text-center">
-          <h3 className="text-lg font-semibold text-foreground mb-6">
-            Additional Engineering Skills
-          </h3>
-          <div className="flex flex-wrap justify-center gap-3">
-            {[
-              "Node.js",
-              "PostgreSQL",
-              "REST API Design",
-              "System Debugging",
-              "Responsive UI Engineering",
-              "Accessibility (WCAG)",
-              "Performance Monitoring",
-              "Production Deployment",
-            ].map((tech) => (
-              <span
-                key={tech}
-                className="px-4 py-2 bg-muted text-muted-foreground text-[11px] sm:text-sm rounded-full hover:bg-primary/10 hover:text-primary transition-colors duration-fast cursor-default"
-              >
-                {tech}
-              </span>
-            ))}
+          <div className="mt-16 text-center">
+            <h3 className="text-lg font-semibold text-foreground mb-6">
+              Additional Engineering Skills
+            </h3>
+            <div className="flex flex-wrap justify-center gap-3">
+              {[
+                "Node.js",
+                "PostgreSQL",
+                "REST API Design",
+                "System Debugging",
+                "Responsive UI Engineering",
+                "Accessibility (WCAG)",
+                "Performance Monitoring",
+                "Production Deployment",
+              ].map((tech) => (
+                <span
+                  key={tech}
+                  className="px-4 py-2 bg-muted text-muted-foreground text-[11px] sm:text-sm rounded-full hover:bg-primary/10 hover:text-primary transition-colors duration-fast cursor-default"
+                >
+                  {tech}
+                </span>
+              ))}
+            </div>
           </div>
-          </div>
-          </RevealSection>
+        </RevealSection>
       </div>
     </section>
   );

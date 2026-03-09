@@ -1,24 +1,16 @@
 import Button from "../../../components/ui/Button";
-import {
-  SiCss3,
-  SiDocker,
-  SiGithub,
-  SiNextdotjs,
-  SiReact,
-  SiTailwindcss,
-  SiTypescript,
-} from "react-icons/si";
-import { RevealSection, TiltCard } from "../../portfolio-projects";
+import { RevealSection, TiltCard } from "../../../utils/animation.utils";
+import { CSS3Icon, DockerIcon, GithubIcon, NextJsIcon, ReactIcon, TailwindIcon, TypeScriptIcon } from "../../../components/BrandIcons";
 
 const Skills = () => {
   const skills = [
-  { icon: SiReact, label: "ReactJs", className: "text-sky-400" },
-  { icon: SiNextdotjs, label: "NextJs", className: "text-white" },
-  { icon: SiTypescript, label: "TypeScript", className: "text-blue-500" },
-  { icon: SiTailwindcss, label: "Tailwind", className: "text-cyan-400" },
-  { icon: SiGithub, label: "Github", className: "text-gray-100" },
-  { icon: SiDocker, label: "Docker", className: "text-blue-600" },
-  { icon: SiCss3, label: "Css3", className: "text-[#1572B6]", hiddenOnMobile: true },
+  { icon: ReactIcon, label: "ReactJs", className: "text-sky-400", addedSize: 58 },
+  { icon: NextJsIcon, label: "NextJs", className: "text-white" },
+  { icon: TypeScriptIcon, label: "TypeScript", className: "text-blue-500" },
+  { icon: TailwindIcon, label: "Tailwind", className: "text-cyan-400" },
+  { icon: GithubIcon, label: "Github", className: "text-gray-100" },
+  { icon: DockerIcon, label: "Docker", className: "text-blue-600" },
+  { icon: CSS3Icon, label: "Css3", className: "text-[#1572B6]", hiddenOnMobile: true },
 ];
   return (
     <section className="pt-20 px-4 sm: bg-gradient-to-b from-[#2d3641] to-[#131426]/95">
@@ -38,13 +30,15 @@ const Skills = () => {
         </p>
 
         <div className="grid grid-cols-3 sm:flex mt-11 md:mt-0 justify-center gap-12">
-          {skills.map(({ icon: Icon, label, className, hiddenOnMobile }) => (
+          {skills.map(({ icon: Icon, label, className, addedSize, hiddenOnMobile }) => (
             <div
             key={label}
               className={`flex flex-col items-center justify-center gap-6 ${hiddenOnMobile ? "md:flex hidden" : ""}`}
             >
               <Icon
                 size={44}
+                addedSize={addedSize || 0}
+                // color="white"
                 className={`${className} h-8 w-8 sm:w-11 sm:h-11 rounded-full hover:scale-[1.11] hover:drop-shadow-[0_0_8px_rgba(1,149,255,0.3)] cursor-pointer transition`}
               />
               <p className="text-muted-foreground text-sm sm:text-base">{label}</p>

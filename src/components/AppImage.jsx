@@ -1,4 +1,3 @@
-import React from 'react';
 
 function Image({
   src,
@@ -12,6 +11,8 @@ function Image({
       src={src}
       alt={alt}
       className={className}
+      loading="lazy" 
+  decoding="async"    
       onError={(e) => {
         e.target.src = "/assets/images/no_image.png"
       }}

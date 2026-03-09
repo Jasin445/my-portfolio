@@ -1,12 +1,13 @@
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState, lazy } from "react";
 import Header from "../../components/ui/Header";
-import ScrollProgress from "../../components/ui/ScrollProgress";
 import HeroSection from "./components/HeroSection";
-import FeaturedProjects from "./components/FeaturedProjects";
 import Footer from "../../components/Footer";
-import TestimonialSection from "./components/TestimonialSection";
-import Skills from "./components/Skills";
 import ContactCta from "./components/ContactCta";
+const FeaturedProjects = lazy(() => import("./components/FeaturedProjects"));
+const TestimonialSection = lazy(
+  () => import("./components/TestimonialSection"),
+);
+const Skills = lazy(() => import("./components/Skills"));
 
 /* ─── Cinematic curtain ──────────────────────────────────────── */
 const CinematicCurtain = ({ done, setDone }) => {
@@ -22,31 +23,7 @@ const CinematicCurtain = ({ done, setDone }) => {
   return (
     <>
       <style>{`
-        @keyframes curtainUp {
-          from { transform: scaleY(1); transform-origin: bottom; }
-          to   { transform: scaleY(0); transform-origin: bottom; }
-        }
-        @keyframes curtainDown {
-          from { transform: scaleY(1); transform-origin: top; }
-          to   { transform: scaleY(0); transform-origin: top; }
-        }
-        @keyframes logoPulse {
-          0%   { opacity: 0; transform: scale(0.8); }
-          40%  { opacity: 1; transform: scale(1.05); }
-          70%  { transform: scale(1); }
-          85%  { opacity: 1; }
-          100% { opacity: 0; transform: scale(1.1); }
-        }
-        @keyframes textGlow {
-          0%   { opacity: 0; letter-spacing: 0.3em; }
-          30%  { opacity: 1; }
-          80%  { opacity: 1; letter-spacing: 0.15em; }
-          100% { opacity: 0; }
-        }
-        @keyframes glowPulse {
-          0%, 100% { text-shadow: 0 0 10px #6be6ff, 0 0 20px #6be6ff, 0 0 40px #6be6ff; }
-          50%       { text-shadow: 0 0 20px #a78bfa, 0 0 40px #a78bfa, 0 0 80px #a78bfa; }
-        }
+       
       `}</style>
 
       <div
@@ -163,15 +140,16 @@ const HomeLanding = () => {
       <div className="relative bg-[url('/assets/images/background3.jpg')] bg-cover bg-center">
         <div className="absolute inset-0 bg-black/50" />
         <Header />
-        <ScrollProgress />
         <div className="">
           <HeroSection />
         </div>
       </div>
       <main>
-        <FeaturedProjects />
+        <Suspense fallback={null}>
+          <FeaturedProjects />
         <Skills />
         <TestimonialSection />
+        </Suspense>
         <ContactCta />
       </main>
       <Footer lightweight />

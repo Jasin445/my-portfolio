@@ -1,6 +1,4 @@
-import { useEffect, useState } from "react";
-import { CarFront } from "lucide-react";
-import Image from "./AppImage"
+import { useEffect } from "react";
 
 
 /* ─── Custom magnetic cursor ─────────────────────────────────── */

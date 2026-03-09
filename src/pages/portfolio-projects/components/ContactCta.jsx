@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import Button from "../../../components/ui/Button";
-import { RevealSection } from "..";
+import { RevealSection } from "../../../utils/animation.utils";
 
 const ContactCta = () => {
   const navigate = useNavigate();

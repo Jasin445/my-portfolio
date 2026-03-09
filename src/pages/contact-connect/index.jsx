@@ -4,7 +4,6 @@ import Button from "../../components/ui/Button";
 import Input from "../../components/ui/Input";
 import Icon from "../.././components/AppIcon";
 import { Helmet } from "react-helmet";
-import ScrollProgress from "../../components/ui/ScrollProgress";
 import Header from "../../components/ui/Header";
 import GenericHeroSection from "../portfolio-projects/components/GenericHero";
 import Footer from "../../components/Footer";
@@ -123,60 +122,9 @@ const ContactConnect = () => {
         </Helmet>
         <div className="bg-background">
           <Header />
-          <ScrollProgress />
 
           {/* Hero Section */}
           <section className="">
-            {/* <div className="4xl:max-w-9xl 3xl:max-w-8xl max-w-7xl mx-auto px-6">
-      <div className="text-center max-w-3xl mx-auto">
-        <div className="inline-flex items-center space-x-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-6">
-          <Icon name="MessageCircle" size={16} />
-          <span>Let's Connect</span>
-        </div>
-
-        <h1 className="text-4xl lg:text-5xl font-bold text-foreground mb-6">
-          Ready to Build Something
-          <span className="text-primary"> Amazing Together?</span>
-        </h1>
-
-        <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
-          Whether you're looking for a full-time developer, need help with
-          a specific project, or want to explore collaboration
-          opportunities, I'm here to help bring your ideas to life.
-        </p>
-
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-2xl mx-auto">
-          <div className="text-center">
-            <div className="text-2xl font-bold text-primary mb-1">
-              24h
-            </div>
-            <div className="text-sm text-muted-foreground">
-              Response Time
-            </div>
-          </div>
-          <div className="text-center">
-            <div className="text-2xl font-bold text-primary mb-1">
-              50+
-            </div>
-            <div className="text-sm text-muted-foreground">
-              Projects Delivered
-            </div>
-          </div>
-          <div className="text-center">
-            <div className="text-2xl font-bold text-primary mb-1">5★</div>
-            <div className="text-sm text-muted-foreground">
-              Client Rating
-            </div>
-          </div>
-          <div className="text-center">
-            <div className="text-2xl font-bold text-primary mb-1">3+</div>
-            <div className="text-sm text-muted-foreground">
-              Years Experience
-            </div>
-          </div>
-        </div>
-      </div>
-    </div> */}
             <GenericHeroSection
               message="Hi there! Lets do something amazing together!"
               image="bg-[url('/assets/images/contact-hero.jpg')]"
