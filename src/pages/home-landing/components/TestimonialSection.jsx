@@ -1,6 +1,6 @@
 import Image from "../../../components/AppImage";
 import Icon from "../../../components/AppIcon"
-import { RevealSection } from "../../portfolio-projects";
+import { RevealSection, TiltCard } from "../../portfolio-projects";
 
 // Testimonials data
 const testimonials = [
@@ -61,11 +61,12 @@ const TestimonialSection = () => {
           {/* Testimonial Grid */}
           <div className="grid xl:grid-cols-[33.3%_33.3%_33.3%] gap-8 max-w-xl mx-auto xl:ml-0 xl:max-w-full">
             {testimonials?.map((testimonial, idx) => (
-              <RevealSection index={idx} direction="right">
+              <RevealSection index={idx} direction="right" key={testimonial?.id}>
+                <TiltCard>
         <div
-          key={testimonial?.id}
+          
           className="bg-gradient-to-b z-30 from-[#1d1f2e]/70 via-white/10 to-transparent hover:shadow-[0_0_12px_rgba(1,149,255,0.25)] rounded-xl border border-border shadow-xl transition p-8"
-        >
+          >
           <p className="text-sm sm:text-lg text-muted-foreground mb-4 italic">
             "{testimonial?.quote}"
           </p>
@@ -85,6 +86,7 @@ const TestimonialSection = () => {
             </div>
           </div>
                 </div>
+              </TiltCard>
               </RevealSection>
       ))}
 

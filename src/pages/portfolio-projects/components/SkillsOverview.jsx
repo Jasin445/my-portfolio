@@ -14,7 +14,7 @@ import {
 } from "react-icons/si";
 import { MdDesignServices } from "react-icons/md";
 import { Smartphone } from "lucide-react";
-import { RevealSection } from "..";
+import { RevealSection, TiltCard } from "..";
 
 const getIcons = (icon) => {
   const map = {
@@ -36,7 +36,7 @@ const getIcons = (icon) => {
   return <ReactIcon size={16} className="text-muted-foreground mr-2" />;
 };
 
-const SkillsOverview = ({RevealCard}) => {
+const SkillsOverview = () => {
   const skillCategories = [
     {
       title: "Application Architecture",
@@ -131,9 +131,11 @@ const SkillsOverview = ({RevealCard}) => {
         <div className="grid lg:grid-cols-3 gap-8">
           {skillCategories.map((category, index) => (
             <RevealSection key={category.title} index={index} direction="right">
+              <TiltCard>
+
             <div
               className="bg-[#2a363c]/30 rounded-xl border border-border p-6 hover:shadow-md transition-shadow duration-slow"
-            >
+              >
               <div className="flex items-center mb-6">
                 <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center mr-3">
                   <Icon
@@ -170,6 +172,7 @@ const SkillsOverview = ({RevealCard}) => {
                 ))}
               </div>
             </div>
+                </TiltCard>
                 </RevealSection>
           ))}
         </div>

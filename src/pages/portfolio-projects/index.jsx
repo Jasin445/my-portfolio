@@ -88,11 +88,11 @@ export const RevealSection = ({ children, index = 0, direction = "up", className
 
   const getOvershootTransform = () => {
     switch (direction) {
-      case "up":    return "translateY(-22px) rotate(1.5deg) scale(1.04)";
-      case "down":  return "translateY(22px) rotate(-1.5deg) scale(1.04)";
-      case "left":  return "translateX(-22px) rotate(-1.5deg) scale(1.04)";
-      case "right": return "translateX(22px) rotate(1.5deg) scale(1.04)";
-      default:      return "translateY(-22px) rotate(1.5deg) scale(1.04)";
+      case "up":    return "translateY(-15px) rotate(1.5deg) scale(1.04)";
+      case "down":  return "translateY(14px) rotate(-1.5deg) scale(1.04)";
+      case "left":  return "translateX(-14px) rotate(-1.5deg) scale(1.04)";
+      case "right": return "translateX(14px) rotate(1.5deg) scale(1.04)";
+      default:      return "translateY(-14px) rotate(1.5deg) scale(1.04)";
     }
   };
 
@@ -120,18 +120,24 @@ export const RevealSection = ({ children, index = 0, direction = "up", className
         opacity: 0,
         transform: getHiddenTransform(),
         filter: "blur(6px)",
+        willChange: "transform",
+        // transform: "translateZ(0)"
       };
       case 1: return {
         opacity: 1,
         transform: getOvershootTransform(),
         filter: "blur(0px)",
-        transition: `all 2s cubic-bezier(0.34, 1.56, 0.64, 1)`,
+        transition: `all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)`,
+        willChange: "transform",
+        // transform: "translateZ(0)"
       };
       case 2: return {
         opacity: 1,
         transform: "translate(0) rotate(0deg) scale(1)",
         filter: "blur(0px)",
-        transition: `all 2s cubic-bezier(0.25, 0.46, 0.45, 0.94)`,
+        transition: `all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)`,
+        willChange: "transform",
+        // transform: "translateZ(0)"
       };
       default: return {};
     }
@@ -146,10 +152,11 @@ export const RevealSection = ({ children, index = 0, direction = "up", className
 
 
 /* ─── 3-D tilt card wrapper ─────────────────────────────────── */
-const TiltCard = ({ children }) => {
+export const TiltCard = ({ children }) => {
   const ref = useRef(null);
 
   const handleMove = useCallback((e) => {
+      if (window.matchMedia("(hover: none)").matches) return; // skip touch devices
     const el = ref.current;
     if (!el) return;
     const rect = el.getBoundingClientRect();
@@ -160,6 +167,7 @@ const TiltCard = ({ children }) => {
   }, []);
 
   const handleLeave = useCallback(() => {
+      if (window.matchMedia("(hover: none)").matches) return; // skip touch devices
     const el = ref.current;
     if (!el) return;
     el.style.transform = "perspective(800px) rotateY(0deg) rotateX(0deg) scale(1)";
@@ -167,7 +175,7 @@ const TiltCard = ({ children }) => {
   }, []);
 
   return (
-    <div ref={ref} onMouseMove={handleMove} onMouseLeave={handleLeave} style={{ willChange: "transform" }}>
+    <div ref={ref} className="h-full" onMouseMove={handleMove} onMouseLeave={handleLeave} style={{ willChange: "transform" }}>
       {children}
     </div>
   );
@@ -202,7 +210,7 @@ const Particles = () => {
     canvas.width = canvas.offsetWidth;
     canvas.height = canvas.offsetHeight;
 
-    const particles = Array.from({ length: 1440 }, () => ({
+    const particles = Array.from({ length: 100 }, () => ({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
       r: Math.random() * 1.5 + 0.5,
@@ -420,7 +428,7 @@ const PortfolioProjects = () => {
           <div className="absolute inset-0 pointer-events-none">
             <div className="absolute inset-0 bg-gradient-to-b from-[#2a363c]/90 via-[#131426] to-[#2a363c]/90 blur-[10px]" />
             <div className="absolute inset-x-0 bg-gradient-to-b from-[#131426]/70 to-[#2a363c] h-20 blur-xl bottom-0 translate-y-4" />
-            <div className="absolute inset-x-0 bg-gradient-to-b from-[#131426]/90 via-[#2a363c] to-[#131426]/60 blur-[340px] z-40 h-20 -bottom-10 translate-y-14" />
+            <div className="absolute inset-x-0 bg-gradient-to-b from-[#131426]/90 via-[#2a363c] to-[#131426]/60 blur-[40px] z-40 h-20 -bottom-10 translate-y-14" />
           </div>
 
           {/* Floating particles */}
@@ -569,7 +577,7 @@ const PortfolioProjects = () => {
           </div>
         </section>
 
-        <SkillsOverview RevealCard={RevealCard} />
+        <SkillsOverview />
         <ContactCta />
       </div>
 
