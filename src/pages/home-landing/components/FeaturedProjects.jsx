@@ -254,7 +254,7 @@ const FeaturedProjects = () => {
   return (
     <section
       id="featuredProjects"
-      className="scroll-mt-14 relative py-12 sm:py-20 
+      className="scroll-mt-14 overflow-x-hidden relative py-12 sm:py-20 
               bg-gradient-to-b from-[#2a363c] via-[#131426]/95 to-[#2a363c]/90"
     >
       <div className="absolute inset-0 bg-gradient-to-b from-white via-[#172034] to-white blur-[340px] opacity-20 pointer-events-none" />
@@ -267,7 +267,7 @@ const FeaturedProjects = () => {
         <RevealSection>
         <div className="mb-10 sm:mb-16">
           <div className="flex items-center justify-center gap-3 mb-4 sm:mb-8">
-            <div className="inline-flex items-center justify-center px-4 py-2 bg-primary/10 text-primary rounded-full text-xs sm:text-sm font-medium ring-1 ring-primary/20 backdrop-blur-sm">
+            <div className="inline-flex overflow-x-hidden items-center justify-center px-4 py-2 bg-primary/10 text-primary rounded-full text-xs sm:text-sm font-medium ring-1 ring-primary/20 backdrop-blur-sm">
               <Icon name="Star" size={16} className="mr-2" />
               Featured Work
             </div>
@@ -289,7 +289,7 @@ const FeaturedProjects = () => {
           </div>
           </RevealSection>
 
-        <div className="grid md:grid-cols-2 gap-6 mb-12">
+        <div className="grid md:grid-cols-2 gap-6 mb-12 overflow-x-hidden">
           {featuredProjects?.map((project, index) => (
             <RevealSection key={project?.id}>
             <TiltCard>
