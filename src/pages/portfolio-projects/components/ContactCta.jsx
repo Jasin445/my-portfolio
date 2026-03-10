@@ -45,7 +45,7 @@ const ContactCta = () => {
             iconPosition="left"
             className="border-primary text-primary hover:bg-primary/10"
             onClick={() =>
-              window.open("https://www.linkedin.com/in/yourprofile", "_blank")
+              window.open("https://www.linkedin.com/in/jason-dagana-73a470317/", "_blank")
             }
           >
             Connect on LinkedIn
