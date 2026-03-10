@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import Button from "../../../components/ui/Button";
 import Image from "../../../components/AppImage";
@@ -11,16 +11,22 @@ import {
   TailwindIcon,
   TypeScriptIcon,
 } from "../../../components/BrandIcons";
+import { useOnScreen } from "../../../hooks/useOnScreen";
 
 const HeroSection = () => {
+  const heroRef = useRef(null);
+  const heroVisible = useOnScreen(heroRef);
+
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    setIsVisible(true);
-  }, []);
+    if (heroVisible) {
+      setIsVisible(true);
+    }
+  }, [heroVisible]);
 
   return (
-    <section className="relative flex min-h-screen items-center justify-center bg-gradient-to-br from-background via-card to-muted/20">
+    <section ref={heroRef} className="relative flex min-h-screen items-center justify-center bg-gradient-to-br from-background via-card to-muted/20">
       {/* Enhanced Background Pattern */}
       <div className="absolute inset-0 opacity-10">
         {/* Animated gradient orbs */}
@@ -31,15 +37,15 @@ const HeroSection = () => {
           }}
         ></div>
         <div
-          className="absolute transform-gpu will-change-transform bottom-20 right-20 w-96 h-96 bg-gradient-to-r from-accent to-purple-500 rounded-full blur-lg animate-pulse-slow"
+          className={`absolute  bottom-20 right-20 w-96 h-96 bg-gradient-to-r from-accent to-purple-500 rounded-full ${isVisible ? "transform-gpu will-change-transform blur-lg animate-pulse-slow" : "animate-none"}`}
           style={{
-            transition: "transform 0.1s ease-out",
-            animationDelay: "1s",
+            transition: isVisible ? "transform 0.1s ease-out" : undefined,
+            animationDelay: isVisible ? "1s" : undefined,
           }}
         ></div>
       </div>
 
-      <div className="relative z-10 4xl:max-w-9xl 3xl:max-w-8xl max-w-7xl w-full mx-auto px-4 sm:px-12 pb-10 pt-20 sm:py-28 lg:py-20">
+      <div className="relative z-0 4xl:max-w-9xl 3xl:max-w-8xl max-w-7xl w-full mx-auto px-4 sm:px-12 pb-10 pt-20 sm:py-28 lg:py-20">
         <div className="grid lg:grid-cols-[60%_40%] mt-6 sm:mt-12 gap-12 items-center">
           {/* Enhanced Content */}
           <div className="space-y-8 sm:pt-0 text-center lg:text-left">
@@ -62,7 +68,6 @@ const HeroSection = () => {
                 </span>
               </div>
 
-              {/* Typewriter Title */}
               <div className=" lg:min-h-[180px]">
                 <h1
                   className={`text-[7.3vw] sm:text-5xl lg:text-5xl lg:text-[48px] 3xl:text-[4vw] lg:leading-tight font-normal text-foreground tracking-widest leading-tight  transition-all duration-1000 transform-gpu ${
@@ -71,7 +76,9 @@ const HeroSection = () => {
                       : "translate-y-8 opacity-0"
                   }`}
                 >
+                  <span className="font-black">
                  Hi, I'm Jason.  
+                  </span>
                   <br />
                   <span className="block bg-gradient-to-r font-bold from-primary via-blue-500 to-purple-600 bg-clip-text text-transparent animate-gradient-x transform-gpu will-change-transform">
                     I Turn Ideas Into
@@ -81,7 +88,7 @@ const HeroSection = () => {
               </div>
 
               <p
-                className={`text-lg md:text-xl text-muted-foreground !mt-0 max-w-2xl mx-auto lg:ml-0 pt-2 leading-relaxed transition-all duration-1000 delay-300 transform-gpu ${
+                className={`text-lg md:text-xl text-muted-foreground !mt-0 max-w-xl mx-auto lg:ml-0 pt-2 leading-relaxed transition-all duration-1000 delay-300 transform-gpu ${
                   isVisible
                     ? "translate-y-0 opacity-100"
                     : "translate-y-8 opacity-0"
@@ -100,7 +107,7 @@ const HeroSection = () => {
             >
               <div className="relative group cursor-pointer">
                 {/* Main image container */}
-                <div className="relative rounded-2xl lg:rounded-full h-auto w-full sm:w-[70vw] aspect-square sm:h-[50vw] sm:aspect-auto overflow-hidden lg:group-hover:border-2 group-hover:border-white/80 lg:animate-glow-ring lg:border-4 border-primary shadow-2xl  group-hover:scale-105 transition-all duration-500 hover:shadow-primary/20 transform-gpu">
+                <div className="relative rounded-2xl lg:rounded-full h-auto w-full sm:w-[70vw] aspect-square sm:h-[50vw] sm:aspect-auto overflow-hidden lg:group-hover:border-2 group-hover:border-2 group-hover:border-primary/80 lg:animate-glow-ring lg:border-4 border-primary shadow-2xl transition-all duration-500 hover:shadow-primary/20 transform-gpu">
                   {/* Enhanced overlay */}
                   <div className="absolute w-full h-full z-10 group-hover:opacity-50 transition-opacity duration-300 transform-gpu"></div>
 
@@ -110,37 +117,8 @@ const HeroSection = () => {
                     title="Jason Dagana | Frontend Developer"
                     width={400}
                     height={400}
-                    className="w-full h-full object-cover object-[0_30%] transition-transform duration-500 group-hover:scale-110"
+                    className="w-full h-full object-cover object-[0_30%] transition-transform duration-500"
                   />
-                </div>
-
-                {/* Orbit Container */}
-                <div className="absolute !rounded-full inset-0 w-[110%] flex items-center justify-center pointer-events-none">
-                  {/* Clockwise group */}
-                  <div className="absolute !rounded-full inset-0 animate-spin-slow-1 transform-gpu will-change-transform">
-                    {/* React */}
-                    <div className="absolute -right-5 w-12 h-12 bg-gradient-to-r from-primary to-blue-600 rounded-full flex items-center justify-center shadow-xl animate-pulse-slow-1 transform-gpu will-change-transform">
-                      <ReactIcon size={22} color="white" />
-                    </div>
-
-                    {/* Next.js */}
-                    <div className="absolute -left-5  w-12 h-12 bg-gradient-to-r from-gray-500 to-black rounded-full flex items-center justify-center shadow-xl animate-pulse-slow-2 transform-gpu will-change-transform">
-                      <NextJsIcon size={22} color="white" />
-                    </div>
-                  </div>
-
-                  {/* Counter-clockwise group */}
-                  <div className="absolute inset-0 animate-spin transform-gpu will-change-transform">
-                    {/* Tailwind */}
-                    <div className="absolute -left-5 w-12 h-12 bg-gradient-to-r from-sky-400 to-sky-600 rounded-full flex items-center justify-center shadow-xl animate-pulse-slow-3 transform-gpu will-change-transform">
-                      <TailwindIcon size={22} color="white" />
-                    </div>
-
-                    {/* TypeScript */}
-                    <div className="absolute -right-5 w-12 h-12 bg-gradient-to-r from-blue-500 to-blue-700 rounded-full flex items-center justify-center shadow-xl animate-pulse-slow-4 transform-gpu will-change-transform">
-                      <TypeScriptIcon size={22} color="white" />
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
@@ -245,12 +223,12 @@ const HeroSection = () => {
                 {/* Clockwise group */}
                 <div className="absolute !rounded-full inset-0 animate-spin-slow-1 transform-gpu will-change-transform">
                   {/* React */}
-                  <div className="absolute -right-5 w-12 h-12 bg-gradient-to-r from-primary to-blue-600 rounded-full flex items-center justify-center shadow-xl animate-pulse-slow-1 transform-gpu will-change-transform">
+                  <div className="absolute -right-5 w-8 sm:w-12 h-8 sm:h-12 bg-gradient-to-r from-primary to-blue-600 rounded-full flex items-center justify-center shadow-xl animate-pulse-slow-1 transform-gpu will-change-transform">
                     <ReactIcon size={22} color="white" />
                   </div>
 
                   {/* Next.js */}
-                  <div className="absolute -left-5  w-12 h-12 bg-gradient-to-r from-gray-500 to-black rounded-full flex items-center justify-center shadow-xl animate-pulse-slow-2 transform-gpu will-change-transform">
+                  <div className="absolute -left-5  w-8 sm:w-12 h-8 sm:h-12 bg-gradient-to-r from-gray-500 to-black rounded-full flex items-center justify-center shadow-xl animate-pulse-slow-2 transform-gpu will-change-transform">
                     <NextJsIcon size={22} color="white" />
                   </div>
                 </div>
@@ -258,16 +236,18 @@ const HeroSection = () => {
                 {/* Counter-clockwise group */}
                 <div className="absolute inset-0 animate-spin-reverse !rounded-full transform-gpu will-change-transform">
                   {/* Tailwind */}
-                  <div className="absolute -left-5 w-12 h-12 bg-gradient-to-r from-sky-400 to-sky-600 rounded-full flex items-center justify-center shadow-xl animate-pulse-slow-3 transform-gpu will-change-transform">
+                  <div className="absolute -left-5 w-8 sm:w-12 h-8 sm:h-12 bg-gradient-to-r from-sky-400 to-sky-600 rounded-full flex items-center justify-center shadow-xl animate-pulse-slow-3 transform-gpu will-change-transform">
                     <TailwindIcon size={22} color="white" fill="white" />
                   </div>
 
                   {/* TypeScript */}
-                  <div className="absolute -right-5 w-12 h-12 bg-gradient-to-r from-blue-500 to-blue-700 rounded-full flex items-center justify-center shadow-xl animate-pulse-slow-4 transform-gpu will-change-transform">
+                  <div className="absolute -right-5 w-8 sm:w-12 h-8 sm:h-12 bg-gradient-to-r from-blue-500 to-blue-700 rounded-full flex items-center justify-center shadow-xl animate-pulse-slow-4 transform-gpu will-change-transform">
                     <TypeScriptIcon size={22} color="white" fill="white" />
                   </div>
                 </div>
               </div>
+
+              
             </div>
           </div>
         </div>

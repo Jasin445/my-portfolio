@@ -260,8 +260,8 @@ useEffect(() => {
     description:
       "High-converting product sales page for a lumbar cold compress gel built with React and deployed on Hostinger. Features a dynamic multi-tier package selection system, client-side order form with validation, and Facebook Pixel purchase tracking.",
     fullDescription: `A conversion-focused product sales page built for Noble Wellness Store to sell their Lumbar Cold Compress Gel — a topical cooling product for lower back pain and muscle relief. Built entirely with React and deployed as a production build on Hostinger, the page is structured around driving orders: a dynamic package selection system across four pricing tiers, a validated order form, a custom image slider, and a WhatsApp fallback for direct customer support. Facebook Pixel purchase events fire with the correct order value on successful submission, enabling accurate revenue tracking for marketing campaigns. This is a real client project with a live production URL.`,
-    image: "/assets/images/noblewellnes-preview.png",
-    images: ["/assets/images/noblewellnes-preview.png"],
+    image: "/assets/images/noblewellnes-preview.webp",
+    images: ["/assets/images/noblewellnes-preview.webp"],
     technologies: [
       "React",
       "CSS3",

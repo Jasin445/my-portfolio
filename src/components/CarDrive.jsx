@@ -1,8 +1,8 @@
 import { Car } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
-const defaultText = "Connect with me. I'd take you on a Journey to Digital Freedom";
-
+const defaultText =
+  "Connect with me. I'd take you on a Journey to Digital Freedom";
 
 const ToolTip = ({ className, message = defaultText }) => (
   <div
@@ -12,8 +12,12 @@ const ToolTip = ({ className, message = defaultText }) => (
   </div>
 );
 
-const CarTransition = ({ className, message }) => {
-  const [carState, setCarState] = useState({ position: 0, scrollingDown: true });
+const CarTransition = ({ className, message, active = true }) => {
+
+  const [carState, setCarState] = useState({
+    position: 0,
+    scrollingDown: true,
+  });
   const [showCar, setShowCar] = useState(false);
   const lastScrollY = useRef(0);
   const rafRef = useRef(null);
@@ -26,13 +30,14 @@ const CarTransition = ({ className, message }) => {
   }, []);
 
   useEffect(() => {
+    if (!active || !showCar) return;
     const handleScroll = () => {
       if (rafRef.current) return;
       rafRef.current = requestAnimationFrame(() => {
         const scrollY = window.scrollY;
         const scrollingDown = scrollY > lastScrollY.current;
         lastScrollY.current = scrollY;
-        const position = Math.min(Math.max((scrollY / window.innerHeight) * 100, 0), 100);
+        const position = (scrollY * 0.1) % 100;
         setCarState({ position, scrollingDown });
         rafRef.current = null;
       });
@@ -43,14 +48,14 @@ const CarTransition = ({ className, message }) => {
       window.removeEventListener("scroll", handleScroll);
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
-  }, []);
+  }, [active, showCar]);
 
   const { position, scrollingDown } = carState;
   const showTooltip = position > 20 && position < 70;
-  const edgeOpacity = position < 5 ? position / 5 : position > 95 ? (100 - position) / 5 : 1;
+  const edgeOpacity =
+    position < 5 ? position / 5 : position > 95 ? (100 - position) / 5 : 1;
 
-
-  if (!showCar) return null;
+  if (!active || !showCar) return null;
 
   return (
     <div
@@ -63,7 +68,7 @@ const CarTransition = ({ className, message }) => {
           left: `${position}%`,
           top: "-29px",
           position: "relative",
-    opacity: scrollingDown ? edgeOpacity : 0,  // ← edgeOpacity instead of 1
+          opacity: scrollingDown ? edgeOpacity : 0, // ← edgeOpacity instead of 1
           transition: "opacity 0.2s ease",
         }}
       >
@@ -79,7 +84,7 @@ const CarTransition = ({ className, message }) => {
           position: "absolute",
           top: "-29px",
           transform: "scaleX(-1)",
-    opacity: !scrollingDown ? edgeOpacity : 0,  // ← edgeOpacity instead of 1
+          opacity: !scrollingDown ? edgeOpacity : 0, // ← edgeOpacity instead of 1
           transition: "opacity 0.2s ease",
         }}
       >

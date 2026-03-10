@@ -1,16 +1,15 @@
 import { useEffect, useRef, useState, useMemo } from "react";
 
 /* ─── Underwater Fish Tank ───────────────────────────────────── */
-const FishTank = () => {
+const FishTank = ({ active }) => {
   const canvasRef = useRef(null);
 
   useEffect(() => {
+    if (!active) return;
+
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const ctx = canvas.getContext("2d", {
-      willReadFrequently: false,
-      alpha: true,
-    });
+    const ctx = canvas.getContext("2d", { willReadFrequently: false, alpha: true });
 
     const fishColors = [
       ["#6be6ff", "#3ab8d4"],
@@ -23,7 +22,6 @@ const FishTank = () => {
       ["#f87171", "#b91c1c"],
     ];
 
-    // ── buildGrads declared FIRST so resize can call it ──
     let cachedGrads = [];
     const buildGrads = () => {
       cachedGrads = Array.from({ length: 5 }, () => {
@@ -34,7 +32,6 @@ const FishTank = () => {
       });
     };
 
-    // ── resize declared AFTER buildGrads ──
     const resize = () => {
       canvas.width = canvas.offsetWidth;
       canvas.height = canvas.offsetHeight;
@@ -43,14 +40,13 @@ const FishTank = () => {
     resize();
     window.addEventListener("resize", resize);
 
-    const fishes = Array.from({ length: 30 }, () => {
+    const fishes = Array.from({ length: 8 }, () => {
       const size = Math.random() * 10 + 3;
-      const colorPair =
-        fishColors[Math.floor(Math.random() * fishColors.length)];
+      const colorPair = fishColors[Math.floor(Math.random() * fishColors.length)];
       const dir = Math.random() > 0.5 ? 1 : -1;
       return {
-        x: Math.random() * (canvas.width || 1400),
-        y: Math.random() * (canvas.height || 800),
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
         size,
         speed: (Math.random() * 0.6 + 0.15) * dir,
         vy: (Math.random() - 0.5) * 0.08,
@@ -67,9 +63,9 @@ const FishTank = () => {
       };
     });
 
-    const bubbles = Array.from({ length: 30 }, () => ({
-      x: Math.random() * 1400,
-      y: Math.random() * 800,
+    const bubbles = Array.from({ length: 8 }, () => ({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
       r: Math.random() * 3 + 1,
       speed: Math.random() * 0.3 + 0.1,
       wobble: Math.random() * Math.PI * 2,
@@ -77,61 +73,28 @@ const FishTank = () => {
     }));
 
     const drawFish = (ctx, fish, t) => {
-      const { x, y, size, color, finColor, alpha, dir, tailPhase, depth } =
-        fish;
-      const depthAlpha = alpha * (0.3 + depth * 0.7);
-      const depthSize = size * (0.5 + depth * 0.5);
-      const tail =
-        Math.sin(t * fish.tailSpeed * 60 + tailPhase) * (depthSize * 0.35);
+      const { x, y, color, finColor, alpha, dir, tailPhase, depth } = fish;
+      const size = fish.size * (0.5 + depth * 0.5);
+      const tail = Math.sin(t * fish.tailSpeed * 60 + tailPhase) * size * 0.3;
 
       ctx.save();
-      ctx.globalAlpha = depthAlpha;
+      ctx.globalAlpha = alpha;
       ctx.translate(x, y);
       if (dir < 0) ctx.scale(-1, 1);
 
+      // body
       ctx.beginPath();
-      ctx.ellipse(0, 0, depthSize * 1.6, depthSize * 0.65, 0, 0, Math.PI * 2);
+      ctx.ellipse(0, 0, size * 1.5, size * 0.6, 0, 0, Math.PI * 2);
       ctx.fillStyle = color;
       ctx.fill();
 
+      // tail
       ctx.beginPath();
-      ctx.moveTo(-depthSize * 1.4, 0);
-      ctx.lineTo(-depthSize * 2.2, tail - depthSize * 0.5);
-      ctx.lineTo(-depthSize * 2.2, tail + depthSize * 0.5);
+      ctx.moveTo(-size * 1.2, 0);
+      ctx.lineTo(-size * 2, tail - size * 0.4);
+      ctx.lineTo(-size * 2, tail + size * 0.4);
       ctx.closePath();
       ctx.fillStyle = finColor;
-      ctx.fill();
-
-      ctx.beginPath();
-      ctx.moveTo(-depthSize * 0.2, -depthSize * 0.65);
-      ctx.quadraticCurveTo(
-        depthSize * 0.3,
-        -depthSize * 1.2,
-        depthSize * 0.8,
-        -depthSize * 0.65,
-      );
-      ctx.fillStyle = finColor + "aa";
-      ctx.fill();
-
-      ctx.beginPath();
-      ctx.arc(
-        depthSize * 0.9,
-        -depthSize * 0.1,
-        depthSize * 0.18,
-        0,
-        Math.PI * 2,
-      );
-      ctx.fillStyle = "#000";
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(
-        depthSize * 0.93,
-        -depthSize * 0.13,
-        depthSize * 0.07,
-        0,
-        Math.PI * 2,
-      );
-      ctx.fillStyle = "#fff";
       ctx.fill();
 
       ctx.restore();
@@ -143,16 +106,11 @@ const FishTank = () => {
     let t = 0;
     let lastTime = 0;
     let paused = false;
-
-    const handleVisibility = () => {
-      paused = document.hidden;
-      if (!paused) raf = requestAnimationFrame(draw);
-    };
-    document.addEventListener("visibilitychange", handleVisibility);
+    let visible = false;
 
     const draw = (timestamp) => {
-      if (paused) return;
-      if (timestamp - lastTime < 33) {
+      if (paused || !visible) return;
+      if (timestamp - lastTime < 80) {
         raf = requestAnimationFrame(draw);
         return;
       }
@@ -163,17 +121,7 @@ const FishTank = () => {
       ctx.fillStyle = "rgba(10, 20, 50, 0.18)";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      for (let i = 0; i < 5; i++) {
-        const rx = (canvas.width / 4) * i + Math.sin(t * 0.3 + i) * 30;
-        ctx.beginPath();
-        ctx.moveTo(rx, 0);
-        ctx.lineTo(rx + 60, canvas.height * 0.7);
-        ctx.lineTo(rx - 60, canvas.height * 0.7);
-        ctx.fillStyle = cachedGrads[i];
-        ctx.fill();
-      }
-
-      ctx.lineWidth = 0.5;
+      // Draw bubbles
       bubbles.forEach((b) => {
         b.y -= b.speed;
         b.wobble += 0.02;
@@ -188,6 +136,7 @@ const FishTank = () => {
         ctx.stroke();
       });
 
+      // Draw fishes
       fishes.forEach((fish) => {
         fish.phase += fish.waveFreq;
         fish.x += fish.speed;
@@ -204,14 +153,34 @@ const FishTank = () => {
       raf = requestAnimationFrame(draw);
     };
 
-    raf = requestAnimationFrame(draw);
+    const handleVisibility = () => {
+      paused = document.hidden;
+      if (!paused && visible) raf = requestAnimationFrame(draw);
+    };
+    document.addEventListener("visibilitychange", handleVisibility);
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        visible = entry.isIntersecting;
+        if (visible && !paused) {
+          raf = requestAnimationFrame(draw);
+        } else {
+          cancelAnimationFrame(raf);
+        }
+      },
+      { threshold: 0.1 }
+    );
+    observer.observe(canvas);
 
     return () => {
       cancelAnimationFrame(raf);
       window.removeEventListener("resize", resize);
       document.removeEventListener("visibilitychange", handleVisibility);
+      observer.disconnect();
     };
-  }, []);
+  }, [active]);
+
+  if (!active) return null;
 
   return (
     <canvas
@@ -263,6 +232,7 @@ const makePhaseStyle = (direction) => {
 export const RevealSection = ({
   children,
   index = 0,
+  active = true,
   direction = "up",
   className = "",
 }) => {
@@ -272,6 +242,7 @@ export const RevealSection = ({
   const getStyle = useMemo(() => makePhaseStyle(direction), [direction]);
 
   useEffect(() => {
+    if (!active) return;
     const el = ref.current;
     if (!el) return;
     const observer = new IntersectionObserver(
@@ -287,7 +258,10 @@ export const RevealSection = ({
       observer.disconnect();
       clearTimeout(t1.current);
     };
-  }, [index]);
+  }, [index, active]);
+
+      if (!active) return null;
+
 
   return (
     <div ref={ref} className={className} style={getStyle(phase)}>

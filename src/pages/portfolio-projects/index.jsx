@@ -11,6 +11,7 @@ import ContactCta from "./components/ContactCta";
 import GenericHeroSection from "./components/GenericHero";
 import { mockProjects } from "../../data";
 import { RevealSection, TiltCard } from "../../utils/animation.utils";
+import { useOnScreen } from "../../hooks/useOnScreen";
 
 // ── Lazy loaded — only fetched when user opens a project ──
 const ProjectModal = lazy(() => import("./components/ProjectModal"));
@@ -52,79 +53,121 @@ const AnimatedCounter = ({ value }) => {
 };
 
 
-/* ─── Floating particles background ─────────────────────────── */
-const Particles = () => {
+const Particles = ({active}) => {
   const canvasRef = useRef(null);
 
   useEffect(() => {
+    if (!active) return;
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const ctx = canvas.getContext("2d", { willReadFrequently: false, alpha: true });
+
+    const ctx = canvas.getContext("2d", {
+      willReadFrequently: false,
+      alpha: true,
+    });
 
     const resize = () => {
-      canvas.width  = canvas.offsetWidth;
+      canvas.width = canvas.offsetWidth;
       canvas.height = canvas.offsetHeight;
     };
+
     resize();
     window.addEventListener("resize", resize);
 
     const particles = Array.from({ length: 40 }, () => ({
-      x:     Math.random() * canvas.width,
-      y:     Math.random() * canvas.height,
-      r:     Math.random() * 1.5 + 0.5,
-      dx:    (Math.random() - 0.5) * 1.4,
-      dy:    (Math.random() - 0.5) * 0.4,
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      r: Math.random() * 1.5 + 0.5,
+      dx: (Math.random() - 0.5) * 1.4,
+      dy: (Math.random() - 0.5) * 0.4,
       alpha: Math.random() * 0.4 + 0.1,
     }));
 
     let raf;
     let lastTime = 0;
-    let paused   = false;
-
-    const handleVisibility = () => {
-      paused = document.hidden;
-      if (!paused) raf = requestAnimationFrame(draw);
-    };
-    document.addEventListener("visibilitychange", handleVisibility);
+    let paused = false;
+    let visible = false;
 
     const draw = (timestamp) => {
-      if (paused) return;
-      if (timestamp - lastTime < 33) { raf = requestAnimationFrame(draw); return; }
+      if (paused || !visible) return;
+
+      if (timestamp - lastTime < 33) {
+        raf = requestAnimationFrame(draw);
+        return;
+      }
+
       lastTime = timestamp;
+
       ctx.clearRect(0, 0, canvas.width, canvas.height);
+
       particles.forEach((p) => {
         p.x += p.dx;
         p.y += p.dy;
-        if (p.x < 0 || p.x > canvas.width)  p.dx *= -1;
+
+        if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
         if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
+
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(107,230,255,${p.alpha})`;
         ctx.fill();
       });
+
       raf = requestAnimationFrame(draw);
     };
 
-    raf = requestAnimationFrame(draw);
+    const handleVisibility = () => {
+      paused = document.hidden;
+      if (!paused && visible) {
+        raf = requestAnimationFrame(draw);
+      }
+    };
 
+    document.addEventListener("visibilitychange", handleVisibility);
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        visible = entry.isIntersecting;
+
+        if (visible && !paused) {
+          raf = requestAnimationFrame(draw);
+        } else {
+          cancelAnimationFrame(raf);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    observer.observe(canvas);
+
+    
     return () => {
       cancelAnimationFrame(raf);
+      observer.disconnect();
       window.removeEventListener("resize", resize);
       document.removeEventListener("visibilitychange", handleVisibility);
     };
-  }, []);
+  }, [active]);
+
+  
+  if (!active) return null;
 
   return (
     <canvas
       ref={canvasRef}
       style={{
-        position: "absolute", inset: 0,
-        width: "100%", height: "100%",
-        pointerEvents: "none", zIndex: 0,
+        position: "absolute",
+        inset: 0,
+        width: "100%",
+        height: "100%",
+        pointerEvents: "none",
+        zIndex: 0,
+        willChange: "transform",
       }}
     />
   );
 };
+
 
 /* ─── Page number slot machine ───────────────────────────────── */
 const SlotNumber = ({ page }) => (
@@ -147,7 +190,9 @@ const PortfolioProjects = () => {
   const [currentPage,        setCurrentPage]        = useState(1);
   const [openFilterDropdown, setOpenFilterDropdown] = useState(false);
   const [filterChanging,     setFilterChanging]     = useState(false);
-  const [gridKey,            setGridKey]            = useState(0);
+  const [gridKey, setGridKey] = useState(0);
+  const sectionRef = useRef(null);
+  const active = useOnScreen(sectionRef, 0);
 
   const filterTimer = useRef(null);
 
@@ -232,7 +277,7 @@ const PortfolioProjects = () => {
   useEffect(() => () => clearTimeout(filterTimer.current), []);
 
   return (
-    <main className="relative min-h-screen bg-gradient-to-br overflow-hidden from-background via-card to-muted/20">
+    <main ref={sectionRef} className="relative min-h-screen bg-gradient-to-br overflow-hidden from-background via-card to-muted/20">
       <style>{`
         @keyframes borderSpin {
           0%   { background-position: 0% 50%; }
@@ -255,7 +300,7 @@ const PortfolioProjects = () => {
       <div>
         <GenericHeroSection title="Projects" />
 
-        <section className="relative z-30 pb-4 sm:py-12 h-full overflow-hidden">
+        <section className="relative z-30 pb-4 sm:py-12 h-full overflow-hidden" style={{isolation: "isolate"}}>
           <div className="absolute inset-0 pointer-events-none">
             <div className="absolute inset-0 bg-gradient-to-b from-[#2a363c]/90 via-[#131426] to-[#2a363c]/90 blur-[10px]" />
             <div className="absolute inset-x-0 bg-gradient-to-b from-[#131426]/70 to-[#2a363c] h-20 blur-xl bottom-0 translate-y-4" />
@@ -263,7 +308,7 @@ const PortfolioProjects = () => {
           </div>
 
           <div className="absolute inset-0 pointer-events-none">
-            <Particles />
+            <Particles active={active} />
           </div>
 
           <div className="4xl:max-w-7xl 3xl:max-w-7xl max-w-6xl mx-auto px-4 sm:px-6">
@@ -322,6 +367,7 @@ const PortfolioProjects = () => {
                             key={project?.id}
                             index={index}
                             direction={index % 2 === 0 ? "left" : "right"}
+                            active={active}
                           >
                             <TiltCard>
                                 <ProjectCard project={project} onViewDetails={handleViewDetails} />

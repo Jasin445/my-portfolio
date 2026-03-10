@@ -1,6 +1,8 @@
 import Image from "../../../components/AppImage";
 import Icon from "../../../components/AppIcon"
 import { RevealSection, TiltCard } from "../../../utils/animation.utils";
+import { useRef } from "react";
+import { useOnScreen } from "../../../hooks/useOnScreen";
 
 // Testimonials data
 const testimonials = [
@@ -34,15 +36,17 @@ const testimonials = [
 ];
 
 const TestimonialSection = () => {
+  const sectionRef = useRef(null);
+  const active = useOnScreen(sectionRef, 0);
   return (
-    <section className="pt-11 pb-14 bg-gradient-to-b from-[#131426]/95 via-[#272b34] to-[#2a363c]">
+    <section ref={sectionRef} className="pt-11 pb-14 bg-gradient-to-b from-[#131426]/95 via-[#272b34] to-[#2a363c]">
       <div className="max-w-6xl mx-auto relative z-20">
         <div className="absolute top-[18%] right-0 bg-gradient-to-r from-muted opacity-50 rounded-full w-40 h-40 via-muted to-muted blur-3xl animate-pulse-slow"></div>
         <div className="absolute top-[60%] -left-10 bg-gradient-to-r from-muted opacity-70 rounded-full w-40 h-40 via-muted to-muted blur-3xl animate-float" />
         <div className="absolute top-[5%] right-[50%] bg-gradient-to-r from-[#4e575d] opacity-70 rounded-full w-40 h-40 via-[#4e575d] to-[#4e575d] blur-3xl animate-pulse-slow"></div>
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center h-full">
           {/* Section Header */}
-          <RevealSection direction="down">
+          <RevealSection direction="down" active={true}>
           <div className="mb-8">
             <span className="inline-flex items-center px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium mb-2">
               <Icon name="Quote" size={16} className="mr-2" />
@@ -66,7 +70,7 @@ const TestimonialSection = () => {
               if(isEven) direction = "right"
               if(!isEven) direction = "left"
               if(idx === 1) direction = "down"
-              return <RevealSection index={idx} direction={direction} key={testimonial?.id}>
+              return <RevealSection className="h-full" index={idx} direction={direction} key={testimonial?.id} active={true}>
                 <TiltCard>
                   <div
           

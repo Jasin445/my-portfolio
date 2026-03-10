@@ -11,6 +11,8 @@ import {
   TailwindIcon,
   TypeScriptIcon,
 } from "../../../components/BrandIcons";
+import { useRef } from "react";
+import { useOnScreen } from "../../../hooks/useOnScreen";
 
 const getIcons = (icon) => {
   const map = {
@@ -40,6 +42,8 @@ const getIcons = (icon) => {
 };
 
 const SkillsOverview = () => {
+    const sectionRef = useRef(null);
+    const active = useOnScreen(sectionRef, 0);
   const skillCategories = [
     {
       title: "Application Architecture",
@@ -109,10 +113,10 @@ const SkillsOverview = () => {
   ];
 
   return (
-    <section className="py-8 sm:py-16 bg-gradient-to-b from-[#2a363c]/90 via-[#131426]/100 to-[#2a363c]/90">
+    <section ref={sectionRef} className="py-8 sm:py-16 bg-gradient-to-b from-[#2a363c]/90 via-[#131426]/100 to-[#2a363c]/90">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Section Header */}
-        <RevealSection direction="down">
+        <RevealSection direction="down" active={active}>
           <div className="text-center mb-16">
             <div className="inline-flex items-center px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium mb-4">
               <Icon name="Cpu" size={16} className="mr-2" />
@@ -132,7 +136,7 @@ const SkillsOverview = () => {
         {/* Skills Grid */}
         <div className="grid lg:grid-cols-3 gap-8">
           {skillCategories.map((category, index) => (
-            <RevealSection key={category.title} index={index} direction="right">
+            <RevealSection key={category.title} index={index} direction="right" active={active}>
               <TiltCard>
                 <div className="bg-[#2a363c]/30 rounded-xl border border-border p-6 hover:shadow-md transition-shadow duration-slow">
                   <div className="flex items-center mb-6">
@@ -177,7 +181,7 @@ const SkillsOverview = () => {
         </div>
 
         {/* Additional Skills */}
-        <RevealSection direction="left">
+        <RevealSection direction="left" active={active}>
           <div className="mt-16 text-center">
             <h3 className="text-lg font-semibold text-foreground mb-6">
               Additional Engineering Skills

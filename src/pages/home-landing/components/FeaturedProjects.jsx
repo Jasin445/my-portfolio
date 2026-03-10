@@ -1,14 +1,15 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useRoutes } from "react-router-dom";
 import Button from "../../../components/ui/Button";
 import Image from "../../../components/AppImage";
 import Icon from "../../../components/AppIcon";
 import CarTransition from "../../../components/CarDrive";
 import { mockProjects } from "../../../data";
-import { lazy, Suspense, useState } from "react";
+import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import FishTank, {
   RevealSection,
   TiltCard,
 } from "../../../utils/animation.utils";
+import { useOnScreen } from "../../../hooks/useOnScreen";
 const ProjectModal = lazy(
   () => import("../../portfolio-projects/components/ProjectModal"),
 );
@@ -17,11 +18,15 @@ const FeaturedProjects = () => {
   const [selectedProject, setSelectedProject] = useState(null);
   const [selectedIndex, setSelectedIndex] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
+  const sectionRef = useRef(null);
+const active = useOnScreen(sectionRef, 0);
 
-  let featuredProjects = featuredMockProjects?.slice(0, 4) || [];
 
-  const hasNextProject = () => selectedIndex < featuredProjects.length - 1;
-  const hasPrevProject = () => selectedIndex > 0;
+
+  let featuredProjects = featuredMockProjects?.slice(0, 4) ?? [];
+
+  const hasNextProject = selectedIndex < featuredProjects.length - 1;
+const hasPrevProject = selectedIndex > 0;
 
   const handleOpenModal = (project, index) => {
     setSelectedIndex(index);
@@ -41,9 +46,11 @@ const FeaturedProjects = () => {
 
   return (
     <section
-      id="featuredProjects"
-      className="scroll-mt-14 relative py-12 sm:py-20 
-              bg-gradient-to-b from-[#2a3a3c]/90 via-[#132026] to-[#252d36]/90"
+      ref={sectionRef}
+    id="featuredProjects"
+    className="scroll-mt-14 relative py-12 sm:py-20  h-full
+    bg-gradient-to-b from-[#2a3a3c]/90 via-[#132026] to-[#252d36]/90"
+    style={{ isolation: "isolate" }}
     >
       {/* <div className="absolute inset-0 bg-gradient-to-b from-white via-[#172034] to-white blur-[40px] opacity-20 pointer-events-none" /> */}
       <div className="absolute inset-x-0 !top-0 h-10 bg-gradient-to-b from-black/20 to-transparent blur-xs" />
@@ -53,14 +60,14 @@ const FeaturedProjects = () => {
         {/* <div className="absolute inset-x-0 bg-gradient-to-b from-[#131426]/90 via-[#2a363c] to-[#131426]/60 blur-[40px] z-40 h-20 -bottom-10 translate-y-14"></div> */}
       </div>
 
-      <FishTank />
-      <CarTransition />
+      <FishTank active={active} />
+      <CarTransition active={active} />
 
       <div
-        className="relative max-w-6xl mx-auto px-4 sm:px-12"
+        className="relative max-w-6xl mx-auto px-4 sm:px-12 h-full"
         style={{ zIndex: 1 }}
       >
-        <RevealSection direction="up">
+        <RevealSection direction="up" active={true}>
           <div className="mb-10 sm:mb-16">
             <div className="flex items-center justify-center gap-3 mb-4 sm:mb-8">
               <div className="inline-flex overflow-x-hidden items-center justify-center px-4 py-2 bg-primary/10 text-primary rounded-full text-xs sm:text-sm font-medium ring-1 ring-primary/20 backdrop-blur-sm">
@@ -86,13 +93,13 @@ const FeaturedProjects = () => {
           </div>
         </RevealSection>
 
-        <div className="grid md:grid-cols-2 gap-6 mb-12">
+        <div className="grid md:grid-cols-2 gap-6 mb-12 h-full">
           {featuredProjects?.map((project, index) => {
             const directions = ["up", "down", "right", "left" ];
             const direction = directions[index % directions.length];
             return (
-              <RevealSection direction={direction} key={project?.id}>
-                <TiltCard>
+              <RevealSection className="h-full" direction={direction} key={project?.id}>
+                <TiltCard >
                   <div className="group bg-[#2a363c]/80 h-full text-secondary rounded-2xl overflow-hidden shadow-2xl border border-white/5 transition-all duration-500 sm:hover:-translate-y-2 sm:hover:border-primary/20 sm:hover:shadow-[0_24px_48px_-12px_rgba(0,0,0,0.5)]">
                     {/* Project Image */}
                     <div className="relative h-56 overflow-hidden">
@@ -152,9 +159,23 @@ const FeaturedProjects = () => {
                           >
                             View Details
                           </Button>
+                      
+                        
+                          { project?.liveUrl &&
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              iconName="ExternalLink"
+                              iconPosition="left"
+                              className="text-xs text-foreground opacity-80 hover:opacity-100 hover:text-primary"
+                              onClick={() => window.open(project.liveUrl, "_blank")}
+                            >
+                              Live Demo
+                            </Button>
+                          }
                         </div>
 
-                        <div className="flex items-center gap-1.5 text-xs text-foreground opacity-80">
+                        <div className="hidden sm:flex items-center gap-1.5 text-xs text-foreground opacity-80">
                           <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 opacity-100" />
                           {project?.status}
                         </div>
@@ -181,8 +202,8 @@ const FeaturedProjects = () => {
             isOpen={modalOpen}
             onClose={() => setModalOpen(false)}
             onNavigate={handleNavigateProject}
-            hasNext={hasNextProject()}
-            hasPrev={hasPrevProject()}
+            hasNext={hasNextProject}
+            hasPrev={hasPrevProject}
           />
         </Suspense>
       </div>

@@ -151,10 +151,10 @@ const ProjectModal = ({
         }
       `}</style>
 
-      <div className="fixed inset-0 z-50 flex items-end lg:items-center lg:justify-center lg:p-6 xl:p-8">
+      <div className="fixed inset-0 z-60 flex items-end lg:items-center lg:justify-center lg:p-6 xl:p-8">
         {/* Backdrop */}
         <div
-          className="modal-backdrop absolute inset-0 bg-black/80 backdrop-blur-sm"
+          className="modal-backdrop absolute inset-0 bg-black/60 backdrop-blur-sm"
           onClick={onClose}
         />
 
@@ -162,9 +162,9 @@ const ProjectModal = ({
         <div
           className={`
             modal-drawer lg:modal-dialog
-            relative w-full bg-background shadow-2xl overflow-hidden flex flex-col
+            relative w-full bg-[#363c43] shadow-2xl overflow-hidden flex flex-col
             rounded-t-2xl max-h-[82vh]
-            lg:rounded-lg lg:max-w-6xl lg:max-h-[75vh]
+            lg:rounded-lg lg:max-w-6xl lg:max-h-[620px]
           `}
           style={{
             transform: `translateY(${dragY}px)`,
@@ -231,19 +231,21 @@ const ProjectModal = ({
           {/* Body */}
           <div className="flex-1 flex flex-col lg:flex-row overflow-hidden min-h-0">
             {/* Image / iframe panel — hidden on mobile & tablet, shown lg+ only */}
-            <div className="hidden lg:flex lg:w-1/2 relative bg-muted border-r border-border">
+            <div className="hidden lg:flex lg:w-1/2 relative bg-[#181b1e] border-r border-border">
               {project?.liveUrl ? (
                 <>
                   {iframeLoading && (
-                    <div className="absolute inset-0 flex items-center justify-center bg-muted z-10">
+                    <div className="absolute inset-0 flex items-center justify-center bg-[#181b1e] z-10">
                       <div className="flex flex-col items-center gap-3">
-                        <div className="w-9 h-9 border-4 border-primary/30 border-t-primary rounded-full animate-spin" />
+                        <div className="w-9 h-9 border-b-2 border-primary/30 border-t-primary rounded-full animate-spin" />
                         <p className="text-sm text-muted-foreground">
                           Loading preview...
                         </p>
                       </div>
                     </div>
                   )}
+                  <div className="relative inset-0 w-full">
+
                   <iframe
                     src={project.liveUrl}
                     title={project?.title}
@@ -253,7 +255,9 @@ const ProjectModal = ({
                     sandbox="allow-scripts allow-forms allow-same-origin"
                     onLoad={() => setIframeLoading(false)}
                     onError={() => setIframeLoading(false)}
-                  />
+                    />
+                    <div className="absolute inset-0 bg-black/40 w-full pointer-events-none"></div>
+                    </div>
                 </>
               ) : (
                 <div className="relative w-full h-full">
@@ -339,7 +343,7 @@ const ProjectModal = ({
                         {project?.technologies?.map((tech, index) => (
                           <div
                             key={index}
-                            className="flex items-center gap-2 p-2.5 bg-muted rounded-lg"
+                            className="flex items-center gap-2 p-2.5 bg-[#2d303fdd] rounded-lg"
                           >
                             <Icon
                               name={getTechIcon(tech)}

@@ -1,8 +1,13 @@
 import Button from "../../../components/ui/Button";
 import { RevealSection, TiltCard } from "../../../utils/animation.utils";
 import { CSS3Icon, DockerIcon, GithubIcon, NextJsIcon, ReactIcon, TailwindIcon, TypeScriptIcon } from "../../../components/BrandIcons";
+import { useRef } from "react";
+import { useOnScreen } from "../../../hooks/useOnScreen";
 
 const Skills = () => {
+  const sectionRef = useRef(null);
+  const active = useOnScreen(sectionRef, 0);
+
   const skills = [
   { icon: ReactIcon, label: "ReactJs", className: "text-sky-400", addedSize: 58 },
   { icon: NextJsIcon, label: "NextJs", className: "text-white" },
@@ -13,8 +18,8 @@ const Skills = () => {
   { icon: CSS3Icon, label: "Css3", className: "text-[#1572B6]", hiddenOnMobile: true },
 ];
   return (
-    <section className="pt-20 px-4 sm: bg-gradient-to-b from-[#2d3641] to-[#131426]/95">
-      <RevealSection direction="left">
+    <section ref={sectionRef} className="pt-20 px-4 sm: bg-gradient-to-b h-full from-[#2d3641] to-[#131426]/95">
+      <RevealSection className="h-full" direction="left" active={true}>
         <TiltCard>
 
       <div
