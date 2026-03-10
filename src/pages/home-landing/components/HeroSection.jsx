@@ -20,40 +20,21 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <section className="relative flex min-h-screen items-center overflow-x-hidden justify-center bg-gradient-to-br from-background via-card to-muted/20">
+    <section className="relative flex min-h-screen items-center justify-center bg-gradient-to-br from-background via-card to-muted/20">
       {/* Enhanced Background Pattern */}
       <div className="absolute inset-0 opacity-10">
         {/* Animated gradient orbs */}
         <div
-          className="absolute top-20 left-20 w-72 h-72 bg-gradient-to-r from-primary to-blue-500 rounded-full blur-3xl animate-pulse-slow"
+          className="absolute top-20 left-20 w-72 h-72 transform-gpu will-change-transform bg-gradient-to-r from-primary to-blue-500 rounded-full blur-lg animate-pulse-slow"
           style={{
             transition: "transform 0.1s ease-out",
           }}
         ></div>
         <div
-          className="absolute bottom-20 right-20 w-96 h-96 bg-gradient-to-r from-accent to-purple-500 rounded-full blur-3xl animate-pulse-slow"
+          className="absolute transform-gpu will-change-transform bottom-20 right-20 w-96 h-96 bg-gradient-to-r from-accent to-purple-500 rounded-full blur-lg animate-pulse-slow"
           style={{
             transition: "transform 0.1s ease-out",
             animationDelay: "1s",
-          }}
-        ></div>
-
-        {/* Floating particles */}
-        <div className="absolute top-40 left-1/4 w-2 h-2 bg-primary rounded-full animate-float"></div>
-        <div className="absolute top-60 right-1/3 w-1 h-1 bg-accent rounded-full animate-float-delayed"></div>
-        <div className="absolute bottom-40 left-1/3 w-3 h-3 bg-blue-400 rounded-full animate-float-slow"></div>
-      </div>
-
-      {/* Grid pattern overlay */}
-      <div className="absolute inset-0 opacity-[0.03]">
-        <div
-          className="w-full h-full"
-          style={{
-            backgroundImage: `
-              linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)
-            `,
-            backgroundSize: "50px 50px",
           }}
         ></div>
       </div>
@@ -65,7 +46,7 @@ const HeroSection = () => {
             <div className="space-y-6">
               {/* Enhanced Badge */}
               <div
-                className={`hidden sm:inline-flex items-center px-2 sm:px-6 py-1 bg-gradient-to-r from-primary/20 mt-9 to-blue-500/20 text-primary rounded-full text-[9px] sm:text-sm font-medium border border-primary/20 backdrop-blur-sm shadow-lg transform transition-all duration-700 hover:scale-105 hover:shadow-primary/20 hover:shadow-xl ${
+                className={`hidden sm:inline-flex items-center px-2 sm:px-6 py-1 bg-gradient-to-r from-primary/20 mt-9 to-blue-500/20 text-primary rounded-full text-[9px] sm:text-sm font-medium border border-primary/20 backdrop-blur-sm shadow-lg transition-all duration-700 hover:scale-105 hover:shadow-primary/20 hover:shadow-xl transform-gpu ${
                   isVisible
                     ? "translate-y-0 opacity-100"
                     : "translate-y-4 opacity-0"
@@ -84,37 +65,34 @@ const HeroSection = () => {
               {/* Typewriter Title */}
               <div className=" lg:min-h-[180px]">
                 <h1
-                  className={`text-[7.3vw] sm:text-5xl lg:text-5xl lg:text-[48px] 3xl:text-[4vw] lg:leading-tight font-normal text-foreground tracking-widest leading-tight transform transition-all duration-1000 ${
+                  className={`text-[7.3vw] sm:text-5xl lg:text-5xl lg:text-[48px] 3xl:text-[4vw] lg:leading-tight font-normal text-foreground tracking-widest leading-tight  transition-all duration-1000 transform-gpu ${
                     isVisible
                       ? "translate-y-0 opacity-100"
                       : "translate-y-8 opacity-0"
                   }`}
                 >
-                  Building
+                 Hi, I'm Jason.  
                   <br />
-                  {/* {displayText.split('Digital')[1]} */}
-                  <span className="block bg-gradient-to-r font-bold from-primary via-blue-500 to-purple-600 bg-clip-text text-transparent animate-gradient-x">
-                    Digital Experiences
+                  <span className="block bg-gradient-to-r font-bold from-primary via-blue-500 to-purple-600 bg-clip-text text-transparent animate-gradient-x transform-gpu will-change-transform">
+                    I Turn Ideas Into
                   </span>
-                  That Drives Result
-                  {/* <span className="inline-block w-1 h-12 lg:h-16 bg-primary ml-1 animate-pulse"></span> */}
+                  Beautiful Web Apps
                 </h1>
               </div>
 
               <p
-                className={`text-lg md:text-xl text-muted-foreground !mt-0 max-w-2xl mx-auto lg:ml-0 pt-2 leading-relaxed transform transition-all duration-1000 delay-300 ${
+                className={`text-lg md:text-xl text-muted-foreground !mt-0 max-w-2xl mx-auto lg:ml-0 pt-2 leading-relaxed transition-all duration-1000 delay-300 transform-gpu ${
                   isVisible
                     ? "translate-y-0 opacity-100"
                     : "translate-y-8 opacity-0"
                 }`}
               >
-                I build fast, user-friendly web apps with React, Next.js, and
-                TypeScript — combining clean code and thoughtful design.
+                React & Next.js developer who obsesses over clean code, fast load times, and interfaces users actually enjoy.
               </p>
             </div>
 
             <div
-              className={`flex justify-center lg:hidden lg:justify-end lg:mr-[20%] transform transition-all duration-1000 delay-300 ${
+              className={`flex justify-center lg:hidden lg:justify-end lg:mr-[20%] transition-all duration-1000 delay-300 transform-gpu ${
                 isVisible
                   ? "translate-x-0 opacity-100"
                   : "translate-x-8 opacity-0"
@@ -122,51 +100,44 @@ const HeroSection = () => {
             >
               <div className="relative group cursor-pointer">
                 {/* Main image container */}
-                <div
-                  className="relative rounded-2xl lg:rounded-full h-auto w-full sm:w-[70vw] aspect-square sm:h-[50vw] sm:aspect-auto overflow-hidden lg:group-hover:border-2 group-hover:border-white/80 lg:animate-glow-ring lg:border-4 border-primary shadow-2xl transform group-hover:scale-105 transition-all duration-500 hover:shadow-primary/20 hover:shadow-3xl"
-                  style={{
-                    background:
-                      "linear-gradient(45deg, rgba(59, 130, 246, 0.1), rgba(147, 51, 234, 0.1))",
-                    transform: `perspective(1000px)`,
-                  }}
-                >
+                <div className="relative rounded-2xl lg:rounded-full h-auto w-full sm:w-[70vw] aspect-square sm:h-[50vw] sm:aspect-auto overflow-hidden lg:group-hover:border-2 group-hover:border-white/80 lg:animate-glow-ring lg:border-4 border-primary shadow-2xl  group-hover:scale-105 transition-all duration-500 hover:shadow-primary/20 transform-gpu">
                   {/* Enhanced overlay */}
-                  <div className="absolute w-full h-full z-10 group-hover:opacity-50 transition-opacity duration-300"></div>
+                  <div className="absolute w-full h-full z-10 group-hover:opacity-50 transition-opacity duration-300 transform-gpu"></div>
 
                   <Image
                     src="./assets/images/jason.webp"
                     alt="Jason Dagana - Frontend Developer"
                     title="Jason Dagana | Frontend Developer"
-                    width={800}
-                    height={800}
+                    width={400}
+                    height={400}
                     className="w-full h-full object-cover object-[0_30%] transition-transform duration-500 group-hover:scale-110"
                   />
                 </div>
 
                 {/* Orbit Container */}
-                <div className="absolute !rounded-full inset-0 w-[110%] flex items-center justify-center">
+                <div className="absolute !rounded-full inset-0 w-[110%] flex items-center justify-center pointer-events-none">
                   {/* Clockwise group */}
-                  <div className="absolute !rounded-full inset-0 animate-spin-slow-1">
+                  <div className="absolute !rounded-full inset-0 animate-spin-slow-1 transform-gpu will-change-transform">
                     {/* React */}
-                    <div className="absolute -right-5 w-12 h-12 bg-gradient-to-r from-primary to-blue-600 rounded-full flex items-center justify-center shadow-xl animate-pulse-slow-1">
+                    <div className="absolute -right-5 w-12 h-12 bg-gradient-to-r from-primary to-blue-600 rounded-full flex items-center justify-center shadow-xl animate-pulse-slow-1 transform-gpu will-change-transform">
                       <ReactIcon size={22} color="white" />
                     </div>
 
                     {/* Next.js */}
-                    <div className="absolute -left-5  w-12 h-12 bg-gradient-to-r from-gray-500 to-black rounded-full flex items-center justify-center shadow-xl animate-pulse-slow-2">
+                    <div className="absolute -left-5  w-12 h-12 bg-gradient-to-r from-gray-500 to-black rounded-full flex items-center justify-center shadow-xl animate-pulse-slow-2 transform-gpu will-change-transform">
                       <NextJsIcon size={22} color="white" />
                     </div>
                   </div>
 
                   {/* Counter-clockwise group */}
-                  <div className="absolute inset-0 animate-spin-reverse !rounded-full">
+                  <div className="absolute inset-0 animate-spin transform-gpu will-change-transform">
                     {/* Tailwind */}
-                    <div className="absolute -left-5 w-12 h-12 bg-gradient-to-r from-sky-400 to-sky-600 rounded-full flex items-center justify-center shadow-xl animate-pulse-slow-3">
+                    <div className="absolute -left-5 w-12 h-12 bg-gradient-to-r from-sky-400 to-sky-600 rounded-full flex items-center justify-center shadow-xl animate-pulse-slow-3 transform-gpu will-change-transform">
                       <TailwindIcon size={22} color="white" />
                     </div>
 
                     {/* TypeScript */}
-                    <div className="absolute -right-5 w-12 h-12 bg-gradient-to-r from-blue-500 to-blue-700 rounded-full flex items-center justify-center shadow-xl animate-pulse-slow-4">
+                    <div className="absolute -right-5 w-12 h-12 bg-gradient-to-r from-blue-500 to-blue-700 rounded-full flex items-center justify-center shadow-xl animate-pulse-slow-4 transform-gpu will-change-transform">
                       <TypeScriptIcon size={22} color="white" />
                     </div>
                   </div>
@@ -187,7 +158,7 @@ const HeroSection = () => {
                 size="lg"
                 iconName="Briefcase"
                 iconPosition="left"
-                className="text-base text-muted-foreground bg-gradient-to-r from-primary to-blue-600 hover:from-primary/90 hover:to-blue-600/90 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-primary/25 hover:shadow-xl"
+                className=""
                 asChild
               >
                 <Link to="/projects">
@@ -200,7 +171,7 @@ const HeroSection = () => {
                 size="lg"
                 iconName="Download"
                 iconPosition="left"
-                className="text-base border-2 hover:bg-transparent hover:text-white transform hover:scale-105 transition-all duration-300 backdrop-blur-sm bg-background/50 hover:shadow-lg"
+                className=" border-2"
               >
                 Get My Resume
               </Button>
@@ -250,7 +221,7 @@ const HeroSection = () => {
 
           {/* Enhanced Profile Image */}
           <div
-            className={`lg:flex hidden justify-center lg:justify-end lg:mr-[20%] transform transition-all duration-1000 delay-300 ${
+            className={`lg:flex hidden justify-center lg:justify-end lg:mr-[20%]  transition-all duration-1000 delay-300 transform-gpu ${
               isVisible
                 ? "translate-x-0 opacity-100"
                 : "translate-x-8 opacity-0"
@@ -258,51 +229,41 @@ const HeroSection = () => {
           >
             <div className="relative group cursor-pointer">
               {/* Main image container */}
-              <div
-                className="relative rounded-2xl lg:rounded-full w-[100%] aspect-square lg:aspect-auto overflow-hidden lg:group-hover:border-2 lg:animate-glow-ring lg:border-4 border-primary shadow-2xl transform group-hover:scale-105 transition-all duration-500 hover:shadow-primary/20 hover:shadow-3xl"
-                style={{
-                  background:
-                    "linear-gradient(45deg, rgba(59, 130, 246, 0.1), rgba(147, 51, 234, 0.1))",
-                  transform: `perspective(1000px)`,
-                }}
-              >
-                {/* Enhanced overlay */}
-                <div className="absolute w-full h-full z-10 group-hover:opacity-50 transition-opacity duration-300"></div>
-
+              <div className="relative rounded-2xl lg:rounded-full w-[100%] aspect-square lg:aspect-auto overflow-hidden lg:group-hover:border-2 lg:border-[3px] border-primary shadow-2xl transition-transform duration-500 hover:shadow-primary/20 transform">
                 <Image
                   src="./assets/images/jason.webp"
                   alt="Jason Dagana - Frontend Developer"
                   title="Jason Dagana | Frontend Developer"
                   width={800}
                   height={800}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  className="w-full h-full hover:scale-105 object-cover object-center transition-transform duration-500"
                 />
               </div>
 
               {/* Orbit Container */}
-              <div className="absolute !rounded-full inset-0 w-[110%] flex items-center justify-center">
+              <div className="absolute !rounded-full inset-0 w-[110%] flex items-center justify-center pointer-events-none">
                 {/* Clockwise group */}
-                <div className="absolute !rounded-full inset-0 animate-spin-slow-1">
+                <div className="absolute !rounded-full inset-0 animate-spin-slow-1 transform-gpu will-change-transform">
                   {/* React */}
-                  <div className="absolute -right-5 w-12 h-12 bg-gradient-to-r from-primary to-blue-600 rounded-full flex items-center justify-center shadow-xl animate-pulse-slow-1">
+                  <div className="absolute -right-5 w-12 h-12 bg-gradient-to-r from-primary to-blue-600 rounded-full flex items-center justify-center shadow-xl animate-pulse-slow-1 transform-gpu will-change-transform">
                     <ReactIcon size={22} color="white" />
                   </div>
 
                   {/* Next.js */}
-                  <div className="absolute -left-5  w-12 h-12 bg-gradient-to-r from-gray-500 to-black rounded-full flex items-center justify-center shadow-xl animate-pulse-slow-2">
+                  <div className="absolute -left-5  w-12 h-12 bg-gradient-to-r from-gray-500 to-black rounded-full flex items-center justify-center shadow-xl animate-pulse-slow-2 transform-gpu will-change-transform">
                     <NextJsIcon size={22} color="white" />
                   </div>
                 </div>
 
                 {/* Counter-clockwise group */}
-                <div className="absolute inset-0 animate-spin-reverse !rounded-full">
+                <div className="absolute inset-0 animate-spin-reverse !rounded-full transform-gpu will-change-transform">
                   {/* Tailwind */}
-                  <div className="absolute -left-5 w-12 h-12 bg-gradient-to-r from-sky-400 to-sky-600 rounded-full flex items-center justify-center shadow-xl animate-pulse-slow-3">
+                  <div className="absolute -left-5 w-12 h-12 bg-gradient-to-r from-sky-400 to-sky-600 rounded-full flex items-center justify-center shadow-xl animate-pulse-slow-3 transform-gpu will-change-transform">
                     <TailwindIcon size={22} color="white" fill="white" />
                   </div>
 
                   {/* TypeScript */}
-                  <div className="absolute -right-5 w-12 h-12 bg-gradient-to-r from-blue-500 to-blue-700 rounded-full flex items-center justify-center shadow-xl animate-pulse-slow-4">
+                  <div className="absolute -right-5 w-12 h-12 bg-gradient-to-r from-blue-500 to-blue-700 rounded-full flex items-center justify-center shadow-xl animate-pulse-slow-4 transform-gpu will-change-transform">
                     <TypeScriptIcon size={22} color="white" fill="white" />
                   </div>
                 </div>

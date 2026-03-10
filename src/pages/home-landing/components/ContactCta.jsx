@@ -9,9 +9,9 @@ const ContactCta = () => {
 " />
       </div>
 
-        <RevealSection direction="down">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
         
+        <RevealSection direction="up">
         <h2 className="text-xl sm:text-3xl font-bold text-secondary-foreground mb-4">
           Interested in Working Together?
         </h2>
@@ -32,8 +32,8 @@ const ContactCta = () => {
             Get In Touch
           </Button>
         </div>
-      </div>
             </RevealSection>
+      </div>
     </section>
   );
 };

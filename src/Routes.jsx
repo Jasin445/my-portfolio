@@ -1,4 +1,3 @@
-import { lazy, Suspense } from "react";
 import { BrowserRouter, Routes as RouterRoutes, Route } from "react-router-dom";
 import ScrollToTop from "components/ScrollToTop";
 import ErrorBoundary from "components/ErrorBoundary";
@@ -6,9 +5,9 @@ import NotFound from "pages/NotFound";
 import PortfolioProjects from "./pages/portfolio-projects";
 import HomeLanding from "./pages/home-landing";
 import ScrollProgress from "./components/ui/ScrollProgress";
-const ContactConnect = lazy(() => import("./pages/contact-connect"));
-const TechnicalBlog = lazy(() => import("./pages/technical-blog"));
-const AboutProfessional = lazy(() => import("./pages/about-professional"));
+import ContactConnect from"./pages/contact-connect";
+import TechnicalBlog from "./pages/technical-blog";
+import AboutProfessional from "./pages/about-professional";
 
 const Routes = () => {
   return (
@@ -24,25 +23,25 @@ const Routes = () => {
           <Route
             path="/technical-blog"
             element={
-              <Suspense fallback={null}>
+              // <Suspense fallback={null}>
                 <TechnicalBlog />
-              </Suspense>
+              // </Suspense>
             }
           />
           <Route
             path="/contact-connect"
             element={
-              <Suspense fallback={null}>
+              // <Suspense fallback={null}>
                 <ContactConnect />
-              </Suspense>
+              // </Suspense>
             }
           />
           <Route
             path="/about-professional"
             element={
-              <Suspense fallback={null}>
+              // <Suspense fallback={null}>
                 <AboutProfessional />
-              </Suspense>
+              // </Suspense>
             }
           />
           <Route path="*" element={<NotFound />} />

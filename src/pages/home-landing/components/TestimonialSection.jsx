@@ -60,35 +60,40 @@ const TestimonialSection = () => {
 
           {/* Testimonial Grid */}
           <div className="grid xl:grid-cols-[33.3%_33.3%_33.3%] gap-8 max-w-xl mx-auto xl:ml-0 xl:max-w-full">
-            {testimonials?.map((testimonial, idx) => (
-              <RevealSection index={idx} direction="right" key={testimonial?.id}>
+            {testimonials?.map((testimonial, idx) => {
+              let direction;
+              const isEven = idx % 2 === 0;
+              if(isEven) direction = "right"
+              if(!isEven) direction = "left"
+              if(idx === 1) direction = "down"
+              return <RevealSection index={idx} direction={direction} key={testimonial?.id}>
                 <TiltCard>
-        <div
+                  <div
           
-          className="bg-gradient-to-b z-30 from-[#1d1f2e]/70 via-white/10 to-transparent hover:shadow-[0_0_12px_rgba(1,149,255,0.25)] rounded-xl border border-border shadow-xl transition p-8"
-          >
-          <p className="text-sm sm:text-lg text-muted-foreground mb-4 italic">
-            "{testimonial?.quote}"
-          </p>
-          <div className="flex justify-center sm:justify-end xl:justify-center items-center gap-4">
-           {testimonial?.image ? <Image
-              src={testimonial?.image}
-              alt={testimonial?.name}
-              className="w-12 h-12 rounded-full object-cover"
-                  /> : <div className="w-12 h-12 rounded-full bg-slate-500 font-bold text-gray-200 flex items-center justify-center">{testimonial?.avatar}</div>}
-            <div className="text-left">
-              <h4 className="text-foreground font-semibold">
-                {testimonial?.name}
-              </h4>
-              <span className="text-sm text-muted-foreground">
-                {testimonial?.role}, {testimonial?.company}
-              </span>
-            </div>
-          </div>
-                </div>
-              </TiltCard>
+                    className="bg-gradient-to-b z-30 from-[#1d1f2e]/70 via-white/10 to-transparent hover:shadow-[0_0_12px_rgba(1,149,255,0.25)] rounded-xl border border-border shadow-xl transition p-8"
+                  >
+                    <p className="text-sm sm:text-lg text-muted-foreground mb-4 italic">
+                      "{testimonial?.quote}"
+                    </p>
+                    <div className="flex justify-center sm:justify-end xl:justify-center items-center gap-4">
+                      {testimonial?.image ? <Image
+                        src={testimonial?.image}
+                        alt={testimonial?.name}
+                        className="w-12 h-12 rounded-full object-cover"
+                      /> : <div className="w-12 h-12 rounded-full bg-slate-500 font-bold text-gray-200 flex items-center justify-center">{testimonial?.avatar}</div>}
+                      <div className="text-left">
+                        <h4 className="text-foreground font-semibold">
+                          {testimonial?.name}
+                        </h4>
+                        <span className="text-sm text-muted-foreground">
+                          {testimonial?.role}, {testimonial?.company}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </TiltCard>
               </RevealSection>
-      ))}
+            })}
           </div>
         </div>
       </div>

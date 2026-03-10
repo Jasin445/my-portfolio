@@ -5,8 +5,13 @@ import Icon from "../../../components/AppIcon";
 import CarTransition from "../../../components/CarDrive";
 import { mockProjects } from "../../../data";
 import { lazy, Suspense, useState } from "react";
-import FishTank, { RevealSection, TiltCard } from "../../../utils/animation.utils";
-const ProjectModal = lazy(() => import("../../portfolio-projects/components/ProjectModal"));
+import FishTank, {
+  RevealSection,
+  TiltCard,
+} from "../../../utils/animation.utils";
+const ProjectModal = lazy(
+  () => import("../../portfolio-projects/components/ProjectModal"),
+);
 const FeaturedProjects = () => {
   const featuredMockProjects = mockProjects?.filter((p) => p?.featured);
   const [selectedProject, setSelectedProject] = useState(null);
@@ -55,7 +60,7 @@ const FeaturedProjects = () => {
         className="relative max-w-6xl mx-auto px-4 sm:px-12"
         style={{ zIndex: 1 }}
       >
-        <RevealSection>
+        <RevealSection direction="up">
           <div className="mb-10 sm:mb-16">
             <div className="flex items-center justify-center gap-3 mb-4 sm:mb-8">
               <div className="inline-flex overflow-x-hidden items-center justify-center px-4 py-2 bg-primary/10 text-primary rounded-full text-xs sm:text-sm font-medium ring-1 ring-primary/20 backdrop-blur-sm">
@@ -83,8 +88,10 @@ const FeaturedProjects = () => {
 
         <div className="grid md:grid-cols-2 gap-6 mb-12">
           {featuredProjects?.map((project, index) => {
+            const directions = ["up", "down", "right", "left" ];
+            const direction = directions[index % directions.length];
             return (
-              <RevealSection key={project?.id}>
+              <RevealSection direction={direction} key={project?.id}>
                 <TiltCard>
                   <div className="group bg-[#2a363c]/80 h-full text-secondary rounded-2xl overflow-hidden shadow-2xl border border-white/5 transition-all duration-500 sm:hover:-translate-y-2 sm:hover:border-primary/20 sm:hover:shadow-[0_24px_48px_-12px_rgba(0,0,0,0.5)]">
                     {/* Project Image */}
@@ -169,15 +176,15 @@ const FeaturedProjects = () => {
         </div>
 
         <Suspense fallback={null}>
-        <ProjectModal
-          project={selectedProject}
-          isOpen={modalOpen}
-          onClose={() => setModalOpen(false)}
-          onNavigate={handleNavigateProject}
-          hasNext={hasNextProject()}
-          hasPrev={hasPrevProject()}
+          <ProjectModal
+            project={selectedProject}
+            isOpen={modalOpen}
+            onClose={() => setModalOpen(false)}
+            onNavigate={handleNavigateProject}
+            hasNext={hasNextProject()}
+            hasPrev={hasPrevProject()}
           />
-          </Suspense>
+        </Suspense>
       </div>
     </section>
   );

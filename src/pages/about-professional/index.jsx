@@ -1,10 +1,9 @@
-import { useEffect } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import Header from "../../components/ui/Header";
-import ScrollProgress from "../../components/ui/ScrollProgress";
-import ProfessionalBio from "./components/ProfessionalBio";
-import DownloadResume from "./components/DownloadResume";
 import Footer from "../../components/Footer";
 import GenericHeroSection from "../portfolio-projects/components/GenericHero";
+const ProfessionalBio = lazy(() => import("./components/ProfessionalBio"));
+const DownloadResume = lazy(() => import("./components/DownloadResume"));
 
 const AboutProfessional = () => {
   useEffect(() => {
@@ -27,8 +26,11 @@ const AboutProfessional = () => {
   return (
     <main className="min-h-screen bg-background">
       <Header />
-      <GenericHeroSection title={"About Me"} image="bg-[url('/assets/images/about-hero.png')] !bg-cover bg-top" overlay="from-[#131426]/70 via-[#0f1115]/70 to-[#2a363c]/70 sm:from-[#131426]/60 sm:via-[#0f1115]/60 sm:to-[#2a363c]/60"
- />
+      <GenericHeroSection
+        title={"About Me"}
+        image="bg-[url('/assets/images/about-hero.png')] !bg-cover bg-top"
+        overlay="from-[#131426]/70 via-[#0f1115]/70 to-[#2a363c]/70 sm:from-[#131426]/60 sm:via-[#0f1115]/60 sm:to-[#2a363c]/60"
+      />
 
       <section className="relative py-12 h-full">
         <div className="absolute inset-0 pointer-events-none">
@@ -36,11 +38,15 @@ const AboutProfessional = () => {
           <div className="absolute inset-x-0 bg-gradient-to-b from-[#131426]/70 to-[#2a363c] h-20 blur-xl bottom-0 translate-y-4"></div>
           <div className="absolute inset-x-0 bg-gradient-to-b from-[#131426]/90 via-[#2a363c] to-[#131426]/60 blur-[340px] z-40 h-20 -bottom-10 translate-y-14"></div>
         </div>
+          <Suspense fallback={null}>
         <div className="4xl:max-w-7xl 3xl:max-w-7xl max-w-6xl mx-auto px-4 sm:px-6">
-          <ProfessionalBio />
+            <ProfessionalBio />
         </div>
+          </Suspense>
       </section>
-      <DownloadResume />
+       <Suspense fallback={null}>
+            <DownloadResume />
+          </Suspense>
       <Footer lightweight />
     </main>
   );

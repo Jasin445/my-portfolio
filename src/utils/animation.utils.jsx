@@ -1,6 +1,4 @@
-
 import { useEffect, useRef, useState, useMemo } from "react";
-
 
 /* ─── Underwater Fish Tank ───────────────────────────────────── */
 const FishTank = () => {
@@ -9,7 +7,10 @@ const FishTank = () => {
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const ctx = canvas.getContext("2d", { willReadFrequently: false, alpha: true });
+    const ctx = canvas.getContext("2d", {
+      willReadFrequently: false,
+      alpha: true,
+    });
 
     const fishColors = [
       ["#6be6ff", "#3ab8d4"],
@@ -44,7 +45,8 @@ const FishTank = () => {
 
     const fishes = Array.from({ length: 30 }, () => {
       const size = Math.random() * 10 + 3;
-      const colorPair = fishColors[Math.floor(Math.random() * fishColors.length)];
+      const colorPair =
+        fishColors[Math.floor(Math.random() * fishColors.length)];
       const dir = Math.random() > 0.5 ? 1 : -1;
       return {
         x: Math.random() * (canvas.width || 1400),
@@ -75,10 +77,12 @@ const FishTank = () => {
     }));
 
     const drawFish = (ctx, fish, t) => {
-      const { x, y, size, color, finColor, alpha, dir, tailPhase, depth } = fish;
+      const { x, y, size, color, finColor, alpha, dir, tailPhase, depth } =
+        fish;
       const depthAlpha = alpha * (0.3 + depth * 0.7);
       const depthSize = size * (0.5 + depth * 0.5);
-      const tail = Math.sin(t * fish.tailSpeed * 60 + tailPhase) * (depthSize * 0.35);
+      const tail =
+        Math.sin(t * fish.tailSpeed * 60 + tailPhase) * (depthSize * 0.35);
 
       ctx.save();
       ctx.globalAlpha = depthAlpha;
@@ -100,16 +104,33 @@ const FishTank = () => {
 
       ctx.beginPath();
       ctx.moveTo(-depthSize * 0.2, -depthSize * 0.65);
-      ctx.quadraticCurveTo(depthSize * 0.3, -depthSize * 1.2, depthSize * 0.8, -depthSize * 0.65);
+      ctx.quadraticCurveTo(
+        depthSize * 0.3,
+        -depthSize * 1.2,
+        depthSize * 0.8,
+        -depthSize * 0.65,
+      );
       ctx.fillStyle = finColor + "aa";
       ctx.fill();
 
       ctx.beginPath();
-      ctx.arc(depthSize * 0.9, -depthSize * 0.1, depthSize * 0.18, 0, Math.PI * 2);
+      ctx.arc(
+        depthSize * 0.9,
+        -depthSize * 0.1,
+        depthSize * 0.18,
+        0,
+        Math.PI * 2,
+      );
       ctx.fillStyle = "#000";
       ctx.fill();
       ctx.beginPath();
-      ctx.arc(depthSize * 0.93, -depthSize * 0.13, depthSize * 0.07, 0, Math.PI * 2);
+      ctx.arc(
+        depthSize * 0.93,
+        -depthSize * 0.13,
+        depthSize * 0.07,
+        0,
+        Math.PI * 2,
+      );
       ctx.fillStyle = "#fff";
       ctx.fill();
 
@@ -212,31 +233,41 @@ export default FishTank;
 
 /* ─── Reveal section phase styles (direction-aware, outside component) ── */
 const makePhaseStyle = (direction) => {
-  const hidden = {
-    up:    "translateY(60px) rotate(-4deg) scale(0.85)",
-    down:  "translateY(-60px) rotate(4deg) scale(0.85)",
-    left:  "translateX(60px) rotate(4deg) scale(0.85)",
-    right: "translateX(-60px) rotate(-4deg) scale(0.85)",
-  }[direction] ?? "translateY(60px) rotate(-4deg) scale(0.85)";
-
-  const overshoot = {
-    up:    "translateY(-15px) rotate(1.5deg) scale(1.04)",
-    down:  "translateY(14px) rotate(-1.5deg) scale(1.04)",
-    left:  "translateX(-14px) rotate(-1.5deg) scale(1.04)",
-    right: "translateX(14px) rotate(1.5deg) scale(1.04)",
-  }[direction] ?? "translateY(-14px) rotate(1.5deg) scale(1.04)";
+  const hidden =
+    {
+      up: "translateY(180px) rotate(-16deg) scale(0.85)",
+      down: "translateY(-180px) rotate(4deg) scale(0.85)",
+      left: "translateX(80px) rotate(16deg) scale(0.85)",
+      right: "translateX(-80px) rotate(-16deg) scale(0.85)",
+    }[direction] ?? "translateY(80px) rotate(-16deg) scale(0.85)";
 
   return (phase) => {
-    if (phase === 0) return { opacity: 0, transform: hidden, filter: "blur(6px)", willChange: "transform, opacity" };
-    if (phase === 1) return { opacity: 1, transform: overshoot, filter: "blur(0px)", transition: "all 0.5s cubic-bezier(0.34,1.56,0.64,1)", willChange: "transform, opacity" };
-    return { opacity: 1, transform: "translate(0) rotate(0deg) scale(1)", filter: "blur(0px)", transition: "all 0.4s cubic-bezier(0.25,0.46,0.45,0.94)", willChange: "auto" };
+    if (phase === 0)
+      return {
+        opacity: 0,
+        transform: hidden,
+        filter: "blur(8px) brightness(0.3)",
+        willChange: "transform, opacity, filter",
+      };
+
+    return {
+      opacity: 1,
+      transform: "translate(0) rotate(0deg) scale(1)",
+      filter: "blur(0px) brightness(1)",
+      transition: "all 2.4s cubic-bezier(0.16, 1, 0.3, 1)",
+      willChange: "auto",
+    };
   };
 };
 
-export const RevealSection = ({ children, index = 0, direction = "up", className = "" }) => {
+export const RevealSection = ({
+  children,
+  index = 0,
+  direction = "up",
+  className = "",
+}) => {
   const ref = useRef(null);
-  const t1  = useRef(null);
-  const t2  = useRef(null);
+  const t1 = useRef(null);
   const [phase, setPhase] = useState(0);
   const getStyle = useMemo(() => makePhaseStyle(direction), [direction]);
 
@@ -248,15 +279,13 @@ export const RevealSection = ({ children, index = 0, direction = "up", className
         if (!entry.isIntersecting) return;
         observer.disconnect();
         t1.current = setTimeout(() => setPhase(1), index * 120);
-        t2.current = setTimeout(() => setPhase(2), index * 120 + 300);
       },
-      { threshold: 0.1 }
+      { threshold: 0.1 },
     );
     observer.observe(el);
     return () => {
       observer.disconnect();
       clearTimeout(t1.current);
-      clearTimeout(t2.current);
     };
   }, [index]);
 
@@ -269,7 +298,7 @@ export const RevealSection = ({ children, index = 0, direction = "up", className
 
 /* ─── TiltCard — mouse-tracking 3-D tilt, no state re-renders ── */
 export const TiltCard = ({ children }) => {
-  const ref      = useRef(null);
+  const ref = useRef(null);
   const leaveTimer = useRef(null);
 
   const handleMove = (e) => {
@@ -278,9 +307,9 @@ export const TiltCard = ({ children }) => {
     if (!el) return;
     clearTimeout(leaveTimer.current);
     const rect = el.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width  - 0.5;
-    const y = (e.clientY - rect.top)  / rect.height - 0.5;
-    el.style.transform  = `perspective(800px) rotateY(${x * 14}deg) rotateX(${-y * 14}deg) scale(1.03)`;
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    el.style.transform = `perspective(800px) rotateY(${x * 14}deg) rotateX(${-y * 14}deg) scale(1.03)`;
     el.style.transition = "transform 0.08s ease-out";
     el.style.willChange = "transform";
   };
@@ -288,7 +317,8 @@ export const TiltCard = ({ children }) => {
   const handleLeave = () => {
     const el = ref.current;
     if (!el) return;
-    el.style.transform  = "perspective(800px) rotateY(0deg) rotateX(0deg) scale(1)";
+    el.style.transform =
+      "perspective(800px) rotateY(0deg) rotateX(0deg) scale(1)";
     el.style.transition = "transform 0.5s cubic-bezier(0.4,0,0.2,1)";
     leaveTimer.current = setTimeout(() => {
       if (ref.current) ref.current.style.willChange = "auto";
@@ -298,7 +328,12 @@ export const TiltCard = ({ children }) => {
   useEffect(() => () => clearTimeout(leaveTimer.current), []);
 
   return (
-    <div ref={ref} className="h-full" onMouseMove={handleMove} onMouseLeave={handleLeave}>
+    <div
+      ref={ref}
+      className="h-full"
+      onMouseMove={handleMove}
+      onMouseLeave={handleLeave}
+    >
       {children}
     </div>
   );
@@ -311,7 +346,9 @@ export const GlowCard = ({ children, active }) => (
       position: "relative",
       borderRadius: "0.75rem",
       padding: "1px",
-      background: active ? "linear-gradient(135deg,#6be6ff,#a855f7,#6be6ff)" : "transparent",
+      background: active
+        ? "linear-gradient(135deg,#6be6ff,#a855f7,#6be6ff)"
+        : "transparent",
       backgroundSize: active ? "200% 200%" : "100%",
       animation: active ? "borderSpin 3s linear infinite" : "none",
     }}

@@ -1,6 +1,7 @@
 import { useState, useRef } from "react";
 import { User, Lightbulb, Heart } from "lucide-react";
 import AppIcon from "../../../components/AppIcon";
+import { RevealSection } from "../../../utils/animation.utils";
 
 const ProfessionalBio = () => {
   const [activeTab, setActiveTab] = useState("story");
@@ -121,127 +122,142 @@ These interests aren't separate from my professional life—they enrich and info
 
       <div className="max-w-6xl mx-auto px-0 sm:px-6 relative z-10">
         {/* Header Section */}
-        <div className="text-center mb-8 sm:mb-16">
-          <div className=" sm:mb-4">
-            <div
-              className="inline-flex items-center px-4 py-2 
-                      bg-primary/10 text-primary rounded-full text-xs sm:text-base font-medium mb-4
-                      ring-1 ring-primary/20 backdrop-blur-sm"
-            >
-              <AppIcon name="Smile" size={16} className="mr-2" />
-              About Me
+        <RevealSection direction="left">
+          <div className="text-center mb-8 sm:mb-16">
+            <div className=" sm:mb-4">
+              <div
+                className="inline-flex items-center px-4 py-2 
+              bg-primary/10 text-primary rounded-full text-xs sm:text-base font-medium mb-4
+              ring-1 ring-primary/20 backdrop-blur-sm"
+              >
+                <AppIcon name="Smile" size={16} className="mr-2" />
+                About Me
+              </div>
             </div>
+            <h2 className="text-xl sm:text-3xl lg:text-4xl font-bold mb-2 sm:mb-6 py-2 bg-gradient-to-r from-white via-white to-white bg-clip-text text-transparent">
+              Getting to Know Me
+            </h2>
+            <p className="text-sm sm:text-lg text-gray-400 max-w-2xl mx-auto leading-relaxed">
+              Beyond the technical skills and professional achievements, here's
+              what drives my passion for development
+            </p>
           </div>
-          <h2 className="text-xl sm:text-3xl lg:text-4xl font-bold mb-2 sm:mb-6 py-2 bg-gradient-to-r from-white via-white to-white bg-clip-text text-transparent">
-            Getting to Know Me
-          </h2>
-          <p className="text-sm sm:text-lg text-gray-400 max-w-2xl mx-auto leading-relaxed">
-            Beyond the technical skills and professional achievements, here's
-            what drives my passion for development
-          </p>
-        </div>
+        </RevealSection>
 
         {/* Enhanced Tab Navigation */}
-        <div className="flex flex-wrap justify-center gap-3 mb-12">
-          {tabs?.map((tab) => (
-            <Button
-              key={tab?.id}
-              variant={activeTab === tab?.id ? "default" : "outline"}
-              onClick={() => { setActiveTab(tab?.id); setExpanded(false); }}
-              icon={tab.icon}
-            >
-              {tab?.label}
-            </Button>
-          ))}
-        </div>
+        <RevealSection direction="up">
+          <div className="flex flex-wrap justify-center gap-3 mb-12">
+            {tabs?.map((tab) => (
+              <Button
+                key={tab?.id}
+                variant={activeTab === tab?.id ? "default" : "outline"}
+                onClick={() => {
+                  setActiveTab(tab?.id);
+                  setExpanded(false);
+                }}
+                icon={tab.icon}
+              >
+                {tab?.label}
+              </Button>
+            ))}
+          </div>
+        </RevealSection>
 
         {/* Content Card */}
-        <div className="relative bg-gradient-to-br from-[#2a363c]/20 via-[#2a363c]/50 to-slate-[#2a363c]/60 rounded-3xl lg:border border-blue-200/50 px-2 py-8 lg:p-14 lg:shadow-2xl backdrop-blur-sm overflow-hidden">
-          {/* Decorative corner accents */}
-          <div className="absolute top-0 left-0 w-32 h-32 border-t-2 border-l-2 border-blue-500/20 rounded-tl-3xl"></div>
-          <div className="absolute bottom-0 right-0 w-32 h-32 border-b-2 border-r-2 border-blue-500/20 rounded-br-3xl"></div>
+        <RevealSection direction="right">
+          <div className="relative bg-gradient-to-br from-[#2a363c]/20 via-[#2a363c]/50 to-slate-[#2a363c]/60 rounded-3xl lg:border border-blue-200/50 px-2 py-8 lg:p-14 lg:shadow-2xl backdrop-blur-sm overflow-hidden">
+            {/* Decorative corner accents */}
+            <div className="absolute top-0 left-0 w-32 h-32 border-t-2 border-l-2 border-blue-500/20 rounded-tl-3xl"></div>
+            <div className="absolute bottom-0 right-0 w-32 h-32 border-b-2 border-r-2 border-blue-500/20 rounded-br-3xl"></div>
 
-          {/* Subtle glow effects */}
-          <div className="absolute top-0 right-0 w-80 h-80 bg-blue-500/5 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-0 left-0 w-64 h-64 bg-purple-500/5 rounded-full blur-3xl"></div>
+            {/* Subtle glow effects */}
+            <div className="absolute top-0 right-0 w-80 h-80 bg-blue-500/5 rounded-full blur-3xl"></div>
+            <div className="absolute bottom-0 left-0 w-64 h-64 bg-purple-500/5 rounded-full blur-3xl"></div>
 
-          <div className="relative space-y-10">
-            {/* Title */}
-            <div className="text-center space-y-4">
-              <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold tracking-tight">
-                {content?.[activeTab]?.title}
-              </h3>
-              <div className="flex items-center justify-center gap-2">
-                <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                <div className="w-16 h-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"></div>
-                <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
-              </div>
-            </div>
-
-            {/* Image Container */}
-            <div
-              className="relative h-[60vw] sm:h-[400px] w-full max-w-[550px] mx-auto rounded-2xl overflow-hidden border-2 border-blue-500/20 shadow-2xl shadow-blue-500/10 group"
-              style={{
-                boxShadow: "0 0 40px rgba(59, 130, 246, 0.15",
-              }}
-            >
-              <div className="absolute inset-0 bg-gradient-to-t from-blue-500/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"></div>
-
-              <div className="relative h-full w-full p-3 bg-gradient-to-br from-blue-500/10 via-transparent to-purple-500/5">
-                <div className="absolute inset-0 bg-slate-900/30 rounded-xl z-10"></div>
-                <img
-                  src="/assets/images/Jason_main2.webp"
-                  className="relative h-full w-full object-cover grayscale rounded-xl scale-[1.02] group-hover:scale-[1.06] group-hover:brightness-110 group-hover:contrast-110 transition-all duration-700 ease-out z-0"
-                  alt={content?.[activeTab]?.title}
-                />
+            <div className="relative space-y-10">
+              {/* Title */}
+              <div className="text-center space-y-4">
+                <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold tracking-tight">
+                  {content?.[activeTab]?.title}
+                </h3>
+                <div className="flex items-center justify-center gap-2">
+                  <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                  <div className="w-16 h-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"></div>
+                  <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                </div>
               </div>
 
-              {/* Floating badges */}
-              <div className="absolute top-4 left-4 px-3 py-1.5 bg-blue-600/90 backdrop-blur-sm text-white text-xs font-semibold rounded-full border border-blue-400/30">
-                {activeTab === "story" && "Journey"}
-                {activeTab === "philosophy" && "Principles"}
-                {activeTab === "interests" && "Passion"}
-              </div>
-            </div>
-
-            {/* Content */}
-            <div className="space-y-6 px-2 lg:px-10">
-              {/* Always visible — first 2 paragraphs */}
-              {previewParagraphs?.map((paragraph, index) => renderParagraph(paragraph, index))}
-
-              {/* Expandable section */}
+              {/* Image Container */}
               <div
-                ref={expandRef}
+                className="relative h-[60vw] sm:h-[400px] w-full max-w-[550px] mx-auto rounded-2xl overflow-hidden border-2 border-blue-500/20 shadow-2xl shadow-blue-500/10 group"
                 style={{
-                  maxHeight: expanded ? expandRef.current?.scrollHeight + "px" : "0px",
-                  overflow: "hidden",
-                  transition: "max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
+                  boxShadow: "0 0 40px rgba(59, 130, 246, 0.15",
                 }}
               >
-                <div className="space-y-6 pt-2">
-                  {extraParagraphs?.map((paragraph, index) => renderParagraph(paragraph, index + 2))}
+                <div className="absolute inset-0 bg-gradient-to-t from-blue-500/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"></div>
+
+                <div className="relative h-full w-full p-3 bg-gradient-to-br from-blue-500/10 via-transparent to-purple-500/5">
+                  <div className="absolute inset-0 bg-slate-900/30 rounded-xl z-10"></div>
+                  <img
+                    src="/assets/images/Jason_main2.webp"
+                    className="relative h-full w-full object-cover grayscale rounded-xl scale-[1.02] group-hover:scale-[1.06] group-hover:brightness-110 group-hover:contrast-110 transition-all duration-700 ease-out z-0"
+                    alt={content?.[activeTab]?.title}
+                  />
+                </div>
+
+                {/* Floating badges */}
+                <div className="absolute top-4 left-4 px-3 py-1.5 bg-blue-600/90 backdrop-blur-sm text-white text-xs font-semibold rounded-full border border-blue-400/30">
+                  {activeTab === "story" && "Journey"}
+                  {activeTab === "philosophy" && "Principles"}
+                  {activeTab === "interests" && "Passion"}
                 </div>
               </div>
 
-              {/* See More / See Less */}
-              {extraParagraphs?.length > 0 && (
-                <div className="flex justify-center pt-2 !mt-2">
-                  <button
-                    onClick={() => setExpanded((prev) => !prev)}
-                    className="flex items-center gap-2 px-5 py-2 rounded-full text-sm font-medium text-blue-400 border border-blue-500/30 hover:bg-blue-500/10 hover:border-blue-400 transition-all duration-300"
-                  >
-                    <span>{expanded ? "See Less" : "See More"}</span>
-                    <AppIcon
-                      name="ChevronDown"
-                      size={16}
-                      className={`transition-transform duration-300 ${expanded ? "rotate-180" : "rotate-0"}`}
-                    />
-                  </button>
+              {/* Content */}
+              <div className="space-y-6 px-2 lg:px-10">
+                {/* Always visible — first 2 paragraphs */}
+                {previewParagraphs?.map((paragraph, index) =>
+                  renderParagraph(paragraph, index),
+                )}
+
+                {/* Expandable section */}
+                <div
+                  ref={expandRef}
+                  style={{
+                    maxHeight: expanded
+                      ? expandRef.current?.scrollHeight + "px"
+                      : "0px",
+                    overflow: "hidden",
+                    transition: "max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
+                  }}
+                >
+                  <div className="space-y-6 pt-2">
+                    {extraParagraphs?.map((paragraph, index) =>
+                      renderParagraph(paragraph, index + 2),
+                    )}
+                  </div>
                 </div>
-              )}
+
+                {/* See More / See Less */}
+                {extraParagraphs?.length > 0 && (
+                  <div className="flex justify-center pt-2 !mt-2">
+                    <button
+                      onClick={() => setExpanded((prev) => !prev)}
+                      className="flex items-center gap-2 px-5 py-2 rounded-full text-sm font-medium text-blue-400 border border-blue-500/30 hover:bg-blue-500/10 hover:border-blue-400 transition-all duration-300"
+                    >
+                      <span>{expanded ? "See Less" : "See More"}</span>
+                      <AppIcon
+                        name="ChevronDown"
+                        size={16}
+                        className={`transition-transform duration-300 ${expanded ? "rotate-180" : "rotate-0"}`}
+                      />
+                    </button>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
-        </div>
+        </RevealSection>
       </div>
     </section>
   );
