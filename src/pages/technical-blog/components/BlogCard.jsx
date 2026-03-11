@@ -43,8 +43,8 @@ const BlogCard = ({ article, featured = false, className = '' }) => {
   };
 
   const cardClasses = featured
-    ? 'group bg-card border border-border rounded-lg overflow-hidden hover:shadow-lg transition-all duration-normal cursor-pointer'
-    : 'group bg-card border border-border rounded-lg overflow-hidden hover:shadow-md transition-all duration-normal cursor-pointer';
+    ? 'group bg-card border border-border rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-normal cursor-pointer'
+    : 'group bg-card border border-border rounded-lg overflow-hidden hover:shadow-md transition-shadow duration-normal cursor-pointer';
 
   return (
     <article className={`${cardClasses} ${className}`}>

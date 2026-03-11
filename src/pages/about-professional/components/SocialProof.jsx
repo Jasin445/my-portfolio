@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Icon from '../../../components/AppIcon';
 
 import Button from '../../../components/ui/Button';
+import { Link } from 'react-router-dom';
 
 const SocialProof = () => {
   const [githubStats, setGithubStats] = useState({
@@ -237,12 +238,12 @@ const SocialProof = () => {
         {/* Social Media Links */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
           {socialLinks?.map((social) => (
-            <a
+            <Link
               key={social?.platform}
               href={social?.url}
               target="_blank"
               rel="noopener noreferrer"
-              className={`block p-6 rounded-xl border border-border transition-all duration-normal hover:shadow-md ${social?.bgColor}`}
+              className={`block p-6 rounded-xl border border-border transition-colors duration-normal hover:shadow-md ${social?.bgColor}`}
             >
               <div className="flex items-center space-x-3 mb-3">
                 <Icon name={social?.icon} size={20} className={social?.color} />
@@ -254,7 +255,7 @@ const SocialProof = () => {
                 <span className="text-xs font-medium text-foreground">{social?.followers}</span>
                 <Icon name="ExternalLink" size={14} className="text-muted-foreground" />
               </div>
-            </a>
+            </Link>
           ))}
         </div>
 

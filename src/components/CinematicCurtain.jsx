@@ -165,8 +165,6 @@ const CinematicCurtain = ({ done, setDone, handleFinish }) => {
     }, 4200);
   }, []);
 
-  console.log(done)
-
   if (done) return null
 
   return (

@@ -29,7 +29,7 @@ const DownloadResume = () => {
           </p>
 
           {/* Resume Preview */}
-          <div className="relative bg-transparent border border-border rounded-xl p-4 pb-9 sm:p-8 mb-8 shadow-sm hover:shadow-md transition-all duration-300">
+          <div className="relative bg-transparent border border-border rounded-xl p-4 pb-9 sm:p-8 mb-8 shadow-sm hover:shadow-md transition-shadow duration-300">
             <div className="flex flex-col items-center justify-center space-y-4">
               <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center">
                 <Icon name="FileText" size={28} className="text-primary" />

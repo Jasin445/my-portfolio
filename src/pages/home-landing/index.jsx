@@ -20,16 +20,13 @@ const ROUTES_WITHOUT_CURTAIN = [
 
 /* ════════════════════════════════════════════════════════════ */
 const HomeLanding = () => {
-   const { pathname } = useLocation();
+  const { pathname } = useLocation();
 
   const [introDone, setIntroDone] = useState(
-    sessionStorage.getItem("introSeen") === "true"
+    sessionStorage.getItem("introSeen") === "true",
   );
 
-  const showIntro =
-    !introDone && !ROUTES_WITHOUT_CURTAIN.includes(pathname);
-  
-  console.log("intro done", introDone, "show intro", showIntro)
+  const showIntro = !introDone && !ROUTES_WITHOUT_CURTAIN.includes(pathname);
 
   const handleFinish = () => {
     sessionStorage.setItem("introSeen", "true");
@@ -60,26 +57,32 @@ const HomeLanding = () => {
   }, []);
 
   return showIntro ? (
-    <CinematicCurtain done={introDone} setDone={setIntroDone} handleFinish={handleFinish} />
+    <CinematicCurtain
+      done={introDone}
+      setDone={setIntroDone}
+      handleFinish={handleFinish}
+    />
   ) : (
-    <main className="min-h-screen bg-white overflow-hidden">
-      <div className="relative bg-[url('/assets/images/background3.jpg')] bg-cover bg-center">
-        <div className="absolute inset-0 bg-black/50" />
-        <Header />
-        <div className="">
-          <HeroSection />
+    <>
+      <Header />
+      <main className="min-h-screen bg-white overflow-hidden">
+        <div className="relative bg-[url('/assets/images/background3.jpg')] bg-cover bg-center">
+          <div className="absolute inset-0 bg-black/50" />
+          <div className="">
+            <HeroSection />
+          </div>
         </div>
-      </div>
-      <main>
-        <Suspense fallback={null}>
-          <FeaturedProjects />
-        <Skills />
-        <TestimonialSection />
-        </Suspense>
-        <ContactCta />
+        <div>
+          <Suspense fallback={null}>
+            <FeaturedProjects />
+            <Skills />
+            <TestimonialSection />
+          </Suspense>
+          <ContactCta />
+        </div>
       </main>
-      <Footer lightweight />
-    </main>
+        <Footer lightweight />
+    </>
   );
 };
 

@@ -39,7 +39,7 @@ const ProjectCard = ({ project, onViewDetails, className = "" }) => {
 
   return (
     <div
-      className={`group relative z-20 bg-[#2a363c]/80 border border-white/5 rounded-2xl overflow-hidden transition-all duration-500 sm:hover:-translate-y-1.5 sm:hover:border-primary/20 sm:hover:shadow-[0_20px_40px_-12px_rgba(0,0,0,0.5)] ${className}`}
+      className={`group relative z-20 bg-[#2a363c]/80 border border-white/5 rounded-2xl overflow-hidden transition duration-500 sm:hover:-translate-y-1.5 sm:hover:border-primary/20 sm:hover:shadow-[0_20px_40px_-12px_rgba(0,0,0,0.5)] ${className}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       style={{
@@ -180,7 +180,7 @@ const ProjectCard = ({ project, onViewDetails, className = "" }) => {
           iconName="Eye"
           iconPosition="left"
           onClick={() => onViewDetails(project)}
-          className="hover:border-primary hover:text-primary transition-all duration-300 rounded-xl text-xs"
+          className="hover:border-primary hover:text-primary transition-colors duration-300 rounded-xl text-xs"
         >
           View Details
         </Button>

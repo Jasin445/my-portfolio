@@ -204,30 +204,32 @@ const FishTank = ({ active }) => {
 
 export default FishTank;
 
-/* ─── Reveal section phase styles (direction-aware, outside component) ── */
+const prefersReducedMotion = () =>
+  window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
 const makePhaseStyle = (direction) => {
-  const hidden =
-    {
-      up: "translateY(180px) rotate(-16deg) scale(0.85)",
-      down: "translateY(-180px) rotate(4deg) scale(0.85)",
-      left: "translateX(80px) rotate(16deg) scale(0.85)",
-      right: "translateX(-80px) rotate(-16deg) scale(0.85)",
-    }[direction] ?? "translateY(80px) rotate(-16deg) scale(0.85)";
+  const hidden = {
+    up:    "translateY(180px) rotate(-16deg) scale(0.85) translateZ(0)",
+    down:  "translateY(-180px) rotate(4deg) scale(0.85) translateZ(0)",
+    left:  "translateX(80px) rotate(16deg) scale(0.85) translateZ(0)",
+    right: "translateX(-80px) rotate(-16deg) scale(0.85) translateZ(0)",
+  }[direction] ?? "translateY(80px) rotate(-16deg) scale(0.85) translateZ(0)";
+
+  const reduced = prefersReducedMotion();
 
   return (phase) => {
-    if (phase === 0)
-      return {
-        opacity: 0,
-        transform: hidden,
-        filter: "blur(8px) brightness(0.3)",
-        willChange: "transform, opacity, filter",
-      };
+    if (phase === 0) return {
+      opacity: 0,
+      transform: reduced ? "translateZ(0)" : hidden,
+      filter: reduced ? "none" : "blur(8px) brightness(0.3)",
+      willChange: "transform, opacity, filter",
+    };
 
     return {
       opacity: 1,
-      transform: "translate(0) rotate(0deg) scale(1)",
+      transform: "translate(0) rotate(0deg) scale(1) translateZ(0)",
       filter: "blur(0px) brightness(1)",
-      transition: "all 2.4s cubic-bezier(0.16, 1, 0.3, 1)",
+      transition: reduced ? "none" : "all 2.4s cubic-bezier(0.16, 1, 0.3, 1)",
       willChange: "auto",
     };
   };
@@ -241,34 +243,41 @@ export const RevealSection = ({
   className = "",
 }) => {
   const ref = useRef(null);
-  const t1 = useRef(null);
+  const timerRef = useRef(null);
+  const observerRef = useRef(null);
   const [phase, setPhase] = useState(0);
 
-  const getStyle = makePhaseStyle(direction);
+  // Stable getter — only rebuilt when direction changes
+  const getStyle = useMemo(() => makePhaseStyle(direction), [direction]);
 
   useEffect(() => {
     if (!active) return;
-
     const el = ref.current;
     if (!el) return;
 
-    const observer = new IntersectionObserver(
+    if (prefersReducedMotion()) {
+      setPhase(1);
+      return;
+    }
+
+    observerRef.current = new IntersectionObserver(
       ([entry]) => {
         if (!entry.isIntersecting) return;
-
-        observer.disconnect();
-        t1.current = setTimeout(() => setPhase(1), index * 120);
+        observerRef.current?.disconnect();
+        timerRef.current = setTimeout(() => setPhase(1), index * 120);
       },
       { threshold: 0.15 }
     );
 
-    observer.observe(el);
+    observerRef.current.observe(el);
 
     return () => {
-      observer.disconnect();
-      clearTimeout(t1.current);
+      observerRef.current?.disconnect();
+      clearTimeout(timerRef.current);
     };
   }, [index, active]);
+
+  if (!active) return children;
 
   return (
     <div ref={ref} className={`h-full ${className}`} style={getStyle(phase)}>

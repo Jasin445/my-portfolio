@@ -118,7 +118,7 @@ const ProjectFilter = ({
         </div>
       </div>
       {/* Filter Content */}
-      <div className={`transition-all duration-slow overflow-hidden ${
+      <div className={`transition duration-slow overflow-hidden ${
         isExpanded || window.innerWidth >= 1024 
           ? 'max-h-none opacity-100' :'max-h-0 opacity-0 lg:max-h-none lg:opacity-100'
       }`}>
@@ -150,7 +150,7 @@ const ProjectFilter = ({
                     <button
                       key={option?.value}
                       onClick={() => handleFilterToggle(category?.id, option?.value)}
-                      className={`flex items-center justify-between p-3 rounded-md text-left transition-all duration-fast border ${
+                      className={`flex items-center justify-between p-3 rounded-md text-left transition-colors duration-fast border ${
                         isActive
                           ? 'bg-primary/5 border-primary/20 text-primary' :'bg-background border-border hover:bg-muted text-muted-foreground hover:text-foreground'
                       }`}

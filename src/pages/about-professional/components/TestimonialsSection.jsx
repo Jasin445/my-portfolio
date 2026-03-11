@@ -200,7 +200,7 @@ const TestimonialsSection = () => {
             <button
               key={index}
               onClick={() => goToTestimonial(index)}
-              className={`w-3 h-3 rounded-full transition-all duration-normal ${
+              className={`w-3 h-3 rounded-full transition-colors duration-normal ${
                 index === currentTestimonial
                   ? 'bg-primary scale-110' :'bg-muted hover:bg-muted-foreground/30'
               }`}
@@ -214,7 +214,7 @@ const TestimonialsSection = () => {
           {testimonials?.slice(0, 3)?.map((testimonial, index) => (
             <div
               key={testimonial?.id}
-              className={`bg-card rounded-lg border border-border p-6 cursor-pointer transition-all duration-normal hover:shadow-md ${
+              className={`bg-card rounded-lg border border-border p-6 cursor-pointer transition duration-normal hover:shadow-md ${
                 index === currentTestimonial ? 'ring-2 ring-primary/20' : ''
               }`}
               onClick={() => goToTestimonial(index)}

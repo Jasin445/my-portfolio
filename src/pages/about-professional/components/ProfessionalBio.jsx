@@ -1,6 +1,7 @@
 import { useState, useRef } from "react";
 import { User, Lightbulb, Heart } from "lucide-react";
 import AppIcon from "../../../components/AppIcon";
+import Image from "../../../components/AppImage";
 import { RevealSection } from "../../../utils/animation.utils";
 
 const ProfessionalBio = () => {
@@ -61,7 +62,7 @@ These interests aren't separate from my professional life—they enrich and info
     className = "",
   }) => {
     const baseStyles =
-      "px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-medium text-sm sm:text-base transition-all duration-300 flex items-center gap-2 hover:scale-105";
+      "px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-medium text-sm sm:text-base transition-[colors,transform] duration-300 flex items-center gap-2 hover:scale-105";
     const variants = {
       default:
         "bg-primary text-white hover:bg-primary/95 shadow-lg shadow-primary/30",
@@ -198,9 +199,9 @@ These interests aren't separate from my professional life—they enrich and info
 
                 <div className="relative h-full w-full p-3 bg-gradient-to-br from-blue-500/10 via-transparent to-purple-500/5">
                   <div className="absolute inset-0 bg-slate-900/30 rounded-xl z-10"></div>
-                  <img
+                  <Image
                     src="/assets/images/Jason_main2.webp"
-                    className="relative h-full w-full object-cover grayscale rounded-xl scale-[1.02] group-hover:scale-[1.06] group-hover:brightness-110 group-hover:contrast-110 transition-all duration-700 ease-out z-0"
+                    className="relative h-full w-full object-cover grayscale rounded-xl scale-[1.02] group-hover:scale-[1.06] group-hover:brightness-110 group-hover:contrast-110 transition duration-700 ease-out z-0"
                     alt={content?.[activeTab]?.title}
                   />
                 </div>
@@ -243,7 +244,7 @@ These interests aren't separate from my professional life—they enrich and info
                   <div className="flex justify-center pt-2 !mt-2">
                     <button
                       onClick={() => setExpanded((prev) => !prev)}
-                      className="flex items-center gap-2 px-5 py-2 rounded-full text-sm font-medium text-blue-400 border border-blue-500/30 hover:bg-blue-500/10 hover:border-blue-400 transition-all duration-300"
+                      className="flex items-center gap-2 px-5 py-2 rounded-full text-sm font-medium text-blue-400 border border-blue-500/30 hover:bg-blue-500/10 hover:border-blue-400 transition-colors duration-300"
                     >
                       <span>{expanded ? "See Less" : "See More"}</span>
                       <AppIcon

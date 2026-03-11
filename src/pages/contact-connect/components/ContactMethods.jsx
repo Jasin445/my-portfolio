@@ -70,7 +70,7 @@ const ContactMethods = () => {
         {contactMethods?.map((method) => (
           <div
             key={method?.id}
-            className={`relative p-6 rounded-lg border transition-all duration-fast hover:shadow-md cursor-pointer group ${
+            className={`relative p-6 rounded-lg border transition duration-fast hover:shadow-md cursor-pointer group ${
               method?.primary
                 ? 'bg-primary/5 border-primary/20 hover:border-primary/30' :'bg-card border-border hover:border-border/60'
             }`}

@@ -100,7 +100,7 @@ const hasPrevProject = selectedIndex > 0;
             return (
               <RevealSection className="h-full" direction={direction} key={project?.id}>
                 <TiltCard active={active}>
-                  <div className="group bg-[#2a363c]/80 h-full text-secondary rounded-2xl overflow-hidden shadow-2xl border border-white/5 transition-all duration-500 sm:hover:-translate-y-2 sm:hover:border-primary/20 sm:hover:shadow-[0_24px_48px_-12px_rgba(0,0,0,0.5)]">
+                  <div className="group bg-[#2a363c]/80 h-full text-secondary rounded-2xl overflow-hidden shadow-2xl border border-white/5 transition duration-500 sm:hover:-translate-y-2 sm:hover:border-primary/20 sm:hover:shadow-[0_24px_48px_-12px_rgba(0,0,0,0.5)]">
                     {/* Project Image */}
                     <div className="relative h-56 overflow-hidden">
                       <Image
@@ -135,7 +135,7 @@ const hasPrevProject = selectedIndex > 0;
                         {project?.technologies?.map((tech) => (
                           <span
                             key={tech}
-                            className="px-2.5 py-1 bg-white/5 border border-white text-foreground text-xs rounded-lg opacity-80 hover:opacity-100 hover:border-primary/30 transition-all duration-200"
+                            className="px-2.5 py-1 bg-white/5 border border-white text-foreground text-xs rounded-lg opacity-80 hover:opacity-100 hover:border-primary/30 transition duration-200"
                           >
                             {tech}
                           </span>

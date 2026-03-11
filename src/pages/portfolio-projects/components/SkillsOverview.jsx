@@ -164,13 +164,6 @@ const SkillsOverview = () => {
                             </span>
                           </div>
                         </div>
-
-                        {/* <div className="w-full bg-muted rounded-full h-2 overflow-hidden">
-                      <div
-                      className={`h-full ${getSkillColor(skill.level)} rounded-full transition-all duration-slow ease-out`}
-                      style={{ width: getSkillWidth(skill.level) }}
-                      />
-                      </div> */}
                       </div>
                     ))}
                   </div>

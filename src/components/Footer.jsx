@@ -33,7 +33,7 @@ const Footer = ({lightweight}) => {
 
 
   return (
-    <footer className="bg-gradient-to-b from-[#2a363c] to-background border-t border-border py-12">
+    <footer className="bg-gradient-to-b from-[#2a363c] to-background border-t border-border py-12 z-20 relative">
       <div className="4xl:max-w-7xl 3xl:max-w-7xl max-w-6xl mx-auto px-4 sm:px-6">
         <div className="grid md:grid-cols-3 gap-8 mb-8">
           {/* Brand */}

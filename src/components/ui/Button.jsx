@@ -5,14 +5,14 @@ import { cn } from "../../utils/cn";
 import Icon from '../AppIcon';
 
 const buttonVariants = cva(
-    "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-primary/25 hover:shadow-xl",
+    "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 transform hover:scale-105 transition-[shadow,transform] duration-300 shadow-lg hover:shadow-primary/25 hover:shadow-xl",
     {
         variants: {
             variant: {
                 default: "!text-base text-muted-foreground bg-gradient-to-r from-primary to-blue-600 hover:from-primary/90 hover:to-blue-600/90",
                 destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90",
-                outline: "!text-base border border-input hover:-translate-y-0.5 transition-all duration-300 ",
-                bordered: "!text-base border-2 border-primary bg-transparent !text-primary px-8 py-4 rounded-lg font-semibold hover:bg-primary hover:text-white transition-all",
+                outline: "!text-base border border-input hover:-translate-y-0.5 transition-transform duration-300 ",
+                bordered: "!text-base border-2 border-primary bg-transparent !text-primary px-8 py-4 rounded-lg font-semibold hover:bg-primary hover:text-white transition-colors",
                 secondary: "!text-base bg-secondary text-secondary-foreground hover:bg-secondary/80",
                 ghost: "",
                 link: "text-primary underline-offset-4 hover:underline",

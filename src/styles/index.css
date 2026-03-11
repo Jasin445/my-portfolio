@@ -192,6 +192,12 @@ body {
     box-shadow 0.3s ease;
   transform-style: preserve-3d;
 }
+
+.section {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 500px; /* estimated height */
+}
+
 @media (hover: hover) {
   .tilt-card:hover {
     transform: perspective(800px) rotateX(-4deg) rotateY(4deg) scale(1.03);

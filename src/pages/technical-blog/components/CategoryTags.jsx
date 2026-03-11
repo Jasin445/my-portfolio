@@ -20,7 +20,7 @@ const CategoryTags = ({
         variant={selectedCategory === '' ? 'default' : 'outline'}
         size="sm"
         onClick={() => handleCategoryClick('')}
-        className="transition-all duration-fast"
+        className="transition duration-fast"
       >
         <Icon name="Grid3X3" size={14} className="mr-2" />
         All Categories
@@ -32,7 +32,7 @@ const CategoryTags = ({
           variant={selectedCategory === category?.value ? 'default' : 'outline'}
           size="sm"
           onClick={() => handleCategoryClick(category?.value)}
-          className="transition-all duration-fast"
+          className="transition duration-fast"
         >
           <Icon name={category?.icon || 'Tag'} size={14} className="mr-2" />
           {category?.label}

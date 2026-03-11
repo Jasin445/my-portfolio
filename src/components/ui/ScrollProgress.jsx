@@ -47,7 +47,7 @@ const ScrollProgress = ({
 
       {/* Circular Progress Indicator (Alternative) */}
       <div 
-        className={`fixed bottom-8 right-8 z-40 transition-all duration-slow ${
+        className={`fixed bottom-8 right-8 z-40 transition-[opacity,transform] duration-slow ${
           isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'
         }`}
       >
@@ -76,7 +76,7 @@ const ScrollProgress = ({
               fill="none"
               strokeDasharray={`${2 * Math.PI * 20}`}
               strokeDashoffset={`${2 * Math.PI * 20 * (1 - scrollProgress / 100)}`}
-              className="text-primary transition-all duration-fast ease-out"
+              className="text-primary transition-colors duration-fast ease-out"
               strokeLinecap="round"
             />
           </svg>

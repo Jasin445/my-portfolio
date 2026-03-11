@@ -1,7 +1,6 @@
 import { useState, useEffect, useMemo, useRef, useCallback, lazy, Suspense } from "react";
 import { Helmet } from "react-helmet";
 import Header from "../../components/ui/Header";
-import ScrollProgress from "../../components/ui/ScrollProgress";
 import ProjectCard from "./components/ProjectCard";
 import Icon from "../../components/AppIcon";
 import Button from "../../components/ui/Button";
@@ -277,19 +276,7 @@ const PortfolioProjects = () => {
   useEffect(() => () => clearTimeout(filterTimer.current), []);
 
   return (
-    <main ref={sectionRef} className="relative min-h-screen bg-gradient-to-br overflow-hidden from-background via-card to-muted/20">
-      <style>{`
-        @keyframes borderSpin {
-          0%   { background-position: 0% 50%; }
-          50%  { background-position: 100% 50%; }
-          100% { background-position: 0% 50%; }
-        }
-        @keyframes slotIn {
-          from { opacity: 0; transform: translateY(-12px); }
-          to   { opacity: 1; transform: translateY(0); }
-        }
-      `}</style>
-
+    <>
       <Helmet>
         <title>My Projects - Jason Dagana Projects</title>
         <meta name="description" content="Explore my portfolio of web development projects including React applications, full-stack solutions, and innovative digital experiences." />
@@ -297,7 +284,7 @@ const PortfolioProjects = () => {
       </Helmet>
 
       <Header />
-      <div>
+      <main ref={sectionRef} className="relative min-h-screen bg-gradient-to-br overflow-hidden from-background via-card to-muted/20">
         <GenericHeroSection title="Projects" />
 
         <section className="relative z-30 pb-4 sm:py-12 h-full overflow-hidden" style={{isolation: "isolate"}}>
@@ -429,10 +416,10 @@ const PortfolioProjects = () => {
 
         <SkillsOverview />
         <ContactCta />
-      </div>
+      </main>
 
       <Footer lightweight />
-    </main>
+    </>
   );
 };
 

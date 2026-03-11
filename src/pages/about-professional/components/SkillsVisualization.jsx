@@ -112,7 +112,7 @@ const SkillsVisualization = () => {
             <button
               key={key}
               onClick={() => setActiveCategory(key)}
-              className={`flex items-center space-x-2 px-4 sm:px-6 py-3 rounded-lg font-medium transition-all duration-normal ${
+              className={`flex items-center space-x-2 px-4 sm:px-6 py-3 rounded-lg font-medium transition duration-normal ${
                 activeCategory === key
                   ? 'bg-primary text-primary-foreground shadow-md'
                   : 'bg-card text-muted-foreground hover:text-foreground hover:bg-muted border border-border'
@@ -150,7 +150,7 @@ const SkillsVisualization = () => {
                   {/* Progress Bar */}
                   <div className="w-full bg-muted rounded-full h-2 mb-3">
                     <div
-                      className={`h-2 rounded-full transition-all duration-slow ease-out ${getSkillColor(skill?.level)}`}
+                      className={`h-2 rounded-full transition duration-slow ease-out ${getSkillColor(skill?.level)}`}
                       style={{
                         width: `${animatedSkills?.[skill?.name] || 0}%`
                       }}

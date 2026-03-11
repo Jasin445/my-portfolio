@@ -52,7 +52,7 @@ const Toast = ({ message, type = "success", onClose, duration = 4000 }) => {
     <div
       className={`relative flex items-start gap-3 w-full max-w-sm
         bg-[#1e2a30] border ${borderColor} rounded-2xl px-4 py-3.5 shadow-2xl
-        transition-all duration-300 overflow-hidden
+        transition duration-300 overflow-hidden
         ${isVisible && !isLeaving ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"}
       `}
     >

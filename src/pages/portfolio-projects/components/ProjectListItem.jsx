@@ -35,7 +35,7 @@ const ProjectListItem = ({ project, onViewDetails, className = '' }) => {
   };
 
   return (
-    <div className={`z-30 bg-[#2a363c]/80 border border-border rounded-lg p-6 hover:shadow-md hover:border-primary/20 transition-all duration-normal ${className}`}>
+    <div className={`z-30 bg-[#2a363c]/80 border border-border rounded-lg p-6 hover:shadow-md hover:border-primary/20 transition-shadow duration-normal ${className}`}>
       <div className="flex flex-col sm:flex-row gap-6">
         {/* Project Image */}
         <div className="sm:w-48 sm:flex-shrink-0">
