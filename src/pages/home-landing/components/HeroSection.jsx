@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useContext } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import Button from "../../../components/ui/Button";
 import Image from "../../../components/AppImage";
@@ -12,11 +12,8 @@ import {
   TypeScriptIcon,
 } from "../../../components/BrandIcons";
 import { useOnScreen } from "../../../hooks/useOnScreen";
-import { IntroContext } from "../../../App";
 
 const HeroSection = () => {
-  // const introDone = useContext(IntroContext);
-
   const heroRef = useRef(null);
   const heroVisible = useOnScreen(heroRef);
 
@@ -75,7 +72,7 @@ const HeroSection = () => {
 
               <div className=" lg:min-h-[180px]">
                 <h1
-                  className={`text-[7.3vw] sm:text-5xl lg:text-5xl lg:text-[48px] delay-500 3xl:text-[4vw] lg:leading-tight font-normal text-foreground tracking-widest leading-tight  transition-all duration-700 transform-gpu ${
+                  className={`text-[7.3vw] sm:text-5xl lg:text-5xl lg:text-[48px] 3xl:text-[4vw] lg:leading-tight font-normal text-foreground tracking-widest leading-tight  transition-all duration-700 transform-gpu ${
                     isVisible
                       ? "translate-y-0 opacity-100"
                       : "translate-y-8 opacity-0"
