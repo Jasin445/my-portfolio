@@ -33,7 +33,7 @@ const HeroSection = () => {
       <div className="absolute inset-0 opacity-10">
         {/* Animated gradient orbs */}
         <div
-          className={`absolute top-20 left-20 w-72 h-72 transform-gpu will-change-transform bg-gradient-to-r from-primary to-blue-500 rounded-full blur-lg ${isVisible ? "animate-pulse-slow" : "none"}`}
+          className={`absolute top-20 left-20 w-72 h-72 transform-gpu will-change-transform bg-gradient-to-r from-primary to-blue-500 rounded-full blur-lg ${"animate-pulse-slow"}`}
           style={{
             transition: "transform 0.1s ease-out",
           }}
