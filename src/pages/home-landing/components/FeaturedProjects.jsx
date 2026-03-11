@@ -67,7 +67,7 @@ const hasPrevProject = selectedIndex > 0;
         className="relative max-w-6xl mx-auto px-4 sm:px-12 h-full"
         style={{ zIndex: 1 }}
       >
-        <RevealSection direction="up" active={true}>
+        <RevealSection direction="up" active={active}>
           <div className="mb-10 sm:mb-16">
             <div className="flex items-center justify-center gap-3 mb-4 sm:mb-8">
               <div className="inline-flex overflow-x-hidden items-center justify-center px-4 py-2 bg-primary/10 text-primary rounded-full text-xs sm:text-sm font-medium ring-1 ring-primary/20 backdrop-blur-sm">
@@ -99,7 +99,7 @@ const hasPrevProject = selectedIndex > 0;
             const direction = directions[index % directions.length];
             return (
               <RevealSection className="h-full" direction={direction} key={project?.id}>
-                <TiltCard >
+                <TiltCard active={active}>
                   <div className="group bg-[#2a363c]/80 h-full text-secondary rounded-2xl overflow-hidden shadow-2xl border border-white/5 transition-all duration-500 sm:hover:-translate-y-2 sm:hover:border-primary/20 sm:hover:shadow-[0_24px_48px_-12px_rgba(0,0,0,0.5)]">
                     {/* Project Image */}
                     <div className="relative h-56 overflow-hidden">

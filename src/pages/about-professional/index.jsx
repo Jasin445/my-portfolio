@@ -24,10 +24,11 @@ const AboutProfessional = () => {
   }, []);
 
   return (
-    <main className="min-h-screen bg-background">
+    <main className="min-h-screen bg-background overflow-hidden">
       <Header />
       <GenericHeroSection
         title={"About Me"}
+        message="Hi there, Its all about me in here"
         image="bg-[url('/assets/images/about-hero.png')] !bg-cover bg-top"
         overlay="from-[#131426]/70 via-[#0f1115]/70 to-[#2a363c]/70 sm:from-[#131426]/60 sm:via-[#0f1115]/60 sm:to-[#2a363c]/60"
       />

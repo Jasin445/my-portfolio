@@ -369,7 +369,7 @@ const PortfolioProjects = () => {
                             direction={index % 2 === 0 ? "left" : "right"}
                             active={active}
                           >
-                            <TiltCard>
+                            <TiltCard active={active}>
                                 <ProjectCard project={project} onViewDetails={handleViewDetails} />
                             </TiltCard>
                           </RevealSection>

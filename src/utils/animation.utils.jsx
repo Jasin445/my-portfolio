@@ -9,7 +9,10 @@ const FishTank = ({ active }) => {
 
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const ctx = canvas.getContext("2d", { willReadFrequently: false, alpha: true });
+    const ctx = canvas.getContext("2d", {
+      willReadFrequently: false,
+      alpha: true,
+    });
 
     const fishColors = [
       ["#6be6ff", "#3ab8d4"],
@@ -42,7 +45,8 @@ const FishTank = ({ active }) => {
 
     const fishes = Array.from({ length: 8 }, () => {
       const size = Math.random() * 10 + 3;
-      const colorPair = fishColors[Math.floor(Math.random() * fishColors.length)];
+      const colorPair =
+        fishColors[Math.floor(Math.random() * fishColors.length)];
       const dir = Math.random() > 0.5 ? 1 : -1;
       return {
         x: Math.random() * canvas.width,
@@ -168,7 +172,7 @@ const FishTank = ({ active }) => {
           cancelAnimationFrame(raf);
         }
       },
-      { threshold: 0.1 }
+      { threshold: 0.1 },
     );
     observer.observe(canvas);
 
@@ -239,67 +243,83 @@ export const RevealSection = ({
   const ref = useRef(null);
   const t1 = useRef(null);
   const [phase, setPhase] = useState(0);
-  const getStyle = useMemo(() => makePhaseStyle(direction), [direction]);
+
+  const getStyle = makePhaseStyle(direction);
 
   useEffect(() => {
     if (!active) return;
+
     const el = ref.current;
     if (!el) return;
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (!entry.isIntersecting) return;
+
         observer.disconnect();
         t1.current = setTimeout(() => setPhase(1), index * 120);
       },
-      { threshold: 0.1 },
+      { threshold: 0.15 }
     );
+
     observer.observe(el);
+
     return () => {
       observer.disconnect();
       clearTimeout(t1.current);
     };
   }, [index, active]);
 
-      if (!active) return null;
-
-
   return (
-    <div ref={ref} className={className} style={getStyle(phase)}>
+    <div ref={ref} className={`h-full ${className}`} style={getStyle(phase)}>
       {children}
     </div>
   );
 };
 
+
 /* ─── TiltCard — mouse-tracking 3-D tilt, no state re-renders ── */
-export const TiltCard = ({ children }) => {
+export const TiltCard = ({ children, active = true }) => {
   const ref = useRef(null);
   const leaveTimer = useRef(null);
+  const canHover = useRef(!window.matchMedia("(hover: none)").matches);
 
   const handleMove = (e) => {
-    if (window.matchMedia("(hover: none)").matches) return;
+    if (!active || !canHover.current) return;
+
     const el = ref.current;
     if (!el) return;
+
     clearTimeout(leaveTimer.current);
+
+    el.style.transition = "none";
+    el.style.willChange = "transform";
+
     const rect = el.getBoundingClientRect();
     const x = (e.clientX - rect.left) / rect.width - 0.5;
     const y = (e.clientY - rect.top) / rect.height - 0.5;
+
     el.style.transform = `perspective(800px) rotateY(${x * 14}deg) rotateX(${-y * 14}deg) scale(1.03)`;
-    el.style.transition = "transform 0.08s ease-out";
-    el.style.willChange = "transform";
   };
 
   const handleLeave = () => {
     const el = ref.current;
     if (!el) return;
+
     el.style.transform =
       "perspective(800px) rotateY(0deg) rotateX(0deg) scale(1)";
     el.style.transition = "transform 0.5s cubic-bezier(0.4,0,0.2,1)";
+
     leaveTimer.current = setTimeout(() => {
       if (ref.current) ref.current.style.willChange = "auto";
     }, 500);
   };
 
-  useEffect(() => () => clearTimeout(leaveTimer.current), []);
+  useEffect(() => {
+    return () => clearTimeout(leaveTimer.current);
+  }, []);
+
+  if (!active) return children;
 
   return (
     <div

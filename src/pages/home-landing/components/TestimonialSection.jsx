@@ -46,7 +46,7 @@ const TestimonialSection = () => {
         <div className="absolute top-[5%] right-[50%] bg-gradient-to-r from-[#4e575d] opacity-70 rounded-full w-40 h-40 via-[#4e575d] to-[#4e575d] blur-3xl animate-pulse-slow"></div>
         <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center h-full">
           {/* Section Header */}
-          <RevealSection direction="down" active={true}>
+          <RevealSection direction="down" active={active}>
           <div className="mb-8">
             <span className="inline-flex items-center px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium mb-2">
               <Icon name="Quote" size={16} className="mr-2" />
@@ -70,8 +70,8 @@ const TestimonialSection = () => {
               if(isEven) direction = "right"
               if(!isEven) direction = "left"
               if(idx === 1) direction = "down"
-              return <RevealSection className="h-full" index={idx} direction={direction} key={testimonial?.id} active={true}>
-                <TiltCard>
+              return <RevealSection className="h-full" index={idx} direction={direction} key={testimonial?.id} active={active}>
+                <TiltCard active={active}>
                   <div
           
                     className="bg-gradient-to-b z-30 from-[#1d1f2e]/70 via-white/10 to-transparent hover:shadow-[0_0_12px_rgba(1,149,255,0.25)] rounded-xl border border-border shadow-xl transition p-8"

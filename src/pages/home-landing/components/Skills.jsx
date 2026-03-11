@@ -3,10 +3,12 @@ import { RevealSection, TiltCard } from "../../../utils/animation.utils";
 import { CSS3Icon, DockerIcon, GithubIcon, NextJsIcon, ReactIcon, TailwindIcon, TypeScriptIcon } from "../../../components/BrandIcons";
 import { useRef } from "react";
 import { useOnScreen } from "../../../hooks/useOnScreen";
+import { useNavigate } from "react-router-dom";
 
 const Skills = () => {
   const sectionRef = useRef(null);
   const active = useOnScreen(sectionRef, 0);
+  const navigate = useNavigate();
 
   const skills = [
   { icon: ReactIcon, label: "ReactJs", className: "text-sky-400", addedSize: 58 },
@@ -19,8 +21,8 @@ const Skills = () => {
 ];
   return (
     <section ref={sectionRef} className="pt-20 px-4 sm: bg-gradient-to-b h-full from-[#2d3641] to-[#131426]/95">
-      <RevealSection className="h-full" direction="left" active={true}>
-        <TiltCard>
+      <RevealSection className="h-full" direction="left" active={active}>
+        <TiltCard active={active}>
 
       <div
         className="bg-gradient-to-b from-[#2a363c]/80 to-transparent hover:shadow-[0_0_12px_rgba(1,149,255,0.25)] backdrop-blur-sm border-white/45 max-w-5xl border py-8 sm:py-12 px-6 lg:px-8 rounded-2xl shadow-2xl
@@ -54,7 +56,9 @@ const Skills = () => {
         <Button
           variant="link"
           className="mt-2 text-primary hover:underline"
-          onClick={() => (window.location.href = "/projects")}
+              onClick={() => {
+                navigate("/projects#skills");
+              }}
         >
           See full breakdown →
         </Button>

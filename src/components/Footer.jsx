@@ -17,7 +17,7 @@ const Footer = ({lightweight}) => {
         </div>
 
         {/* Contact Info */}
-        <div className="text-sm text-muted-foreground flex gap-6">
+        <div className="text-sm text-muted-foreground flex items-center gap-6">
           <a href="mailto:daganajason72@gmail.com" className="hover:text-primary transition-colors">
             Email
           </a>

@@ -113,7 +113,7 @@ const SkillsOverview = () => {
   ];
 
   return (
-    <section ref={sectionRef} className="py-8 sm:py-16 bg-gradient-to-b from-[#2a363c]/90 via-[#131426]/100 to-[#2a363c]/90">
+    <section ref={sectionRef} id="skills" className="py-8 sm:py-16 bg-gradient-to-b from-[#2a363c]/90 via-[#131426]/100 to-[#2a363c]/90 scroll-mt-12">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Section Header */}
         <RevealSection direction="down" active={active}>
@@ -137,7 +137,7 @@ const SkillsOverview = () => {
         <div className="grid lg:grid-cols-3 gap-8">
           {skillCategories.map((category, index) => (
             <RevealSection key={category.title} index={index} direction="right" active={active}>
-              <TiltCard>
+              <TiltCard active={active}>
                 <div className="bg-[#2a363c]/30 rounded-xl border border-border p-6 hover:shadow-md transition-shadow duration-slow">
                   <div className="flex items-center mb-6">
                     <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center mr-3">

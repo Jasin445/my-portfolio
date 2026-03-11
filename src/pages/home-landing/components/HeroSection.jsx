@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useContext } from "react";
 import { Link } from "react-router-dom";
 import Button from "../../../components/ui/Button";
 import Image from "../../../components/AppImage";
@@ -12,18 +12,23 @@ import {
   TypeScriptIcon,
 } from "../../../components/BrandIcons";
 import { useOnScreen } from "../../../hooks/useOnScreen";
+import { IntroContext } from "../../../App";
 
 const HeroSection = () => {
+  // const introDone = useContext(IntroContext);
+
   const heroRef = useRef(null);
   const heroVisible = useOnScreen(heroRef);
+
+  const shouldAnimate =  heroVisible;
 
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    if (heroVisible) {
+    if (shouldAnimate) {
       setIsVisible(true);
     }
-  }, [heroVisible]);
+  }, [shouldAnimate]);
 
   return (
     <section ref={heroRef} className="relative flex min-h-screen items-center justify-center bg-gradient-to-br from-background via-card to-muted/20">
@@ -31,7 +36,7 @@ const HeroSection = () => {
       <div className="absolute inset-0 opacity-10">
         {/* Animated gradient orbs */}
         <div
-          className="absolute top-20 left-20 w-72 h-72 transform-gpu will-change-transform bg-gradient-to-r from-primary to-blue-500 rounded-full blur-lg animate-pulse-slow"
+          className={`absolute top-20 left-20 w-72 h-72 transform-gpu will-change-transform bg-gradient-to-r from-primary to-blue-500 rounded-full blur-lg ${isVisible ? "animate-pulse-slow" : "none"}`}
           style={{
             transition: "transform 0.1s ease-out",
           }}
@@ -70,11 +75,11 @@ const HeroSection = () => {
 
               <div className=" lg:min-h-[180px]">
                 <h1
-                  className={`text-[7.3vw] sm:text-5xl lg:text-5xl lg:text-[48px] 3xl:text-[4vw] lg:leading-tight font-normal text-foreground tracking-widest leading-tight  transition-all duration-1000 transform-gpu ${
+                  className={`text-[7.3vw] sm:text-5xl lg:text-5xl lg:text-[48px] delay-500 3xl:text-[4vw] lg:leading-tight font-normal text-foreground tracking-widest leading-tight  transition-all duration-700 transform-gpu ${
                     isVisible
                       ? "translate-y-0 opacity-100"
                       : "translate-y-8 opacity-0"
-                  }`}
+                    }`}
                 >
                   <span className="font-black">
                  Hi, I'm Jason.  
@@ -111,14 +116,14 @@ const HeroSection = () => {
                   {/* Enhanced overlay */}
                   <div className="absolute w-full h-full z-10 group-hover:opacity-50 transition-opacity duration-300 transform-gpu"></div>
 
-                  <Image
+                 {isVisible &&  <Image
                     src="./assets/images/jason.webp"
                     alt="Jason Dagana - Frontend Developer"
                     title="Jason Dagana | Frontend Developer"
                     width={400}
                     height={400}
                     className="w-full h-full object-cover object-[0_30%] transition-transform duration-500"
-                  />
+                  />}
                 </div>
               </div>
             </div>
@@ -208,20 +213,20 @@ const HeroSection = () => {
             <div className="relative group cursor-pointer">
               {/* Main image container */}
               <div className="relative rounded-2xl lg:rounded-full w-[100%] aspect-square lg:aspect-auto overflow-hidden lg:group-hover:border-2 lg:border-[3px] border-primary shadow-2xl transition-transform duration-500 hover:shadow-primary/20 transform">
-                <Image
+                {isVisible && <Image
                   src="./assets/images/jason.webp"
                   alt="Jason Dagana - Frontend Developer"
                   title="Jason Dagana | Frontend Developer"
                   width={800}
                   height={800}
                   className="w-full h-full hover:scale-105 object-cover object-center transition-transform duration-500"
-                />
+                />}
               </div>
 
               {/* Orbit Container */}
               <div className="absolute !rounded-full inset-0 w-[110%] flex items-center justify-center pointer-events-none">
                 {/* Clockwise group */}
-                <div className="absolute !rounded-full inset-0 animate-spin-slow-1 transform-gpu will-change-transform">
+                <div className={`absolute !rounded-full inset-0 ${isVisible ? "animate-spin-slow-1 transform-gpu will-change-transform": "animate-none"}`}>
                   {/* React */}
                   <div className="absolute -right-5 w-8 sm:w-12 h-8 sm:h-12 bg-gradient-to-r from-primary to-blue-600 rounded-full flex items-center justify-center shadow-xl animate-pulse-slow-1 transform-gpu will-change-transform">
                     <ReactIcon size={22} color="white" />

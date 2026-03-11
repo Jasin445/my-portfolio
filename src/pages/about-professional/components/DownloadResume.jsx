@@ -1,8 +1,13 @@
+import { useRef } from "react";
 import Icon from "../../../components/AppIcon";
 import Button from "../../../components/ui/Button";
 import { RevealSection } from "../../../utils/animation.utils";
+import { useOnScreen } from "../../../hooks/useOnScreen";
 
 const DownloadResume = () => {
+  const sectionRef = useRef(null);
+  const active = useOnScreen(sectionRef, 0);
+
   const handleDownload = () => {
     const link = document.createElement("a");
     link.href = "/assets/Jason_Dagana_CV.pdf";
@@ -11,10 +16,10 @@ const DownloadResume = () => {
   };
 
   return (
-    <section className="relative py-16 lg:py-24 bg-gradient-to-b from-[#2a363c] via-[#182330] to-muted/20 to-[#2a363c] border-blue-50/40 border-t-2">
+    <section ref={sectionRef} className="relative py-16 lg:py-24 bg-gradient-to-b from-[#2a363c] via-[#182330] to-muted/20 to-[#2a363c] border-blue-50/40 border-t-2">
       {/* <div className='absolute -top-7 left-0 bg-gradient-to-b from-[#2a363c] via-[#182330] to-[#2a363c] backdrop-blur-sm to-slate-80/40 w-full h-[9%]'></div> */}
       <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center">
-        <RevealSection direction="down">
+        <RevealSection active={active} direction="down">
           <h2 className="text-xl sm:text-2xl lg:text-4xl font-bold text-foreground mb-4">
             Download My Resume
           </h2>
@@ -54,7 +59,7 @@ const DownloadResume = () => {
         </RevealSection>
 
         {/* Optional Call to Action */}
-        <RevealSection direction="right">
+        <RevealSection active={active} direction="right">
         <div className="bg-gradient-to-r from-primary/5 to-accent/5 rounded-xl p-6 border border-border">
           <p className="text-sm leading-loose sm:text-base text-muted-foreground mb-4">
             Want a version tailored to your company or project? I’d love to

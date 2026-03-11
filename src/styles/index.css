@@ -1,14 +1,12 @@
 body {
   margin: 0;
   padding: 0;
-  /* font-family: Plus Jakarta Sans !important; */
   --color-background: #131426;
   --color-foreground: white;
   --color-primary: rgb(1, 149, 255);
   --color-primary-foreground: black;
   --color-primary-background: black;
   --color-secondary: black;
-  /* --color-secondary-foreground: black; */
   --color-secondary-background: black;
   --color-destructive-foreground: black;
   --color-muted: rgb(47, 47, 87);
@@ -21,7 +19,6 @@ body {
   line-height: normal;
   font-family: inherit;
   margin: unset;
-  /* font-family: Poppins !important; */
   font-family: "Space Grotesk", sans-serif !important;
 }
 
@@ -87,14 +84,6 @@ body {
   left: 40%;
   animation-delay: 6s;
 }
-
-/* .glow-title {
-  text-shadow:
-    0 0 8px rgba(255,255,255,0.8),
-    0 0 16px rgba(120, 200, 255, 0.8),
-    0 0 32px rgba(0, 170, 255, 0.8),
-    0 0 48px rgba(0, 120, 255, 0.7);
-} */
 
 .glow-title {
   text-shadow:
@@ -211,77 +200,54 @@ body {
   }
 }
 
-@keyframes curtainUp {
-  from {
-    transform: scaleY(1);
-    transform-origin: bottom;
-  }
-  to {
-    transform: scaleY(0);
-    transform-origin: bottom;
-  }
-}
-@keyframes curtainDown {
-  from {
-    transform: scaleY(1);
-    transform-origin: top;
-  }
-  to {
-    transform: scaleY(0);
-    transform-origin: top;
-  }
-}
-@keyframes logoPulse {
-  0% {
-    opacity: 0;
-    transform: scale(0.8);
-  }
-  40% {
-    opacity: 1;
-    transform: scale(1.05);
-  }
-  70% {
-    transform: scale(1);
-  }
-  85% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-    transform: scale(1.1);
-  }
-}
-@keyframes textGlow {
-  0% {
-    opacity: 0;
-    letter-spacing: 0.3em;
-  }
-  30% {
-    opacity: 1;
-  }
-  80% {
-    opacity: 1;
-    letter-spacing: 0.15em;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-@keyframes glowPulse {
-  0%,
-  100% {
-    text-shadow:
-      0 0 10px #6be6ff,
-      0 0 20px #6be6ff,
-      0 0 40px #6be6ff;
-  }
-  50% {
-    text-shadow:
-      0 0 20px #a78bfa,
-      0 0 40px #a78bfa,
-      0 0 80px #a78bfa;
-  }
-}
+ @keyframes curtainUp {
+          from { transform: scaleY(1) translateZ(0); }
+          to   { transform: scaleY(0) translateZ(0); }
+        }
+        @keyframes curtainDown {
+          from { transform: scaleY(1) translateZ(0); }
+          to   { transform: scaleY(0) translateZ(0); }
+        }
+        @keyframes logoPulse {
+          0%   { opacity: 0; transform: scale(0.8) translateZ(0); }
+          40%  { opacity: 1; transform: scale(1.05) translateZ(0); }
+          70%  { transform: scale(1) translateZ(0); }
+          85%  { opacity: 1; }
+          100% { opacity: 0; transform: scale(1.1) translateZ(0); }
+        }
+        @keyframes textGlow {
+          0%   { opacity: 0; letter-spacing: 0.3em; }
+          30%  { opacity: 1; }
+          80%  { opacity: 1; letter-spacing: 0.15em; }
+          100% { opacity: 0; }
+        }
+        @keyframes glowPulse {
+          0%, 100% { text-shadow: 0 0 10px #6be6ff, 0 0 20px #6be6ff, 0 0 40px #6be6ff; }
+          50%       { text-shadow: 0 0 20px #a78bfa, 0 0 40px #a78bfa, 0 0 80px #a78bfa; }
+        }
+
+        .cc-top {
+          transform-origin: top center;
+          backface-visibility: hidden;
+          -webkit-backface-visibility: hidden;
+          contain: layout paint style;
+        }
+        .cc-bottom {
+          transform-origin: bottom center;
+          backface-visibility: hidden;
+          -webkit-backface-visibility: hidden;
+          contain: layout paint style;
+        }
+        .cc-logo {
+          backface-visibility: hidden;
+          -webkit-backface-visibility: hidden;
+          contain: layout style;
+        }
+        .cc-text {
+          backface-visibility: hidden;
+          -webkit-backface-visibility: hidden;
+          contain: layout style;
+        }
 
 @media (max-width: 640px) {
   .draw-text {
