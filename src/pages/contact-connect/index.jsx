@@ -121,7 +121,7 @@ const ContactConnect = () => {
           />
         </Helmet>
         <Header />
-        <main className="relative min-h-screen bg-gradient-to-br from-background via-card to-muted/20">
+        <main className="relative min-h-screen bg-gradient-to-br from-background via-card to-muted/20 overflow-hidden">
           <div className="bg-background">
             {/* Hero Section */}
             <section className="">
