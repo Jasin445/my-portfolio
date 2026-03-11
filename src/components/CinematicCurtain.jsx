@@ -197,7 +197,7 @@ const CinematicCurtain = ({ done, setDone, handleFinish }) => {
           {/* Logo */}
           <div
             style={{
-              animation: "logoPulse 3.8s cubic-bezier(0.4,0,0.2,1) forwards",
+              animation: "logoPulse 3.4s cubic-bezier(0.4,0,0.2,1) forwards",
             }}
           >
             <img
@@ -218,7 +218,7 @@ const CinematicCurtain = ({ done, setDone, handleFinish }) => {
               // transform: "translateY(-40px)",
               textTransform: "uppercase",
               animation:
-                "textGlow 3.8s cubic-bezier(0.4,0,0.2,1) forwards, glowPulse 1.5s ease-in-out infinite",
+                "textGlow 3.4s cubic-bezier(0.4,0,0.2,1) forwards, glowPulse 1.5s ease-in-out infinite",
             }}
           >
             Not just a name. A digital experience!.
