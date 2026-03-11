@@ -39,7 +39,7 @@ const HeroSection = () => {
           }}
         ></div>
         <div
-          className={`absolute  bottom-20 right-20 w-96 h-96 bg-gradient-to-r from-accent to-purple-500 rounded-full ${isVisible ? "transform-gpu will-change-transform blur-lg animate-pulse-slow" : "animate-none"}`}
+          className={`absolute  bottom-20 right-20 w-96 h-96 bg-gradient-to-r from-accent to-purple-500 rounded-full ${"transform-gpu will-change-transform blur-lg animate-pulse-slow"}`}
           style={{
             transition: isVisible ? "transform 0.1s ease-out" : undefined,
             animationDelay: isVisible ? "1s" : undefined,
