@@ -41,7 +41,7 @@ const FishTank = ({ active }) => {
       buildGrads();
     };
     resize();
-    window.addEventListener("resize", resize);
+    window.addEventListener("resize", resize, {passive: true});
 
     const fishes = Array.from({ length: 8 }, () => {
       const size = Math.random() * 10 + 3;
@@ -161,7 +161,7 @@ const FishTank = ({ active }) => {
       paused = document.hidden;
       if (!paused && visible) raf = requestAnimationFrame(draw);
     };
-    document.addEventListener("visibilitychange", handleVisibility);
+    document.addEventListener("visibilitychange", handleVisibility, {passive: true});
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -208,28 +208,31 @@ const prefersReducedMotion = () =>
   window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 const makePhaseStyle = (direction) => {
-  const hidden = {
-    up:    "translateY(180px) rotate(-16deg) scale(0.85) translateZ(0)",
-    down:  "translateY(-180px) rotate(4deg) scale(0.85) translateZ(0)",
-    left:  "translateX(80px) rotate(16deg) scale(0.85) translateZ(0)",
-    right: "translateX(-80px) rotate(-16deg) scale(0.85) translateZ(0)",
-  }[direction] ?? "translateY(80px) rotate(-16deg) scale(0.85) translateZ(0)";
+  const hidden =
+    {
+      up: "translateY(180px) rotate(-16deg) scale(0.85) translateZ(0)",
+      down: "translateY(-180px) rotate(4deg) scale(0.85) translateZ(0)",
+      left: "translateX(80px) rotate(16deg) scale(0.85) translateZ(0)",
+      right: "translateX(-80px) rotate(-16deg) scale(0.85) translateZ(0)",
+    }[direction] ?? "translateY(80px) rotate(-16deg) scale(0.85) translateZ(0)";
 
   const reduced = prefersReducedMotion();
 
   return (phase) => {
-    if (phase === 0) return {
-      opacity: 0,
-      transform: reduced ? "translateZ(0)" : hidden,
-      filter: reduced ? "none" : "blur(8px) brightness(0.3)",
-      willChange: "transform, opacity, filter",
-    };
+    if (phase === 0)
+      return {
+        opacity: 0,
+        transform: reduced ? "translateZ(0)" : hidden,
+        // filter: reduced ? "none" : "blur(8px) brightness(0.3)",
+        willChange: "transform, opacity",
+      };
 
     return {
       opacity: 1,
       transform: "translate(0) rotate(0deg) scale(1) translateZ(0)",
-      filter: "blur(0px) brightness(1)",
-      transition: reduced ? "none" : "all 2.4s cubic-bezier(0.16, 1, 0.3, 1)",
+      // filter: "blur(0px) brightness(1)",
+      transition:
+        "transform 2.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 2.4s cubic-bezier(0.16, 1, 0.3, 1)",
       willChange: "auto",
     };
   };
@@ -247,8 +250,7 @@ export const RevealSection = ({
   const observerRef = useRef(null);
   const [phase, setPhase] = useState(0);
 
-  // Stable getter — only rebuilt when direction changes
-  const getStyle = useMemo(() => makePhaseStyle(direction), [direction]);
+  const style = useMemo(() => makePhaseStyle(direction)(phase), [direction, phase]);
 
   useEffect(() => {
     if (!active) return;
@@ -266,7 +268,7 @@ export const RevealSection = ({
         observerRef.current?.disconnect();
         timerRef.current = setTimeout(() => setPhase(1), index * 120);
       },
-      { threshold: 0.15 }
+      { threshold: 0.15 },
     );
 
     observerRef.current.observe(el);
@@ -280,29 +282,23 @@ export const RevealSection = ({
   if (!active) return children;
 
   return (
-    <div ref={ref} className={`h-full ${className}`} style={getStyle(phase)}>
+    <div ref={ref} className={`h-full ${className}`} style={style}>
       {children}
     </div>
   );
 };
 
-
 /* ─── TiltCard — mouse-tracking 3-D tilt, no state re-renders ── */
 export const TiltCard = ({ children, active = true }) => {
   const ref = useRef(null);
-  const leaveTimer = useRef(null);
   const canHover = useRef(!window.matchMedia("(hover: none)").matches);
 
   const handleMove = (e) => {
     if (!active || !canHover.current) return;
-
     const el = ref.current;
     if (!el) return;
 
-    clearTimeout(leaveTimer.current);
-
     el.style.transition = "none";
-    el.style.willChange = "transform";
 
     const rect = el.getBoundingClientRect();
     const x = (e.clientX - rect.left) / rect.width - 0.5;
@@ -315,25 +311,16 @@ export const TiltCard = ({ children, active = true }) => {
     const el = ref.current;
     if (!el) return;
 
-    el.style.transform =
-      "perspective(800px) rotateY(0deg) rotateX(0deg) scale(1)";
     el.style.transition = "transform 0.5s cubic-bezier(0.4,0,0.2,1)";
-
-    leaveTimer.current = setTimeout(() => {
-      if (ref.current) ref.current.style.willChange = "auto";
-    }, 500);
+    el.style.transform = "perspective(800px) rotateY(0deg) rotateX(0deg) scale(1)";
   };
-
-  useEffect(() => {
-    return () => clearTimeout(leaveTimer.current);
-  }, []);
 
   if (!active) return children;
 
   return (
     <div
       ref={ref}
-      className="h-full"
+      className="will-change-transform h-full"
       onMouseMove={handleMove}
       onMouseLeave={handleLeave}
     >

@@ -52,118 +52,39 @@ const AnimatedCounter = ({ value }) => {
 };
 
 
-const Particles = ({active}) => {
-  const canvasRef = useRef(null);
-
-  useEffect(() => {
-    if (!active) return;
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const ctx = canvas.getContext("2d", {
-      willReadFrequently: false,
-      alpha: true,
-    });
-
-    const resize = () => {
-      canvas.width = canvas.offsetWidth;
-      canvas.height = canvas.offsetHeight;
-    };
-
-    resize();
-    window.addEventListener("resize", resize);
-
-    const particles = Array.from({ length: 40 }, () => ({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      r: Math.random() * 1.5 + 0.5,
-      dx: (Math.random() - 0.5) * 1.4,
-      dy: (Math.random() - 0.5) * 0.4,
-      alpha: Math.random() * 0.4 + 0.1,
-    }));
-
-    let raf;
-    let lastTime = 0;
-    let paused = false;
-    let visible = false;
-
-    const draw = (timestamp) => {
-      if (paused || !visible) return;
-
-      if (timestamp - lastTime < 33) {
-        raf = requestAnimationFrame(draw);
-        return;
-      }
-
-      lastTime = timestamp;
-
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      particles.forEach((p) => {
-        p.x += p.dx;
-        p.y += p.dy;
-
-        if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
-        if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
-
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(107,230,255,${p.alpha})`;
-        ctx.fill();
-      });
-
-      raf = requestAnimationFrame(draw);
-    };
-
-    const handleVisibility = () => {
-      paused = document.hidden;
-      if (!paused && visible) {
-        raf = requestAnimationFrame(draw);
-      }
-    };
-
-    document.addEventListener("visibilitychange", handleVisibility);
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        visible = entry.isIntersecting;
-
-        if (visible && !paused) {
-          raf = requestAnimationFrame(draw);
-        } else {
-          cancelAnimationFrame(raf);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    observer.observe(canvas);
-
-    
-    return () => {
-      cancelAnimationFrame(raf);
-      observer.disconnect();
-      window.removeEventListener("resize", resize);
-      document.removeEventListener("visibilitychange", handleVisibility);
-    };
-  }, [active]);
-
-  
+const Particles = ({ active }) => {
   if (!active) return null;
 
+  const particles = useMemo(() => 
+    Array.from({ length: 180 }, (_, i) => ({
+      id: i,
+      left: `${Math.random() * 100}%`,
+      top: `${Math.random() * 100}%`,
+      size: Math.random() * 3 + 1,
+      duration: Math.random() * 10 + 8,
+      delay: Math.random() * 5,
+    })), []
+  );
+
   return (
-    <canvas
-      ref={canvasRef}
-      style={{
-        position: "absolute",
-        inset: 0,
-        width: "100%",
-        height: "100%",
-        pointerEvents: "none",
-        zIndex: 0,
-        willChange: "transform",
-      }}
-    />
+    <div style={{ position: "absolute", inset: 0, pointerEvents: "none" }}>
+      {particles.map((p) => (
+        <div
+          key={p.id}
+          style={{
+            position: "absolute",
+            left: p.left,
+            top: p.top,
+            width: p.size,
+            height: p.size,
+            borderRadius: "50%",
+            background: "rgba(107,230,255,0.25)",
+            animation: `floatParticles ${p.duration}s ${p.delay}s infinite alternate ease-in-out`,
+            willChange: "transform",
+          }}
+        />
+      ))}
+    </div>
   );
 };
 
@@ -269,7 +190,7 @@ const PortfolioProjects = () => {
     const handleClickOutside = (e) => {
       if (!e.target.closest("#filter-dropdown")) setOpenFilterDropdown(false);
     };
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside, {passive: true});
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 

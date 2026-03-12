@@ -16,11 +16,11 @@ import { useOnScreen } from "../../../hooks/useOnScreen";
 const HeroSection = () => {
   const heroRef = useRef(null);
   const heroVisible = useOnScreen(heroRef);
-  const [isVisible, setIsVisible] = useState(false);
+  const isVisible = heroVisible
 
-  useEffect(() => {
-    if (heroVisible) setIsVisible(true);
-  }, [heroVisible]);
+  // useEffect(() => {
+  //   if (heroVisible) setIsVisible(true);
+  // }, [heroVisible]);
 
   return (
     <section
@@ -30,8 +30,8 @@ const HeroSection = () => {
       {/* Background orbs */}
       <div className="absolute inset-0 opacity-10">
         <div
-          className="absolute top-20 left-20 w-72 h-72 transform-gpu will-change-transform bg-gradient-to-r from-primary to-blue-500 rounded-full blur-lg animate-pulse-slow"
-          style={{ transition: "transform 0.1s ease-out" }}
+          className="absolute top-20 left-20 w-72 h-72 transform-gpu will-change-transform bg-gradient-to-r from-primary to-blue-500 rounded-full blur-lg isolate animate-pulse-slow"
+          style={{ transition: "transform 0.1s ease-out", transform: "translateZ(0)" }}
         />
         <div
           className="absolute bottom-20 right-20 w-96 h-96 bg-gradient-to-r from-accent to-purple-500 rounded-full transform-gpu will-change-transform blur-lg animate-pulse-slow"
@@ -168,19 +168,19 @@ const HeroSection = () => {
               {/* Orbit */}
               <div className="absolute !rounded-full inset-0 w-[110%] flex items-center justify-center pointer-events-none">
                 <div className={`absolute !rounded-full inset-0 ${isVisible ? "animate-spin-slow-1 transform-gpu will-change-transform" : "animate-none"}`}>
-                  <div className="absolute -right-5 w-8 sm:w-12 h-8 sm:h-12 bg-gradient-to-r from-primary to-blue-600 rounded-full flex items-center justify-center shadow-xl animate-pulse-slow-1 transform-gpu will-change-transform">
+                  <div className="absolute -right-5 w-8 sm:w-12 h-8 sm:h-12 bg-gradient-to-r from-primary to-blue-600 rounded-full flex items-center justify-center shadow-xl animate-pulse-slow-1 transform-gpu">
                     <ReactIcon size={22} color="white" />
                   </div>
-                  <div className="absolute -left-5 w-8 sm:w-12 h-8 sm:h-12 bg-gradient-to-r from-gray-500 to-black rounded-full flex items-center justify-center shadow-xl animate-pulse-slow-2 transform-gpu will-change-transform">
+                  <div className="absolute -left-5 w-8 sm:w-12 h-8 sm:h-12 bg-gradient-to-r from-gray-500 to-black rounded-full flex items-center justify-center shadow-xl animate-pulse-slow-2 transform-gpu">
                     <NextJsIcon size={22} color="white" />
                   </div>
                 </div>
 
                 <div className="absolute inset-0 animate-spin-reverse !rounded-full transform-gpu will-change-transform">
-                  <div className="absolute -left-5 w-8 sm:w-12 h-8 sm:h-12 bg-gradient-to-r from-sky-400 to-sky-600 rounded-full flex items-center justify-center shadow-xl animate-pulse-slow-3 transform-gpu will-change-transform">
+                  <div className="absolute -left-5 w-8 sm:w-12 h-8 sm:h-12 bg-gradient-to-r from-sky-400 to-sky-600 rounded-full flex items-center justify-center shadow-xl animate-pulse-slow-3 transform-gpu">
                     <TailwindIcon size={22} color="white" fill="white" />
                   </div>
-                  <div className="absolute -right-5 w-8 sm:w-12 h-8 sm:h-12 bg-gradient-to-r from-blue-500 to-blue-700 rounded-full flex items-center justify-center shadow-xl animate-pulse-slow-4 transform-gpu will-change-transform">
+                  <div className="absolute -right-5 w-8 sm:w-12 h-8 sm:h-12 bg-gradient-to-r from-blue-500 to-blue-700 rounded-full flex items-center justify-center shadow-xl animate-pulse-slow-4 transform-gpu">
                     <TypeScriptIcon size={22} color="white" fill="white" />
                   </div>
                 </div>

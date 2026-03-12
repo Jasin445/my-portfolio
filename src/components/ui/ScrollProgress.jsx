@@ -1,95 +1,73 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
-const ScrollProgress = ({ 
-  className = '',
-  showOnPages = ['/technical-blog', '/about-professional'],
-  threshold = 100 
-}) => {
-  const [scrollProgress, setScrollProgress] = useState(0);
+const ScrollProgress = ({ className = '', threshold = 100 }) => {
   const [isVisible, setIsVisible] = useState(false);
+  const circleRef = useRef(null);
+  const textRef = useRef(null);
+  const rafRef = useRef(null);
+  const circumference = 2 * Math.PI * 20;
 
   useEffect(() => {
-    const calculateScrollProgress = () => {
-      const scrollTop = window.pageYOffset;
-      const docHeight = document.documentElement?.scrollHeight - window.innerHeight;
-      const scrollPercent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-      
-      setScrollProgress(Math.min(scrollPercent, 100));
-      setIsVisible(scrollTop > threshold);
-    };
-
     const handleScroll = () => {
-      requestAnimationFrame(calculateScrollProgress);
+      if (rafRef.current) return;
+      rafRef.current = requestAnimationFrame(() => {
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = docHeight > 0 ? Math.min(scrollTop / docHeight, 1) : 0;
+
+        // Direct DOM writes — no re-render
+        if (circleRef.current) {
+          circleRef.current.style.strokeDashoffset =
+            `${circumference * (1 - progress)}`;
+        }
+        if (textRef.current) {
+          textRef.current.textContent = `${Math.round(progress * 100)}%`;
+        }
+
+        setIsVisible(scrollTop > threshold);
+        rafRef.current = null;
+      });
     };
 
-    // Check if current page should show scroll progress
-    const currentPath = window.location?.pathname;
-    const shouldShow = showOnPages?.some(page => currentPath?.includes(page));
-    
-    // if (shouldShow) {
-      window.addEventListener('scroll', handleScroll, { passive: true });
-      calculateScrollProgress(); // Initial calculation
-    // }
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
-  }, [threshold, showOnPages]);
-
-  // Don't render if not on specified pages
-  const currentPath = window.location?.pathname;
-  const shouldRender = showOnPages?.some(page => currentPath?.includes(page));
-  
-  // if (!shouldRender) return null;
+  }, [threshold, circumference]);
 
   return (
-    <>
-
-      {/* Circular Progress Indicator (Alternative) */}
-      <div 
-        className={`fixed bottom-8 right-8 z-40 transition-[opacity,transform] duration-slow ${
-          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'
-        }`}
-      >
-        <div className="relative w-12 h-12">
-          {/* Background Circle */}
-          <svg 
-            className="w-12 h-12 transform -rotate-90" 
-            viewBox="0 0 48 48"
-          >
-            <circle
-              cx="24"
-              cy="24"
-              r="20"
-              stroke="currentColor"
-              strokeWidth="3"
-              fill="none"
-              className="text-border"
-            />
-            {/* Progress Circle */}
-            <circle
-              cx="24"
-              cy="24"
-              r="20"
-              stroke="currentColor"
-              strokeWidth="3"
-              fill="none"
-              strokeDasharray={`${2 * Math.PI * 20}`}
-              strokeDashoffset={`${2 * Math.PI * 20 * (1 - scrollProgress / 100)}`}
-              className="text-primary transition-colors duration-fast ease-out"
-              strokeLinecap="round"
-            />
-          </svg>
-          
-          {/* Percentage Text */}
-          <div className="absolute inset-0 flex items-center justify-center">
-            <span className="text-xs font-medium text-muted-foreground">
-              {Math.round(scrollProgress)}%
-            </span>
-          </div>
+    <div
+      className={`fixed bottom-8 right-8 z-40 transition-[opacity,transform] duration-slow ${
+        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'
+      }`}
+    >
+      <div className="relative w-12 h-12">
+        <svg className="w-12 h-12 transform -rotate-90" viewBox="0 0 48 48">
+          <circle
+            cx="24" cy="24" r="20"
+            stroke="currentColor" strokeWidth="3" fill="none"
+            className="text-border"
+          />
+          <circle
+            ref={circleRef}
+            cx="24" cy="24" r="20"
+            stroke="currentColor" strokeWidth="3" fill="none"
+            strokeDasharray={circumference}
+            strokeDashoffset={circumference}
+            className="text-primary"
+            strokeLinecap="round"
+          />
+        </svg>
+        <div className="absolute inset-0 flex items-center justify-center">
+          <span ref={textRef} className="text-xs font-medium text-muted-foreground">
+            0%
+          </span>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

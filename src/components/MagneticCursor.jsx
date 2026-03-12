@@ -15,7 +15,7 @@ const MagneticCursor = () => {
         dotRef.current.style.transform = `translate(${e.clientX - 4}px, ${e.clientY - 4}px)`;
       }
     };
-    window.addEventListener("mousemove", move);
+    window.addEventListener("mousemove", move, {passive: true});
 
     let raf;
     const lerp = (a, b, t) => a + (b - a) * t;

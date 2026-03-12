@@ -52,7 +52,7 @@ const HomeLanding = () => {
         }
       }
     };
-    document.addEventListener("click", handleSmoothScroll);
+    document.addEventListener("click", handleSmoothScroll, {passive: true});
     return () => document.removeEventListener("click", handleSmoothScroll);
   }, []);
 

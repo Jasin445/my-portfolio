@@ -4,7 +4,7 @@ import Image from "../../../components/AppImage";
 import Icon from "../../../components/AppIcon";
 import CarTransition from "../../../components/CarDrive";
 import { mockProjects } from "../../../data";
-import { lazy, Suspense, useEffect, useRef, useState } from "react";
+import { lazy, Suspense, useRef, useState } from "react";
 import FishTank, {
   RevealSection,
   TiltCard,

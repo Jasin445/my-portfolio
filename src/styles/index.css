@@ -198,6 +198,11 @@ body {
   contain-intrinsic-size: 0 500px; /* estimated height */
 }
 
+@keyframes floatParticles {
+  from { transform: translateY(0px) translateX(0px); }
+  to   { transform: translateY(-40px) translateX(10px); }
+}
+
 @media (hover: hover) {
   .tilt-card:hover {
     transform: perspective(800px) rotateX(-4deg) rotateY(4deg) scale(1.03);
