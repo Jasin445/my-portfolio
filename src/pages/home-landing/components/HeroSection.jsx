@@ -133,7 +133,7 @@ const HeroSection = () => {
               {[
                 { number: "5+",   label: "Projects Completed",        color: "text-white" },
                 { number: "7+",   label: "Modern Tools & Frameworks",  color: "text-white" },
-                { number: "100+", label: "GitHub Contributions",       color: "text-white" },
+                { number: "1000+", label: "GitHub Contributions",       color: "text-white" },
               ].map((stat) => (
                 <div key={stat.label} className="text-center group cursor-pointer transform hover:scale-110 transition-transform duration-300">
                   <div className={`text-xl sm:text-2xl md:text-3xl font-bold ${stat.color} group-hover:animate-pulse group-hover:text-blue-200`}>

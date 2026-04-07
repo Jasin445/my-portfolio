@@ -13,6 +13,9 @@ import { useOnScreen } from "../../../hooks/useOnScreen";
 const ProjectModal = lazy(
   () => import("../../portfolio-projects/components/ProjectModal"),
 );
+
+ const directions = ["up", "down", "right", "left" ];
+
 const FeaturedProjects = () => {
   const featuredMockProjects = mockProjects?.filter((p) => p?.featured);
   const [selectedProject, setSelectedProject] = useState(null);
@@ -95,7 +98,6 @@ const hasPrevProject = selectedIndex > 0;
 
         <div className="grid md:grid-cols-2 gap-6 mb-12 h-full">
           {featuredProjects?.map((project, index) => {
-            const directions = ["up", "down", "right", "left" ];
             const direction = directions[index % directions.length];
             return (
               <RevealSection className="h-full" direction={direction} key={project?.id}>
