@@ -10,6 +10,7 @@ import FishTank, {
   TiltCard,
 } from "../../../utils/animation.utils";
 import { useOnScreen } from "../../../hooks/useOnScreen";
+import usePerformanceGuard from "../../../hooks/usePerformanceGuard";
 const ProjectModal = lazy(
   () => import("../../portfolio-projects/components/ProjectModal"),
 );
@@ -23,6 +24,8 @@ const FeaturedProjects = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const sectionRef = useRef(null);
 const active = useOnScreen(sectionRef, 0);
+const { animationsActive } = usePerformanceGuard();
+
 
 
 
@@ -63,8 +66,8 @@ const hasPrevProject = selectedIndex > 0;
         {/* <div className="absolute inset-x-0 bg-gradient-to-b from-[#131426]/90 via-[#2a363c] to-[#131426]/60 blur-[40px] z-40 h-20 -bottom-10 translate-y-14"></div> */}
       </div>
 
-      <FishTank active={active} />
-      <CarTransition active={active} />
+      <FishTank active={active && animationsActive} />
+      <CarTransition active={active && animationsActive} />
 
       <div
         className="relative max-w-6xl mx-auto px-4 sm:px-12 h-full"

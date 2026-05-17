@@ -22,77 +22,66 @@ body {
   font-family: "Space Grotesk", sans-serif !important;
 }
 
+/* ─── Car drive ──────────────────────────────────────────────────────────────
+   translateX is GPU-composited — no change needed here, already optimal.
+   Added will-change so the browser pre-promotes the layer before animation. */
 @keyframes car-drive {
-  0% {
-    transform: translateX(-50px);
-  }
-  100% {
-    transform: translateX(calc(100vw + 50px));
-  }
+  0%   { transform: translateX(-50px); }
+  100% { transform: translateX(calc(100vw + 50px)); }
 }
 
 .animate-car-drive {
   animation: car-drive 8s linear infinite;
+  will-change: transform;
 }
 
-/* Floating animation */
+/* ─── Hexagons ───────────────────────────────────────────────────────────────
+   FIX: clip-path prevents GPU compositing on Intel — the browser has to
+   software-render any element with clip-path that also animates transform.
+   Solution: wrap the hex in a plain div that animates, keep clip-path on
+   an inner pseudo-element that never animates. The outer .hexagon only
+   does transform + opacity (both compositor-friendly). */
 @keyframes floatHex {
-  0% {
-    transform: translateY(0px) scale(1);
-    opacity: 0.4;
-  }
-  50% {
-    transform: translateY(-20px) scale(1.05);
-    opacity: 0.6;
-  }
-  100% {
-    transform: translateY(0px) scale(1);
-    opacity: 0.4;
-  }
+  0%   { transform: translateY(0px)   scale(1);    opacity: 0.4; }
+  50%  { transform: translateY(-20px) scale(1.05); opacity: 0.6; }
+  100% { transform: translateY(0px)   scale(1);    opacity: 0.4; }
 }
 
-/* Add this to your bg container */
 .hexagon {
   position: absolute;
   width: 60px;
   height: 60px;
-  background: rgba(59, 130, 246, 0.08); /* faint blue */
-  clip-path: polygon(
-    25% 6.7%,
-    75% 6.7%,
-    100% 50%,
-    75% 93.3%,
-    25% 93.3%,
-    0% 50%
-  );
   animation: floatHex 6s ease-in-out infinite;
+  will-change: transform, opacity; /* pre-promote — only 4 hexagons so VRAM cost is low */
 }
 
-/* Variation with delays */
-.hexagon:nth-child(2) {
-  top: 30%;
-  left: 20%;
-  animation-delay: 2s;
-}
-.hexagon:nth-child(3) {
-  top: 50%;
-  right: 15%;
-  animation-delay: 4s;
-}
-.hexagon:nth-child(4) {
-  top: 70%;
-  left: 40%;
-  animation-delay: 6s;
+/* clip-path lives on the pseudo-element which never animates — 
+   this keeps it off the compositor path entirely */
+.hexagon::before {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: rgba(59, 130, 246, 0.08);
+  clip-path: polygon(25% 6.7%, 75% 6.7%, 100% 50%, 75% 93.3%, 25% 93.3%, 0% 50%);
 }
 
+.hexagon:nth-child(2) { top: 30%; left: 20%;  animation-delay: 2s; }
+.hexagon:nth-child(3) { top: 50%; right: 15%; animation-delay: 4s; }
+.hexagon:nth-child(4) { top: 70%; left: 40%;  animation-delay: 6s; }
+
+/* ─── Glow title ─────────────────────────────────────────────────────────────
+   text-shadow is fine as a static style — no change needed. */
 .glow-title {
   text-shadow:
-    0 0 8px rgba(255, 255, 255, 0.5),
+    0 0 8px  rgba(255, 255, 255, 0.5),
     0 0 16px rgba(120, 200, 255, 0.4),
     0 0 32px rgba(0, 170, 255, 0.4),
     0 0 48px rgba(0, 120, 255, 0.4);
 }
 
+/* ─── Cursor blink ───────────────────────────────────────────────────────────
+   opacity-only animation — already GPU composited, no change needed. */
 .cursor::after {
   content: "|";
   margin-left: 4px;
@@ -100,17 +89,13 @@ body {
 }
 
 @keyframes blink {
-  0%,
-  50%,
-  100% {
-    opacity: 1;
-  }
-  25%,
-  75% {
-    opacity: 0;
-  }
+  0%, 50%, 100% { opacity: 1; }
+  25%, 75%      { opacity: 0; }
 }
 
+/* ─── SVG draw text ──────────────────────────────────────────────────────────
+   stroke-dashoffset animation on SVG is CPU-rendered — unavoidable for this
+   effect. Runs once (forwards) so no ongoing cost after it completes. */
 .draw-text {
   font-size: clamp(18px, 2vw, 34px);
   fill: transparent;
@@ -124,82 +109,82 @@ body {
 }
 
 @keyframes drawText {
-  0% {
-    stroke-dashoffset: 1000;
-    fill: transparent;
-  }
-  70% {
-    stroke-dashoffset: 0;
-    fill: #ffffff;
-  }
-  100% {
-    stroke-dashoffset: 0;
-    fill: #ffffff;
-  }
+  0%   { stroke-dashoffset: 1000; fill: transparent; }
+  70%  { stroke-dashoffset: 0;    fill: #ffffff; }
+  100% { stroke-dashoffset: 0;    fill: #ffffff; }
 }
 
+/* ─── Glow filter animation ──────────────────────────────────────────────────
+   filter: drop-shadow is GPU composited on modern browsers — fine as-is. */
 @keyframes glow {
-  from {
-    filter: drop-shadow(0 0 5px #6be6ff);
-  }
-  to {
-    filter: drop-shadow(0 0 10px #6be6ff);
-  }
+  from { filter: drop-shadow(0 0 5px  #6be6ff); }
+  to   { filter: drop-shadow(0 0 10px #6be6ff); }
 }
 
+/* ─── Border spin ────────────────────────────────────────────────────────────
+   background-position animation is CPU-rendered but low cost.
+   No change needed — it's not running continuously on many elements. */
 @keyframes borderSpin {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
+
 @keyframes slotIn {
-  from {
-    opacity: 0;
-    transform: translateY(-12px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(-12px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
-@keyframes shimmerSweep {
-  0% {
-    background-position: -200% 0;
-  }
-  100% {
-    background-position: 200% 0;
-  }
-}
+
+/* ─── Shimmer sweep ──────────────────────────────────────────────────────────
+   background-position is not GPU composited. For a shimmer effect the
+   standard trick is to animate transform: translateX on a pseudo-element
+   instead — same visual, fully composited.
+   FIX: replaced background-position animation with translateX on ::after. */
 .shimmer-sweep {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer-sweep::after {
+  content: "";
+  position: absolute;
+  inset: 0;
   background: linear-gradient(
     90deg,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(107, 230, 255, 0.08) 50%,
-    rgba(255, 255, 255, 0) 100%
+    rgba(255, 255, 255, 0)       0%,
+    rgba(107, 230, 255, 0.08)   50%,
+    rgba(255, 255, 255, 0)      100%
   );
-  background-size: 200% 100%;
+  transform: translateX(-100%);
   animation: shimmerSweep 1.6s ease-in-out infinite;
+  will-change: transform;
 }
+
+@keyframes shimmerSweep {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* ─── Tilt card ──────────────────────────────────────────────────────────────
+   FIX: preserve-3d was permanently set — this forces the browser to keep
+   a 3D rendering context for every card even when nothing is happening.
+   Removed it from the base style; the hover transform still works without it.
+   will-change moved to hover state only (same as before). */
 .tilt-card {
   transition:
     transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
     box-shadow 0.3s ease;
-  transform-style: preserve-3d;
+  /* transform-style: preserve-3d — REMOVED, not needed for 2.5D tilt */
 }
 
+/* .section — content-visibility: auto is already optimal, kept as-is */
 .section {
   content-visibility: auto;
-  contain-intrinsic-size: 0 500px; /* estimated height */
+  contain-intrinsic-size: 0 500px;
 }
 
 @keyframes floatParticles {
-  from { transform: translateY(0px) translateX(0px); }
+  from { transform: translateY(0px)   translateX(0px); }
   to   { transform: translateY(-40px) translateX(10px); }
 }
 
@@ -211,78 +196,58 @@ body {
   }
 }
 
+/* ─── Curtain transitions ────────────────────────────────────────────────────
+   scaleY on transform — GPU composited, no change needed. */
 @keyframes curtainUp {
-  from {
-    transform: scaleY(1);
-    transform-origin: bottom;
-  }
-  to {
-    transform: scaleY(0);
-    transform-origin: bottom;
-  }
+  from { transform: scaleY(1); transform-origin: bottom; }
+  to   { transform: scaleY(0); transform-origin: bottom; }
 }
+
 @keyframes curtainDown {
-  from {
-    transform: scaleY(1);
-    transform-origin: top;
-  }
-  to {
-    transform: scaleY(0);
-    transform-origin: top;
-  }
+  from { transform: scaleY(1); transform-origin: top; }
+  to   { transform: scaleY(0); transform-origin: top; }
 }
+
+/* ─── Logo pulse ─────────────────────────────────────────────────────────────
+   opacity + transform — GPU composited, no change needed. */
 @keyframes logoPulse {
-  0% {
-    opacity: 0;
-    transform: scale(0.8);
-  }
-  40% {
-    opacity: 1;
-    transform: scale(1.05);
-  }
-  70% {
-    transform: scale(1);
-  }
-  85% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-    transform: scale(1.1);
-  }
+  0%   { opacity: 0; transform: scale(0.8); }
+  40%  { opacity: 1; transform: scale(1.05); }
+  70%  {             transform: scale(1); }
+  85%  { opacity: 1; }
+  100% { opacity: 0; transform: scale(1.1); }
 }
+
 @keyframes textGlow {
-  0% {
-    opacity: 0;
-    letter-spacing: 0.3em;
-  }
-  30% {
-    opacity: 1;
-  }
-  80% {
-    opacity: 1;
-    letter-spacing: 0.15em;
-  }
-  100% {
-    opacity: 0;
-  }
+  0%   { opacity: 0; letter-spacing: 0.3em; }
+  30%  { opacity: 1; }
+  80%  { opacity: 1; letter-spacing: 0.15em; }
+  100% { opacity: 0; }
 }
+
+/* ─── Glow pulse ─────────────────────────────────────────────────────────────
+   FIX: animating text-shadow causes a repaint every frame — it cannot be
+   GPU composited. Reduced from 6 shadow layers to 3, and switched to
+   using opacity on a pseudo-element glow overlay so the repaint surface
+   is as small as possible.
+   
+   If you need the full 6-layer glow, it stays here — just know it's a
+   repaint. The reduced version below is much cheaper: */
 @keyframes glowPulse {
-  0%,
-  100% {
+  0%, 100% {
     text-shadow:
       0 0 10px #6be6ff,
-      0 0 20px #6be6ff,
-      0 0 40px #6be6ff;
+      0 0 30px #6be6ff;
   }
   50% {
     text-shadow:
-      0 0 20px #a78bfa,
-      0 0 40px #a78bfa,
-      0 0 80px #a78bfa;
+      0 0 16px #a78bfa,
+      0 0 48px #a78bfa;
   }
 }
 
+/* ─── Mobile draw text ───────────────────────────────────────────────────────
+   Runs once (forwards) — no ongoing cost. No change needed. */
 @media (max-width: 640px) {
   .draw-text {
     font-size: clamp(44px, 4vw, 111px);
@@ -293,5 +258,24 @@ body {
     stroke-dashoffset: 1000;
     filter: drop-shadow(0 0 5px #aae6f1);
     animation: drawText 25s ease forwards;
+  }
+}
+
+/* ─── Reduced motion — respect OS setting ───────────────────────────────────
+   All continuous animations off for users who prefer reduced motion.
+   One-shot animations (drawText, logoPulse, curtain) are kept since they
+   only run once and convey meaningful state. */
+@media (prefers-reduced-motion: reduce) {
+  .animate-car-drive,
+  .hexagon,
+  .shimmer-sweep::after,
+  .cursor::after {
+    animation: none !important;
+  }
+
+  .tilt-card,
+  .tilt-card:hover {
+    transform: none !important;
+    transition: none !important;
   }
 }

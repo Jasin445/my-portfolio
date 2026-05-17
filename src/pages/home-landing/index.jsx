@@ -1,15 +1,13 @@
-import { Suspense, useEffect, useState, lazy } from "react";
+import { useEffect, useState, lazy } from "react";
 import Header from "../../components/ui/Header";
 import HeroSection from "./components/HeroSection";
 import Footer from "../../components/Footer";
 import ContactCta from "./components/ContactCta";
 import CinematicCurtain from "../../components/CinematicCurtain";
 import { useLocation } from "react-router-dom";
-const FeaturedProjects = lazy(() => import("./components/FeaturedProjects"));
-const TestimonialSection = lazy(
-  () => import("./components/TestimonialSection"),
-);
-const Skills = lazy(() => import("./components/Skills"));
+import Skills from "./components/Skills";
+import FeaturedProjects from "./components/FeaturedProjects";
+import TestimonialSection from "./components/TestimonialSection";
 
 const ROUTES_WITHOUT_CURTAIN = [
   "/projects",
@@ -52,7 +50,7 @@ const HomeLanding = () => {
         }
       }
     };
-    document.addEventListener("click", handleSmoothScroll, {passive: true});
+    document.addEventListener("click", handleSmoothScroll, { passive: true });
     return () => document.removeEventListener("click", handleSmoothScroll);
   }, []);
 
@@ -72,16 +70,12 @@ const HomeLanding = () => {
             <HeroSection />
           </div>
         </div>
-        <div>
-          <Suspense fallback={null}>
-            <FeaturedProjects />
-            <Skills />
-            <TestimonialSection />
-          </Suspense>
-          <ContactCta />
-        </div>
+        <FeaturedProjects />
+        <Skills />
+        <TestimonialSection />
+        <ContactCta />
       </main>
-        <Footer lightweight />
+      <Footer lightweight />
     </>
   );
 };

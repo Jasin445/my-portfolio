@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { Link } from "react-router-dom";
 import Button from "../../../components/ui/Button";
 import Image from "../../../components/AppImage";
@@ -12,33 +12,35 @@ import {
   TypeScriptIcon,
 } from "../../../components/BrandIcons";
 import { useOnScreen } from "../../../hooks/useOnScreen";
+import usePerformanceGuard from "../../../hooks/usePerformanceGuard";
+
 
 const HeroSection = () => {
   const heroRef = useRef(null);
   const heroVisible = useOnScreen(heroRef);
-  const isVisible = heroVisible
+  const isVisible = heroVisible;
+  const { animationsActive } = usePerformanceGuard();
 
-  // useEffect(() => {
-  //   if (heroVisible) setIsVisible(true);
-  // }, [heroVisible]);
+  // Only spin/pulse when both visible on screen AND performance is acceptable
+  const shouldAnimate = isVisible && animationsActive;
 
   return (
     <section
       ref={heroRef}
       className="relative flex min-h-screen items-center justify-center bg-gradient-to-br from-background via-card to-muted/20"
     >
-      {/* Background orbs */}
+      {/* Background orbs — paused when off-screen or low-perf */}
       <div className="absolute inset-0 opacity-10">
         <div
-          className="absolute top-20 left-20 w-72 h-72 transform-gpu will-change-transform bg-gradient-to-r from-primary to-blue-500 rounded-full blur-lg isolate animate-pulse-slow"
-          style={{ transition: "transform 0.1s ease-out", transform: "translateZ(0)" }}
+          className={`absolute top-20 left-20 w-72 h-72 bg-gradient-to-r from-primary to-blue-500 rounded-full blur-lg isolate transform-gpu ${
+            shouldAnimate ? "animate-pulse-slow" : ""
+          }`}
         />
         <div
-          className="absolute bottom-20 right-20 w-96 h-96 bg-gradient-to-r from-accent to-purple-500 rounded-full transform-gpu will-change-transform blur-lg animate-pulse-slow"
-          style={{
-            transition: isVisible ? "transform 0.1s ease-out" : undefined,
-            animationDelay: isVisible ? "1s" : undefined,
-          }}
+          className={`absolute bottom-20 right-20 w-96 h-96 bg-gradient-to-r from-accent to-purple-500 rounded-full blur-lg transform-gpu ${
+            shouldAnimate ? "animate-pulse-slow" : ""
+          }`}
+          style={{ animationDelay: shouldAnimate ? "1s" : undefined }}
         />
       </div>
 
@@ -55,7 +57,11 @@ const HeroSection = () => {
                   isVisible ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
                 }`}
               >
-                <Icon name="Code" size={16} className="mr-2 animate-pulse text-blue-300" />
+                <Icon
+                  name="Code"
+                  size={16}
+                  className={`mr-2 text-blue-300 ${shouldAnimate ? "animate-pulse" : ""}`}
+                />
                 <span className="bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-blue-300 font-semibold">
                   Frontend Developer
                 </span>
@@ -70,7 +76,11 @@ const HeroSection = () => {
                 >
                   <span className="font-black">Hi, I'm Jason.</span>
                   <br />
-                  <span className="block bg-gradient-to-r font-bold from-primary via-blue-500 to-purple-600 bg-clip-text text-transparent animate-gradient-x transform-gpu will-change-transform">
+                  <span
+                    className={`block bg-gradient-to-r font-bold from-primary via-blue-500 to-purple-600 bg-clip-text text-transparent transform-gpu ${
+                      shouldAnimate ? "animate-gradient-x will-change-transform" : ""
+                    }`}
+                  >
                     I Turn Ideas Into
                   </span>
                   Beautiful Web Apps
@@ -83,7 +93,8 @@ const HeroSection = () => {
                   isVisible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
                 }`}
               >
-                React & Next.js developer who obsesses over clean code, fast load times, and interfaces users actually enjoy.
+                React & Next.js developer who obsesses over clean code, fast
+                load times, and interfaces users actually enjoy.
               </p>
             </div>
 
@@ -94,7 +105,7 @@ const HeroSection = () => {
               }`}
             >
               <div className="relative group cursor-pointer">
-                <div className="relative rounded-2xl lg:rounded-full h-auto w-full sm:w-[70vw] aspect-square sm:h-[50vw] sm:aspect-auto overflow-hidden lg:group-hover:border-2 group-hover:border-2 group-hover:border-primary/80 lg:animate-glow-ring lg:border-4 border-primary shadow-2xl transition-[border,shadow] duration-500 hover:shadow-primary/20 transform-gpu">
+                <div className="relative rounded-2xl lg:rounded-full h-auto w-full sm:w-[70vw] aspect-square sm:h-[50vw] sm:aspect-auto overflow-hidden lg:group-hover:border-2 group-hover:border-2 group-hover:border-primary/80 lg:border-4 border-primary shadow-2xl transition-[border,shadow] duration-500 hover:shadow-primary/20 transform-gpu">
                   <div className="absolute w-full h-full z-10 group-hover:opacity-50 transition-opacity duration-300 transform-gpu" />
                   <Image
                     src="./assets/images/jason.webp"
@@ -114,12 +125,24 @@ const HeroSection = () => {
                 isVisible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
               }`}
             >
-              <Button variant="default" size="lg" iconName="Briefcase" iconPosition="left" asChild>
+              <Button
+                variant="default"
+                size="lg"
+                iconName="Briefcase"
+                iconPosition="left"
+                asChild
+              >
                 <Link to="/projects">
                   <span className="relative z-10">Explore My Projects</span>
                 </Link>
               </Button>
-              <Button variant="outline" size="lg" iconName="Download" iconPosition="left" className="border-2">
+              <Button
+                variant="outline"
+                size="lg"
+                iconName="Download"
+                iconPosition="left"
+                className="border-2"
+              >
                 Get My Resume
               </Button>
             </div>
@@ -131,12 +154,21 @@ const HeroSection = () => {
               }`}
             >
               {[
-                { number: "5+",   label: "Projects Completed",        color: "text-white" },
-                { number: "7+",   label: "Modern Tools & Frameworks",  color: "text-white" },
-                { number: "1000+", label: "GitHub Contributions",       color: "text-white" },
+                { number: "5+",    label: "Projects Completed",       color: "text-white" },
+                { number: "7+",    label: "Modern Tools & Frameworks", color: "text-white" },
+                { number: "1000+", label: "GitHub Contributions",      color: "text-white" },
               ].map((stat) => (
-                <div key={stat.label} className="text-center group cursor-pointer transform hover:scale-110 transition-transform duration-300">
-                  <div className={`text-xl sm:text-2xl md:text-3xl font-bold ${stat.color} group-hover:animate-pulse group-hover:text-blue-200`}>
+                <div
+                  key={stat.label}
+                  className="text-center group cursor-pointer transform hover:scale-110 transition-transform duration-300"
+                >
+                  <div
+                    className={`text-xl sm:text-2xl md:text-3xl font-bold ${stat.color} ${
+                      shouldAnimate
+                        ? "group-hover:animate-pulse group-hover:text-blue-200"
+                        : "group-hover:text-blue-200"
+                    }`}
+                  >
                     {stat.number}
                   </div>
                   <div className="text-xs text-muted-foreground group-hover:text-blue-200 transition-colors duration-300">
@@ -165,22 +197,46 @@ const HeroSection = () => {
                 />
               </div>
 
-              {/* Orbit */}
+              {/* Orbit — fully paused when low-perf or tab hidden */}
               <div className="absolute !rounded-full inset-0 w-[110%] flex items-center justify-center pointer-events-none">
-                <div className={`absolute !rounded-full inset-0 ${isVisible ? "animate-spin-slow-1 transform-gpu will-change-transform" : "animate-none"}`}>
-                  <div className="absolute -right-5 w-8 sm:w-12 h-8 sm:h-12 bg-gradient-to-r from-primary to-blue-600 rounded-full flex items-center justify-center shadow-xl animate-pulse-slow-1 transform-gpu">
+                <div
+                  className={`absolute !rounded-full inset-0 transform-gpu ${
+                    shouldAnimate ? "animate-spin-slow-1 will-change-transform" : ""
+                  }`}
+                >
+                  <div
+                    className={`absolute -right-5 w-8 sm:w-12 h-8 sm:h-12 bg-gradient-to-r from-primary to-blue-600 rounded-full flex items-center justify-center shadow-xl transform-gpu ${
+                      shouldAnimate ? "animate-pulse-slow-1" : ""
+                    }`}
+                  >
                     <ReactIcon size={22} color="white" />
                   </div>
-                  <div className="absolute -left-5 w-8 sm:w-12 h-8 sm:h-12 bg-gradient-to-r from-gray-500 to-black rounded-full flex items-center justify-center shadow-xl animate-pulse-slow-2 transform-gpu">
+                  <div
+                    className={`absolute -left-5 w-8 sm:w-12 h-8 sm:h-12 bg-gradient-to-r from-gray-500 to-black rounded-full flex items-center justify-center shadow-xl transform-gpu ${
+                      shouldAnimate ? "animate-pulse-slow-2" : ""
+                    }`}
+                  >
                     <NextJsIcon size={22} color="white" />
                   </div>
                 </div>
 
-                <div className="absolute inset-0 animate-spin-reverse !rounded-full transform-gpu will-change-transform">
-                  <div className="absolute -left-5 w-8 sm:w-12 h-8 sm:h-12 bg-gradient-to-r from-sky-400 to-sky-600 rounded-full flex items-center justify-center shadow-xl animate-pulse-slow-3 transform-gpu">
+                <div
+                  className={`absolute inset-0 !rounded-full transform-gpu ${
+                    shouldAnimate ? "animate-spin-reverse will-change-transform" : ""
+                  }`}
+                >
+                  <div
+                    className={`absolute -left-5 w-8 sm:w-12 h-8 sm:h-12 bg-gradient-to-r from-sky-400 to-sky-600 rounded-full flex items-center justify-center shadow-xl transform-gpu ${
+                      shouldAnimate ? "animate-pulse-slow-3" : ""
+                    }`}
+                  >
                     <TailwindIcon size={22} color="white" fill="white" />
                   </div>
-                  <div className="absolute -right-5 w-8 sm:w-12 h-8 sm:h-12 bg-gradient-to-r from-blue-500 to-blue-700 rounded-full flex items-center justify-center shadow-xl animate-pulse-slow-4 transform-gpu">
+                  <div
+                    className={`absolute -right-5 w-8 sm:w-12 h-8 sm:h-12 bg-gradient-to-r from-blue-500 to-blue-700 rounded-full flex items-center justify-center shadow-xl transform-gpu ${
+                      shouldAnimate ? "animate-pulse-slow-4" : ""
+                    }`}
+                  >
                     <TypeScriptIcon size={22} color="white" fill="white" />
                   </div>
                 </div>
@@ -192,12 +248,18 @@ const HeroSection = () => {
 
       {/* Scroll indicator */}
       <div
-        onClick={() => document.getElementById("featuredProjects")?.scrollIntoView({ behavior: "smooth" })}
+        onClick={() =>
+          document
+            .getElementById("featuredProjects")
+            ?.scrollIntoView({ behavior: "smooth" })
+        }
         className={`absolute z-20 bottom-8 hidden sm:block left-1/2 transform -translate-x-1/2 cursor-pointer group transition-[transform,opacity] duration-1000 delay-1000 ${
           isVisible ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
         }`}
       >
-        <ChevronDown className="z-50 text-white size-6 animate-bounce" />
+        <ChevronDown
+          className={`z-50 text-white size-6 ${shouldAnimate ? "animate-bounce" : ""}`}
+        />
       </div>
     </section>
   );

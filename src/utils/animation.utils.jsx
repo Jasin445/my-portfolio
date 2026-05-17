@@ -202,203 +202,135 @@ import { useEffect, useRef, useState, useMemo } from "react";
 //   );
 // };
 
-const FishTank = ({ active = true }) => {
-  const containerRef = useRef(null);
-  const stateRef = useRef({ rafs: [], elements: [] });
+
+const FISH_COUNT   = 6;
+const BUBBLE_COUNT = 5;
+const FPS_CAP      = 24;
+const FRAME_MS     = 1000 / FPS_CAP;
+
+const FISH_COLORS = [
+  ["#6be6ff", "#3ab8d4"],
+  ["#f472b6", "#c0406e"],
+  ["#a78bfa", "#7c5cbf"],
+  ["#34d399", "#1a7a52"],
+  ["#fb923c", "#c4571a"],
+  ["#e2e8f0", "#94a3b8"],
+];
+
+function drawFish(ctx, f, ts) {
+  ctx.save();
+  ctx.translate(f.x, f.y);
+  ctx.scale(f.dir, 1);
+  ctx.globalAlpha = f.alpha;
+
+  const s = f.size;
+
+  // Tail wag via rotation
+  const wag = Math.sin(ts * 0.003 * f.wagSpeed) * 0.35;
+  ctx.save();
+  ctx.translate(-s * 1.4, 0);
+  ctx.rotate(wag);
+  ctx.beginPath();
+  ctx.ellipse(0, 0, s * 1.2, s * 0.9, 0, 0, Math.PI * 2);
+  ctx.fillStyle = f.finColor;
+  ctx.fill();
+  ctx.restore();
+
+  // Body
+  ctx.beginPath();
+  ctx.ellipse(0, 0, s * 1.5, s * 0.65, 0, 0, Math.PI * 2);
+  ctx.fillStyle = f.color;
+  ctx.fill();
+
+  // Eye white
+  const eyeR = Math.max(s * 0.19, 1.5);
+  ctx.beginPath();
+  ctx.arc(s * 0.6, -s * 0.15, eyeR, 0, Math.PI * 2);
+  ctx.fillStyle = "#fff";
+  ctx.fill();
+
+  // Pupil
+  ctx.beginPath();
+  ctx.arc(s * 0.62, -s * 0.13, eyeR * 0.55, 0, Math.PI * 2);
+  ctx.fillStyle = "#111";
+  ctx.fill();
+
+  ctx.restore();
+}
+
+function drawBubble(ctx, b, ts) {
+  const progress = ((ts * 0.0003 * b.duration) % 1 + b.offset) % 1;
+  const alpha =
+    progress < 0.1  ? progress / 0.1 :
+    progress > 0.85 ? (1 - progress) / 0.15 : 1;
+
+  const rise   = progress * b.rise;
+  const wobble = Math.sin(progress * Math.PI * 4) * b.wobble;
+
+  ctx.save();
+  ctx.globalAlpha = alpha * 0.4;
+  ctx.beginPath();
+  ctx.arc(b.x + wobble, b.y + rise, b.r, 0, Math.PI * 2);
+  ctx.strokeStyle = "rgba(180,240,255,0.6)";
+  ctx.lineWidth   = 0.8;
+  ctx.stroke();
+  ctx.restore();
+}
+
+const FishTank = ({ active = true, animationsActive = true }) => {
+  const canvasRef = useRef(null);
+  const shouldRun = active && animationsActive;
 
   useEffect(() => {
-    if (!active) return;
-    const container = containerRef.current;
-    if (!container) return;
+    if (!shouldRun) return;
 
-    const fishColors = [
-      ["#6be6ff", "#3ab8d4"],
-      ["#f472b6", "#c0406e"],
-      ["#a78bfa", "#7c5cbf"],
-      ["#34d399", "#1a7a52"],
-      ["#fb923c", "#c4571a"],
-      ["#facc15", "#b8960f"],
-      ["#e2e8f0", "#94a3b8"],
-      ["#f87171", "#b91c1c"],
-    ];
+    const canvas = canvasRef.current;
+    if (!canvas) return;
 
-    const COUNT = 10;
-    const { rafs, elements } = stateRef.current;
+    const ctx = canvas.getContext("2d", { alpha: true });
+    if (!ctx) return;
 
-    if (!document.getElementById("ft-styles")) {
-      const s = document.createElement("style");
-      s.id = "ft-styles";
-      s.textContent = `
-        .ft-fish {
-          position: absolute;
-          display: flex;
-          align-items: center;
-          pointer-events: none;
-          will-change: transform;
-          top: 0; left: 0;
-        }
-        .ft-body {
-          border-radius: 50%;
-          flex-shrink: 0;
-          position: relative;
-          z-index: 2;
-        }
-        .ft-eye {
-          position: absolute;
-          border-radius: 50%;
-          background: #fff;
-          top: 22%;
-          right: 18%;
-          z-index: 3;
-        }
-        .ft-pupil {
-          position: absolute;
-          border-radius: 50%;
-          background: #111;
-          bottom: 1px;
-          right: 1px;
-        }
-        .ft-tail {
-          flex-shrink: 0;
-          will-change: transform;
-          animation: ft-wag ease-in-out infinite alternate;
-          transform-origin: right center;
-          z-index: 1;
-          position: relative;
-        }
-        .ft-bubble {
-          position: absolute;
-          border-radius: 50%;
-          border: 1px solid rgba(180,240,255,0.22);
-          pointer-events: none;
-          will-change: transform, opacity;
-          animation: ft-bubble linear infinite;
-          top: 0; left: 0;
-        }
-        @keyframes ft-wag {
-          from { transform: skewY(-20deg) scaleX(0.92); }
-          to   { transform: skewY(20deg)  scaleX(1.08); }
-        }
-        @keyframes ft-bubble {
-          0%   { opacity: 0;    transform: translate(0, 0); }
-          10%  { opacity: 1; }
-          85%  { opacity: 0.15; }
-          100% { opacity: 0;    transform: translate(var(--bx), var(--by)); }
-        }
-      `;
-      document.head.appendChild(s);
-    }
+    const W = canvas.offsetWidth;
+    const H = canvas.offsetHeight;
+    canvas.width  = W;
+    canvas.height = H;
 
-    const W = container.offsetWidth;
-    const H = container.offsetHeight;
+    // Fish state
+    const fish = Array.from({ length: FISH_COUNT }, (_, i) => {
+      const [color, finColor] = FISH_COLORS[i % FISH_COLORS.length];
+      const dir = Math.random() > 0.5 ? 1 : -1;
+      return {
+        x:        Math.random() * W,
+        y:        Math.random() * H * 0.85 + H * 0.05,
+        baseY:    0,
+        size:     Math.random() * 4 + 5,
+        speed:    (Math.random() * 0.08 + 0.06) * dir,
+        dir,
+        waveAmp:  Math.random() * 14 + 4,
+        waveFreq: Math.random() * 0.02 + 0.006,
+        wagSpeed: Math.random() * 0.8 + 0.6,
+        phase:    Math.random() * Math.PI * 2,
+        alpha:    Math.random() * 0.4 + 0.25,
+        color,
+        finColor,
+      };
+    });
+    // Store baseY separately after init
+    fish.forEach((f) => { f.baseY = f.y; });
 
-    const fishData = [];
+    // Bubble state
+    const bubbles = Array.from({ length: BUBBLE_COUNT }, () => ({
+      x:        Math.random() * W,
+      y:        Math.random() * H * 0.6 + H * 0.2,
+      r:        Math.random() * 2.5 + 1,
+      rise:     -(Math.random() * H * 0.5 + H * 0.2),
+      wobble:   Math.random() * 8 - 4,
+      duration: Math.random() * 0.00004 + 0.00002,
+      offset:   Math.random(),
+    }));
 
-    for (let i = 0; i < COUNT; i++) {
-      const size = Math.random() * 4 + 4;
-      const [color, finColor] = fishColors[i % fishColors.length];
-      const dir      = Math.random() > 0.5 ? 1 : -1;
-      const speed    = (Math.random() * 0.1 + 0.1) * dir;
-      const alpha    = Math.random() * 0.45 + 0.2;
-      const waveAmp  = Math.random() * 18 + 4;
-      const waveFreq = Math.random() * 0.025 + 0.008;
-      const phase    = Math.random() * Math.PI * 2;
-      const tailDur  = (Math.random() * 300 + 180).toFixed(0);
-
-      const x0 = Math.random() * W;
-      const y0 = Math.random() * H * 0.85 + H * 0.05;
-
-      // ── wrapper ──────────────────────────────────────────
-      const wrapper = document.createElement("div");
-      wrapper.className = "ft-fish";
-      wrapper.style.cssText += `
-        opacity: ${alpha};
-        transform: translate(${x0}px,${y0}px) scaleX(${dir});
-      `;
-
-      // ── tail — overlaps body via negative margin ──────────
-      // Uses border-radius to make a rounded fan shape instead of
-      // a hard triangle, and inherits body color so it blends
-      const tail = document.createElement("div");
-      tail.className = "ft-tail";
-      tail.style.cssText = `
-        width: ${size * 1.2}px;
-        height: ${size * 1.1}px;
-        background: ${finColor};
-        animation-duration: ${tailDur}ms;
-        margin-left: -${size * 0.3}px;
-        border-radius: 160px;
-        filter: brightness(0.78);
-      `;
-
-      // ── body ─────────────────────────────────────────────
-      const body = document.createElement("div");
-      body.className = "ft-body";
-      body.style.cssText = `
-        width:      ${size * 3}px;
-        height:     ${size * 1.3}px;
-        background: ${color};
-      `;
-
-      // ── eye ──────────────────────────────────────────────
-      const eyeSize   = Math.max(size * 0.38, 3);
-      const pupilSize = Math.max(eyeSize * 0.55, 1.5);
-
-      const eye = document.createElement("div");
-      eye.className = "ft-eye";
-      eye.style.cssText = `
-        width:  ${eyeSize}px;
-        height: ${eyeSize}px;
-        box-shadow: 0 0 ${eyeSize * 0.4}px rgba(255,255,255,0.6);
-      `;
-
-      const pupil = document.createElement("div");
-      pupil.className = "ft-pupil";
-      pupil.style.cssText = `
-        width:  ${pupilSize}px;
-        height: ${pupilSize}px;
-      `;
-
-      eye.appendChild(pupil);
-      body.appendChild(eye);
-
-      wrapper.appendChild(tail);
-      wrapper.appendChild(body);
-      container.appendChild(wrapper);
-      elements.push(wrapper);
-
-      fishData.push({ el: wrapper, x: x0, y: y0, speed, waveAmp, waveFreq, phase, dir });
-    }
-
-    // ── Bubbles (pure CSS) ────────────────────────────────────
-    for (let i = 0; i < 10; i++) {
-      const r        = Math.random() * 3 + 1;
-      const bx       = Math.random() * W;
-      const by       = Math.random() * H * 0.8 + H * 0.1;
-      const wobble   = (Math.random() * 12 - 6).toFixed(1);
-      const rise     = (-(Math.random() * H * 0.6 + H * 0.3)).toFixed(0);
-      const duration = (Math.random() * 4000 + 3000).toFixed(0);
-      const delay    = (Math.random() * -5000).toFixed(0);
-
-      const b = document.createElement("div");
-      b.className = "ft-bubble";
-      b.style.cssText = `
-        width:  ${r * 2}px;
-        height: ${r * 2}px;
-        transform: translate(${bx}px,${by}px);
-        --bx: ${wobble}px;
-        --by: ${rise}px;
-        animation-duration: ${duration}ms;
-        animation-delay:    ${delay}ms;
-      `;
-      container.appendChild(b);
-      elements.push(b);
-    }
-
-    // ── Single rAF loop ───────────────────────────────────────
     let rafId;
-    let lastTs    = 0;
-    const FRAME_MS = 1000 / 60;
+    let lastTs = 0;
 
     const loop = (ts) => {
       rafId = requestAnimationFrame(loop);
@@ -406,16 +338,19 @@ const FishTank = ({ active = true }) => {
       if (delta < FRAME_MS - 1) return;
       lastTs = ts - (delta % FRAME_MS);
 
-      for (let i = 0; i < fishData.length; i++) {
-        const f = fishData[i];
+      ctx.clearRect(0, 0, W, H);
+
+      for (const f of fish) {
         f.phase += f.waveFreq;
         f.x     += f.speed;
-
         if (f.dir > 0 && f.x >  W + 40) f.x = -40;
         if (f.dir < 0 && f.x < -40)     f.x =  W + 40;
+        f.y = f.baseY + Math.sin(f.phase) * f.waveAmp;
+        drawFish(ctx, f, ts);
+      }
 
-        const y = f.y + Math.sin(f.phase) * f.waveAmp;
-        f.el.style.transform = `translate(${f.x | 0}px,${y | 0}px) scaleX(${f.dir})`;
+      for (const b of bubbles) {
+        drawBubble(ctx, b, ts);
       }
     };
 
@@ -428,180 +363,166 @@ const FishTank = ({ active = true }) => {
       }
     };
     document.addEventListener("visibilitychange", onVisibility, { passive: true });
-
     rafId = requestAnimationFrame(loop);
-    rafs.push(() => cancelAnimationFrame(rafId));
 
     return () => {
-      rafs.forEach(c => c());
-      stateRef.current.rafs = [];
+      cancelAnimationFrame(rafId);
       document.removeEventListener("visibilitychange", onVisibility);
-      elements.forEach(el => el.remove());
-      stateRef.current.elements = [];
-      document.getElementById("ft-styles")?.remove();
     };
-  }, [active]);
+  }, [shouldRun]);
 
-  if (!active) return null;
+  if (!shouldRun) return null;
 
   return (
-    <div
-      ref={containerRef}
+    <canvas
+      ref={canvasRef}
       style={{
-        position: "absolute",
-        inset: 0,
-        overflow: "hidden",
+        position:      "absolute",
+        inset:         0,
+        width:         "100%",
+        height:        "100%",
         pointerEvents: "none",
-        zIndex: 0,
-        background: "rgba(10,20,50,0.18)",
-        contain: "strict",
+        zIndex:        0,
+        opacity:       0.6,
       }}
     />
   );
 };
 
-
 export default FishTank;
 
-const prefersReducedMotion = () =>
+export const prefersReducedMotion = () =>
   window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
+ 
 const makePhaseStyle = (direction) => {
   const hidden =
     {
-      up: "translateY(180px) rotate(-16deg) scale(0.85) translateZ(0)",
-      down: "translateY(-180px) rotate(4deg) scale(0.85) translateZ(0)",
-      left: "translateX(80px) rotate(16deg) scale(0.85) translateZ(0)",
+      up:    "translateY(180px) rotate(-16deg) scale(0.85) translateZ(0)",
+      down:  "translateY(-180px) rotate(4deg) scale(0.85) translateZ(0)",
+      left:  "translateX(80px) rotate(16deg) scale(0.85) translateZ(0)",
       right: "translateX(-80px) rotate(-16deg) scale(0.85) translateZ(0)",
     }[direction] ?? "translateY(80px) rotate(-16deg) scale(0.85) translateZ(0)";
-
+ 
   const reduced = prefersReducedMotion();
-
+ 
   return (phase) => {
     if (phase === 0)
       return {
-        opacity: 0,
-        transform: reduced ? "translateZ(0)" : hidden,
-        // filter: reduced ? "none" : "blur(8px) brightness(0.3)",
+        opacity:    0,
+        transform:  reduced ? "translateZ(0)" : hidden,
         willChange: "transform, opacity",
       };
-
+ 
     return {
-      opacity: 1,
-      transform: "translate(0) rotate(0deg) scale(1) translateZ(0)",
-      // filter: "blur(0px) brightness(1)",
-      transition:
-        "transform 2.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 2.4s cubic-bezier(0.16, 1, 0.3, 1)",
+      opacity:    1,
+      transform:  "translate(0) rotate(0deg) scale(1) translateZ(0)",
+      transition: "transform 2.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 2.4s cubic-bezier(0.16, 1, 0.3, 1)",
       willChange: "auto",
     };
   };
 };
-
+ 
+// ── RevealSection ─────────────────────────────────────────────────────────────
 export const RevealSection = ({
   children,
-  index = 0,
-  active = true,
+  index     = 0,
+  active    = true,
   direction = "up",
   className = "",
 }) => {
-  const ref = useRef(null);
-  const timerRef = useRef(null);
+  const ref         = useRef(null);
+  const timerRef    = useRef(null);
   const observerRef = useRef(null);
   const [phase, setPhase] = useState(0);
-
+ 
   const style = useMemo(() => makePhaseStyle(direction)(phase), [direction, phase]);
-
+ 
   useEffect(() => {
     if (!active) return;
     const el = ref.current;
     if (!el) return;
-
+ 
     if (prefersReducedMotion()) {
       setPhase(1);
       return;
     }
-
+ 
     observerRef.current = new IntersectionObserver(
       ([entry]) => {
         if (!entry.isIntersecting) return;
         observerRef.current?.disconnect();
-        timerRef.current = setTimeout(() => setPhase(1), index * 120);
+        timerRef.current = setTimeout(() => setPhase(1), index * 60);
       },
-      { threshold: 0.15 },
+      { threshold: 0.05, rootMargin: "0px 0px -40px 0px" },
     );
-
+ 
     observerRef.current.observe(el);
-
+ 
     return () => {
       observerRef.current?.disconnect();
       clearTimeout(timerRef.current);
     };
   }, [index, active]);
-
+ 
   if (!active) return children;
-
+ 
   return (
     <div ref={ref} className={`h-full ${className}`} style={style}>
       {children}
     </div>
   );
 };
-
-/* ─── TiltCard — mouse-tracking 3-D tilt, no state re-renders ── */
+ 
+// ── TiltCard ──────────────────────────────────────────────────────────────────
 export const TiltCard = ({ children, active = true }) => {
-  const ref = useRef(null);
+  const ref      = useRef(null);
   const canHover = useRef(!window.matchMedia("(hover: none)").matches);
-
+ 
+  const handleEnter = () => {
+    const el = ref.current;
+    if (!el) return;
+    // Only promote the layer to GPU when the user is actually hovering —
+    // previously this was on permanently for every card on the page.
+    el.style.willChange = "transform";
+  };
+ 
   const handleMove = (e) => {
     if (!active || !canHover.current) return;
     const el = ref.current;
     if (!el) return;
-
+ 
     el.style.transition = "none";
-
     const rect = el.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width - 0.5;
-    const y = (e.clientY - rect.top) / rect.height - 0.5;
-
+    const x    = (e.clientX - rect.left)  / rect.width  - 0.5;
+    const y    = (e.clientY - rect.top)   / rect.height - 0.5;
     el.style.transform = `perspective(800px) rotateY(${x * 14}deg) rotateX(${-y * 14}deg) scale(1.03)`;
   };
-
+ 
   const handleLeave = () => {
     const el = ref.current;
     if (!el) return;
-
     el.style.transition = "transform 0.5s cubic-bezier(0.4,0,0.2,1)";
-    el.style.transform = "perspective(800px) rotateY(0deg) rotateX(0deg) scale(1)";
+    el.style.transform  = "perspective(800px) rotateY(0deg) rotateX(0deg) scale(1)";
+    // Free the GPU layer once the reset transition is done
+    const onEnd = () => {
+      el.style.willChange = "auto";
+      el.removeEventListener("transitionend", onEnd);
+    };
+    el.addEventListener("transitionend", onEnd);
   };
-
+ 
   if (!active) return children;
-
+ 
   return (
     <div
       ref={ref}
-      className="will-change-transform h-full"
+      className="h-full"               // removed will-change-transform from className
+      onMouseEnter={handleEnter}        // promote layer on enter
       onMouseMove={handleMove}
-      onMouseLeave={handleLeave}
+      onMouseLeave={handleLeave}        // demote layer after leave transition
     >
       {children}
     </div>
   );
 };
-
-/* ─── Glowing border card ────────────────────────────────────── */
-export const GlowCard = ({ children, active }) => (
-  <div
-    style={{
-      position: "relative",
-      borderRadius: "0.75rem",
-      padding: "1px",
-      background: active
-        ? "linear-gradient(135deg,#6be6ff,#a855f7,#6be6ff)"
-        : "transparent",
-      backgroundSize: active ? "200% 200%" : "100%",
-      animation: active ? "borderSpin 3s linear infinite" : "none",
-    }}
-  >
-    {children}
-  </div>
-);
+ 
