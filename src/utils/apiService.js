@@ -1,12 +1,15 @@
 class APIService {
-  #BASE_URL = import.meta.env.VITE_BACKEND_URL;
+  #BASE_URL = null;
 
-  constructor(defaultHeaders = { "Content-Type": "application/json" }) {
+  constructor(
+    baseUrl,
+    defaultHeaders = { "Content-Type": "application/json" },
+  ) {
     this.defaultHeaders = defaultHeaders;
-
-     // Validate BASE_URL exists
+    this.#BASE_URL = baseUrl ?? "";
+    // Validate BASE_URL exists
     if (!this.#BASE_URL) {
-      console.warn('VITE_BACKEND_URL is not defined in environment variables');
+      console.warn("VITE_BACKEND_URL is not defined in environment variables");
     }
   }
 
@@ -21,36 +24,39 @@ class APIService {
 
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.message || `Request failed with status ${response.status}`);
+        throw new Error(
+          errorData.message || `Request failed with status ${response.status}`,
+        );
       }
- 
 
       // Attempt to parse JSON, fallback to null if no content
       const data = await response.json().catch(() => null);
       return data;
-
     } catch (error) {
-      console.error(`${method} request for ${endpoint} failed:`, error);
-      throw error;
+      const err = new Error(
+        errorData.message || `Request failed with status ${response.status}`,
+      );
+      err.status = response.status; // attach status code
+      throw err;
     }
   }
 
   // Convenience methods
   get = async (endpoint, headers) => {
     return await this.request(endpoint, "GET", null, headers);
-  }
+  };
 
   post = async (endpoint, payload, headers) => {
     return await this.request(endpoint, "POST", payload, headers);
-  }
+  };
 
   put = async (endpoint, payload, headers) => {
     return await this.request(endpoint, "PUT", payload, headers);
-  }
+  };
 
   delete = async (endpoint, payload = null, headers) => {
     return await this.request(endpoint, "DELETE", payload, headers);
-  }
+  };
 }
 
-export default APIService
+export default APIService;
