@@ -6,7 +6,7 @@ import PortfolioProjects from "./pages/portfolio-projects";
 import HomeLanding from "./pages/home-landing";
 import ScrollProgress from "./components/ui/ScrollProgress";
 import ContactConnect from"./pages/contact-connect";
-import TechnicalBlog from "./pages/technical-blog";
+import TechnicalBlog from "./pages/my-articles";
 import AboutProfessional from "./pages/about-professional";
 import ScrollToHash from "./components/ScrollToView";
 
@@ -20,7 +20,7 @@ const Routes = () => {
           <Route path="/" element={<HomeLanding />} />
           <Route path="/projects" element={<PortfolioProjects />} />
           <Route
-            path="/technical-blog"
+            path="/my-articles"
             element={
                 <TechnicalBlog />
             }

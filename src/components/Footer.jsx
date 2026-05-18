@@ -58,7 +58,7 @@ const Footer = ({lightweight}) => {
               {[
                 { label: "Portfolio", path: "/portfolio-projects" },
                 { label: "About", path: "/about-professional" },
-                { label: "Blog", path: "/technical-blog" },
+                { label: "Articles", path: "/my-articles" },
                 { label: "Contact", path: "/contact-connect" },
               ]?.map((link) => (
                 <a

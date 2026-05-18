@@ -6,7 +6,6 @@
 // import BlogFilter from './components/BlogFilter';
 // import FeaturedArticles from './components/FeaturedArticles';
 // import BlogGrid from './components/BlogGrid';
-// import BlogStats from './components/BlogStats';
 // import CategoryTags from './components/CategoryTags';
 // import NewsletterSignup from './components/NewsletterSignup';
 // import Icon from '../../components/AppIcon';
@@ -159,6 +158,15 @@
 //     { value: 'devops', label: 'DevOps', count: 5, icon: 'Settings' },
 //     { value: 'api', label: 'API', count: 9, icon: 'Link' }
 //   ];
+
+// //   const res = fetch("https://gql.hashnode.com", {
+// //   method: "POST",
+// //   headers: {
+// //     "Content-Type": "application/json",
+// //     "Authorization": "your-token-here"  // only needed for drafts or mutations
+// //   },
+// //   body: JSON.stringify({ query: GET_ARTICLES, variables: { host: "yourname.hashnode.dev" } })
+// // });
 
 //   // Mock blog stats
 //   const blogStats = {
@@ -411,7 +419,7 @@ const BlogComingSoon = () => {
 
           {/* Heading */}
           <h1 className="text-4xl md:text-5xl font-bold text-foreground tracking-tight leading-tight mb-4">
-            Technical Blog
+            My Articles
             <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-cyan-400">
               Coming Soon

@@ -339,7 +339,7 @@ const ContactConnect = () => {
                       >
                         <Link
                           className="text-xs sm:text-sm"
-                          to="/technical-blog"
+                          to="/my-articles"
                         >
                           Read Blog
                         </Link>

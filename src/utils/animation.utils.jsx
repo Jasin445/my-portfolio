@@ -525,4 +525,59 @@ export const TiltCard = ({ children, active = true }) => {
     </div>
   );
 };
- 
+
+
+export const explode = (originX, originY) => {
+  const COLORS = ['#2563eb','#16a34a','#facc15','#f472b6','#a78bfa','#34d399','#fb923c','#ffffff'];
+  const count = 28;
+
+  for (let i = 0; i < count; i++) {
+    const el = document.createElement('div');
+    const size = Math.random() * 6 + 4;
+    el.style.cssText = `
+      position: fixed; z-index: 9999; pointer-events: none;
+      width: ${size}px; height: ${size}px;
+      border-radius: ${Math.random() > 0.4 ? '50%' : '2px'};
+      background: ${COLORS[Math.floor(Math.random() * COLORS.length)]};
+      left: ${originX}px; top: ${originY}px;
+    `;
+    document.body.appendChild(el);
+
+    const angle = (Math.PI * 2 / count) * i + (Math.random() - 0.5) * 0.6;
+    const speed = Math.random() * 120 + 60;
+    const vx = Math.cos(angle) * speed;
+    const vy = Math.sin(angle) * speed;
+    const rotate = Math.random() * 720 - 360;
+    const duration = 700 + Math.random() * 300;
+    let start = null;
+
+    const step = (ts) => {
+      if (!start) start = ts;
+      const t = Math.min((ts - start) / duration, 1);
+      const ease = 1 - t * t;
+      el.style.left = `${originX + vx * t}px`;
+      el.style.top  = `${originY + vy * t + 80 * t * t}px`;
+      el.style.opacity = ease;
+      el.style.transform = `rotate(${rotate * t}deg) scale(${1 - t * 0.5})`;
+      t < 1 ? requestAnimationFrame(step) : el.remove();
+    };
+    requestAnimationFrame(step);
+  }
+
+  // Ring
+  const ring = document.createElement('div');
+  ring.style.cssText = `position:fixed;left:${originX}px;top:${originY}px;
+    width:0;height:0;border-radius:50%;border:2px solid rgba(37,99,235,0.8);
+    transform:translate(-50%,-50%);pointer-events:none;z-index:9998;`;
+  document.body.appendChild(ring);
+  let rs = null;
+  const ringStep = (ts) => {
+    if (!rs) rs = ts;
+    const t = Math.min((ts - rs) / 500, 1);
+    const s = t * 80;
+    ring.style.width = `${s}px`; ring.style.height = `${s}px`;
+    ring.style.opacity = 1 - t;
+    t < 1 ? requestAnimationFrame(ringStep) : ring.remove();
+  };
+  requestAnimationFrame(ringStep);
+};

@@ -1,5 +1,3 @@
-import React from "react";
-import type { LucideIcon } from "lucide-react"; // ← type-only, zero bundle cost
 
 import {
   Star,
@@ -47,6 +45,7 @@ import {
   Award,
   BookOpen,
   Users,
+  Copy,
   MessageSquare,
   Send,
   Eye,
@@ -63,14 +62,7 @@ import {
   AlertCircle, // ← fallback icon
 } from "lucide-react";
 
-interface AppIconProps {
-  name: string;
-  size?: number;
-  color?: string;
-  className?: string;
-}
-
-const ICONS: Record<string, LucideIcon> = {
+const ICONS = {
   Star,
   Code,
   Code2,
@@ -86,6 +78,7 @@ const ICONS: Record<string, LucideIcon> = {
   ChevronUp,
   ChevronDown,
   Check,
+  Copy,
   Quote,
   X,
   Menu,
@@ -132,7 +125,7 @@ const ICONS: Record<string, LucideIcon> = {
   AlertCircle,
 };
 
-const AppIcon: React.FC<AppIconProps> = ({
+const AppIcon = ({
   name,
   size = 24,
   color = "currentColor",

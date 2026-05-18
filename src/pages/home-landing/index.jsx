@@ -13,7 +13,7 @@ const ROUTES_WITHOUT_CURTAIN = [
   "/projects",
   "/about-professional",
   "/contact-connect",
-  "/technical-blog",
+  "/my-articles",
 ];
 
 /* ════════════════════════════════════════════════════════════ */

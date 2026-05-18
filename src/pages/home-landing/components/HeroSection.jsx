@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Button from "../../../components/ui/Button";
 import Image from "../../../components/AppImage";
 import Icon from "../../../components/AppIcon";
-import { ChevronDown } from "lucide-react";
+import { Check, ChevronDown, Copy } from "lucide-react";
 import "../../../styles/hero-section-styles.css";
 import {
   NextJsIcon,
@@ -13,14 +13,24 @@ import {
 } from "../../../components/BrandIcons";
 import { useOnScreen } from "../../../hooks/useOnScreen";
 import usePerformanceGuard from "../../../hooks/usePerformanceGuard";
-
+import { explode } from "../../../utils/animation.utils";
 
 const HeroSection = () => {
   const heroRef = useRef(null);
   const heroVisible = useOnScreen(heroRef);
   const isVisible = heroVisible;
   const { animationsActive } = usePerformanceGuard();
+  const [copied, setCopied] = useState(false);
+  const timerRef = useRef(null);
 
+  const handleCopy = (e) => {
+  const rect = e.currentTarget.getBoundingClientRect();
+  explode(rect.left + rect.width / 2, rect.top + rect.height / 2);
+  navigator.clipboard?.writeText('daganajason72@gmail.com').catch(() => {});
+  setCopied(true);
+  clearTimeout(timerRef.current);
+  timerRef.current = setTimeout(() => setCopied(false), 2500);
+};
   // Only spin/pulse when both visible on screen AND performance is acceptable
   const shouldAnimate = isVisible && animationsActive;
 
@@ -46,15 +56,15 @@ const HeroSection = () => {
 
       <div className="relative z-0 4xl:max-w-9xl 3xl:max-w-8xl max-w-7xl w-full mx-auto px-4 sm:px-12 pb-10 pt-20 sm:py-28 lg:py-20">
         <div className="grid lg:grid-cols-[60%_40%] mt-6 sm:mt-12 gap-12 items-center">
-
           {/* Content */}
           <div className="space-y-8 sm:pt-0 text-center lg:text-left">
             <div className="space-y-6">
-
               {/* Badge */}
               <div
                 className={`hidden sm:inline-flex items-center px-2 sm:px-6 py-1 bg-gradient-to-r from-primary/20 mt-9 to-blue-500/20 text-primary rounded-full text-[9px] sm:text-sm font-medium border border-primary/20 backdrop-blur-sm shadow-lg transition-[transform,opacity] duration-700 hover:scale-105 hover:shadow-primary/20 hover:shadow-xl transform-gpu ${
-                  isVisible ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
+                  isVisible
+                    ? "translate-y-0 opacity-100"
+                    : "translate-y-4 opacity-0"
                 }`}
               >
                 <Icon
@@ -71,14 +81,18 @@ const HeroSection = () => {
               <div className="lg:min-h-[180px]">
                 <h1
                   className={`text-[7.3vw] sm:text-5xl lg:text-5xl lg:text-[48px] 3xl:text-[4vw] lg:leading-tight font-normal text-foreground tracking-widest leading-tight transition-[transform,opacity] duration-700 transform-gpu ${
-                    isVisible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
+                    isVisible
+                      ? "translate-y-0 opacity-100"
+                      : "translate-y-8 opacity-0"
                   }`}
                 >
                   <span className="font-black">Hi, I'm Jason.</span>
                   <br />
                   <span
                     className={`block bg-gradient-to-r font-bold from-primary via-blue-500 to-purple-600 bg-clip-text text-transparent transform-gpu ${
-                      shouldAnimate ? "animate-gradient-x will-change-transform" : ""
+                      shouldAnimate
+                        ? "animate-gradient-x will-change-transform"
+                        : ""
                     }`}
                   >
                     I Turn Ideas Into
@@ -90,7 +104,9 @@ const HeroSection = () => {
               {/* Paragraph */}
               <p
                 className={`text-lg md:text-xl text-muted-foreground !mt-0 max-w-xl mx-auto lg:ml-0 pt-2 leading-relaxed transition-[transform,opacity] duration-1000 delay-300 transform-gpu ${
-                  isVisible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
+                  isVisible
+                    ? "translate-y-0 opacity-100"
+                    : "translate-y-8 opacity-0"
                 }`}
               >
                 React & Next.js developer who obsesses over clean code, fast
@@ -101,7 +117,9 @@ const HeroSection = () => {
             {/* Mobile image */}
             <div
               className={`flex justify-center lg:hidden lg:justify-end lg:mr-[20%] transition-[transform,opacity] duration-1000 delay-300 transform-gpu ${
-                isVisible ? "translate-x-0 opacity-100" : "translate-x-8 opacity-0"
+                isVisible
+                  ? "translate-x-0 opacity-100"
+                  : "translate-x-8 opacity-0"
               }`}
             >
               <div className="relative group cursor-pointer">
@@ -122,41 +140,64 @@ const HeroSection = () => {
             {/* CTA Buttons */}
             <div
               className={`flex flex-col sm:flex-row gap-5 justify-center lg:justify-start transition-[transform,opacity] duration-1000 delay-500 transform-gpu ${
-                isVisible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
+                isVisible
+                  ? "translate-y-0 opacity-100"
+                  : "translate-y-8 opacity-0"
               }`}
             >
               <Button
                 variant="default"
                 size="lg"
-                iconName="Briefcase"
+                iconName="Terminal"
                 iconPosition="left"
                 asChild
               >
                 <Link to="/projects">
-                  <span className="relative z-10">Explore My Projects</span>
+                  <span className="relative z-10 font-semibold">Explore My Projects</span>
                 </Link>
               </Button>
               <Button
                 variant="outline"
                 size="lg"
-                iconName="Download"
+                iconName={copied ? "Check" : "Copy"}
                 iconPosition="left"
-                className="border-2"
+                onClick={handleCopy}
+                style={{ minWidth: '200px' }}
+                className={`flex items-center gap-2 px-6 py-3 rounded-lg border transition-all duration-200
+    ${
+      copied
+        ? "!border-green-500 text-green-500"
+        : "!border-white/80 text-white hover:bg-white/5"
+    }`}
               >
-                Get My Resume
+                {copied ? "Copied!" : "Copy My Email"}
               </Button>
             </div>
 
             {/* Stats */}
             <div
               className={`flex gap-8 justify-center lg:justify-start pt-3 sm:pt-8 transition-[transform,opacity] duration-1000 delay-700 transform-gpu ${
-                isVisible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
+                isVisible
+                  ? "translate-y-0 opacity-100"
+                  : "translate-y-8 opacity-0"
               }`}
             >
               {[
-                { number: "5+",    label: "Projects Completed",       color: "text-white" },
-                { number: "7+",    label: "Modern Tools & Frameworks", color: "text-white" },
-                { number: "1000+", label: "GitHub Contributions",      color: "text-white" },
+                {
+                  number: "5+",
+                  label: "Projects Completed",
+                  color: "text-white",
+                },
+                {
+                  number: "7+",
+                  label: "Modern Tools & Frameworks",
+                  color: "text-white",
+                },
+                {
+                  number: "1000+",
+                  label: "GitHub Contributions",
+                  color: "text-white",
+                },
               ].map((stat) => (
                 <div
                   key={stat.label}
@@ -182,7 +223,9 @@ const HeroSection = () => {
           {/* Desktop image */}
           <div
             className={`lg:flex hidden justify-center lg:justify-end lg:mr-[20%] transition-[transform,opacity] duration-1000 delay-300 transform-gpu ${
-              isVisible ? "translate-x-0 opacity-100" : "translate-x-8 opacity-0"
+              isVisible
+                ? "translate-x-0 opacity-100"
+                : "translate-x-8 opacity-0"
             }`}
           >
             <div className="relative group cursor-pointer">
@@ -201,7 +244,9 @@ const HeroSection = () => {
               <div className="absolute !rounded-full inset-0 w-[110%] flex items-center justify-center pointer-events-none">
                 <div
                   className={`absolute !rounded-full inset-0 transform-gpu ${
-                    shouldAnimate ? "animate-spin-slow-1 will-change-transform" : ""
+                    shouldAnimate
+                      ? "animate-spin-slow-1 will-change-transform"
+                      : ""
                   }`}
                 >
                   <div
@@ -222,7 +267,9 @@ const HeroSection = () => {
 
                 <div
                   className={`absolute inset-0 !rounded-full transform-gpu ${
-                    shouldAnimate ? "animate-spin-reverse will-change-transform" : ""
+                    shouldAnimate
+                      ? "animate-spin-reverse will-change-transform"
+                      : ""
                   }`}
                 >
                   <div

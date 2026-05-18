@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import Icon from '../../../components/AppIcon';
 import Image from '../../../components/AppImage';
@@ -21,7 +20,7 @@ const BlogCard = ({ article, featured = false, className = '' }) => {
     e?.preventDefault();
     e?.stopPropagation();
     
-    const url = `${window.location?.origin}/technical-blog/${article?.slug}`;
+    const url = `${window.location?.origin}/my-articles/${article?.slug}`;
     const text = `Check out this article: ${article?.title}`;
     
     let shareUrl = '';
@@ -48,7 +47,7 @@ const BlogCard = ({ article, featured = false, className = '' }) => {
 
   return (
     <article className={`${cardClasses} ${className}`}>
-      <Link to={`/technical-blog/${article?.slug}`} className="block">
+      <Link to={`/my-articles/${article?.slug}`} className="block">
         {/* Article Image */}
         <div className={`relative overflow-hidden ${featured ? 'h-64' : 'h-48'}`}>
           <Image

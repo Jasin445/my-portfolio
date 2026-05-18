@@ -7,6 +7,7 @@ const navigationItems = [
   { label: "Home", path: "/", icon: "Home" },
   { label: "Projects", path: "/projects", icon: "Briefcase" },
   { label: "About", path: "/about-professional", icon: "User" },
+  // { label: "Articles", path: "/my-articles", icon: "User" },
   { label: "Contact", path: "/contact-connect", icon: "Mail" },
 ];
 
