@@ -108,10 +108,10 @@ const getArticlesFromHashnode = async () => {
       query: GET_ARTICLES,
       variables: { host: import.meta.env.VITE_MY_HASHNODE_URL },
     },
-    {
-      "Content-Type": "application/json",
-      Authorization: import.meta.env.VITE_HASHNODE_API_KEY,
-    },
+    // {
+    //   "Content-Type": "application/json",
+    //   Authorization: import.meta.env.VITE_HASHNODE_API_KEY,
+    // },
   );
   return response;
 };
