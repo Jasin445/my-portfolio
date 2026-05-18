@@ -1,8 +1,10 @@
 {
-  "buildCommand": "npm run build",
+   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "routes": [
     { "src": "/api/(.*)", "dest": "/api/$1" },
+    { "src": "/assets/(.*)", "dest": "/assets/$1" },
+    { "src": "/public/(.*)", "dest": "/public/$1" },
     { "src": "/(.*\\.(js|css|png|jpg|jpeg|svg|ico|woff|woff2|ttf|json))", "dest": "/$1" },
     { "src": "/(.*)", "dest": "/index.html" }
   ]
