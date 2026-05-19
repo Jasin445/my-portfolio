@@ -7,11 +7,21 @@ body {
   --color-primary-foreground: black;
   --color-primary-background: black;
   --color-secondary: black;
+    background-color: #131426;
   --color-secondary-background: black;
   --color-destructive-foreground: black;
   --color-muted: rgb(47, 47, 87);
   --color-card: rgba(32, 40, 41, 0.95);
   --color-muted-foreground: white;
+}
+
+html,
+body,
+#root {
+  background-color: #131426 !important;
+  min-height: 100%;
+    overscroll-behavior: none;
+
 }
 
 * {

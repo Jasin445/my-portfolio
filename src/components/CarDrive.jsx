@@ -14,18 +14,18 @@ const ToolTip = ({ className, message = defaultText }) => (
 
 const CarTransition = ({ className, message, active = true }) => {
   const [showCar, setShowCar] = useState(false);
-  const carDownRef        = useRef(null);
-  const carUpRef          = useRef(null);
-  const tooltipRef        = useRef(null);
+  const carDownRef = useRef(null);
+  const carUpRef = useRef(null);
+  const tooltipRef = useRef(null);
   const tooltipReverseRef = useRef(null);
-  const rafRef            = useRef(null);
-  const stopTimer         = useRef(null);
-  const isMoving          = useRef(false);
+  const rafRef = useRef(null);
+  const stopTimer = useRef(null);
+  const isMoving = useRef(false);
 
   // All scroll state in one ref — written synchronously, read in rAF
   const stateRef = useRef({
-    scrollY:       0,
-    lastScrollY:   -1,   // -1 = uninitialized
+    scrollY: 0,
+    lastScrollY: -1, // -1 = uninitialized
     scrollingDown: true,
   });
 
@@ -40,12 +40,14 @@ const CarTransition = ({ className, message, active = true }) => {
     if (!active || !showCar) return;
 
     const promote = () => {
-      if (carDownRef.current) carDownRef.current.style.willChange = "transform, opacity";
-      if (carUpRef.current)   carUpRef.current.style.willChange   = "transform, opacity";
+      if (carDownRef.current)
+        carDownRef.current.style.willChange = "transform, opacity";
+      if (carUpRef.current)
+        carUpRef.current.style.willChange = "transform, opacity";
     };
     const demote = () => {
       if (carDownRef.current) carDownRef.current.style.willChange = "auto";
-      if (carUpRef.current)   carUpRef.current.style.willChange   = "auto";
+      if (carUpRef.current) carUpRef.current.style.willChange = "auto";
     };
 
     const paint = () => {
@@ -53,24 +55,23 @@ const CarTransition = ({ className, message, active = true }) => {
       const { scrollY, scrollingDown } = stateRef.current;
 
       const down = carDownRef.current;
-      const up   = carUpRef.current;
+      const up = carUpRef.current;
       if (!down || !up) return;
 
-      const trackWidth  = document.documentElement.clientWidth;
-      const carWidth    = 40;
-      const position    = (scrollY * 0.08) % 100;
+      const trackWidth = document.documentElement.clientWidth;
+      const carWidth = 40;
+      const position = (scrollY * 0.08) % 100;
       const edgeOpacity =
-        position < 3  ? position / 3 :
-        position > 97 ? (100 - position) / 3 : 1;
+        position < 3 ? position / 3 : position > 97 ? (100 - position) / 3 : 1;
 
-      const px          = (position / 100) * (trackWidth - carWidth);
+      const px = (position / 100) * (trackWidth - carWidth);
       const showTooltip = position > 20 && position < 75;
 
       down.style.transform = `translateX(${px}px)`;
-      down.style.opacity   = scrollingDown ? String(edgeOpacity) : "0";
+      down.style.opacity = scrollingDown ? String(edgeOpacity) : "0";
 
-      up.style.transform   = `translateX(${px}px) scaleX(-1)`;
-      up.style.opacity     = scrollingDown ? "0" : String(edgeOpacity);
+      up.style.transform = `translateX(${px}px) scaleX(-1)`;
+      up.style.opacity = scrollingDown ? "0" : String(edgeOpacity);
 
       if (tooltipRef.current) {
         tooltipRef.current.style.visibility =
@@ -84,14 +85,14 @@ const CarTransition = ({ className, message, active = true }) => {
 
     const handleScroll = () => {
       const currentY = window.scrollY;
-      const s        = stateRef.current;
+      const s = stateRef.current;
 
       // Direction committed synchronously — never lost to rAF skipping
       if (s.lastScrollY !== -1 && currentY !== s.lastScrollY) {
         s.scrollingDown = currentY > s.lastScrollY;
       }
       s.lastScrollY = currentY;
-      s.scrollY     = currentY;
+      s.scrollY = currentY;
 
       if (!isMoving.current) {
         isMoving.current = true;
@@ -102,7 +103,7 @@ const CarTransition = ({ className, message, active = true }) => {
       stopTimer.current = setTimeout(() => {
         isMoving.current = false;
         if (carDownRef.current) carDownRef.current.style.opacity = "0";
-        if (carUpRef.current)   carUpRef.current.style.opacity   = "0";
+        if (carUpRef.current) carUpRef.current.style.opacity = "0";
         demote();
       }, 5000);
 
@@ -130,20 +131,20 @@ const CarTransition = ({ className, message, active = true }) => {
       <div
         style={{
           position: "relative",
-          width:    "100%",
-          height:   "40px",
-          contain:  "layout style",
+          width: "100%",
+          height: "40px",
+          contain: "layout style",
         }}
       >
         {/* scrolling down → faces right */}
         <div
           ref={carDownRef}
           style={{
-            position:   "absolute",
-            top:        "-29px",
-            left:       0,
-            width:      "40px",
-            opacity:    0,
+            position: "absolute",
+            top: "-29px",
+            left: 0,
+            width: "40px",
+            opacity: 0,
             transition: "opacity 0.15s ease",
             // transitionDuration: 100000
           }}
@@ -158,11 +159,11 @@ const CarTransition = ({ className, message, active = true }) => {
         <div
           ref={carUpRef}
           style={{
-            position:   "absolute",
-            top:        "-29px",
-            left:       0,
-            width:      "40px",
-            opacity:    0,
+            position: "absolute",
+            top: "-29px",
+            left: 0,
+            width: "40px",
+            opacity: 0,
             transition: "opacity 0.15s ease",
             // transitionDuration: 100000
           }}

@@ -1,122 +1,83 @@
 /* ─── gradient-x ─────────────────────────────────────────────────────────────
-   FIX: animating background-position + background-size cannot be GPU
-   composited — it repaints every frame. The standard fix is to animate
-   transform: translateX on a wider pseudo-element instead, but since this
-   is used on a bg-clip-text gradient span we can't use a pseudo-element.
-   
-   Compromise: keep background-position animation but remove background-size
-   from the keyframes (it was the same value at every stop anyway, so it was
-   wasted work). Slowed to 6s to halve repaint frequency with no visible
-   difference at this animation speed. */
+   Animating background-position cannot be GPU composited — repaints every
+   frame. Mitigation: background-size moved out of keyframes (was identical
+   at every stop = wasted work). Slowed to 6s to halve repaint frequency. */
 @keyframes gradient-x {
   0%, 100% { background-position: left center; }
   50%       { background-position: right center; }
 }
 .animate-gradient-x {
-  background-size: 200% 200%; /* static — moved out of keyframes */
+  background-size: 200% 200%; /* static — not in keyframes */
   animation: gradient-x 6s ease infinite;
 }
 
 /* ─── float variants ─────────────────────────────────────────────────────────
-   transform-only — already GPU composited. No change to visuals.
-   Added will-change on the classes that are always running. */
+   transform-only → GPU composited. */
 @keyframes float {
-  0%, 100% { transform: translateY(0)    translateX(0); }
+  0%, 100% { transform: translateY(0) translateX(0); }
   50%       { transform: translateY(-10px) translateX(10px); }
 }
 @keyframes float-delayed {
-  0%, 100% { transform: translateY(0px); }
+  0%, 100% { transform: translateY(0); }
   50%       { transform: translateY(-15px); }
 }
 @keyframes float-slow {
-  0%, 100% { transform: translateY(0px); }
+  0%, 100% { transform: translateY(0); }
   50%       { transform: translateY(-8px); }
 }
 
-.animate-float {
-  animation: float 8s ease-in-out infinite;
-  will-change: transform;
-}
-.animate-float-delayed {
-  animation: float-delayed 3s ease-in-out 1s infinite;
-  will-change: transform;
-}
-.animate-float-slow {
-  animation: float-slow 4s ease-in-out infinite;
-  will-change: transform;
-}
+.animate-float        { animation: float 8s ease-in-out infinite; will-change: transform; }
+.animate-float-delayed { animation: float-delayed 3s ease-in-out 1s infinite; will-change: transform; }
+.animate-float-slow   { animation: float-slow 4s ease-in-out infinite; will-change: transform; }
 
 /* ─── fadeUp ─────────────────────────────────────────────────────────────────
-   Runs once (forwards) — no ongoing GPU cost after it completes.
-   will-change removed after animation ends via the forwards fill. */
+   Runs once (forwards) — no ongoing GPU cost after completion. */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(10px); }
   to   { opacity: 1; transform: translateY(0); }
 }
-.animate-fadeUp {
-  animation: fadeUp 0.6s ease forwards;
-}
+.animate-fadeUp { animation: fadeUp 0.6s ease forwards; }
 
 /* ─── pulse-slow variants ────────────────────────────────────────────────────
-   opacity-only — GPU composited, already optimal.
-   FIX: all 4 variants shared the exact same keyframe and duration, just
-   with different delays. Collapsed to one animation declaration.
-   Same visual result, less CSS to parse. */
+   opacity-only → GPU composited. All variants share one keyframe,
+   differentiated by animation-delay only. */
 @keyframes pulse-slow {
   0%, 100% { opacity: 0.8; }
   50%       { opacity: 0.4; }
 }
 .animate-pulse-slow   { animation: pulse-slow 4s ease-in-out infinite; }
 .animate-pulse-slow-1 { animation: pulse-slow 4s ease-in-out infinite; }
-.animate-pulse-slow-2 { animation: pulse-slow 4s ease-in-out infinite 1s; }
-.animate-pulse-slow-3 { animation: pulse-slow 4s ease-in-out infinite 2s; }
-.animate-pulse-slow-4 { animation: pulse-slow 4s ease-in-out infinite 3s; }
+.animate-pulse-slow-2 { animation: pulse-slow 4s ease-in-out 1s infinite; }
+.animate-pulse-slow-3 { animation: pulse-slow 4s ease-in-out 2s infinite; }
+.animate-pulse-slow-4 { animation: pulse-slow 4s ease-in-out 3s infinite; }
 
 /* ─── spin variants ──────────────────────────────────────────────────────────
-   transform-only — GPU composited.
-   FIX: spin-slow and spin-reverse were using separate keyframes for
-   conceptually the same thing. Collapsed spin-reverse to use spin-slow
-   with animation-direction: reverse — one fewer @keyframes block. */
+   transform-only → GPU composited.
+   spin-reverse reuses spin-slow keyframe via animation-direction: reverse. */
 @keyframes spin-slow {
   from { transform: rotate(0deg); }
   to   { transform: rotate(360deg); }
 }
-
-.animate-spin-slow {
-  animation: spin-slow 40s linear infinite;
-  will-change: transform;
-}
-.animate-spin-slow-1 {
-  animation: spin-slow 30s ease-in-out infinite;
-  will-change: transform;
-}
-.animate-spin-reverse {
-  animation: spin-slow 40s linear infinite reverse; /* reuses keyframe */
-  will-change: transform;
-}
+.animate-spin-slow    { animation: spin-slow 40s linear infinite; will-change: transform; }
+.animate-spin-slow-1  { animation: spin-slow 30s ease-in-out infinite; will-change: transform; }
+.animate-spin-reverse { animation: spin-slow 40s linear infinite reverse; will-change: transform; }
 
 /* ─── logo pulse ─────────────────────────────────────────────────────────────
-   FIX: animating both opacity AND transform. Perfectly fine — both are
-   composited. Slowed slightly to reduce compositor work on Intel. */
+   opacity + transform → both composited. */
 @keyframes logo-pulse {
   0%, 100% { opacity: 0.25; transform: scale(1); }
   50%       { opacity: 0.4;  transform: scale(1.05); }
 }
-.animate-logo-pulse {
-  animation: logo-pulse 4s ease-in-out infinite;
-}
+.animate-logo-pulse { animation: logo-pulse 4s ease-in-out infinite; }
 
 /* ─── glow ring ──────────────────────────────────────────────────────────────
-   FIX: box-shadow animation cannot be GPU composited — causes repaint.
-   Replaced with opacity animation on a pseudo-element that has a static
-   box-shadow. Same visual, zero repaints during animation. */
+   box-shadow animation cannot be GPU composited → causes repaint every frame.
+   Fix: static box-shadow on a pseudo-element; animate opacity only. */
 @keyframes glow-ring-opacity {
   0%, 100% { opacity: 0.4; }
   50%       { opacity: 0.7; }
 }
-.animate-glow-ring {
-  position: relative;
-}
+.animate-glow-ring { position: relative; }
 .animate-glow-ring::after {
   content: "";
   position: absolute;
@@ -128,20 +89,43 @@
 }
 
 /* ─── static glow helpers ────────────────────────────────────────────────────
-   Not animated — applied on hover via JS or className toggle.
-   No change needed. */
-.hover-glow {
-  filter: drop-shadow(0 0 12px rgba(59, 130, 246, 0.8));
-}
-.hover-glow-1 {
-  text-shadow:
-    0 0 8px  rgba(59, 130, 246, 0.6),
-    0 0 12px rgba(147, 51, 234, 0.6);
+   Applied on hover via className toggle — not animated. */
+.hover-glow   { filter: drop-shadow(0 0 12px rgba(59, 130, 246, 0.8)); }
+.hover-glow-1 { text-shadow: 0 0 8px rgba(59, 130, 246, 0.6), 0 0 12px rgba(147, 51, 234, 0.6); }
+
+/* ─── Hero entrance (mount-driven, never scroll-triggered) ───────────────────
+   .hero-child elements start invisible; .hero-loaded (added once on mount)
+   reveals them via CSS transitions — zero React re-renders on scroll. */
+
+.hero-section .hero-child {
+  opacity: 0;
+  transform: translateY(1.5rem);
+  transition: opacity 0.7s ease, transform 0.7s ease;
 }
 
+/* Images slide in from the right instead of up */
+.hero-section .hero-child--img-mobile,
+.hero-section .hero-child--img-desktop {
+  transform: translateX(2rem);
+}
+
+/* Scroll indicator is already centered via Tailwind -translate-x-1/2;
+   reset to that rather than transform: none (which would break centering) */
+.hero-section .hero-child--scroll {
+  transform: translateX(-50%) translateY(1.5rem);
+}
+
+.hero-section.hero-loaded .hero-child--badge         { opacity: 1; transform: none; transition-delay: 0ms; }
+.hero-section.hero-loaded .hero-child--heading       { opacity: 1; transform: none; transition-delay: 100ms; }
+.hero-section.hero-loaded .hero-child--para          { opacity: 1; transform: none; transition-delay: 300ms; }
+.hero-section.hero-loaded .hero-child--img-mobile,
+.hero-section.hero-loaded .hero-child--img-desktop   { opacity: 1; transform: none; transition-delay: 300ms; }
+.hero-section.hero-loaded .hero-child--cta           { opacity: 1; transform: none; transition-delay: 500ms; }
+.hero-section.hero-loaded .hero-child--stats         { opacity: 1; transform: none; transition-delay: 700ms; }
+.hero-section.hero-loaded .hero-child--scroll        { opacity: 1; transform: translateX(-50%); transition-delay: 1000ms; }
+
 /* ─── Reduced motion ─────────────────────────────────────────────────────────
-   Kill all continuous animations for users who prefer reduced motion,
-   including yourself when testing on battery. */
+   Disables all continuous animations and entrance transitions. */
 @media (prefers-reduced-motion: reduce) {
   .animate-gradient-x,
   .animate-float,
@@ -160,31 +144,18 @@
     animation: none !important;
     will-change: auto !important;
   }
-}
 
-@keyframes logo-pulse {
-  0%,
-  100% {
-    opacity: 0.25;
-    transform: scale(1);
+  /* Immediately reveal all hero children — no entrance delay */
+  .hero-section .hero-child,
+  .hero-section .hero-child--img-mobile,
+  .hero-section .hero-child--img-desktop,
+  .hero-section .hero-child--scroll {
+    opacity: 1;
+    transform: none !important;
+    transition: none !important;
   }
-  50% {
-    opacity: 0.4;
-    transform: scale(1.05);
+
+  .hero-section .hero-child--scroll {
+    transform: translateX(-50%) !important;
   }
-}
-.animate-logo-pulse {
-  animation: logo-pulse 4s ease-in-out infinite;
-}
-@keyframes glow-ring {
-  0%,
-  100% {
-    box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
-  }
-  50% {
-    box-shadow: 0 0 24px rgba(59, 130, 246, 0.7);
-  }
-}
-.animate-glow-ring {
-  animation: glow-ring 30s infinite;
 }

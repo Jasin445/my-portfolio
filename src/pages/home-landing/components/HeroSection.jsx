@@ -1,9 +1,9 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import Button from "../../../components/ui/Button";
 import Image from "../../../components/AppImage";
 import Icon from "../../../components/AppIcon";
-import { Check, ChevronDown, Copy } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import "../../../styles/hero-section-styles.css";
 import {
   NextJsIcon,
@@ -11,47 +11,61 @@ import {
   TailwindIcon,
   TypeScriptIcon,
 } from "../../../components/BrandIcons";
-import { useOnScreen } from "../../../hooks/useOnScreen";
 import usePerformanceGuard from "../../../hooks/usePerformanceGuard";
 import { explode } from "../../../utils/animation.utils";
 
 const HeroSection = () => {
   const heroRef = useRef(null);
-  const heroVisible = useOnScreen(heroRef);
-  const isVisible = heroVisible;
   const { animationsActive } = usePerformanceGuard();
   const [copied, setCopied] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const timerRef = useRef(null);
 
+  // Animate on mount only — never re-trigger on scroll
+  useEffect(() => {
+    const raf = requestAnimationFrame(() => setMounted(true));
+    return () => cancelAnimationFrame(raf);
+  }, []);
+
   const handleCopy = (e) => {
-  const rect = e.currentTarget.getBoundingClientRect();
-  explode(rect.left + rect.width / 2, rect.top + rect.height / 2);
-  navigator.clipboard?.writeText('daganajason72@gmail.com').catch(() => {});
-  setCopied(true);
-  clearTimeout(timerRef.current);
-  timerRef.current = setTimeout(() => setCopied(false), 2500);
-};
-  // Only spin/pulse when both visible on screen AND performance is acceptable
-  const shouldAnimate = isVisible && animationsActive;
+    const rect = e.currentTarget.getBoundingClientRect();
+    explode(rect.left + rect.width / 2, rect.top + rect.height / 2);
+    navigator.clipboard?.writeText("daganajason72@gmail.com").catch(() => {});
+    setCopied(true);
+    clearTimeout(timerRef.current);
+    timerRef.current = setTimeout(() => setCopied(false), 2500);
+  };
+
+  const shouldAnimate = mounted && animationsActive;
 
   return (
     <section
       ref={heroRef}
-      className="relative flex min-h-screen items-center justify-center bg-gradient-to-br from-background via-card to-muted/20"
+      className={`hero-section relative flex min-h-screen items-center justify-center bg-gradient-to-br from-background via-card to-muted/20${mounted ? " hero-loaded" : ""}`}
     >
-      {/* Background orbs — paused when off-screen or low-perf */}
-      <div className="absolute inset-0 opacity-10">
-        <div
-          className={`absolute top-20 left-20 w-72 h-72 bg-gradient-to-r from-primary to-blue-500 rounded-full blur-lg isolate transform-gpu ${
-            shouldAnimate ? "animate-pulse-slow" : ""
-          }`}
-        />
-        <div
-          className={`absolute bottom-20 right-20 w-96 h-96 bg-gradient-to-r from-accent to-purple-500 rounded-full blur-lg transform-gpu ${
-            shouldAnimate ? "animate-pulse-slow" : ""
-          }`}
-          style={{ animationDelay: shouldAnimate ? "1s" : undefined }}
-        />
+      {/*
+        Background orbs — replaced blur-lg with SVG radial gradients.
+        SVG filters are GPU-composited once and never repaint on scroll.
+      */}
+      <div className="absolute inset-0 opacity-10 pointer-events-none" aria-hidden="true">
+        <svg
+          className="absolute inset-0 w-full h-full"
+          xmlns="http://www.w3.org/2000/svg"
+          preserveAspectRatio="xMidYMid slice"
+        >
+          <defs>
+            <radialGradient id="orb1" cx="15%" cy="15%" r="35%">
+              <stop offset="0%" stopColor="var(--color-primary, #6366f1)" />
+              <stop offset="100%" stopColor="#3b82f6" stopOpacity="0" />
+            </radialGradient>
+            <radialGradient id="orb2" cx="85%" cy="85%" r="40%">
+              <stop offset="0%" stopColor="var(--color-accent, #a855f7)" />
+              <stop offset="100%" stopColor="#7c3aed" stopOpacity="0" />
+            </radialGradient>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#orb1)" />
+          <rect width="100%" height="100%" fill="url(#orb2)" />
+        </svg>
       </div>
 
       <div className="relative z-0 4xl:max-w-9xl 3xl:max-w-8xl max-w-7xl w-full mx-auto px-4 sm:px-12 pb-10 pt-20 sm:py-28 lg:py-20">
@@ -59,14 +73,8 @@ const HeroSection = () => {
           {/* Content */}
           <div className="space-y-8 sm:pt-0 text-center lg:text-left">
             <div className="space-y-6">
-              {/* Badge */}
-              <div
-                className={`hidden sm:inline-flex items-center px-2 sm:px-6 py-1 bg-gradient-to-r from-primary/20 mt-9 to-blue-500/20 text-primary rounded-full text-[9px] sm:text-sm font-medium border border-primary/20 backdrop-blur-sm shadow-lg transition-[transform,opacity] duration-700 hover:scale-105 hover:shadow-primary/20 hover:shadow-xl transform-gpu ${
-                  isVisible
-                    ? "translate-y-0 opacity-100"
-                    : "translate-y-4 opacity-0"
-                }`}
-              >
+              {/* Badge — CSS-driven entrance via .hero-loaded */}
+              <div className="hero-child hero-child--badge hidden sm:inline-flex items-center px-2 sm:px-6 py-1 bg-gradient-to-r from-primary/20 mt-9 to-blue-500/20 text-primary rounded-full text-[9px] sm:text-sm font-medium border border-primary/20 backdrop-blur-sm shadow-lg hover:scale-105 hover:shadow-primary/20 hover:shadow-xl transition-[transform,box-shadow] duration-300">
                 <Icon
                   name="Code"
                   size={16}
@@ -79,20 +87,12 @@ const HeroSection = () => {
 
               {/* Heading */}
               <div className="lg:min-h-[180px]">
-                <h1
-                  className={`text-[7.3vw] sm:text-5xl lg:text-5xl lg:text-[48px] 3xl:text-[4vw] lg:leading-tight font-normal text-foreground tracking-widest leading-tight transition-[transform,opacity] duration-700 transform-gpu ${
-                    isVisible
-                      ? "translate-y-0 opacity-100"
-                      : "translate-y-8 opacity-0"
-                  }`}
-                >
+                <h1 className="hero-child hero-child--heading text-[7.3vw] sm:text-5xl lg:text-5xl lg:text-[48px] 3xl:text-[4vw] lg:leading-tight font-normal text-foreground tracking-widest leading-tight">
                   <span className="font-black">Hi, I'm Jason.</span>
                   <br />
                   <span
-                    className={`block bg-gradient-to-r font-bold from-primary via-blue-500 to-purple-600 bg-clip-text text-transparent transform-gpu ${
-                      shouldAnimate
-                        ? "animate-gradient-x will-change-transform"
-                        : ""
+                    className={`block bg-gradient-to-r font-bold from-primary via-blue-500 to-purple-600 bg-clip-text text-transparent ${
+                      shouldAnimate ? "animate-gradient-x will-change-transform" : ""
                     }`}
                   >
                     I Turn Ideas Into
@@ -102,29 +102,17 @@ const HeroSection = () => {
               </div>
 
               {/* Paragraph */}
-              <p
-                className={`text-lg md:text-xl text-muted-foreground !mt-0 max-w-xl mx-auto lg:ml-0 pt-2 leading-relaxed transition-[transform,opacity] duration-1000 delay-300 transform-gpu ${
-                  isVisible
-                    ? "translate-y-0 opacity-100"
-                    : "translate-y-8 opacity-0"
-                }`}
-              >
+              <p className="hero-child hero-child--para text-lg md:text-xl text-muted-foreground !mt-0 max-w-xl mx-auto lg:ml-0 pt-2 leading-relaxed">
                 React & Next.js developer who obsesses over clean code, fast
                 load times, and interfaces users actually enjoy.
               </p>
             </div>
 
             {/* Mobile image */}
-            <div
-              className={`flex justify-center lg:hidden lg:justify-end lg:mr-[20%] transition-[transform,opacity] duration-1000 delay-300 transform-gpu ${
-                isVisible
-                  ? "translate-x-0 opacity-100"
-                  : "translate-x-8 opacity-0"
-              }`}
-            >
+            <div className="hero-child hero-child--img-mobile flex justify-center lg:hidden lg:justify-end lg:mr-[20%]">
               <div className="relative group cursor-pointer">
-                <div className="relative rounded-2xl lg:rounded-full h-auto w-full sm:w-[70vw] aspect-square sm:h-[50vw] sm:aspect-auto overflow-hidden lg:group-hover:border-2 group-hover:border-2 group-hover:border-primary/80 lg:border-4 border-primary shadow-2xl transition-[border,shadow] duration-500 hover:shadow-primary/20 transform-gpu">
-                  <div className="absolute w-full h-full z-10 group-hover:opacity-50 transition-opacity duration-300 transform-gpu" />
+                <div className="relative rounded-2xl lg:rounded-full h-auto w-full sm:w-[70vw] aspect-square sm:h-[50vw] sm:aspect-auto overflow-hidden lg:group-hover:border-2 group-hover:border-2 group-hover:border-primary/80 lg:border-4 border-primary shadow-2xl transition-[border,shadow] duration-500 hover:shadow-primary/20">
+                  <div className="absolute w-full h-full z-10 group-hover:opacity-50 transition-opacity duration-300" />
                   <Image
                     src="./assets/images/jason.webp"
                     alt="Jason Dagana - Frontend Developer"
@@ -138,13 +126,7 @@ const HeroSection = () => {
             </div>
 
             {/* CTA Buttons */}
-            <div
-              className={`flex flex-col sm:flex-row gap-5 justify-center lg:justify-start transition-[transform,opacity] duration-1000 delay-500 transform-gpu ${
-                isVisible
-                  ? "translate-y-0 opacity-100"
-                  : "translate-y-8 opacity-0"
-              }`}
-            >
+            <div className="hero-child hero-child--cta flex flex-col sm:flex-row gap-5 justify-center lg:justify-start">
               <Button
                 variant="default"
                 size="lg"
@@ -162,46 +144,27 @@ const HeroSection = () => {
                 iconName={copied ? "Check" : "Copy"}
                 iconPosition="left"
                 onClick={handleCopy}
-                style={{ minWidth: '200px' }}
-                className={`flex items-center gap-2 px-6 py-3 rounded-lg border transition-all duration-200
-    ${
-      copied
-        ? "!border-green-500 text-green-500"
-        : "!border-white/80 text-white hover:bg-white/5"
-    }`}
+                style={{ minWidth: "200px" }}
+                className={`flex items-center gap-2 px-6 py-3 rounded-lg border transition-all duration-200 ${
+                  copied
+                    ? "!border-green-500 text-green-500"
+                    : "!border-white/80 text-white hover:bg-white/5"
+                }`}
               >
                 {copied ? "Copied!" : "Copy My Email"}
               </Button>
             </div>
 
-            {/* Stats */}
-            <div
-              className={`flex gap-8 justify-center lg:justify-start pt-3 sm:pt-8 transition-[transform,opacity] duration-1000 delay-700 transform-gpu ${
-                isVisible
-                  ? "translate-y-0 opacity-100"
-                  : "translate-y-8 opacity-0"
-              }`}
-            >
+            {/* Stats — hover scale removed to prevent repaint chains */}
+            <div className="hero-child hero-child--stats flex gap-8 justify-center lg:justify-start pt-3 sm:pt-8">
               {[
-                {
-                  number: "5+",
-                  label: "Projects Completed",
-                  color: "text-white",
-                },
-                {
-                  number: "7+",
-                  label: "Modern Tools & Frameworks",
-                  color: "text-white",
-                },
-                {
-                  number: "1000+",
-                  label: "GitHub Contributions",
-                  color: "text-white",
-                },
+                { number: "5+", label: "Projects Completed", color: "text-white" },
+                { number: "7+", label: "Modern Tools & Frameworks", color: "text-white" },
+                { number: "1000+", label: "GitHub Contributions", color: "text-white" },
               ].map((stat) => (
                 <div
                   key={stat.label}
-                  className="text-center group cursor-pointer transform hover:scale-110 transition-transform duration-300"
+                  className="text-center group cursor-pointer"
                 >
                   <div
                     className={`text-xl sm:text-2xl md:text-3xl font-bold ${stat.color} ${
@@ -221,15 +184,9 @@ const HeroSection = () => {
           </div>
 
           {/* Desktop image */}
-          <div
-            className={`lg:flex hidden justify-center lg:justify-end lg:mr-[20%] transition-[transform,opacity] duration-1000 delay-300 transform-gpu ${
-              isVisible
-                ? "translate-x-0 opacity-100"
-                : "translate-x-8 opacity-0"
-            }`}
-          >
+          <div className="hero-child hero-child--img-desktop lg:flex hidden justify-center lg:justify-end lg:mr-[20%]">
             <div className="relative group cursor-pointer">
-              <div className="relative rounded-2xl lg:rounded-full w-[100%] aspect-square lg:aspect-auto overflow-hidden lg:group-hover:border-2 lg:border-[3px] border-primary shadow-2xl transition-[border,shadow] duration-500 hover:shadow-primary/20 transform-gpu">
+              <div className="relative rounded-2xl lg:rounded-full w-[100%] aspect-square lg:aspect-auto overflow-hidden lg:group-hover:border-2 lg:border-[3px] border-primary shadow-2xl transition-[border,shadow] duration-500 hover:shadow-primary/20">
                 <Image
                   src="./assets/images/jason.webp"
                   alt="Jason Dagana - Frontend Developer"
@@ -240,24 +197,22 @@ const HeroSection = () => {
                 />
               </div>
 
-              {/* Orbit — fully paused when low-perf or tab hidden */}
+              {/* Orbit */}
               <div className="absolute !rounded-full inset-0 w-[110%] flex items-center justify-center pointer-events-none">
                 <div
-                  className={`absolute !rounded-full inset-0 transform-gpu ${
-                    shouldAnimate
-                      ? "animate-spin-slow-1 will-change-transform"
-                      : ""
+                  className={`absolute !rounded-full inset-0 ${
+                    shouldAnimate ? "animate-spin-slow-1 will-change-transform" : ""
                   }`}
                 >
                   <div
-                    className={`absolute -right-5 w-8 sm:w-12 h-8 sm:h-12 bg-gradient-to-r from-primary to-blue-600 rounded-full flex items-center justify-center shadow-xl transform-gpu ${
+                    className={`absolute -right-5 w-8 sm:w-12 h-8 sm:h-12 bg-gradient-to-r from-primary to-blue-600 rounded-full flex items-center justify-center shadow-xl ${
                       shouldAnimate ? "animate-pulse-slow-1" : ""
                     }`}
                   >
                     <ReactIcon size={22} color="white" />
                   </div>
                   <div
-                    className={`absolute -left-5 w-8 sm:w-12 h-8 sm:h-12 bg-gradient-to-r from-gray-500 to-black rounded-full flex items-center justify-center shadow-xl transform-gpu ${
+                    className={`absolute -left-5 w-8 sm:w-12 h-8 sm:h-12 bg-gradient-to-r from-gray-500 to-black rounded-full flex items-center justify-center shadow-xl ${
                       shouldAnimate ? "animate-pulse-slow-2" : ""
                     }`}
                   >
@@ -266,21 +221,19 @@ const HeroSection = () => {
                 </div>
 
                 <div
-                  className={`absolute inset-0 !rounded-full transform-gpu ${
-                    shouldAnimate
-                      ? "animate-spin-reverse will-change-transform"
-                      : ""
+                  className={`absolute inset-0 !rounded-full ${
+                    shouldAnimate ? "animate-spin-reverse will-change-transform" : ""
                   }`}
                 >
                   <div
-                    className={`absolute -left-5 w-8 sm:w-12 h-8 sm:h-12 bg-gradient-to-r from-sky-400 to-sky-600 rounded-full flex items-center justify-center shadow-xl transform-gpu ${
+                    className={`absolute -left-5 w-8 sm:w-12 h-8 sm:h-12 bg-gradient-to-r from-sky-400 to-sky-600 rounded-full flex items-center justify-center shadow-xl ${
                       shouldAnimate ? "animate-pulse-slow-3" : ""
                     }`}
                   >
                     <TailwindIcon size={22} color="white" fill="white" />
                   </div>
                   <div
-                    className={`absolute -right-5 w-8 sm:w-12 h-8 sm:h-12 bg-gradient-to-r from-blue-500 to-blue-700 rounded-full flex items-center justify-center shadow-xl transform-gpu ${
+                    className={`absolute -right-5 w-8 sm:w-12 h-8 sm:h-12 bg-gradient-to-r from-blue-500 to-blue-700 rounded-full flex items-center justify-center shadow-xl ${
                       shouldAnimate ? "animate-pulse-slow-4" : ""
                     }`}
                   >
@@ -300,9 +253,7 @@ const HeroSection = () => {
             .getElementById("featuredProjects")
             ?.scrollIntoView({ behavior: "smooth" })
         }
-        className={`absolute z-20 bottom-8 hidden sm:block left-1/2 transform -translate-x-1/2 cursor-pointer group transition-[transform,opacity] duration-1000 delay-1000 ${
-          isVisible ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
-        }`}
+        className="hero-child hero-child--scroll absolute z-20 bottom-8 hidden sm:block left-1/2 -translate-x-1/2 cursor-pointer group"
       >
         <ChevronDown
           className={`z-50 text-white size-6 ${shouldAnimate ? "animate-bounce" : ""}`}
