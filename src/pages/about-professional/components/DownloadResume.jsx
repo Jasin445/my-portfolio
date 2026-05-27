@@ -8,11 +8,24 @@ const DownloadResume = () => {
   const sectionRef = useRef(null);
   const active = useOnScreen(sectionRef, 0);
 
-const handleDownload = () => {
-  const link = document.createElement("a");
-  link.href = "/Jason_Dagana_CV.pdf";
-  link.download = "Jason_Dagana_Resume.pdf";
-  link.click();
+  const handleDownload = async () => {
+  try {
+    const response = await fetch("/Jason_Dagana_CV.pdf");
+    if (!response.ok) throw new Error("File not found");
+    const blob = await response.blob();
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "Jason_Dagana_Resume.pdf";
+    document.body.appendChild(link); // attach to DOM
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url); // clean up
+  } catch (err) {
+    console.error("Download failed:", err);
+    // fallback: just open it
+    window.open("/Jason_Dagana_CV.pdf", "_blank");
+  }
 };
 
   return (
