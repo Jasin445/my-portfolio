@@ -8,16 +8,28 @@ const DownloadResume = () => {
   const sectionRef = useRef(null);
   const active = useOnScreen(sectionRef, 0);
 
-  const handleDownload = () => {
+  const handleDownload = async () => {
+  try {
+    const response = await fetch("/assets/Jason_Dagana_CV.pdf");
+    if (!response.ok) throw new Error("File not found");
+    const blob = await response.blob();
+    const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
-    link.href = "/assets/Jason_Dagana_CV.pdf";
+    link.href = url;
     link.download = "Jason_Dagana_Resume.pdf";
+    document.body.appendChild(link); // attach to DOM
     link.click();
-  };
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url); // clean up
+  } catch (err) {
+    console.error("Download failed:", err);
+    // fallback: just open it
+    window.open("/assets/Jason_Dagana_CV.pdf", "_blank");
+  }
+};
 
   return (
     <section ref={sectionRef} className="relative py-16 lg:py-24 bg-gradient-to-b from-[#2a363c] via-[#182330] to-muted/20 to-[#2a363c] border-blue-50/40 border-t-2">
-      {/* <div className='absolute -top-7 left-0 bg-gradient-to-b from-[#2a363c] via-[#182330] to-[#2a363c] backdrop-blur-sm to-slate-80/40 w-full h-[9%]'></div> */}
       <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center">
         <RevealSection active={active} direction="down">
           <h2 className="text-xl sm:text-2xl lg:text-4xl font-bold text-foreground mb-4">
@@ -52,7 +64,8 @@ const DownloadResume = () => {
                 onClick={handleDownload}
                 className="px-6"
               >
-                Download Resume
+                Download My CV
+                
               </Button>
             </div>
           </div>

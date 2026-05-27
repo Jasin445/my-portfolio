@@ -27,6 +27,7 @@ After graduating in 2022, I ventured into various fields, including teaching and
 With a blend of creativity, technical expertise, and a genuine enthusiasm for technology, I'm excited to continue this journey and contribute to innovative projects and dynamic teams.
 
 Today, I continue to push the boundaries of what's possible in frontend development, always staying curious and eager to learn new technologies while maintaining a strong foundation in proven methodologies.`,
+image: "/assets/images/Jason_main2.webp",
     },
     philosophy: {
       title: "Development Philosophy",
@@ -37,6 +38,7 @@ Today, I continue to push the boundaries of what's possible in frontend developm
 **Continuous Learning:** The frontend landscape evolves rapidly, and staying current requires intentional effort. I dedicate time weekly to exploring new technologies, contributing to open source projects, and sharing knowledge with the community. Learning isn't just about keeping up—it's about pushing the industry forward.
 
 I also believe in the power of collaboration. The best solutions emerge when designers, developers, and stakeholders work together with mutual respect and open communication. My role extends beyond writing code to being a bridge between technical possibilities and business objectives.`,
+image: "/assets/images/Jason_philosophy.png"
     },
     interests: {
       title: "Beyond the Code",
@@ -51,6 +53,7 @@ I also believe in the power of collaboration. The best solutions emerge when des
 **Mentorship:** I volunteer as a mentor for those new to web development and software engineering, sharing knowledge and reinforcing my own understanding in the process.
 
 These interests aren't separate from my professional life—they enrich and inform my approach to development, making me more creative, empathetic, and effective in my work.`,
+image: "/assets/images/Jason_interest.png"
     },
   };
 
@@ -200,7 +203,7 @@ These interests aren't separate from my professional life—they enrich and info
                 <div className="relative h-full w-full p-3 bg-gradient-to-br from-blue-500/10 via-transparent to-purple-500/5">
                   <div className="absolute inset-0 bg-slate-900/30 rounded-xl z-10"></div>
                   <Image
-                    src="/assets/images/Jason_main2.webp"
+                    src={content?.[activeTab]?.image}
                     className="relative h-full w-full object-cover grayscale rounded-xl scale-[1.02] group-hover:scale-[1.06] group-hover:brightness-110 group-hover:contrast-110 transition duration-700 ease-out z-0"
                     alt={content?.[activeTab]?.title}
                   />
