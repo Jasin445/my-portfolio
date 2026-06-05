@@ -20,12 +20,24 @@
     <priority>0.8</priority>
   </url>
   
-  <url>
-    <loc>https://jason-dagana.vercel.app/about-professional</loc>
-    <lastmod>2026-01-26</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
+<url>
+  <loc>https://jason-dagana.vercel.app/about-professional</loc>
+  <lastmod>2026-06-05</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.7</priority>
+
+  <image:image>
+    <image:loc>https://jason-dagana.vercel.app/assets/images/Jason_interest.png</image:loc>
+    <image:title>Jason Dagana - Interests</image:title>
+    <image:caption>Personal interests, passions, and areas of expertise.</image:caption>
+  </image:image>
+
+  <image:image>
+    <image:loc>https://jason-dagana.vercel.app/assets/images/Jason_philosophy.png</image:loc>
+    <image:title>Jason Dagana - Development Philosophy</image:title>
+    <image:caption>Jason Dagana's philosophy on software development, learning, and professional growth.</image:caption>
+  </image:image>
+</url>
   
   <url>
     <loc>https://jason-dagana.vercel.app/contact-connect</loc>
