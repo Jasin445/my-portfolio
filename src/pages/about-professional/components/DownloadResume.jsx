@@ -16,7 +16,7 @@ const DownloadResume = () => {
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
-    link.download = "Jason_Dagana_Resume.pdf";
+    link.download = "Jason_Dagana_CV.pdf";
     document.body.appendChild(link); // attach to DOM
     link.click();
     document.body.removeChild(link);
