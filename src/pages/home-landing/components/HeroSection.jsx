@@ -81,7 +81,7 @@ const HeroSection = () => {
                   className={`mr-2 text-blue-300 ${shouldAnimate ? "animate-pulse" : ""}`}
                 />
                 <span className="bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-blue-300 font-semibold">
-                  Frontend Developer
+                  FullStack Developer
                 </span>
               </div>
 
@@ -103,7 +103,7 @@ const HeroSection = () => {
 
               {/* Paragraph */}
               <p className="hero-child hero-child--para text-lg md:text-xl text-muted-foreground !mt-0 max-w-xl mx-auto lg:ml-0 pt-2 leading-relaxed">
-                React & Next.js developer who obsesses over clean code, fast
+                React, Node.js & Next.js developer who obsesses over clean code, fast
                 load times, and interfaces users actually enjoy.
               </p>
             </div>
@@ -115,8 +115,8 @@ const HeroSection = () => {
                   <div className="absolute w-full h-full z-10 group-hover:opacity-50 transition-opacity duration-300" />
                   <Image
                     src="./assets/images/jason.webp"
-                    alt="Jason Dagana - Frontend Developer"
-                    title="Jason Dagana | Frontend Developer"
+                    alt="Jason Dagana - FullStack Developer"
+                    title="Jason Dagana | FullStack Developer"
                     width={400}
                     height={400}
                     className="w-full h-full object-cover object-[0_30%] transition-transform duration-500"
@@ -189,8 +189,8 @@ const HeroSection = () => {
               <div className="relative rounded-2xl lg:rounded-full w-[100%] aspect-square lg:aspect-auto overflow-hidden lg:group-hover:border-2 lg:border-[3px] border-primary shadow-2xl transition-[border,shadow] duration-500 hover:shadow-primary/20">
                 <Image
                   src="./assets/images/jason.webp"
-                  alt="Jason Dagana - Frontend Developer"
-                  title="Jason Dagana | Frontend Developer"
+                  alt="Jason Dagana - FullStack Developer"
+                  title="Jason Dagana | FullStack Developer"
                   width={800}
                   height={800}
                   className="w-full h-full hover:scale-105 object-cover object-center transition-transform duration-500"

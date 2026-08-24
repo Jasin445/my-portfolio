@@ -8,14 +8,14 @@ import DownloadResume from "./components/DownloadResume";
 const AboutProfessional = () => {
   useEffect(() => {
     // Set page title
-    document.title = "About - Jason Dagana | Frontend Developer & UI Architect";
+    document.title = "About - Jason Dagana | Fullstack Developer & UI Architect";
 
     // Set meta description
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
       metaDescription?.setAttribute(
         "content",
-        "Learn about Jason Dagana, a passionate frontend developer with 6+ years of experience in React, TypeScript, and modern web technologies. Download resume and connect for opportunities.",
+        "Learn about Jason Dagana, a passionate Fullstack developer with 3+ years of experience in React, TypeScript, and modern web technologies. Download resume and connect for opportunities.",
       );
     }
 

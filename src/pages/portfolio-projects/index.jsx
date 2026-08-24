@@ -244,7 +244,7 @@ const PortfolioProjects = () => {
         <title>My Projects - Jason Dagana Projects</title>
         <meta
           name="description"
-          content="Explore my portfolio of web development projects including React applications, full-stack solutions, and innovative digital experiences."
+          content="Explore my portfolio of web development projects including React and Next.js applications, full-stack solutions, and innovative digital experiences."
         />
         <meta
           name="keywords"

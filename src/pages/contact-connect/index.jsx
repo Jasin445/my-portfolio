@@ -104,7 +104,7 @@ const ContactConnect = () => {
           />
           <meta
             name="keywords"
-            content="contact developer, hire react developer, freelance frontend, web development services, technical consulting"
+            content="contact developer, hire react developer, freelance, backend, frontend, web development services, technical consulting"
           />
           <meta
             property="og:title"
@@ -112,7 +112,7 @@ const ContactConnect = () => {
           />
           <meta
             property="og:description"
-            content="Ready to work together? Contact Alex Developer for professional frontend development services and opportunities."
+            content="Ready to work together? Contact Jason Dagana for professional frontend and backend development services and opportunities."
           />
           <meta property="og:type" content="website" />
           <link
@@ -156,7 +156,7 @@ const ContactConnect = () => {
                     <p className="text-sm sm:text-lg text-muted-foreground leading-relaxed mb-8">
                       I'm always interested in new opportunities and exciting
                       projects. Whether you're a startup looking for a technical
-                      co-founder or an established company needing frontend
+                      co-founder or an established company needing frontend or backend
                       expertise, let's discuss how we can create something
                       amazing together.
                     </p>

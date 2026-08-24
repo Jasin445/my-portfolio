@@ -47,7 +47,7 @@ const DownloadResume = () => {
                 <Icon name="FileText" size={28} className="text-primary" />
               </div>
               <h3 className="text-base sm:text-xl font-semibold text-foreground">
-                Jason Dagana — Frontend Developer
+                Jason Dagana — FullStack Developer
               </h3>
               <p className="text-xs sm:text-sm text-muted-foreground">
                 Updated: October 2025 &middot; PDF &middot; 126 KB

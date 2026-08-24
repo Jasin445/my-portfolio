@@ -16,12 +16,12 @@ const ProfessionalHero = () => {
               </div>
               
               <h1 className="text-4xl lg:text-5xl xl:text-6xl font-bold text-foreground leading-tight">
-                Frontend Developer & 
+                FullStack Developer & 
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent"> UI Architect</span>
               </h1>
               
               <p className="text-xl text-muted-foreground leading-relaxed max-w-2xl">
-               Dedicated to building seamless, user-focused web experiences through clean code, thoughtful design, and modern frameworks. Skilled in React, Next.js, and TypeScript.
+               Dedicated to building seamless, user-focused web experiences through clean code, thoughtful design, and modern frameworks. Skilled in React, Next.js, Node.js and TypeScript.
               </p>
             </div>
 

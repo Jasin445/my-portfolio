@@ -8,8 +8,8 @@
     <priority>1.0</priority>
     <image:image>
       <image:loc>https://jason-dagana.vercel.app/assets/images/jason.webp</image:loc>
-      <image:title>Jason Dagana - Frontend Developer</image:title>
-      <image:caption>Professional frontend developer specializing in React, TypeScript, and modern web technologies</image:caption>
+      <image:title>Jason Dagana - Fullstack Developer</image:title>
+      <image:caption>Professional fullstack developer specializing in Node.js, React, Next.js, PostgreSQL, MongoDB, TypeScript, React Native and other modern web technologies</image:caption>
     </image:image>
   </url>
   

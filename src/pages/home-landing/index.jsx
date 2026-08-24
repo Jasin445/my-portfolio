@@ -31,12 +31,12 @@ const HomeLanding = () => {
     setIntroDone(true);
   };
   useEffect(() => {
-    document.title = "Jason Dagana | Frontend Developer";
+    document.title = "Jason Dagana | Fullstack Developer";
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
       metaDescription?.setAttribute(
         "content",
-        "Professional frontend developer specializing in React, TypeScript, and modern web technologies. Building digital experiences that drives result.",
+        "Professional frontend and backend developer specializing in Node.js, React, Next.js, PostgreSQL, mongoDB, TypeScript, and other modern web technologies. Building digital experiences that drives result.",
       );
     }
     const handleSmoothScroll = (e) => {

@@ -378,16 +378,16 @@ const ProjectModal = ({
                     </div>
 
                     <div className="flex flex-wrap gap-2 pt-2">
-                      {project?.liveUrl && (
+                      {(project?.documentationUrl || project?.liveUrl) && (
                         <Button
                           variant="default"
                           iconName="ExternalLink"
                           iconPosition="left"
                           onClick={() =>
-                            window.open(project?.liveUrl, "_blank")
+                            window.open(project?.documentationUrl ?? project?.liveUrl, "_blank")
                           }
                         >
-                          Live Demo
+                          {project?.documentationUrl ? "Documentation" : "Live Demo"}
                         </Button>
                       )}
                       {project?.githubUrl && (

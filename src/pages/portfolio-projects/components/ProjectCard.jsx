@@ -68,7 +68,7 @@ const ProjectCard = ({ project, onViewDetails, className = "" }) => {
             isHovered ? "hidden sm:flex sm:opacity-100" : "opacity-0"
           }`}
         >
-          {project?.liveUrl && (
+          {(project?.documentationUrl || project?.liveUrl) && (
             <Button
               variant="secondary"
               size="sm"
@@ -76,10 +76,10 @@ const ProjectCard = ({ project, onViewDetails, className = "" }) => {
               iconPosition="left"
               onClick={(e) => {
                 e?.stopPropagation();
-                window.open(project?.liveUrl, "_blank");
+                window.open(project?.documentationUrl ?? project?.liveUrl, "_blank");
               }}
             >
-              Live Demo
+              {project?.documentationUrl ? "Documentation" : "Live Demo"}
             </Button>
           )}
           {project?.githubUrl && (
