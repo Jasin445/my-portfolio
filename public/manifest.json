@@ -1,6 +1,6 @@
 {
-  "short_name": "Jason-dagana",
-  "name": "Jason-dagana",
+  "short_name": "Jason Dagana",
+  "name": "Jason Dagana | Full-Stack Developer",
   "icons": [
     {
       "src": "favicon.ico",
@@ -8,8 +8,8 @@
       "type": "image/x-icon"
     }
   ],
-  "start_url": ".",
+  "start_url": "/",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#131426",
+  "background_color": "#131426"
 }

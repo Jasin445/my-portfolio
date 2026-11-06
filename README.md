@@ -1,106 +1,61 @@
-# React
+# Jason Dagana Portfolio
 
-A modern React-based project utilizing the latest frontend technologies and tools for building responsive web applications.
+A portfolio site built with Next.js, React, and Tailwind CSS.
 
-## 🚀 Features
+## Requirements
 
-- **React 18** - React version with improved rendering and concurrent features
-- **Vite** - Lightning-fast build tool and development server
-- **Redux Toolkit** - State management with simplified Redux setup
-- **TailwindCSS** - Utility-first CSS framework with extensive customization
-- **React Router v6** - Declarative routing for React applications
-- **Data Visualization** - Integrated D3.js and Recharts for powerful data visualization
-- **Form Management** - React Hook Form for efficient form handling
-- **Animation** - Framer Motion for smooth UI animations
-- **Testing** - Jest and React Testing Library setup
+- Node.js 18.18 or newer
+- npm
 
-## 📋 Prerequisites
+## Getting started
 
-- Node.js (v14.x or higher)
-- npm or yarn
-
-## 🛠️ Installation
-
-1. Install dependencies:
-   ```bash
-   npm install
-   # or
-   yarn install
-   ```
-   
-2. Start the development server:
-   ```bash
-   npm start
-   # or
-   yarn start
-   ```
-
-## 📁 Project Structure
-
-```
-react_app/
-├── public/             # Static assets
-├── src/
-│   ├── components/     # Reusable UI components
-│   ├── pages/          # Page components
-│   ├── styles/         # Global styles and Tailwind configuration
-│   ├── App.jsx         # Main application component
-│   ├── Routes.jsx      # Application routes
-│   └── index.jsx       # Application entry point
-├── .env                # Environment variables
-├── index.html          # HTML template
-├── package.json        # Project dependencies and scripts
-├── tailwind.config.js  # Tailwind CSS configuration
-└── vite.config.js      # Vite configuration
+```bash
+npm install
+npm run dev
 ```
 
-## 🧩 Adding Routes
+The local development server runs at `http://localhost:3000`.
 
-To add new routes to the application, update the `Routes.jsx` file:
+## Routes
 
-```jsx
-import { useRoutes } from "react-router-dom";
-import HomePage from "pages/HomePage";
-import AboutPage from "pages/AboutPage";
+- `/` — Home
+- `/projects` — Projects
+- `/my-articles` — Articles
+- `/contact-connect` — Contact
+- `/about-professional` — About
 
-const ProjectRoutes = () => {
-  let element = useRoutes([
-    { path: "/", element: <HomePage /> },
-    { path: "/about", element: <AboutPage /> },
-    // Add more routes as needed
-  ]);
+Static files are served from `public/`; for example, `public/assets/logo.png`
+is available at `/assets/logo.png`.
 
-  return element;
-};
+## Environment variables
+
+Create a `.env.local` file in the project root and configure any services you
+use:
+
+```text
+NEXT_PUBLIC_BACKEND_URL=
+HASHNODE_PUBLICATION_HOST=
+NEXT_PUBLIC_EMAILJS_PUBLIC_KEY=
+NEXT_PUBLIC_EMAILJS_SERVICE_ID=
+NEXT_PUBLIC_EMAILJS_TEMPLATE_ID=
 ```
 
-## 🎨 Styling
+`HASHNODE_PUBLICATION_HOST` accepts a Hashnode domain or full URL and defaults
+to `jasondee.hashnode.dev`. Articles are loaded from the publication's public
+RSS feed, so no Hashnode API key or Pro plan is needed. Existing deployments may
+continue using `NEXT_PUBLIC_MY_HASHNODE_URL` until migrating to the server-only
+host variable.
 
-This project uses Tailwind CSS for styling. The configuration includes:
+The remaining `NEXT_PUBLIC_*` variables are public client-side configuration
+values. Existing Vite deployments should rename corresponding `VITE_*`
+variables to `NEXT_PUBLIC_*`.
 
-- Forms plugin for form styling
-- Typography plugin for text styling
-- Aspect ratio plugin for responsive elements
-- Container queries for component-specific responsive design
-- Fluid typography for responsive text
-- Animation utilities
-
-## 📱 Responsive Design
-
-The app is built with responsive design using Tailwind CSS breakpoints.
-
-
-## 📦 Deployment
-
-Build the application for production:
+## Production
 
 ```bash
 npm run build
+npm start
 ```
 
-## 🙏 Acknowledgments
-
-- Built by Dagana Jason
-- Powered by React and Vite
-- Styled with Tailwind CSS
-
+Vercel detects the Next.js framework and deploys the app using its standard
+Next.js build output.

@@ -1,48 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
-    <loc>https://jason-dagana.vercel.app/</loc>
-    <lastmod>2026-01-26</lastmod>
-    <changefreq>weekly</changefreq>
+    <loc>https://jason-dagana.vercel.app</loc>
     <priority>1.0</priority>
     <image:image>
       <image:loc>https://jason-dagana.vercel.app/assets/images/jason.webp</image:loc>
-      <image:title>Jason Dagana - Fullstack Developer</image:title>
-      <image:caption>Professional fullstack developer specializing in Node.js, React, Next.js, PostgreSQL, MongoDB, TypeScript, React Native and other modern web technologies</image:caption>
+      <image:title>Jason Dagana, Full-Stack Developer</image:title>
     </image:image>
   </url>
-  
   <url>
     <loc>https://jason-dagana.vercel.app/projects</loc>
-    <lastmod>2026-01-26</lastmod>
-    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://jason-dagana.vercel.app/assets/images/nrc-preview.webp</image:loc>
+      <image:title>Nigerian Railway Corporation web application</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://jason-dagana.vercel.app/assets/images/newsbridge-preview.webp</image:loc>
+      <image:title>NewsBridge citizen journalism platform</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://jason-dagana.vercel.app/assets/images/olclare-preview.webp</image:loc>
+      <image:title>Olclare web project</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://jason-dagana.vercel.app/about-professional</loc>
     <priority>0.8</priority>
   </url>
-  
-<url>
-  <loc>https://jason-dagana.vercel.app/about-professional</loc>
-  <lastmod>2026-06-05</lastmod>
-  <changefreq>monthly</changefreq>
-  <priority>0.7</priority>
-
-  <image:image>
-    <image:loc>https://jason-dagana.vercel.app/assets/images/Jason_interest.png</image:loc>
-    <image:title>Jason Dagana - Interests</image:title>
-    <image:caption>Personal interests, passions, and areas of expertise.</image:caption>
-  </image:image>
-
-  <image:image>
-    <image:loc>https://jason-dagana.vercel.app/assets/images/Jason_philosophy.png</image:loc>
-    <image:title>Jason Dagana - Development Philosophy</image:title>
-    <image:caption>Jason Dagana's philosophy on software development, learning, and professional growth.</image:caption>
-  </image:image>
-</url>
-  
+  <url>
+    <loc>https://jason-dagana.vercel.app/my-articles</loc>
+    <priority>0.8</priority>
+  </url>
   <url>
     <loc>https://jason-dagana.vercel.app/contact-connect</loc>
-    <lastmod>2026-01-26</lastmod>
-    <changefreq>yearly</changefreq>
     <priority>0.6</priority>
   </url>
 </urlset>
