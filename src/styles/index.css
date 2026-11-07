@@ -29,6 +29,42 @@ html body .hover\:text-primary:hover {
   background: #131b21;
 }
 
+.portfolio-canvas::before {
+  position: fixed;
+  z-index: -1;
+  inset: 32vh -28vw -24vh;
+  content: "";
+  pointer-events: none;
+  transform:
+    perspective(440px)
+    rotateX(64deg)
+    scale(1.35)
+    translate3d(
+      var(--world-pointer-x, 0px),
+      calc(var(--world-scroll-shift, 0px) + var(--world-pointer-y, 0px)),
+      0
+    );
+  transform-origin: center top;
+  opacity: 0.68;
+  will-change: transform;
+  background-image:
+    linear-gradient(rgba(0, 149, 255, 0.3) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 149, 255, 0.3) 1px, transparent 1px),
+    radial-gradient(ellipse at 50% 0%,
+      transparent 0 7.5%,
+      rgba(0, 149, 255, 0.55) 7.7% 7.9%,
+      transparent 8.1% 15%,
+      rgba(0, 149, 255, 0.34) 15.2% 15.4%,
+      transparent 15.6% 23%,
+      rgba(215, 255, 99, 0.3) 23.2% 23.35%,
+      transparent 23.6% 100%),
+    radial-gradient(ellipse at 50% 0%, rgba(0, 149, 255, 0.3), transparent 58%),
+    linear-gradient(to bottom, rgba(1, 97, 254, 0.16), transparent 27%);
+  background-size: 64px 64px, 64px 64px, 100% 100%, 100% 100%, 100% 100%;
+  mask-image: linear-gradient(to bottom, transparent 0, #000 10%, #000 76%, transparent 100%);
+  transition: opacity 300ms ease;
+}
+
 .portfolio-canvas::after {
   position: absolute;
   z-index: -1;
@@ -57,6 +93,64 @@ html body .hover\:text-primary:hover {
 .article-universe::after {
   opacity: 0.16;
   mix-blend-mode: normal;
+}
+
+.article-universe::before {
+  opacity: 0.48;
+}
+
+.world-combo-splash {
+  position: absolute;
+  z-index: -1;
+  width: clamp(150px, 22vw, 290px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  transform: translate(-50%, -50%) perspective(500px) rotateX(66deg) scale(0.08);
+  transform-style: preserve-3d;
+  background:
+    radial-gradient(circle, rgba(215, 255, 99, 0.7) 0 1%, transparent 2.5% 21%,
+      rgba(0, 149, 255, 0.14) 21.5% 22%, transparent 22.5% 39%,
+      rgba(0, 149, 255, 0.72) 39.5% 40%, transparent 40.8% 59%,
+      rgba(0, 149, 255, 0.42) 59.5% 60%, transparent 60.8%),
+    conic-gradient(from 0deg, transparent 0 9deg, rgba(0, 149, 255, 0.9) 10deg 11deg,
+      transparent 12deg 35deg, rgba(215, 255, 99, 0.75) 36deg 37deg,
+      transparent 38deg 79deg, rgba(0, 149, 255, 0.8) 80deg 81deg,
+      transparent 82deg 139deg, rgba(0, 149, 255, 0.7) 140deg 141deg,
+      transparent 142deg 219deg, rgba(215, 255, 99, 0.7) 220deg 221deg,
+      transparent 222deg 299deg, rgba(0, 149, 255, 0.8) 300deg 301deg,
+      transparent 302deg);
+  animation: worldComboSplash 850ms cubic-bezier(0.12, 0.7, 0.2, 1) forwards;
+}
+
+.world-combo-splash::after {
+  position: absolute;
+  inset: 18%;
+  border: 1px solid rgba(0, 149, 255, 0.72);
+  border-radius: 50%;
+  content: "";
+  box-shadow: 0 0 24px rgba(0, 149, 255, 0.24);
+}
+
+.world-combo-splash[data-combo="3"],
+.world-combo-splash[data-combo="4"],
+.world-combo-splash[data-combo="5"] {
+  background-color: rgba(0, 149, 255, 0.06);
+}
+
+@keyframes worldComboSplash {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) perspective(500px) rotateX(66deg) scale(0.08);
+  }
+  16% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) perspective(500px) rotateX(66deg) scale(1.35);
+  }
 }
 
 .project-art-card {
@@ -192,10 +286,103 @@ body,
    All continuous animations off for users who prefer reduced motion.
    One-shot animations (drawText, logoPulse, curtain) are kept since they
    only run once and convey meaningful state. */
+.scroll-progress {
+  position: fixed;
+  right: max(1.5rem, env(safe-area-inset-right));
+  bottom: max(1.5rem, env(safe-area-inset-bottom));
+  z-index: 45;
+  display: grid;
+  width: 3rem;
+  height: 3rem;
+  padding: 0;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(19, 27, 33, 0.88);
+  color: #0095ff;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(1rem);
+  transition: opacity 200ms ease, transform 200ms ease, color 200ms ease;
+}
+
+.scroll-progress--visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.scroll-progress-ring {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.scroll-progress-track,
+.scroll-progress-value {
+  fill: none;
+  stroke-width: 2.5;
+}
+
+.scroll-progress-track {
+  stroke: rgba(245, 242, 233, 0.18);
+}
+
+.scroll-progress-value {
+  stroke: currentColor;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 100ms linear;
+}
+
+.scroll-progress-label {
+  font-family: monospace !important;
+  font-size: 0.56rem;
+  font-weight: 600;
+  color: #f5f2e9;
+}
+
+.scroll-progress:hover,
+.scroll-progress:focus-visible {
+  color: #d7ff63;
+}
+
+@media (max-width: 640px) {
+  .portfolio-canvas::before {
+    inset: 37vh -75vw -12vh;
+    background-size: 48px 48px, 48px 48px, 100% 100%, 100% 100%, 100% 100%;
+  }
+
+  .world-combo-splash {
+    width: 180px;
+  }
+
+  .scroll-progress {
+    right: max(1rem, env(safe-area-inset-right));
+    bottom: max(1rem, env(safe-area-inset-bottom));
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .draw-text {
     fill: #f5f2e9;
     stroke: none;
     animation: none;
+  }
+
+  .scroll-progress,
+  .scroll-progress-value {
+    transition: none;
+  }
+
+  .portfolio-canvas::before {
+    transform: perspective(440px) rotateX(64deg) scale(1.35);
+    will-change: auto;
+  }
+
+  .world-combo-splash {
+    display: none;
   }
 }
