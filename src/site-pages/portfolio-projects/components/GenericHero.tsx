@@ -1,13 +1,17 @@
+import Image from "next/image";
+
 interface GenericHeroSectionProps {
   title?: string;
-  image?: string;
+  imageSrc?: string;
+  imagePosition?: string;
   overlay?: string;
   loading?: boolean;
 }
 
 const GenericHeroSection = ({
   title,
-  image = "bg-[url('/assets/images/projects-hero.png')]",
+  imageSrc = "/assets/images/projects-hero.png",
+  imagePosition = "center",
   overlay = "from-[#131426]/50 via-[#0f1115]/50 to-[#132b3a]/55",
   loading = false,
 }: GenericHeroSectionProps) => {
@@ -16,8 +20,17 @@ const GenericHeroSection = ({
       {/* Background layer: only this is dimmed */}
       <div
         aria-hidden="true"
-        className={`absolute inset-0 ${image} bg-cover bg-center opacity-40 [mask-image:linear-gradient(to_bottom,black_60%,transparent_100%)] [-webkit-mask-image:linear-gradient(to_bottom,black_60%,transparent_100%)]`}
-      />
+        className="absolute inset-0 opacity-40 [mask-image:linear-gradient(to_bottom,black_60%,transparent_100%)] [-webkit-mask-image:linear-gradient(to_bottom,black_60%,transparent_100%)]"
+      >
+        <Image
+          src={imageSrc}
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          style={{ objectFit: "cover", objectPosition: imagePosition }}
+        />
+      </div>
 
       <div className="relative h-full">
         <div className={`relative z-0 flex justify-center items-center h-full pt-28 px-4 sm:px-6 bg-gradient-to-b ${overlay}`}>

@@ -54,7 +54,7 @@ const ContactConnect = () => {
       icon: "Twitter",
       url: "https://x.com/DaganaJason",
       color: "text-blue-400",
-      followers: "950",
+      followers: "Follow me",
     },
     {
       name: "WhatsApp",
@@ -115,7 +115,7 @@ const ContactConnect = () => {
             {/* Hero Section */}
             <section className="">
               <GenericHeroSection
-                image="bg-[url('/assets/images/contact-hero.jpg')]"
+                imageSrc="/assets/images/contact-hero.jpg"
                 overlay="from-[#07172d]/35 to-[#102b3c]/40 [mask-image:linear-gradient(to_bottom,black_60%,transparent_100%)] [-webkit-mask-image:linear-gradient(to_bottom,black_60%,transparent_100%)]"
                 title={"Contact Me"}
               />

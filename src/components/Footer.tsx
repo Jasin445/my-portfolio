@@ -47,7 +47,7 @@ const Footer = ({ lightweight = false }: FooterProps) => {
                 <Image src="/assets/logo.png" alt="Jason Dagana logo" />
               </div>
               <span className="text-xl font-semibold text-foreground">
-                Dagana Jason
+                Jason Dagana
               </span>
             </div>
             <p className="text-muted-foreground text-sm leading-relaxed">

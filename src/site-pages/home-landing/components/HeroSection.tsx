@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import type { MouseEvent } from "react";
 import Link from "next/link";
 import Button from "../../../components/ui/Button";
-import Image from "../../../components/AppImage";
+import Image from "next/image";
 import Icon from "../../../components/AppIcon";
 import { ChevronDown } from "lucide-react";
 import "../../../styles/hero-section-styles.css";
@@ -117,13 +117,13 @@ const HeroSection = () => {
           <div className="absolute -inset-9 rounded-[48%_48%_2.8rem_2.8rem] border border-dashed border-accent/35" />
           <div className="group relative aspect-[0.79] overflow-hidden rounded-[44%_44%_1.8rem_1.8rem] border border-white/20 bg-[#0b1524] shadow-[0_40px_100px_-40px_rgba(0,0,0,0.9),0_0_80px_-30px_rgba(64,171,229,0.35)]">
             <Image
-              src="./assets/images/jason.webp"
+              src="/assets/images/jason.webp"
               alt="Jason Dagana - FullStack Developer"
               title="Jason Dagana | FullStack Developer"
               width={800}
               height={800}
-              loading="eager"
-              fetchPriority="high"
+              priority
+              sizes="(max-width: 1023px) 80vw, 460px"
               className="h-full w-full object-cover object-[center_30%] transition-transform duration-700 group-hover:scale-[1.035]"
             />
             <div className="absolute inset-0 bg-gradient-to-b from-[#07172d]/5 via-transparent to-[#06101f]/90" />

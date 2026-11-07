@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Icon from "../AppIcon";
-import Image from "../AppImage";
+import Image from "next/image";
 import type { AppIconName } from "../AppIcon";
 
 interface NavigationItem {
@@ -76,7 +76,15 @@ const Header = () => {
             aria-label="Jason Dagana - Home"
           >
             <div className="w-16 h-16 sm:w-20 sm:h-20 -ml-2 sm:ml-0 bg-transparent rounded-lg flex items-center justify-center group-hover:scale-105 transition-transform duration-fast">
-              <Image src="/assets/logo.png" alt="Jason Dagana logo" />
+              <Image
+                src="/assets/logo.png"
+                alt="Jason Dagana logo"
+                width={80}
+                height={80}
+                priority
+                sizes="80px"
+                className="h-full w-full object-contain"
+              />
             </div>
             <span className="text-[clamp(16px,6vw,22px)] sm:text-3xl font-semibold text-foreground group-hover:text-primary transition-colors duration-fast">
               Jason Dagana

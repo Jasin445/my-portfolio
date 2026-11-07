@@ -13,7 +13,8 @@ const AboutProfessional = () => {
       <main className="portfolio-canvas relative isolate min-h-screen overflow-hidden">
         <GenericHeroSection
           title={"About Me"}
-          image="bg-[url('/assets/images/about-hero.png')] !bg-cover bg-top"
+          imageSrc="/assets/images/about-hero.png"
+          imagePosition="top"
           overlay=""
         />
 

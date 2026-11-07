@@ -22,16 +22,15 @@ const ROUTES_WITHOUT_CURTAIN = [
 const HomeLanding = () => {
   const pathname = usePathname();
   const [introDone, setIntroDone] = useState<boolean | null>(null);
-
-  const showIntro =
-    introDone === false && !ROUTES_WITHOUT_CURTAIN.includes(pathname);
+  const introEligible = !ROUTES_WITHOUT_CURTAIN.includes(pathname);
+  const showIntro = introDone === false && introEligible;
 
   useEffect(() => {
     setIntroDone(window.sessionStorage.getItem("introSeen") === "true");
   }, []);
 
   const handleFinish = () => {
-    sessionStorage.setItem("introSeen", "true");
+    window.sessionStorage.setItem("introSeen", "true");
     setIntroDone(true);
   };
   useEffect(() => {
@@ -54,19 +53,21 @@ const HomeLanding = () => {
 
   return (
     <>
-      <Header />
-      <main className="portfolio-canvas portfolio-canvas--home relative isolate min-h-screen overflow-hidden">
-        <div className="relative">
-          <div className="">
-            <HeroSection />
+      <div style={{ visibility: introEligible && introDone === null ? "hidden" : "visible" }}>
+        <Header />
+        <main className="portfolio-canvas portfolio-canvas--home relative isolate min-h-screen overflow-hidden">
+          <div className="relative">
+            <div className="">
+              <HeroSection />
+            </div>
           </div>
-        </div>
-        <FeaturedProjects />
-        <Skills />
-        <TestimonialSection />
-        <ContactCta />
-      </main>
-      <Footer lightweight />
+          <FeaturedProjects />
+          <Skills />
+          <TestimonialSection />
+          <ContactCta />
+        </main>
+        <Footer lightweight />
+      </div>
       {showIntro && (
         <CinematicCurtain
           done={false}
