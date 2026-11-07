@@ -116,7 +116,7 @@ const ContactConnect = () => {
             <section className="">
               <GenericHeroSection
                 image="bg-[url('/assets/images/contact-hero.jpg')]"
-                overlay="from-[#07172d]/85 via-[#111322]/75 to-[#102b3c]/80"
+                overlay="from-[#07172d]/35 to-[#102b3c]/40 [mask-image:linear-gradient(to_bottom,black_60%,transparent_100%)] [-webkit-mask-image:linear-gradient(to_bottom,black_60%,transparent_100%)]"
                 title={"Contact Me"}
               />
             </section>

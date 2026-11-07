@@ -37,7 +37,7 @@ const Footer = ({ lightweight = false }: FooterProps) => {
 
 
   return (
-    <footer className="bg-[#131b21] border-t border-border py-12 z-20 relative">
+    <footer className="bg-[#131b21] border-t border-border py-12">
       <div className="4xl:max-w-7xl 3xl:max-w-7xl max-w-6xl mx-auto px-4 sm:px-6">
         <div className="grid md:grid-cols-3 gap-8 mb-8">
           {/* Brand */}

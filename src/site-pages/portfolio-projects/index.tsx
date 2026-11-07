@@ -258,7 +258,7 @@ const PortfolioProjects = () => {
       <main className="portfolio-canvas relative isolate min-h-screen overflow-hidden">
         <GenericHeroSection
           title="Projects"
-          overlay="from-[#090c14]/60 via-[#111322]/55 to-[#241b14]/70"
+          overlay=""
         />
 
         <section

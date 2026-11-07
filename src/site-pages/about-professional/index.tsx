@@ -14,7 +14,7 @@ const AboutProfessional = () => {
         <GenericHeroSection
           title={"About Me"}
           image="bg-[url('/assets/images/about-hero.png')] !bg-cover bg-top"
-          overlay="from-[#090c14]/60 via-[#111322]/55 to-[#202317]/65 sm:from-[#090c14]/60 sm:via-[#111322]/55 sm:to-[#202317]/65"
+          overlay=""
         />
 
         <section className="relative py-12 h-full">

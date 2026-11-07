@@ -12,18 +12,24 @@ const GenericHeroSection = ({
   loading = false,
 }: GenericHeroSectionProps) => {
   return (
-    <section className={`h-[300px] md:h-[500px] ${image} bg-cover bg-center`}>
+    <section className="relative h-[300px] md:h-[500px] overflow-hidden">
+      {/* Background layer: only this is dimmed */}
+      <div
+        aria-hidden="true"
+        className={`absolute inset-0 ${image} bg-cover bg-center opacity-40 [mask-image:linear-gradient(to_bottom,black_60%,transparent_100%)] [-webkit-mask-image:linear-gradient(to_bottom,black_60%,transparent_100%)]`}
+      />
+
       <div className="relative h-full">
-        <div className={`flex justify-center items-center h-full pt-28 px-4 sm:px-6 bg-gradient-to-b ${overlay}`}>
+        <div className={`relative z-0 flex justify-center items-center h-full pt-28 px-4 sm:px-6 bg-gradient-to-b ${overlay}`}>
           <div className="z-10 mb-12 w-full max-w-[920px] text-center">
-            <p className="mb-4 flex items-center justify-center gap-2 font-mono text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-primary">
+            <p className="mb-4 flex items-center justify-center gap-2 font-mono text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-primary z-30">
               <span
                 aria-hidden="true"
                 className="h-1.5 w-1.5 rounded-full bg-primary shadow-[0_0_1rem_rgba(0,149,255,0.7)]"
               />
               Portfolio // {title}
             </p>
-            <h1 className="text-foreground mb-8 w-full text-center text-[clamp(3rem,8vw,7rem)] font-semibold leading-[0.86] tracking-[-0.085em]">
+            <h1 className="relative text-foreground mb-8 w-full text-center text-[clamp(3rem,8vw,7rem)] font-semibold leading-[0.86] tracking-[-0.085em] z-70">
               <span className="sr-only">{title}</span>
               {loading ? (
                 <div className="flex justify-center items-center z-20">
@@ -44,8 +50,7 @@ const GenericHeroSection = ({
                 >
                   <text
                     x="50%"
-                      y="50%"
-                      // fontSize={280}
+                    y="50%"
                     dominantBaseline="middle"
                     textAnchor="middle"
                     className="draw-text"
