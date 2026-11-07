@@ -59,7 +59,7 @@ const LocationInfo = () => {
           <div className="flex items-center justify-between">
             <span className="text-muted-foreground">Status:</span>
             <div className="flex items-center space-x-2">
-              <div className="w-2 h-2 bg-success rounded-full animate-pulse"></div>
+              <div className="w-2 h-2 bg-success rounded-full"></div>
               <span className="text-success font-medium">Available</span>
             </div>
           </div>
@@ -131,7 +131,7 @@ const LocationInfo = () => {
           />
           
           {/* Overlay with contact info */}
-          <div className="absolute bottom-4 left-4 bg-background/95 backdrop-blur-sm rounded-lg p-3 border border-border">
+          <div className="absolute bottom-4 left-4 bg-background rounded-lg p-3 border border-border">
             <div className="text-sm">
               <div className="font-medium text-foreground">San Francisco Bay Area</div>
               <div className="text-muted-foreground">Available for remote work globally</div>

@@ -28,7 +28,6 @@ const Header = () => {
   useEffect(() => {
     const handleScroll = () => {
       const shouldScroll = window.scrollY > 10;
-      // Guard: only setState if value actually changed
       if (shouldScroll !== scrolledRef.current) {
         scrolledRef.current = shouldScroll;
         setScrolled(shouldScroll);
@@ -60,10 +59,10 @@ const Header = () => {
     () =>
       `fixed top-0 left-0 right-0 py-4 z-50 transition-colors duration-normal ${
         scrolled || isMobileMenuOpen
-          ? "bg-background/95 backdrop-blur-sm shadow-sm"
+          ? "bg-background/70 backdrop-blur-sm shadow-sm"
           : "bg-transparent"
       }`,
-    [scrolled, isMobileMenuOpen]
+    [scrolled, isMobileMenuOpen],
   );
 
   return (
@@ -135,7 +134,7 @@ const NavLink = ({ item, active }: { item: NavigationItem; active: boolean }) =>
       <span
         className={`text-[16px] ${
           item.label === "Contact"
-            ? "bg-primary py-2 px-5 rounded-xl text-white"
+            ? "bg-gradient-to-r from-primary-soft to-primary py-2 px-5 rounded-xl text-white"
             : ""
         }`}
       >
@@ -171,7 +170,7 @@ const MobileMenu = ({
   isActivePath: (path: string) => boolean;
 }) => (
   <div
-    className={`lg:hidden absolute top-full left-0 right-0 bg-background/95 backdrop-blur-sm border-b border-border shadow-lg transition duration-300 h-screen ${
+    className={`lg:hidden absolute top-full left-0 right-0 bg-background/85 backdrop-blur-sm border-b border-border shadow-lg transition duration-300 h-screen ${
       isOpen
         ? "opacity-100 translate-y-0 pointer-events-auto"
         : "opacity-0 -translate-y-2 pointer-events-none"

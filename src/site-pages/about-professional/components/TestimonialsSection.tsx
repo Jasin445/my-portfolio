@@ -123,7 +123,7 @@ const TestimonialsSection = () => {
             variant="ghost"
             size="icon"
             onClick={prevTestimonial}
-            className="absolute left-4 top-1/2 transform -translate-y-1/2 z-10 bg-background/80 backdrop-blur-sm hover:bg-background"
+            className="absolute left-4 top-1/2 transform -translate-y-1/2 z-10 bg-background hover:bg-background"
             aria-label="Previous testimonial"
           >
             <Icon name="ChevronLeft" size={20} />
@@ -133,7 +133,7 @@ const TestimonialsSection = () => {
             variant="ghost"
             size="icon"
             onClick={nextTestimonial}
-            className="absolute right-4 top-1/2 transform -translate-y-1/2 z-10 bg-background/80 backdrop-blur-sm hover:bg-background"
+            className="absolute right-4 top-1/2 transform -translate-y-1/2 z-10 bg-background hover:bg-background"
             aria-label="Next testimonial"
           >
             <Icon name="ChevronRight" size={20} />
@@ -143,7 +143,7 @@ const TestimonialsSection = () => {
           <div className="max-w-4xl mx-auto text-center">
             {/* Quote Icon */}
             <div className="mb-6">
-              <Icon name="Quote" size={48} className="text-primary/20 mx-auto" />
+              <Icon name="Quote" size={48} className="text-primary-soft/20 mx-auto" />
             </div>
 
             {/* Testimonial Text */}

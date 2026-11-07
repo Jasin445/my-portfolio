@@ -27,12 +27,13 @@ const config: Config = {
         transparent: "transparent", // 👈 force Tailwind to register it
         border: "var(--color-border)", // slate-200
         input: "var(--color-input)", // white
-        ring: "var(--color-ring)", // blue-600
+        ring: "var(--color-ring)", // blue focus ring
         background: "var(--color-background)", // white
         foreground: "var(--color-foreground)", // slate-900
         primary: {
-          DEFAULT: "var(--color-primary)", // blue-600
-          foreground: "var(--color-primary-foreground)", // white
+          DEFAULT: "var(--color-primary)",
+          foreground: "var(--color-primary-foreground)",
+          soft: "var(--color-primary-soft)",
         },
         secondary: {
           DEFAULT: "var(--color-secondary)", // slate-500
@@ -47,8 +48,8 @@ const config: Config = {
           foreground: "var(--color-muted-foreground)", // slate-600
         },
         accent: {
-          DEFAULT: "var(--color-accent)", // amber-500
-          foreground: "var(--color-accent-foreground)", // white
+          DEFAULT: "var(--color-accent)",
+          foreground: "var(--color-accent-foreground)",
         },
         popover: {
           DEFAULT: "var(--color-popover)", // white

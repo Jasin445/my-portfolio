@@ -1,10 +1,5 @@
-import React from "react";
-import CarTransition from "../../../components/CarDrive";
-import useTypewriter from "../../../utils/typewrite";
-
 interface GenericHeroSectionProps {
   title?: string;
-  message?: string;
   image?: string;
   overlay?: string;
   loading?: boolean;
@@ -12,34 +7,23 @@ interface GenericHeroSectionProps {
 
 const GenericHeroSection = ({
   title,
-  message = "Scroll to view some of my astonishing projects",
   image = "bg-[url('/assets/images/projects-hero.png')]",
-  overlay = "from-[#131426]/50 via-[#0f1115]/50 to-[#2a363c]/50",
+  overlay = "from-[#131426]/50 via-[#0f1115]/50 to-[#132b3a]/55",
   loading = false,
 }: GenericHeroSectionProps) => {
-  const typedTitle = useTypewriter(title || "", 500);
   return (
     <section className={`h-[300px] md:h-[500px] ${image} bg-cover bg-center`}>
       <div className="relative h-full">
-        <div
-          className={
-            "absolute inset-x-0 bottom-1 top-52 z-20 translate-y-[100%]"
-          }
-        >
-          <CarTransition message={message} />
-        </div>
-        {/* <div className="absolute w-0 h-0 border-l-[140px] border-r-[140px] opacity-10 hover-glow blur-2xl inset-0 -translate-x-32 left-1/2 border-t-[260px] border-l-transparent border-r-transparent border-primary" />
-            <div className="absolute inset-0 bg-gradient-to-b from-[#2a363c]/65 via-card to-[#2a363c]/35" />
-            <div className="absolute inset-0 overflow-hidden">
-              <div className="hexagon top-10 left-10"></div>
-              <div className="hexagon top-1/3 left-1/4"></div>
-              <div className="hexagon top-1/2 right-20"></div>
-              <div className="hexagon bottom-20 left-1/3"></div>
-            </div> */}
-
         <div className={`flex justify-center items-center h-full pt-28 px-4 sm:px-6 bg-gradient-to-b ${overlay}`}>
-          <div className="text-center mb-12 z-10 ">
-            <h1 className="text-foreground text-3xl md:text-[48px] 3xl:text-[4vw] font-bold mb-8 w-full">
+          <div className="z-10 mb-12 w-full max-w-[920px] text-center">
+            <p className="mb-4 flex items-center justify-center gap-2 font-mono text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-primary">
+              <span
+                aria-hidden="true"
+                className="h-1.5 w-1.5 rounded-full bg-primary shadow-[0_0_1rem_rgba(0,149,255,0.7)]"
+              />
+              Portfolio // {title}
+            </p>
+            <h1 className="text-foreground mb-8 w-full text-center text-[clamp(3rem,8vw,7rem)] font-semibold leading-[0.86] tracking-[-0.085em]">
               <span className="sr-only">{title}</span>
               {loading ? (
                 <div className="flex justify-center items-center z-20">
@@ -53,8 +37,8 @@ const GenericHeroSection = ({
                 </div>
               ) : (
                 <svg
-                  viewBox="0 0 370 200"
-                  className="w-full sm:min-w-[650px]"
+                  viewBox="0 0 900 200"
+                  className="mx-auto w-full max-w-[920px]"
                   aria-hidden="true"
                   focusable="false"
                 >

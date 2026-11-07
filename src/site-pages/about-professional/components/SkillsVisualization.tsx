@@ -260,19 +260,19 @@ const SkillsVisualization = () => {
               </h3>
               <div className="space-y-3">
                 <div className="flex items-center space-x-2">
-                  <Icon name="BookOpen" size={14} className="text-accent" />
+                  <Icon name="BookOpen" size={14} className="text-primary" />
                   <span className="text-sm text-muted-foreground">Advanced React Patterns & Performance</span>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <Icon name="BookOpen" size={14} className="text-accent" />
+                  <Icon name="BookOpen" size={14} className="text-primary" />
                   <span className="text-sm text-muted-foreground">Web3 & Blockchain Development</span>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <Icon name="BookOpen" size={14} className="text-accent" />
+                  <Icon name="BookOpen" size={14} className="text-primary" />
                   <span className="text-sm text-muted-foreground">Machine Learning for Frontend</span>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <Icon name="BookOpen" size={14} className="text-accent" />
+                  <Icon name="BookOpen" size={14} className="text-primary" />
                   <span className="text-sm text-muted-foreground">Advanced TypeScript Patterns</span>
                 </div>
               </div>

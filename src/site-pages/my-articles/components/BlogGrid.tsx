@@ -24,7 +24,7 @@ const BlogGrid = ({
       <div className={`space-y-6 ${className}`}>
         {/* Loading Skeleton */}
         {[...Array(6)]?.map((_, index) => (
-          <div key={index} className="bg-card border border-border rounded-lg overflow-hidden animate-pulse">
+          <div key={index} className="bg-card border border-border rounded-lg overflow-hidden">
             <div className="h-48 bg-muted" />
             <div className="p-6 space-y-4">
               <div className="flex items-center space-x-4">

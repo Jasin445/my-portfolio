@@ -36,7 +36,7 @@ const TechnicalBlog = () => {
   const [featured, ...rest] = posts;
 
   return (
-    <div className="article-universe">
+    <div className="portfolio-canvas article-universe">
       <div className="article-world-glow" aria-hidden="true" />
       <Header />
       <main className="article-layout">

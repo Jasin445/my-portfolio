@@ -30,8 +30,8 @@ const BlogStats = ({ stats, className = '' }: BlogStatsProps) => {
       label: 'Total Views',
       value: stats?.totalViews?.toLocaleString(),
       icon: 'Eye',
-      color: 'text-accent',
-      bgColor: 'bg-accent/10'
+      color: 'text-primary',
+      bgColor: 'bg-primary/10'
     },
     {
       id: 'avgReadTime',

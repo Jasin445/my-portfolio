@@ -26,8 +26,6 @@ const ProjectModal = ({
 }: ProjectModalProps) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [activeTab, setActiveTab] = useState<ProjectTab>("overview");
-  const [iframeLoading, setIframeLoading] = useState(true);
-  const [animateIn, setAnimateIn] = useState(false);
 
   const [dragY, setDragY] = useState(0);
   const dragStartY = useRef<number | null>(null);
@@ -58,12 +56,9 @@ const ProjectModal = ({
       document.body.style.overflow = "hidden";
       setCurrentImageIndex(0);
       setActiveTab("overview");
-      setIframeLoading(true);
       setDragY(0);
       dragStartY.current = null;
-      requestAnimationFrame(() => setAnimateIn(true));
     } else {
-      setAnimateIn(false);
       setDragY(0);
       dragStartY.current = null;
       document.body.style.overflow = "unset";
@@ -94,12 +89,6 @@ const ProjectModal = ({
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [isOpen, hasNext, hasPrev, onNavigate, onClose]);
-
-  useEffect(() => {
-    if (project?.liveUrl) {
-      setIframeLoading(true);
-    }
-  }, [project?.liveUrl]);
 
   if (!isOpen || !project) return null;
   const projectImages = project.images?.length ? project.images : [project.image];
@@ -169,7 +158,7 @@ const ProjectModal = ({
       <div className="fixed inset-0 z-60 flex items-end lg:items-center lg:justify-center lg:p-6 xl:p-8">
         {/* Backdrop */}
         <div
-          className="modal-backdrop absolute inset-0 bg-black/60 backdrop-blur-sm"
+          className="modal-backdrop absolute inset-0 bg-[#05090d]/85 backdrop-blur-sm"
           onClick={onClose}
         />
 
@@ -177,10 +166,14 @@ const ProjectModal = ({
         <div
           className={`
             modal-drawer lg:modal-dialog
-            relative w-full bg-[#363c43] shadow-2xl overflow-hidden flex flex-col
-            rounded-t-2xl max-h-[82vh]
-            lg:rounded-lg lg:max-w-6xl lg:max-h-[620px]
+            relative flex w-full flex-col overflow-hidden border border-white/10
+            bg-[#111b22] text-slate-100 shadow-[0_35px_120px_-30px_rgba(0,0,0,0.9)]
+            rounded-t-[1.5rem] max-h-[94vh]
+            lg:rounded-[1.5rem] lg:max-w-7xl lg:max-h-[min(820px,88vh)]
           `}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="project-modal-title"
           style={{
             transform: `translateY(${dragY}px)`,
             transition: dragY === 0 ? "transform 0.3s ease" : "none",
@@ -191,31 +184,41 @@ const ProjectModal = ({
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
-            className="flex justify-center pt-3 pb-1 lg:hidden cursor-grab"
+            className="flex cursor-grab justify-center pt-3 pb-2 lg:hidden"
           >
-            <div className="w-10 h-1 rounded-full bg-border" />
+            <div className="h-1 w-10 rounded-full bg-white/25" />
           </div>
 
           {/* Header */}
-          <div className="flex-shrink-0 flex items-center justify-between px-4 py-3 sm:px-6 sm:py-4 border-b border-border">
-            <div className="flex items-center gap-2 sm:gap-3 min-w-0">
-              <h2 className="text-base sm:text-2xl font-semibold text-foreground truncate">
-                {project?.title}
-              </h2>
+          <div className="flex flex-shrink-0 items-center justify-between gap-4 border-b border-white/10 bg-[#131f27] px-4 py-3 sm:px-7 sm:py-5">
+            <div className="flex min-w-0 items-center gap-3 sm:gap-5">
+              <span className="hidden shrink-0 font-mono text-[0.6rem] uppercase leading-5 tracking-[0.2em] text-[#d7ff63] sm:block">
+                Project<br />file
+              </span>
+              <span className="hidden h-9 w-px bg-white/10 sm:block" />
+              <div className="min-w-0">
+                <p className="mb-1 font-mono text-[0.55rem] uppercase tracking-[0.17em] text-[#0095ff]">
+                  {project?.status || "Selected work"}
+                </p>
+                <h2 id="project-modal-title" className="truncate text-base font-semibold leading-tight tracking-[-0.03em] text-white sm:text-xl">
+                  {project?.title}
+                </h2>
+              </div>
               {project?.featured && (
-                <span className="flex-shrink-0 px-2 py-0.5 text-xs font-medium bg-accent/10 text-accent rounded-full border border-accent/20">
+                <span className="hidden shrink-0 border border-[#d7ff63]/25 bg-[#d7ff63]/[0.08] px-2.5 py-1 font-mono text-[0.55rem] uppercase tracking-[0.12em] text-[#d7ff63] sm:block">
                   Featured
                 </span>
               )}
             </div>
 
-            <div className="flex items-center gap-1 flex-shrink-0 ml-2">
+            <div className="ml-2 flex flex-shrink-0 items-center gap-1">
               <Button
                 variant="ghost"
                 size="icon"
                 onClick={() => onNavigate("prev")}
                 disabled={!hasPrev}
-                className="w-8 h-8"
+                aria-label="Previous project"
+                className="h-9 w-9 border border-white/10 text-slate-300 hover:border-[#0095ff]/50 hover:text-white"
               >
                 <Icon name="ChevronLeft" size={16} />
               </Button>
@@ -225,18 +228,20 @@ const ProjectModal = ({
                 size="icon"
                 onClick={() => onNavigate("next")}
                 disabled={!hasNext}
-                className="w-8 h-8"
+                aria-label="Next project"
+                className="h-9 w-9 border border-white/10 text-slate-300 hover:border-[#0095ff]/50 hover:text-white"
               >
                 <Icon name="ChevronRight" size={16} />
               </Button>
 
-              <div className="w-px h-5 bg-border mx-1" />
+              <div className="mx-1 h-5 w-px bg-white/10" />
 
               <Button
                 variant="ghost"
                 size="icon"
                 onClick={onClose}
-                className="w-8 h-8"
+                aria-label="Close project details"
+                className="h-9 w-9 border border-white/10 text-slate-300 hover:border-[#d7ff63]/40 hover:text-white"
               >
                 <Icon name="X" size={16} />
               </Button>
@@ -244,91 +249,72 @@ const ProjectModal = ({
           </div>
 
           {/* Body */}
-          <div className="flex-1 flex flex-col lg:flex-row overflow-hidden min-h-0">
-            {/* Image / iframe panel — hidden on mobile & tablet, shown lg+ only */}
-            <div className="hidden lg:flex lg:w-1/2 relative bg-[#181b1e] border-r border-border">
-              {project?.liveUrl ? (
-                <>
-                  {iframeLoading && (
-                    <div className="absolute inset-0 flex items-center justify-center bg-[#181b1e] z-10">
-                      <div className="flex flex-col items-center gap-3">
-                        <div className="w-9 h-9 border-b-2 border-primary/30 border-t-primary rounded-full animate-spin" />
-                        <p className="text-sm text-muted-foreground">
-                          Loading preview...
-                        </p>
-                      </div>
+          <div className="flex min-h-0 flex-1 flex-col overflow-hidden lg:flex-row">
+            {/* Project preview */}
+            <div className="relative flex h-40 shrink-0 overflow-hidden border-b border-white/10 bg-[#091117] sm:h-56 lg:h-auto lg:w-[46%] lg:border-b-0 lg:border-r">
+              <div className="relative h-full w-full">
+                <Image
+                  src={projectImages[currentImageIndex]}
+                  alt={`${project?.title} - Image ${currentImageIndex + 1}`}
+                  className="h-full w-full object-contain"
+                />
+
+                {projectImages.length > 1 && (
+                  <>
+                    <button
+                      type="button"
+                      aria-label="Previous project image"
+                      onClick={prevImage}
+                      className="absolute left-3 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-black/50 text-white transition-colors hover:bg-black/80"
+                    >
+                      <Icon name="ChevronLeft" size={18} />
+                    </button>
+
+                    <button
+                      type="button"
+                      aria-label="Next project image"
+                      onClick={nextImage}
+                      className="absolute right-3 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-black/50 text-white transition-colors hover:bg-black/80"
+                    >
+                      <Icon name="ChevronRight" size={18} />
+                    </button>
+
+                    <div className="absolute bottom-3 left-1/2 flex -translate-x-1/2 gap-1.5">
+                      {projectImages.map((_, index) => (
+                        <button
+                          type="button"
+                          key={index}
+                          aria-label={`Show project image ${index + 1}`}
+                          onClick={() => setCurrentImageIndex(index)}
+                          className={`h-2 w-2 rounded-full transition-colors ${
+                            index === currentImageIndex
+                              ? "bg-[#d7ff63]"
+                              : "bg-white/50"
+                          }`}
+                        />
+                      ))}
                     </div>
-                  )}
-                  <div className="relative inset-0 w-full">
-
-                  <iframe
-                    src={project.liveUrl}
-                    title={project?.title}
-                    style={{ backgroundColor: "white" }}
-                    className="w-full h-full"
-                    loading="lazy"
-                    sandbox="allow-scripts allow-forms allow-same-origin"
-                    onLoad={() => setIframeLoading(false)}
-                    onError={() => setIframeLoading(false)}
-                    />
-                    <div className="absolute inset-0 bg-black/40 w-full pointer-events-none"></div>
-                    </div>
-                </>
-              ) : (
-                <div className="relative w-full h-full">
-                  <Image
-                    src={projectImages[currentImageIndex]}
-                    alt={`${project?.title} - Image ${currentImageIndex + 1}`}
-                    className="w-full h-full object-cover"
-                  />
-
-                  {projectImages.length > 1 && (
-                    <>
-                      <button
-                        onClick={prevImage}
-                        className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 bg-black/50 hover:bg-black/70 rounded-full flex items-center justify-center text-white transition-colors"
-                      >
-                        <Icon name="ChevronLeft" size={18} />
-                      </button>
-
-                      <button
-                        onClick={nextImage}
-                        className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 bg-black/50 hover:bg-black/70 rounded-full flex items-center justify-center text-white transition-colors"
-                      >
-                        <Icon name="ChevronRight" size={18} />
-                      </button>
-
-                      <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
-                        {projectImages.map((_, index) => (
-                          <button
-                            key={index}
-                            onClick={() => setCurrentImageIndex(index)}
-                            className={`w-2 h-2 rounded-full transition-colors ${
-                              index === currentImageIndex
-                                ? "bg-white"
-                                : "bg-white/50"
-                            }`}
-                          />
-                        ))}
-                      </div>
-                    </>
-                  )}
-                </div>
-              )}
+                  </>
+                )}
+              </div>
+              <span className="pointer-events-none absolute bottom-3 left-4 z-20 border border-white/15 bg-[#081117]/80 px-2.5 py-1 font-mono text-[0.52rem] uppercase tracking-[0.16em] text-white/75 backdrop-blur-sm">
+                Project visual
+              </span>
             </div>
 
-            {/* Details panel — full width on mobile, half on lg */}
-            <div className="flex-1 lg:w-1/2 flex flex-col overflow-hidden min-h-0">
+            {/* Case study details */}
+            <div className="flex min-h-0 flex-1 flex-col overflow-hidden lg:w-[54%]">
               {/* Tabs */}
-              <div className="flex-shrink-0 flex border-b border-border overflow-x-auto">
+              <div className="flex flex-shrink-0 overflow-x-auto border-b border-white/10 bg-[#131f27]">
                 {tabs?.map((tab) => (
                   <button
+                    type="button"
                     key={tab?.id}
                     onClick={() => setActiveTab(tab?.id)}
-                    className={`flex items-center gap-1.5 px-3 sm:px-4 py-3 text-xs sm:text-sm font-medium whitespace-nowrap transition-colors flex-shrink-0 ${
+                    className={`flex flex-shrink-0 items-center gap-1.5 border-b-2 px-3 py-3 text-[0.68rem] font-medium whitespace-nowrap transition-colors sm:px-5 sm:text-xs ${
                       activeTab === tab?.id
-                        ? "text-primary border-b-2 border-primary"
-                        : "text-muted-foreground hover:text-foreground"
+                        ? "border-[#0095ff] text-[#7fcaff]"
+                        : "border-transparent text-slate-400 hover:text-white"
                     }`}
                   >
                     <Icon name={tab?.icon} size={14} />
@@ -338,34 +324,42 @@ const ProjectModal = ({
               </div>
 
               {/* Tab content — scrollable */}
-              <div className="flex-1 overflow-y-auto p-4 sm:p-6 min-h-0">
+              <div className="min-h-0 flex-1 overflow-y-auto p-5 sm:p-7">
                 {activeTab === "overview" && (
-                  <div className="space-y-5">
+                  <div className="space-y-6">
                     <div>
-                      <h3 className="text-sm sm:text-base font-semibold text-foreground mb-2">
-                        Description
+                      <p className="mb-2 font-mono text-[0.58rem] uppercase tracking-[0.18em] text-[#0095ff]">
+                        The brief
+                      </p>
+                      <h3 className="mb-3 text-xl font-semibold leading-tight tracking-[-0.04em] text-white sm:text-2xl">
+                        Built to solve a real problem.
                       </h3>
-                      <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-                        {project?.fullDescription}
+                      <p className="whitespace-pre-line text-xs leading-6 text-slate-300 sm:text-sm sm:leading-7">
+                        {project?.fullDescription || project?.description}
                       </p>
                     </div>
 
                     <div>
-                      <h3 className="text-sm sm:text-base font-semibold text-foreground mb-2">
-                        Technology Stack
-                      </h3>
-                      <div className="grid grid-cols-2 gap-2">
+                      <div className="mb-3 flex items-center justify-between gap-3">
+                        <h3 className="text-sm font-semibold text-white">
+                          Built with
+                        </h3>
+                        <span className="font-mono text-[0.55rem] uppercase tracking-[0.12em] text-slate-500">
+                          {project?.technologies?.length ?? 0} technologies
+                        </span>
+                      </div>
+                      <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
                         {project?.technologies?.map((tech, index) => (
                           <div
                             key={index}
-                            className="flex items-center gap-2 p-2.5 bg-[#2d303fdd] rounded-lg"
+                            className="flex min-w-0 items-center gap-2 rounded-lg border border-white/[0.07] bg-white/[0.035] p-2.5"
                           >
                             <Icon
                               name={getTechIcon(tech)}
                               size={15}
-                              className="text-primary flex-shrink-0"
+                              className="flex-shrink-0 text-[#0095ff]"
                             />
-                            <span className="text-xs sm:text-sm font-medium text-foreground truncate">
+                            <span className="truncate text-[0.65rem] font-medium text-slate-200 sm:text-xs">
                               {tech}
                             </span>
                           </div>
@@ -373,26 +367,26 @@ const ProjectModal = ({
                       </div>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <h4 className="text-xs sm:text-sm font-semibold text-foreground mb-1">
-                          Duration
-                        </h4>
-                        <p className="text-xs sm:text-sm text-muted-foreground">
-                          {project?.duration || "Not provided"}
-                        </p>
-                      </div>
-                      <div>
-                        <h4 className="text-xs sm:text-sm font-semibold text-foreground mb-1">
-                          Completed
-                        </h4>
-                        <p className="text-xs sm:text-sm text-muted-foreground">
-                          {project?.completedDate || "Not provided"}
-                        </p>
-                      </div>
+                    <div className="flex flex-wrap items-center gap-x-8 gap-y-3 border-t border-white/10 pt-4">
+                      {project?.duration && (
+                        <div>
+                          <h4 className="mb-1 font-mono text-[0.55rem] uppercase tracking-[0.14em] text-slate-500">
+                            Duration
+                          </h4>
+                          <p className="text-xs text-slate-200">{project.duration}</p>
+                        </div>
+                      )}
+                      {project?.completedDate && (
+                        <div>
+                          <h4 className="mb-1 font-mono text-[0.55rem] uppercase tracking-[0.14em] text-slate-500">
+                            Completed
+                          </h4>
+                          <p className="text-xs text-slate-200">{project.completedDate}</p>
+                        </div>
+                      )}
                     </div>
 
-                    <div className="flex flex-wrap gap-2 pt-2">
+                    <div className="flex flex-wrap gap-2 pt-1">
                       {(project?.documentationUrl || project?.liveUrl) && (
                         <Button
                           variant="default"
@@ -424,16 +418,16 @@ const ProjectModal = ({
                 {activeTab === "technical" && (
                   <div className="space-y-5">
                     <div>
-                      <h3 className="text-sm sm:text-base font-semibold text-foreground mb-2">
+                      <h3 className="mb-2 text-sm font-semibold text-white sm:text-base">
                         Architecture
                       </h3>
-                      <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed mb-4">
-                        {project?.architecture}
+                      <p className="mb-4 text-xs leading-relaxed text-slate-300 sm:text-sm">
+                        {project?.architecture || project?.fullDescription || project?.description}
                       </p>
                     </div>
 
                     <div>
-                      <h3 className="text-sm sm:text-base font-semibold text-foreground mb-2">
+                      <h3 className="mb-2 text-sm font-semibold text-white sm:text-base">
                         Key Features
                       </h3>
                       <ul className="space-y-2">
@@ -442,9 +436,9 @@ const ProjectModal = ({
                             <Icon
                               name="Check"
                               size={15}
-                              className="text-success mt-0.5 flex-shrink-0"
+                              className="mt-0.5 flex-shrink-0 text-[#d7ff63]"
                             />
-                            <span className="text-xs sm:text-sm text-muted-foreground">
+                            <span className="text-xs text-slate-300 sm:text-sm">
                               {feature}
                             </span>
                           </li>
@@ -453,12 +447,12 @@ const ProjectModal = ({
                     </div>
 
                     {project?.codeSnippet && (
-                      <div>
-                        <h3 className="text-sm sm:text-base font-semibold text-foreground mb-2">
+                      <div className="mt-5">
+                        <h3 className="mb-2 text-sm font-semibold text-white sm:text-base">
                           Code Example
                         </h3>
-                        <div className="bg-muted rounded-lg p-3 sm:p-4 overflow-x-auto">
-                          <pre className="text-xs sm:text-sm text-foreground">
+                        <div className="overflow-x-auto rounded-lg border border-white/10 bg-[#091117] p-3 sm:p-4">
+                          <pre className="text-xs text-slate-200 sm:text-sm">
                             <code>{project?.codeSnippet}</code>
                           </pre>
                         </div>
@@ -472,32 +466,32 @@ const ProjectModal = ({
                     {project?.challenges?.map((challenge, index) => (
                       <div
                         key={index}
-                        className="border border-border rounded-lg p-3 sm:p-4"
+                        className="rounded-xl border border-white/10 bg-white/[0.025] p-4 sm:p-5"
                       >
-                        <div className="flex items-start gap-2 mb-2">
+                        <div className="mb-2 flex items-start gap-2">
                           <Icon
                             name="AlertCircle"
                             size={15}
-                            className="text-warning mt-0.5 flex-shrink-0"
+                            className="mt-0.5 flex-shrink-0 text-[#0095ff]"
                           />
-                          <h4 className="text-xs sm:text-sm font-semibold text-foreground">
-                            Challenge {index + 1}
+                          <h4 className="text-xs font-semibold text-white sm:text-sm">
+                            {String(index + 1).padStart(2, "0")} / The challenge
                           </h4>
                         </div>
-                        <p className="text-xs sm:text-sm text-muted-foreground mb-3 leading-relaxed">
+                        <p className="mb-4 text-xs leading-relaxed text-slate-300 sm:text-sm">
                           {challenge?.problem}
                         </p>
                         <div className="flex items-start gap-2">
                           <Icon
                             name="CheckCircle"
                             size={15}
-                            className="text-success mt-0.5 flex-shrink-0"
+                            className="mt-0.5 flex-shrink-0 text-[#d7ff63]"
                           />
                           <div>
-                            <h5 className="text-xs sm:text-sm font-medium text-foreground mb-1">
-                              Solution
+                            <h5 className="mb-1 font-mono text-[0.56rem] uppercase tracking-[0.14em] text-[#d7ff63]">
+                              How I solved it
                             </h5>
-                            <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
+                            <p className="text-xs leading-relaxed text-slate-300 sm:text-sm">
                               {challenge?.solution}
                             </p>
                           </div>

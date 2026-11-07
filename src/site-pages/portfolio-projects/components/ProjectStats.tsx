@@ -35,8 +35,8 @@ const ProjectStats = ({ projects, className = '' }: ProjectStatsProps) => {
       label: 'Technologies',
       value: [...new Set(projects.flatMap(p => p.technologies))]?.length,
       icon: 'Code' as AppIconName,
-      color: 'text-accent',
-      bgColor: 'bg-accent/10'
+      color: 'text-primary',
+      bgColor: 'bg-primary/10'
     }
   ];
 

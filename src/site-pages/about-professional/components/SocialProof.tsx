@@ -196,7 +196,7 @@ const SocialProof = () => {
               <div className="text-xs text-muted-foreground mt-1">This year</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-accent mb-1">
+              <div className="text-3xl font-bold text-primary mb-1">
                 {animatedStats?.repositories}
               </div>
               <div className="text-sm text-muted-foreground">Repositories</div>
@@ -280,7 +280,7 @@ const SocialProof = () => {
         {/* Speaking Engagements */}
         <div className="bg-card rounded-xl border border-border p-8 mb-12 shadow-sm">
           <div className="flex items-center space-x-3 mb-8">
-            <Icon name="Mic" size={24} className="text-accent" />
+            <Icon name="Mic" size={24} className="text-primary" />
             <h3 className="text-xl font-semibold text-foreground">Speaking Engagements</h3>
           </div>
 

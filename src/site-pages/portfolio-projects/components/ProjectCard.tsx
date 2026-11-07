@@ -47,32 +47,24 @@ const ProjectCard = ({ project, onViewDetails, className = "" }: ProjectCardProp
 
   return (
     <div
-      className={`group relative z-20 bg-[#2a363c]/80 border border-white/5 rounded-2xl overflow-hidden transition duration-500 sm:hover:-translate-y-1.5 sm:hover:border-primary/20 sm:hover:shadow-[0_20px_40px_-12px_rgba(0,0,0,0.5)] ${className}`}
+      className={`project-art-card group relative z-20 overflow-hidden rounded-[1.25rem] border border-white/10 transition duration-500 sm:hover:-translate-y-1.5 sm:hover:shadow-[0_26px_70px_-32px_rgba(45,133,209,0.32)] ${className}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      style={{
-        background: "rgba(255, 255, 255, 0.04)",
-        border: " 1px solid rgba(255, 255, 255, 0.08)",
-        backdropFilter: "blur(2px)",
-        WebkitBackdropFilter: "blur(2px)",
-      }}
     >
       {/* Project Image */}
-      <div className="relative h-48 overflow-hidden">
+      <div className="relative h-56 overflow-hidden border-b border-white/10 sm:h-60">
         <Image
           src={project?.image}
           alt={project?.title}
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.045]"
         />
 
         {/* Persistent bottom gradient */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#2a363c]/90 via-transparent to-transparent" />
-
-        <div className="absolute inset-0 bg-black/20" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#07101d] via-[#07101d]/5 to-[#07101d]/20" />
 
         {/* Hover overlay */}
         <div
-          className={`absolute inset-0 bg-black/50 flex items-center justify-center gap-3 transition-opacity duration-300 ${
+          className={`absolute inset-0 flex items-center justify-center gap-3 bg-[#06101f]/85 transition-opacity duration-300 ${
             isHovered ? "hidden sm:flex sm:opacity-100" : "opacity-0"
           }`}
         >
@@ -107,52 +99,57 @@ const ProjectCard = ({ project, onViewDetails, className = "" }: ProjectCardProp
         </div>
 
         {/* Status Badge */}
-        <div className="absolute top-3 right-3">
+        <div className="absolute inset-x-4 top-4 flex items-start justify-between gap-2">
           <span
-            className={`px-2.5 py-1 text-[10px] font-semibold rounded-full border backdrop-blur-sm tracking-wide ${getStatusColor(project?.status)}`}
+            className={`border bg-[#09111e] px-3 py-1.5 font-mono text-[0.58rem] uppercase tracking-[0.13em] ${getStatusColor(project?.status)}`}
           >
             {project?.status?.charAt(0)?.toUpperCase() +
               project?.status?.slice(1)?.replace("-", " ")}
           </span>
+          {project?.featured ? (
+            <span className="flex items-center gap-1.5 border border-accent/30 bg-[#09111e] px-3 py-1.5 font-mono text-[0.58rem] uppercase tracking-[0.12em] text-accent">
+              <Icon name="Star" className="fill-accent" size={10} />
+              Selected
+            </span>
+          ) : (
+            <span className="border border-white/20 bg-[#09111e] px-3 py-1.5 font-mono text-[0.58rem] uppercase tracking-[0.12em] text-white/75">
+              Project
+            </span>
+          )}
         </div>
 
-        {/* Featured badge */}
-        {project?.featured && (
-          <div className="absolute top-3 left-3">
-            <span className="flex items-center gap-1 px-2.5 py-1 bg-[#1b202f] shadow-inner text-accent text-[10px] font-semibold rounded-full">
-              <Icon name="Star" className="fill-accent" size={10} />
-              Featured
-            </span>
-          </div>
-        )}
+        <div className="absolute inset-x-5 bottom-5">
+          <p className="mb-2 font-mono text-[0.58rem] uppercase tracking-[0.17em] text-primary-soft/90">
+            Digital product / Case study
+          </p>
+          <h3 className="max-w-[24ch] text-xl font-semibold leading-[1.02] tracking-[-0.045em] text-white sm:text-2xl">
+            {project?.title}
+          </h3>
+        </div>
       </div>
 
       {/* Project Content */}
-      <div className="p-5">
-        {/* Title and Description */}
-        <div className="mb-4">
-          <h3 className="text-base font-semibold text-foreground mb-1.5 group-hover:text-primary transition-colors duration-300 leading-snug">
-            {project?.title}
-          </h3>
-          <p className="text-xs text-muted-foreground line-clamp-2 leading-relaxed">
+      <div className="relative p-5 sm:p-6">
+        <div className="mb-5">
+          <p className="line-clamp-3 text-xs leading-6 text-slate-300/80 sm:text-sm">
             {project?.description}
           </p>
         </div>
 
         {/* Technology Stack */}
-        <div className="mb-4">
+        <div className="mb-5">
           <div className="flex flex-wrap gap-1.5">
             {project?.technologies?.slice(0, 4)?.map((tech, index) => (
               <div
                 key={index}
-                className="flex items-center gap-1 px-2 py-1 bg-white/5 border border-white/8 rounded-md text-[11px] font-medium text-muted-foreground hover:border-primary/30 hover:text-foreground transition-colors duration-200"
+                className="flex items-center gap-1 rounded-full border border-white/10 bg-white/[0.035] px-2.5 py-1.5 font-mono text-[0.58rem] text-slate-300/75 transition-colors duration-200 hover:border-cyan-100/30 hover:text-cyan-100"
               >
                 <Icon name={getTechIcon(tech)} size={10} />
                 <span>{tech}</span>
               </div>
             ))}
             {project?.technologies?.length > 4 && (
-              <div className="px-2 py-1 bg-white/5 border border-white/8 rounded-md text-[11px] font-medium text-muted-foreground">
+              <div className="rounded-full border border-white/10 bg-white/[0.035] px-2.5 py-1.5 font-mono text-[0.58rem] text-slate-400">
                 +{project?.technologies?.length - 4}
               </div>
             )}
@@ -160,10 +157,8 @@ const ProjectCard = ({ project, onViewDetails, className = "" }: ProjectCardProp
         </div>
 
         {/* Divider */}
-        <div className="h-px bg-white/5 mb-4" />
-
         {/* Project Stats */}
-        <div className="flex items-center justify-between text-[11px] text-muted-foreground mb-4">
+        <div className="mb-4 flex items-center justify-between border-t border-white/10 pt-4 font-mono text-[0.58rem] uppercase tracking-[0.12em] text-slate-400">
           <div className="flex items-center gap-3">
             {project?.completedDate && (
               <div className="flex items-center gap-1">
@@ -178,6 +173,9 @@ const ProjectCard = ({ project, onViewDetails, className = "" }: ProjectCardProp
               </div>
             )}
           </div>
+          <span className="text-slate-500">
+            Build / {String(project?.id).padStart(2, "0")}
+          </span>
         </div>
 
         {/* Action Button */}

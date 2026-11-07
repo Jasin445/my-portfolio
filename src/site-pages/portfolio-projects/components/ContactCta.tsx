@@ -7,13 +7,7 @@ const ContactCta = () => {
 
   return (
     <RevealSection direction="down">
-    <section className="relative bg-gradient-to-b from-[#2a363c]/90 via-blue-200/5 to-[#2a363c]/5 py-10 sm:py-20">
-      {/* Overlay */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute inset-0 bg-black/10"></div>
-        <div className="absolute bg-red-400/25 h-40 w-20 rounded-full blur-[120px] right-[8%] top-[10%]"></div>
-      </div>
-
+    <section className="relative py-10 sm:py-20">
       <div className="relative max-w-4xl mx-auto px-4 sm:px-6 text-center">
         {/* Heading */}
         <h2 className="text-xl sm:text-2xl md:text-4xl font-bold text-secondary-foreground mb-4">
@@ -32,7 +26,6 @@ const ContactCta = () => {
             size="lg"
             iconName="Mail"
             iconPosition="left"
-            className="text-white"
             onClick={() => router.push("/contact-connect")}
           >
             Get In Touch

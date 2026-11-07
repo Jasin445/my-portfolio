@@ -2,13 +2,10 @@ import Link from "next/link";
 import Button from "../../../components/ui/Button";
 import Image from "../../../components/AppImage";
 import Icon from "../../../components/AppIcon";
-import CarTransition from "../../../components/CarDrive";
 import { mockProjects } from "../../../data";
 import { lazy, Suspense, useMemo, useState } from "react";
-import FishTank, {
-  RevealSection,
-  TiltCard,
-} from "../../../utils/animation.utils";
+import { ArrowUpRight } from "lucide-react";
+import { RevealSection, TiltCard } from "../../../utils/animation.utils";
 import usePerformanceGuard from "../../../hooks/usePerformanceGuard";
 import type { Project } from "../../../types/project";
 
@@ -58,98 +55,104 @@ const FeaturedProjects = () => {
   return (
     <section
       id="featuredProjects"
-      className="scroll-mt-14 relative py-12 sm:py-20 h-full bg-gradient-to-b from-[#2a3a3c]/90 via-[#132026] to-[#252d36]/90"
-      style={{ isolation: "isolate" }}
+      className="scroll-mt-14 relative h-full overflow-hidden py-20 sm:py-28"
     >
-      <div className="absolute inset-x-0 !top-0 h-10 bg-gradient-to-b from-black/20 to-transparent blur-xs" />
-
-      <FishTank animationsActive={animationsActive} />
-      <CarTransition active={animationsActive} />
-
-      <div
-        className="relative max-w-6xl mx-auto px-4 sm:px-12 h-full"
-        style={{ zIndex: 1 }}
-      >
+      <div className="relative max-w-6xl mx-auto px-4 sm:px-12 h-full">
         <RevealSection direction="up">
-          <div className="mb-10 sm:mb-16">
-            <div className="flex items-center justify-center gap-3 mb-4 sm:mb-8">
-              <div className="inline-flex overflow-x-hidden items-center justify-center px-4 py-2 bg-primary/10 text-primary rounded-full text-xs sm:text-sm font-medium ring-1 ring-primary/20 backdrop-blur-sm">
-                <Icon name="Star" size={16} className="mr-2" />
-                Featured Work
-              </div>
+          <div className="mb-10 flex flex-col gap-6 border-b border-white/10 pb-8 sm:mb-14 sm:flex-row sm:items-end sm:justify-between">
+            <div className="max-w-2xl">
+              <p className="mb-4 flex items-center gap-2 font-mono text-[0.65rem] font-semibold uppercase tracking-[0.17em] text-primary">
+                <Icon name="Code" size={14} />
+                A few things I&apos;ve brought to life
+              </p>
+              <h2 className="text-4xl font-semibold leading-[0.9] tracking-[-0.075em] text-[#f5f2e9] sm:text-6xl">
+                Selected <span className="text-cyan-100/55">work.</span>
+              </h2>
             </div>
-            <div className="flex flex-col md:items-center justify-center gap-6">
-              <div>
-                <h2 className="text-xl md:text-3xl lg:text-5xl font-bold text-foreground leading-tight tracking-tight mb-3 text-center">
-                  Selected
-                  <span className="ml-2 sm:ml-3 relative inline-block">
-                    Projects
-                    <span className="absolute -bottom-1 left-0 w-full h-[3px] bg-gradient-to-r from-primary to-transparent rounded-full" />
-                  </span>
-                </h2>
-                <p className="text-sm sm:text-lg text-center text-foreground max-w-xl leading-relaxed opacity-80">
-                  A showcase of my recent work demonstrating expertise in modern
-                  web technologies and user-centered design principles.
-                </p>
-              </div>
-            </div>
+            <p className="max-w-sm text-sm leading-6 text-slate-400 sm:text-right">
+              Digital products built around real problems, thoughtful details,
+              and the people using them.
+            </p>
           </div>
         </RevealSection>
 
-        <div className="grid md:grid-cols-2 gap-6 mb-12 h-full">
+        <div className="mb-12 grid gap-5 md:grid-cols-2 md:gap-6">
           {featuredProjects.map((project, index) => {
             const direction = DIRECTIONS[index % DIRECTIONS.length];
             return (
-              <RevealSection className="h-full" direction={direction} key={project?.id}>
+              <RevealSection
+                className="h-full"
+                direction={direction}
+                key={project?.id}
+              >
                 <TiltCard active={animationsActive}>
-                  <div className="group bg-[#2a363c]/80 h-full text-secondary rounded-2xl overflow-hidden shadow-2xl border border-white/5 transition duration-500 sm:hover:-translate-y-2 sm:hover:border-primary/20 sm:hover:shadow-[0_24px_48px_-12px_rgba(0,0,0,0.5)]">
-                    <div className="relative h-56 overflow-hidden">
+                  <article className="project-art-card group flex h-full flex-col overflow-hidden rounded-[1.4rem] border border-white/10 text-secondary shadow-[0_30px_90px_-50px_rgba(0,0,0,0.9)] transition duration-500 sm:hover:-translate-y-2 sm:hover:shadow-[0_36px_100px_-44px_rgba(45,133,209,0.28)]">
+                    <div className="relative h-56 shrink-0 overflow-hidden border-b border-white/10 sm:h-72">
                       <Image
                         src={project?.image}
                         alt={`Screenshot of ${project?.title} project`}
-                        className="w-full h-full object-cover transition-transform duration-700"
+                        className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.045]"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#2a363c]/90 via-transparent to-transparent" />
-                      <div className="absolute inset-0 bg-black/20 sm:group-hover:bg-black/40 transition-colors duration-500" />
-                      <div className="absolute bottom-3 right-4 text-white/[0.07] font-black text-6xl leading-none select-none">
-                        {String(index + 1).padStart(2, "0")}
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#07101d] via-[#07101d]/5 to-[#07101d]/15" />
+                      <div className="absolute inset-0 bg-[#06101f]/15 transition-colors duration-500 group-hover:bg-transparent" />
+                      <div className="absolute inset-x-0 top-0 flex items-center justify-between p-4 sm:p-5">
+                        <span className="border border-white/20 bg-[#06101f]/80 px-3 py-1.5 font-mono text-[0.58rem] uppercase tracking-[0.15em] text-white/85 backdrop-blur-sm">
+                          Selected work / {String(index + 1).padStart(2, "0")}
+                        </span>
+                        <span className="flex items-center gap-2 border border-white/15 bg-[#06101f]/70 px-3 py-1.5 font-mono text-[0.58rem] uppercase tracking-[0.12em] text-white/80 backdrop-blur-sm">
+                          <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+                          {project?.status}
+                        </span>
+                      </div>
+                      <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-5 sm:p-7">
+                        <div>
+                          <p className="mb-2 font-mono text-[0.58rem] uppercase tracking-[0.18em] text-[#7fcaff]">
+                            Case study
+                          </p>
+                          <h3 className="line-clamp-2 max-w-[24ch] text-2xl font-semibold leading-[1.02] tracking-[-0.055em] text-white sm:text-3xl">
+                            {project?.title}
+                          </h3>
+                        </div>
+                        <button
+                          type="button"
+                          aria-label={`View details for ${project?.title}`}
+                          onClick={() => handleOpenModal(project, index)}
+                          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/30 bg-[#131b21] text-white transition duration-300 hover:rotate-45 hover:border-primary hover:bg-primary hover:text-primary-foreground"
+                        >
+                          <ArrowUpRight size={19} />
+                        </button>
                       </div>
                     </div>
 
-                    <div className="p-6">
-                      <div className="mb-4">
-                        <h3 className="text-base sm:text-xl font-semibold text-foreground mb-2 transition-colors duration-300">
-                          {project?.title}
-                        </h3>
-                        <p className="text-xs sm:text-sm text-foreground leading-relaxed opacity-80 line-clamp-2">
+                    <div className="flex flex-1 flex-col p-5 sm:p-7">
+                      <div className="mb-5 flex items-start justify-between gap-5">
+                        <p className="line-clamp-3 text-xs leading-6 text-slate-300/80 sm:text-sm">
                           {project?.description}
                         </p>
                       </div>
 
-                      <div className="flex flex-wrap gap-2 mb-5">
-                        {project?.technologies?.map((tech) => (
+                      <div className="mb-6 flex flex-wrap gap-2">
+                        {project?.technologies?.slice(0, 5)?.map((tech) => (
                           <span
                             key={tech}
-                            className="px-2.5 py-1 bg-white/5 border border-white text-foreground text-xs rounded-lg opacity-80 hover:opacity-100 hover:border-primary/30 transition duration-200"
+                            className="rounded-full border border-white/10 bg-white/[0.035] px-3 py-1.5 font-mono text-[0.58rem] tracking-wide text-slate-300/75 transition duration-200 hover:border-[#0095ff]/40 hover:text-[#7fcaff]"
                           >
                             {tech}
                           </span>
                         ))}
                       </div>
 
-                      <div className="h-px bg-white/5 mb-4" />
-
-                      <div className="flex items-center justify-between">
-                        <div className="flex space-x-1">
+                      <div className="mt-auto flex items-center justify-between border-t border-white/10 pt-4">
+                        <div className="flex flex-wrap gap-1">
                           <Button
                             variant="ghost"
                             size="sm"
-                            iconName="ExternalLink"
+                            iconName="ArrowRight"
                             iconPosition="left"
-                            className="text-xs text-foreground opacity-80 hover:opacity-100 hover:text-primary"
+                            className="!px-2 text-xs !text-slate-200 hover:!text-primary"
                             onClick={() => handleOpenModal(project, index)}
                           >
-                            View Details
+                            Open case file
                           </Button>
 
                           {project?.liveUrl && (
@@ -158,7 +161,7 @@ const FeaturedProjects = () => {
                               size="sm"
                               iconName="ExternalLink"
                               iconPosition="left"
-                              className="text-xs text-foreground opacity-80 hover:opacity-100 hover:text-primary"
+                              className="text-xs text-slate-300 opacity-80 hover:opacity-100 hover:text-[#7fcaff]"
                               onClick={() => window.open(project.liveUrl, "_blank")}
                             >
                               Live Demo
@@ -166,13 +169,12 @@ const FeaturedProjects = () => {
                           )}
                         </div>
 
-                        <div className="hidden sm:flex items-center gap-1.5 text-xs text-foreground opacity-80">
-                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 opacity-100" />
-                          {project?.status}
-                        </div>
+                        <span className="hidden font-mono text-[0.56rem] uppercase tracking-[0.16em] text-slate-500 sm:block">
+                          Built with intent
+                        </span>
                       </div>
                     </div>
-                  </div>
+                  </article>
                 </TiltCard>
               </RevealSection>
             );
@@ -181,9 +183,7 @@ const FeaturedProjects = () => {
 
         <div className="text-center">
           <Button size="lg" iconName="ArrowRight" iconPosition="right" asChild>
-            <Link href="/projects" className="text-white">
-              View All Projects
-            </Link>
+            <Link href="/projects">View All Projects</Link>
           </Button>
         </div>
 

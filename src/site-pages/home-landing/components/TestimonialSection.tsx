@@ -39,12 +39,8 @@ const TestimonialSection = () => {
   const { animationsActive } = usePerformanceGuard();
 
   return (
-    <section className="pt-11 pb-14 bg-gradient-to-b from-[#131426]/95 via-[#272b34] to-[#2a363c]">
+    <section className="homepage-section-divider relative overflow-hidden py-16">
       <div className="max-w-6xl mx-auto relative z-20">
-        <div className="absolute top-[18%] right-0 bg-gradient-to-r from-muted opacity-50 rounded-full w-40 h-40 via-muted to-muted blur-3xl animate-pulse-slow" />
-        <div className="absolute top-[60%] -left-10 bg-gradient-to-r from-muted opacity-70 rounded-full w-40 h-40 via-muted to-muted blur-3xl animate-float" />
-        <div className="absolute top-[5%] right-[50%] bg-gradient-to-r from-[#4e575d] opacity-70 rounded-full w-40 h-40 via-[#4e575d] to-[#4e575d] blur-3xl animate-pulse-slow" />
-
         <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center h-full">
           <RevealSection direction="down">
             <div className="mb-8">
@@ -71,7 +67,7 @@ const TestimonialSection = () => {
                 key={testimonial.id}
               >
                 <TiltCard active={animationsActive}>
-                  <div className="bg-gradient-to-b z-30 from-[#1d1f2e]/70 via-white/10 to-transparent hover:shadow-[0_0_12px_rgba(1,149,255,0.25)] rounded-xl border border-border shadow-xl transition p-8">
+                  <div className="project-art-card relative z-30 rounded-xl border border-white/10 p-8 shadow-xl transition hover:shadow-[0_0_32px_rgba(0,149,255,0.12)]">
                     <p className="text-sm sm:text-lg text-muted-foreground mb-4 italic">
                       "{testimonial.quote}"
                     </p>

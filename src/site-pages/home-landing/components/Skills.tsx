@@ -37,11 +37,11 @@ const Skills = () => {
   const { animationsActive } = usePerformanceGuard();
 
   return (
-    <section className="pt-20 px-4 sm: bg-gradient-to-b h-full from-[#2d3641] to-[#131426]/95">
+    <section className="homepage-section-divider relative h-full px-4 pt-20 pb-20">
       {/* RevealSection uses its own IntersectionObserver — no active prop needed */}
       <RevealSection className="h-full" direction="left">
         <TiltCard active={animationsActive}>
-          <div className="bg-gradient-to-b from-[#2a363c]/80 to-transparent hover:shadow-[0_0_12px_rgba(1,149,255,0.25)] backdrop-blur-sm border-white/45 max-w-5xl border py-8 sm:py-12 px-6 lg:px-8 rounded-2xl shadow-2xl mx-auto text-center">
+          <div className="mx-auto max-w-5xl rounded-2xl border border-white/10 bg-[#172126] px-6 py-8 text-center shadow-[0_30px_90px_-40px_rgba(0,0,0,0.85)] transition-shadow hover:shadow-[0_0_50px_rgba(0,149,255,0.12)] sm:py-12 lg:px-8">
             <h2 className="text-xl sm:text-3xl md:text-4xl font-bold text-foreground mb-2 sm:mb-6">
               Technical Skills
             </h2>
@@ -78,7 +78,7 @@ const Skills = () => {
 
             <Button
               variant="link"
-              className="mt-2 text-primary hover:underline"
+              className="mt-2 text-accent hover:underline"
               onClick={() => router.push("/projects#skills")}
             >
               See full breakdown →

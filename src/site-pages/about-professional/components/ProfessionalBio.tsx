@@ -83,9 +83,9 @@ image: "/assets/images/Jason_interest.png"
       "px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-medium text-sm sm:text-base transition-[colors,transform] duration-300 flex items-center gap-2 hover:scale-105";
     const variants = {
       default:
-        "bg-primary text-white hover:bg-primary/95 shadow-lg shadow-primary/30",
+        "bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg shadow-primary/20",
       outline:
-        "border-2 border-blue-50/70 text-blue-50/80 hover:bg-blue-500/10 hover:border-blue-100",
+        "border-2 border-accent/50 text-accent hover:bg-accent/10 hover:border-accent",
     };
 
     return (
@@ -109,10 +109,10 @@ image: "/assets/images/Jason_interest.png"
       return (
         <div key={index} className="flex items-start gap-4 mt-12 mb-6 group">
           <div className="flex flex-col items-center gap-2 pt-1">
-            <div className="w-2 h-2 bg-blue-500 rounded-full group-hover:scale-150 transition-transform"></div>
-            <div className="w-0.5 h-8 bg-gradient-to-b from-blue-500 to-transparent"></div>
+            <div className="w-2 h-2 bg-primary rounded-full group-hover:scale-150 transition-transform"></div>
+            <div className="w-0.5 h-8 bg-gradient-to-b from-primary to-transparent"></div>
           </div>
-          <h4 className="text-xl lg:text-2xl font-bold text-blue-400 group-hover:text-blue-300 transition-colors">
+          <h4 className="text-xl lg:text-2xl font-bold text-primary group-hover:text-cyan-100 transition-colors">
             {title}
           </h4>
         </div>
@@ -121,7 +121,7 @@ image: "/assets/images/Jason_interest.png"
     return (
       <p
         key={index}
-        className="text-gray-300 leading-relaxed text-sm lg:text-lg pl-3 sm:pl-6 relative before:content-[''] before:absolute before:left-0 before:top-0 before:bottom-0 before:w-0.5 before:bg-gradient-to-b before:from-blue-500/50 before:to-transparent hover:text-white transition-colors duration-300"
+        className="text-gray-300 leading-relaxed text-sm lg:text-lg pl-3 sm:pl-6 relative before:content-[''] before:absolute before:left-0 before:top-0 before:bottom-0 before:w-0.5 before:bg-gradient-to-b before:from-primary/60 before:to-transparent hover:text-white transition-colors duration-300"
       >
         {paragraph}
       </p>
@@ -130,15 +130,6 @@ image: "/assets/images/Jason_interest.png"
 
   return (
     <section className="relative py-2 lg:py-8 bg-transparent text-white">
-      {/* Animated background elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 left-10 w-72 h-72 bg-blue-500/5 rounded-full blur-3xl animate-pulse"></div>
-        <div
-          className="absolute bottom-20 right-10 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl animate-pulse"
-          style={{ animationDelay: "1s" }}
-        ></div>
-      </div>
-
       <div className="max-w-6xl mx-auto px-0 sm:px-6 relative z-10">
         {/* Header Section */}
         <RevealSection direction="left">
@@ -147,7 +138,7 @@ image: "/assets/images/Jason_interest.png"
               <div
                 className="inline-flex items-center px-4 py-2 
               bg-primary/10 text-primary rounded-full text-xs sm:text-base font-medium mb-4
-              ring-1 ring-primary/20 backdrop-blur-sm"
+              ring-1 ring-primary/20"
               >
                 <AppIcon name="Smile" size={16} className="mr-2" />
                 About Me
@@ -184,14 +175,10 @@ image: "/assets/images/Jason_interest.png"
 
         {/* Content Card */}
         <RevealSection direction="right">
-          <div className="relative bg-gradient-to-br from-[#2a363c]/20 via-[#2a363c]/50 to-slate-[#2a363c]/60 rounded-3xl lg:border border-blue-200/50 px-2 py-8 lg:p-14 lg:shadow-2xl backdrop-blur-sm overflow-hidden">
+          <div className="relative bg-[#172126]/90 rounded-3xl lg:border border-primary/25 px-2 py-8 lg:p-14 lg:shadow-2xl overflow-hidden">
             {/* Decorative corner accents */}
-            <div className="absolute top-0 left-0 w-32 h-32 border-t-2 border-l-2 border-blue-500/20 rounded-tl-3xl"></div>
-            <div className="absolute bottom-0 right-0 w-32 h-32 border-b-2 border-r-2 border-blue-500/20 rounded-br-3xl"></div>
-
-            {/* Subtle glow effects */}
-            <div className="absolute top-0 right-0 w-80 h-80 bg-blue-500/5 rounded-full blur-3xl"></div>
-            <div className="absolute bottom-0 left-0 w-64 h-64 bg-purple-500/5 rounded-full blur-3xl"></div>
+            <div className="absolute top-0 left-0 w-32 h-32 border-t-2 border-l-2 border-primary/35 rounded-tl-3xl"></div>
+            <div className="absolute bottom-0 right-0 w-32 h-32 border-b-2 border-r-2 border-emerald-300/25 rounded-br-3xl"></div>
 
             <div className="relative space-y-10">
               {/* Title */}
@@ -200,22 +187,22 @@ image: "/assets/images/Jason_interest.png"
                   {content?.[activeTab]?.title}
                 </h3>
                 <div className="flex items-center justify-center gap-2">
-                  <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                  <div className="w-16 h-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"></div>
-                  <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                  <div className="w-2 h-2 bg-primary rounded-full"></div>
+                  <div className="w-16 h-1 bg-gradient-to-r from-primary to-cyan-200 rounded-full"></div>
+                  <div className="w-2 h-2 bg-emerald-300 rounded-full"></div>
                 </div>
               </div>
 
               {/* Image Container */}
               <div
-                className="relative h-[60vw] sm:h-[400px] w-full max-w-[550px] mx-auto rounded-2xl overflow-hidden border-2 border-blue-500/20 shadow-2xl shadow-blue-500/10 group"
+                className="relative h-[60vw] sm:h-[400px] w-full max-w-[550px] mx-auto rounded-2xl overflow-hidden border-2 border-primary/25 shadow-2xl shadow-primary/10 group"
                 style={{
-                  boxShadow: "0 0 40px rgba(59, 130, 246, 0.15",
+                  boxShadow: "0 0 32px rgba(0, 149, 255, 0.12)",
                 }}
               >
-                <div className="absolute inset-0 bg-gradient-to-t from-blue-500/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-primary/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"></div>
 
-                <div className="relative h-full w-full p-3 bg-gradient-to-br from-blue-500/10 via-transparent to-purple-500/5">
+                <div className="relative h-full w-full p-3 bg-gradient-to-br from-primary/10 via-transparent to-emerald-300/10">
                   <div className="absolute inset-0 bg-slate-900/30 rounded-xl z-10"></div>
                   <Image
                     src={content?.[activeTab]?.image}
@@ -225,7 +212,7 @@ image: "/assets/images/Jason_interest.png"
                 </div>
 
                 {/* Floating badges */}
-                <div className="absolute top-4 left-4 px-3 py-1.5 bg-blue-600/90 backdrop-blur-sm text-white text-xs font-semibold rounded-full border border-blue-400/30">
+                <div className="absolute top-4 left-4 px-3 py-1.5 bg-[#d7ff63] text-[#10150b] text-xs font-semibold rounded-full border border-accent/30">
                   {activeTab === "story" && "Journey"}
                   {activeTab === "philosophy" && "Principles"}
                   {activeTab === "interests" && "Passion"}
@@ -262,7 +249,7 @@ image: "/assets/images/Jason_interest.png"
                   <div className="flex justify-center pt-2 !mt-2">
                     <button
                       onClick={() => setExpanded((prev) => !prev)}
-                      className="flex items-center gap-2 px-5 py-2 rounded-full text-sm font-medium text-blue-400 border border-blue-500/30 hover:bg-blue-500/10 hover:border-blue-400 transition-colors duration-300"
+                      className="flex items-center gap-2 px-5 py-2 rounded-full text-sm font-medium text-[#0095ff] border border-blue-500/30 hover:bg-blue-500/10 hover:border-blue-400 transition-colors duration-300"
                     >
                       <span>{expanded ? "See Less" : "See More"}</span>
                       <AppIcon

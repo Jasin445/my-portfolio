@@ -55,7 +55,7 @@ const FeaturedArticles = ({ articles = [], className = '' }: FeaturedArticlesPro
           </div>
           
           <div className="text-center">
-            <div className="text-2xl font-bold text-accent mb-1">
+            <div className="text-2xl font-bold text-primary mb-1">
               {Math.round(articles?.reduce((sum, article) => sum + article?.readTime, 0) / articles?.length)}
             </div>
             <div className="text-sm text-muted-foreground">Avg. Read Time (min)</div>

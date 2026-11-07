@@ -165,7 +165,7 @@ const ContactMethods = () => {
       {/* Availability Status */}
       <div className="bg-card rounded-lg border border-border p-6">
         <div className="flex items-center space-x-3 mb-4">
-          <div className="w-3 h-3 bg-success rounded-full animate-pulse"></div>
+          <div className="w-3 h-3 bg-success rounded-full"></div>
           <h3 className="font-medium text-foreground">Currently Available</h3>
         </div>
         

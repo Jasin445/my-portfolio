@@ -9,7 +9,7 @@
     --color-foreground: #0f172a; /* slate-900 */
     --color-border: #e2e8f0; /* slate-200 */
     --color-input: #ffffff; /* white */
-    --color-ring: #2563eb; /* blue-600 */
+    --color-ring: #0095ff;
 
     /* Card Colors */
     --color-card: #f8fafc; /* slate-50 */
@@ -22,16 +22,17 @@
     --color-muted-foreground: #475569; /* slate-600 */
 
     /* Primary Colors */
-    --color-primary: #2563eb; /* blue-600 */
-    --color-primary-foreground: #ffffff; /* white */
+    --color-primary: #0161fe;
+    --color-primary-foreground: #ffffff;
+    --color-primary-soft: #0095ff;
 
     /* Secondary Colors */
     --color-secondary: #64748b; /* slate-500 */
     --color-secondary-foreground: #ffffff; /* white */
 
     /* Accent Colors */
-    --color-accent: #8ae2f6; /* amber-500 */
-    --color-accent-foreground: #ffffff; /* white */
+    --color-accent: #d7ff63;
+    --color-accent-foreground: #10150b;
 
     /* State Colors */
     --color-success: #10b981; /* emerald-500 */
@@ -115,10 +116,6 @@
     animation: slideUp var(--animation-duration-normal) var(--animation-timing);
   }
 
-  .animate-pulse-subtle {
-    animation: pulseSubtle 2s ease-in-out infinite;
-  }
-
   @keyframes fadeIn {
     from {
       opacity: 0;
@@ -138,17 +135,6 @@
     to {
       opacity: 1;
       transform: translateY(0);
-    }
-  }
-
-  @keyframes pulseSubtle {
-    0%,
-    100% {
-      opacity: 1;
-    }
-    50% {
-      opacity: 0.8;
-      color: #696868
     }
   }
 

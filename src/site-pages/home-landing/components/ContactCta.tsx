@@ -3,12 +3,7 @@ import { RevealSection } from "../../../utils/animation.utils";
 
 const ContactCta = () => {
   return (
-    <section className="relative bg-gradient-to-b from-[#283439] to-[#1f2229] py-12 sm:py-20">
-           <div className="absolute inset-0 pointer-events-none">
-        <div className="w-full h-full opacity-20 bg-[radial-gradient(circle_at_center,_rgba(36,40,49,1)_0%,_rgba(36,40,49,0)_80%)]
-" />
-      </div>
-
+    <section className="homepage-section-divider relative overflow-hidden py-16 sm:py-24">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
         
         <RevealSection direction="up">
@@ -26,7 +21,6 @@ const ContactCta = () => {
             size="lg"
             iconName="Mail"
             iconPosition="left"
-            className="text-white"
             onClick={() => (window.location.href = "/contact-connect")}
             >
             Get In Touch

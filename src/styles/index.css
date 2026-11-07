@@ -1,13 +1,14 @@
 body {
   margin: 0;
   padding: 0;
-  --color-background: #131426;
+  --color-background: #131b21;
   --color-foreground: white;
-  --color-primary: rgb(1, 149, 255);
-  --color-primary-foreground: black;
+  --color-primary: #0161fe;
+  --color-primary-foreground: #ffffff;
+  --color-primary-soft: #0095ff;
   --color-primary-background: black;
   --color-secondary: black;
-    background-color: #131426;
+  background-color: #131b21;
   --color-secondary-background: black;
   --color-destructive-foreground: black;
   --color-muted: rgb(47, 47, 87);
@@ -15,10 +16,77 @@ body {
   --color-muted-foreground: white;
 }
 
+html body .text-primary,
+html body .hover\:text-primary:hover {
+  color: var(--color-primary-soft);
+}
+
+.portfolio-canvas {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  color: #f5f2e9;
+  background: #131b21;
+}
+
+.portfolio-canvas::after {
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+  content: "";
+  inset: 0;
+  opacity: 0.18;
+  mix-blend-mode: normal;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.48'/%3E%3C/svg%3E");
+}
+
+.portfolio-canvas--home .hero-section {
+  border-bottom: 1px solid rgba(0, 149, 255, 0.28);
+  background: transparent;
+}
+
+.portfolio-canvas--home #featuredProjects,
+.portfolio-canvas--home .homepage-section-divider {
+  border-top: 1px solid rgba(245, 242, 233, 0.1);
+}
+
+.portfolio-canvas--home #featuredProjects {
+  border-top-color: rgba(0, 149, 255, 0.24);
+}
+
+.article-universe::after {
+  opacity: 0.16;
+  mix-blend-mode: normal;
+}
+
+.project-art-card {
+  position: relative;
+  isolation: isolate;
+  background-color: #172126;
+}
+
+.project-art-card::after {
+  position: absolute;
+  z-index: 3;
+  inset: 0;
+  border: 1px solid rgba(1, 97, 254, 0);
+  content: "";
+  pointer-events: none;
+  transition: border-color 350ms ease, box-shadow 350ms ease;
+}
+
+.project-art-card:hover::after,
+.project-art-card:focus-within::after {
+  border-color: rgba(0, 149, 255, 0.5);
+  box-shadow: inset 0 0 48px rgba(0, 149, 255, 0.08);
+}
+
+
+
 html,
 body,
 #root {
-  background-color: #131426 !important;
+  background-color: #131b21 !important;
   min-height: 100%;
     overscroll-behavior: none;
 
@@ -32,178 +100,29 @@ body,
   font-family: "Space Grotesk", sans-serif !important;
 }
 
-/* ─── Car drive ──────────────────────────────────────────────────────────────
-   translateX is GPU-composited — no change needed here, already optimal.
-   Added will-change so the browser pre-promotes the layer before animation. */
-@keyframes car-drive {
-  0%   { transform: translateX(-50px); }
-  100% { transform: translateX(calc(100vw + 50px)); }
-}
-
-.animate-car-drive {
-  animation: car-drive 8s linear infinite;
-  will-change: transform;
-}
-
-/* ─── Hexagons ───────────────────────────────────────────────────────────────
-   FIX: clip-path prevents GPU compositing on Intel — the browser has to
-   software-render any element with clip-path that also animates transform.
-   Solution: wrap the hex in a plain div that animates, keep clip-path on
-   an inner pseudo-element that never animates. The outer .hexagon only
-   does transform + opacity (both compositor-friendly). */
-@keyframes floatHex {
-  0%   { transform: translateY(0px)   scale(1);    opacity: 0.4; }
-  50%  { transform: translateY(-20px) scale(1.05); opacity: 0.6; }
-  100% { transform: translateY(0px)   scale(1);    opacity: 0.4; }
-}
-
-.hexagon {
-  position: absolute;
-  width: 60px;
-  height: 60px;
-  animation: floatHex 6s ease-in-out infinite;
-  will-change: transform, opacity; /* pre-promote — only 4 hexagons so VRAM cost is low */
-}
-
-/* clip-path lives on the pseudo-element which never animates — 
-   this keeps it off the compositor path entirely */
-.hexagon::before {
-  content: "";
-  display: block;
-  width: 100%;
-  height: 100%;
-  background: rgba(59, 130, 246, 0.08);
-  clip-path: polygon(25% 6.7%, 75% 6.7%, 100% 50%, 75% 93.3%, 25% 93.3%, 0% 50%);
-}
-
-.hexagon:nth-child(2) { top: 30%; left: 20%;  animation-delay: 2s; }
-.hexagon:nth-child(3) { top: 50%; right: 15%; animation-delay: 4s; }
-.hexagon:nth-child(4) { top: 70%; left: 40%;  animation-delay: 6s; }
-
-/* ─── Glow title ─────────────────────────────────────────────────────────────
-   text-shadow is fine as a static style — no change needed. */
-.glow-title {
-  text-shadow:
-    0 0 8px  rgba(255, 255, 255, 0.5),
-    0 0 16px rgba(120, 200, 255, 0.4),
-    0 0 32px rgba(0, 170, 255, 0.4),
-    0 0 48px rgba(0, 120, 255, 0.4);
-}
-
-/* ─── Cursor blink ───────────────────────────────────────────────────────────
-   opacity-only animation — already GPU composited, no change needed. */
-.cursor::after {
-  content: "|";
-  margin-left: 4px;
-  animation: blink 1s infinite;
-}
-
-@keyframes blink {
-  0%, 50%, 100% { opacity: 1; }
-  25%, 75%      { opacity: 0; }
-}
-
 /* ─── SVG draw text ──────────────────────────────────────────────────────────
    stroke-dashoffset animation on SVG is CPU-rendered — unavoidable for this
    effect. Runs once (forwards) so no ongoing cost after it completes. */
 .draw-text {
-  font-size: clamp(18px, 2vw, 34px);
+  font-size: clamp(64px, 9vw, 100px);
   fill: transparent;
-  stroke: #ffffff;
+  stroke: #0161fe;
   width: 100%;
-  stroke-width: 0.5;
+  stroke-width: 1.2;
   stroke-dasharray: 1000;
   stroke-dashoffset: 1000;
-  filter: drop-shadow(0 0 5px #d3f3f9);
-  animation: drawText 16s ease forwards;
+  animation: drawText 6s ease forwards;
 }
 
 @keyframes drawText {
   0%   { stroke-dashoffset: 1000; fill: transparent; }
-  70%  { stroke-dashoffset: 0;    fill: #ffffff; }
-  100% { stroke-dashoffset: 0;    fill: #ffffff; }
-}
-
-/* ─── Glow filter animation ──────────────────────────────────────────────────
-   filter: drop-shadow is GPU composited on modern browsers — fine as-is. */
-@keyframes glow {
-  from { filter: drop-shadow(0 0 5px  #6be6ff); }
-  to   { filter: drop-shadow(0 0 10px #6be6ff); }
-}
-
-/* ─── Border spin ────────────────────────────────────────────────────────────
-   background-position animation is CPU-rendered but low cost.
-   No change needed — it's not running continuously on many elements. */
-@keyframes borderSpin {
-  0%   { background-position: 0% 50%; }
-  50%  { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  70%  { stroke-dashoffset: 0;    fill: #f5f2e9; }
+  100% { stroke-dashoffset: 0;    fill: #f5f2e9; }
 }
 
 @keyframes slotIn {
   from { opacity: 0; transform: translateY(-12px); }
   to   { opacity: 1; transform: translateY(0); }
-}
-
-/* ─── Shimmer sweep ──────────────────────────────────────────────────────────
-   background-position is not GPU composited. For a shimmer effect the
-   standard trick is to animate transform: translateX on a pseudo-element
-   instead — same visual, fully composited.
-   FIX: replaced background-position animation with translateX on ::after. */
-.shimmer-sweep {
-  position: relative;
-  overflow: hidden;
-}
-
-.shimmer-sweep::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0)       0%,
-    rgba(107, 230, 255, 0.08)   50%,
-    rgba(255, 255, 255, 0)      100%
-  );
-  transform: translateX(-100%);
-  animation: shimmerSweep 1.6s ease-in-out infinite;
-  will-change: transform;
-}
-
-@keyframes shimmerSweep {
-  0%   { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
-}
-
-/* ─── Tilt card ──────────────────────────────────────────────────────────────
-   FIX: preserve-3d was permanently set — this forces the browser to keep
-   a 3D rendering context for every card even when nothing is happening.
-   Removed it from the base style; the hover transform still works without it.
-   will-change moved to hover state only (same as before). */
-.tilt-card {
-  transition:
-    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-    box-shadow 0.3s ease;
-  /* transform-style: preserve-3d — REMOVED, not needed for 2.5D tilt */
-}
-
-/* .section — content-visibility: auto is already optimal, kept as-is */
-.section {
-  content-visibility: auto;
-  contain-intrinsic-size: 0 500px;
-}
-
-@keyframes floatParticles {
-  from { transform: translateY(0px)   translateX(0px); }
-  to   { transform: translateY(-40px) translateX(10px); }
-}
-
-@media (hover: hover) {
-  .tilt-card:hover {
-    transform: perspective(800px) rotateX(-4deg) rotateY(4deg) scale(1.03);
-    box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.45);
-    will-change: transform;
-  }
 }
 
 /* ─── Curtain transitions ────────────────────────────────────────────────────
@@ -256,18 +175,16 @@ body,
   }
 }
 
-/* ─── Mobile draw text ───────────────────────────────────────────────────────
-   Runs once (forwards) — no ongoing cost. No change needed. */
+/* Keep mobile lettering in scale with the shared display style. */
 @media (max-width: 640px) {
   .draw-text {
-    font-size: clamp(44px, 4vw, 111px);
+    font-size: clamp(72px, 24vw, 120px);
     fill: transparent;
-    stroke: #ffffff;
-    stroke-width: 0.2;
+    stroke: #0161fe;
+    stroke-width: 1.2;
     stroke-dasharray: 1000;
     stroke-dashoffset: 1000;
-    filter: drop-shadow(0 0 5px #aae6f1);
-    animation: drawText 25s ease forwards;
+    animation: drawText 6s ease forwards;
   }
 }
 
@@ -276,16 +193,9 @@ body,
    One-shot animations (drawText, logoPulse, curtain) are kept since they
    only run once and convey meaningful state. */
 @media (prefers-reduced-motion: reduce) {
-  .animate-car-drive,
-  .hexagon,
-  .shimmer-sweep::after,
-  .cursor::after {
-    animation: none !important;
-  }
-
-  .tilt-card,
-  .tilt-card:hover {
-    transform: none !important;
-    transition: none !important;
+  .draw-text {
+    fill: #f5f2e9;
+    stroke: none;
+    animation: none;
   }
 }

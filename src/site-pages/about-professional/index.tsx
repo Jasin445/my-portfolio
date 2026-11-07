@@ -10,20 +10,14 @@ const AboutProfessional = () => {
   return (
     <>
       <Header />
-      <main className="min-h-screen bg-background overflow-hidden">
+      <main className="portfolio-canvas relative isolate min-h-screen overflow-hidden">
         <GenericHeroSection
           title={"About Me"}
-          message="Hi there, Its all about me in here"
           image="bg-[url('/assets/images/about-hero.png')] !bg-cover bg-top"
-          overlay="from-[#131426]/70 via-[#0f1115]/70 to-[#2a363c]/70 sm:from-[#131426]/60 sm:via-[#0f1115]/60 sm:to-[#2a363c]/60"
+          overlay="from-[#090c14]/60 via-[#111322]/55 to-[#202317]/65 sm:from-[#090c14]/60 sm:via-[#111322]/55 sm:to-[#202317]/65"
         />
 
         <section className="relative py-12 h-full">
-          <div className="absolute inset-0 pointer-events-none">
-            <div className="absolute inset-0 bg-gradient-to-b from-[#2a363c]/90 via-[#131426] to-[#2a363c]/90 blur-[10px]" />
-            <div className="absolute inset-x-0 bg-gradient-to-b from-[#131426]/70 to-[#2a363c] h-20 blur-xl bottom-0 translate-y-4"></div>
-            <div className="absolute inset-x-0 bg-gradient-to-b from-[#131426]/90 via-[#2a363c] to-[#131426]/60 blur-[340px] z-40 h-20 -bottom-10 translate-y-14"></div>
-          </div>
           <div className="4xl:max-w-7xl 3xl:max-w-7xl max-w-6xl mx-auto px-4 sm:px-6">
             <ProfessionalBio />
           </div>

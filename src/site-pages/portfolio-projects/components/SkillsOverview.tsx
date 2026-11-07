@@ -129,7 +129,7 @@ const SkillsOverview = () => {
   ];
 
   return (
-    <section ref={sectionRef} id="skills" className="py-8 sm:py-16 bg-gradient-to-b from-[#2a363c]/90 via-[#131426]/100 to-[#2a363c]/90 scroll-mt-12">
+    <section ref={sectionRef} id="skills" className="py-8 sm:py-16 scroll-mt-12">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Section Header */}
         <RevealSection direction="down" active={active}>

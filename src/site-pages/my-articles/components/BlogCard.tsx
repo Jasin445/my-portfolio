@@ -66,7 +66,7 @@ const BlogCard = ({ article, featured = false, className = '' }: BlogCardProps) 
           
           {/* Category Badge */}
           <div className="absolute top-4 left-4">
-            <span className="px-3 py-1 bg-primary/90 text-primary-foreground text-xs font-medium rounded-full backdrop-blur-sm">
+            <span className="px-3 py-1 bg-primary text-primary-foreground text-xs font-medium rounded-full">
               {article?.category}
             </span>
           </div>
@@ -74,7 +74,7 @@ const BlogCard = ({ article, featured = false, className = '' }: BlogCardProps) 
           {/* Featured Badge */}
           {featured && (
             <div className="absolute top-4 right-4">
-              <span className="px-3 py-1 bg-accent/90 text-accent-foreground text-xs font-medium rounded-full backdrop-blur-sm flex items-center space-x-1">
+              <span className="px-3 py-1 bg-accent text-accent-foreground text-xs font-medium rounded-full flex items-center space-x-1">
                 <Icon name="Star" size={12} />
                 <span>Featured</span>
               </span>

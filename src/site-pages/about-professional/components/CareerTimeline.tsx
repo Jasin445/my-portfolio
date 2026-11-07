@@ -256,7 +256,7 @@ const CareerTimeline = () => {
               <div className="text-sm text-muted-foreground">Years Experience</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-accent mb-1">4</div>
+              <div className="text-2xl font-bold text-primary mb-1">4</div>
               <div className="text-sm text-muted-foreground">Companies</div>
             </div>
             <div className="text-center">

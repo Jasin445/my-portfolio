@@ -9,15 +9,11 @@ import "../../../styles/hero-section-styles.css";
 import {
   NextJsIcon,
   ReactIcon,
-  TailwindIcon,
-  TypeScriptIcon,
 } from "../../../components/BrandIcons";
-import usePerformanceGuard from "../../../hooks/usePerformanceGuard";
 import { explode } from "../../../utils/animation.utils";
 
 const HeroSection = () => {
   const heroRef = useRef<HTMLElement>(null);
-  const { animationsActive } = usePerformanceGuard();
   const [copied, setCopied] = useState(false);
   const [mounted, setMounted] = useState(false);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -37,216 +33,124 @@ const HeroSection = () => {
     timerRef.current = setTimeout(() => setCopied(false), 2500);
   };
 
-  const shouldAnimate = mounted && animationsActive;
-
   return (
     <section
       ref={heroRef}
-      className={`hero-section relative flex min-h-screen items-center justify-center bg-gradient-to-br from-background via-card to-muted/20${mounted ? " hero-loaded" : ""}`}
+      className={`hero-section relative isolate flex min-h-screen items-center justify-center overflow-hidden bg-transparent${mounted ? " hero-loaded" : ""}`}
     >
-      {/*
-        Background orbs — replaced blur-lg with SVG radial gradients.
-        SVG filters are GPU-composited once and never repaint on scroll.
-      */}
-      <div className="absolute inset-0 opacity-10 pointer-events-none" aria-hidden="true">
-        <svg
-          className="absolute inset-0 w-full h-full"
-          xmlns="http://www.w3.org/2000/svg"
-          preserveAspectRatio="xMidYMid slice"
-        >
-          <defs>
-            <radialGradient id="orb1" cx="15%" cy="15%" r="35%">
-              <stop offset="0%" stopColor="var(--color-primary, #6366f1)" />
-              <stop offset="100%" stopColor="#3b82f6" stopOpacity="0" />
-            </radialGradient>
-            <radialGradient id="orb2" cx="85%" cy="85%" r="40%">
-              <stop offset="0%" stopColor="var(--color-accent, #a855f7)" />
-              <stop offset="100%" stopColor="#7c3aed" stopOpacity="0" />
-            </radialGradient>
-          </defs>
-          <rect width="100%" height="100%" fill="url(#orb1)" />
-          <rect width="100%" height="100%" fill="url(#orb2)" />
-        </svg>
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0">
+        <div className="absolute -right-32 top-[14%] aspect-square w-[min(74vw,68rem)] rounded-full border border-[#0095ff]/[0.12] shadow-[0_0_0_2rem_rgba(0,149,255,0.02),0_0_0_6rem_rgba(0,149,255,0.015),inset_0_0_8rem_rgba(0,149,255,0.05)]" />
+        <div className="absolute -right-12 top-[22%] aspect-square w-[min(62vw,56rem)] rounded-full border border-dashed border-primary/[0.18]" />
+        <div className="absolute left-[8%] top-[23%] h-px w-[min(35vw,25rem)] bg-gradient-to-r from-[#0095ff]/40 to-transparent" />
+        <div className="absolute bottom-28 left-[7%] h-1 w-1 rounded-full bg-accent shadow-[0_0_1rem_rgba(215,255,99,0.8)]" />
       </div>
 
-      <div className="relative z-0 4xl:max-w-9xl 3xl:max-w-8xl max-w-7xl w-full mx-auto px-4 sm:px-12 pb-10 pt-20 sm:py-28 lg:py-20">
-        <div className="grid lg:grid-cols-[60%_40%] mt-6 sm:mt-12 gap-12 items-center">
-          {/* Content */}
-          <div className="space-y-8 sm:pt-0 text-center lg:text-left">
-            <div className="space-y-6">
-              {/* Badge — CSS-driven entrance via .hero-loaded */}
-              <div className="hero-child hero-child--badge hidden sm:inline-flex items-center px-2 sm:px-6 py-1 bg-gradient-to-r from-primary/20 mt-9 to-blue-500/20 text-primary rounded-full text-[9px] sm:text-sm font-medium border border-primary/20 backdrop-blur-sm shadow-lg hover:scale-105 hover:shadow-primary/20 hover:shadow-xl transition-[transform,box-shadow] duration-300">
-                <Icon
-                  name="Code"
-                  size={16}
-                  className={`mr-2 text-blue-300 ${shouldAnimate ? "animate-pulse" : ""}`}
-                />
-                <span className="bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-blue-300 font-semibold">
-                  FullStack Developer
-                </span>
-              </div>
+      <div className="relative z-10 mx-auto grid min-h-screen w-full max-w-[88rem] items-center gap-12 px-5 pb-20 pt-32 sm:px-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16 lg:px-16 lg:pb-24 lg:pt-28">
+        <div className="space-y-8 text-center lg:text-left">
+          <div className="hero-child hero-child--badge inline-flex items-center gap-3 font-mono text-[0.62rem] font-semibold uppercase tracking-[0.18em] text-cyan-100/80 sm:text-xs">
+            <span className="h-2.5 w-2.5 rounded-full bg-accent shadow-[0_0_1rem_rgba(215,255,99,0.7)]" />
+            Independent developer <span className="text-accent">/</span> Abuja, Nigeria
+          </div>
 
-              {/* Heading */}
-              <div className="lg:min-h-[180px]">
-                <h1 className="hero-child hero-child--heading text-[7.3vw] sm:text-5xl lg:text-5xl lg:text-[48px] 3xl:text-[4vw] lg:leading-tight font-normal text-foreground tracking-widest leading-tight">
-                  <span className="font-black">Hi, I'm Jason.</span>
-                  <br />
-                  <span
-                    className={`block bg-gradient-to-r font-bold from-primary via-blue-500 to-purple-600 bg-clip-text text-transparent ${
-                      shouldAnimate ? "animate-gradient-x will-change-transform" : ""
-                    }`}
-                  >
-                    I Turn Ideas Into
-                  </span>
-                  Beautiful Web Apps
-                </h1>
-              </div>
+          <div>
+            <h1 className="hero-child hero-child--heading max-w-[12ch] text-[clamp(3.35rem,7vw,6rem)] font-semibold leading-[1.02] tracking-[-0.095em] text-[#f4f4ee]">
+              <span className="block leading-[1.02]">I build</span>
+              <span className="block leading-[1.02] text-transparent [-webkit-text-stroke:1px_rgba(238,244,249,0.7)]">
+                digital
+              </span>
+              <span className="block leading-[1.02]">
+                experiences.
+              </span>
+            </h1>
+            <p className="hero-child hero-child--para mx-auto mt-8 max-w-xl text-sm leading-7 text-slate-300/85 sm:text-base sm:leading-8 lg:mx-0">
+              I&apos;m Jason Dagana — a full-stack developer turning complex ideas into
+              fast, thoughtful web products with React, Next.js, and TypeScript.
+            </p>
+          </div>
 
-              {/* Paragraph */}
-              <p className="hero-child hero-child--para text-lg md:text-xl text-muted-foreground !mt-0 max-w-xl mx-auto lg:ml-0 pt-2 leading-relaxed">
-                React, Node.js & Next.js developer who obsesses over clean code, fast
-                load times, and interfaces users actually enjoy.
-              </p>
-            </div>
+          <div className="hero-child hero-child--cta flex flex-col items-center gap-3 sm:flex-row sm:justify-center lg:justify-start">
+            <Button
+              variant="default"
+              size="lg"
+              iconName="ArrowRight"
+              iconPosition="right"
+              asChild
+              className="!h-14 rounded-full !px-7 !text-sm !font-semibold !tracking-wide"
+            >
+              <Link href="/projects">Explore the work</Link>
+            </Button>
+            <Button
+              variant="outline"
+              size="lg"
+              iconName={copied ? "Check" : "Copy"}
+              iconPosition="left"
+              onClick={handleCopy}
+              className={`!h-14 rounded-full !border-accent/70 !bg-accent/[0.06] !px-7 !text-sm !text-accent hover:!border-accent hover:!bg-accent/15 ${copied ? "!border-accent !text-accent" : ""}`}
+            >
+              {copied ? "Email copied" : "Copy my email"}
+            </Button>
+          </div>
 
-            {/* Mobile image */}
-            <div className="hero-child hero-child--img-mobile flex justify-center lg:hidden lg:justify-end lg:mr-[20%]">
-              <div className="relative group cursor-pointer">
-                <div className="relative rounded-2xl lg:rounded-full h-auto w-full sm:w-[70vw] aspect-square sm:h-[50vw] sm:aspect-auto overflow-hidden lg:group-hover:border-2 group-hover:border-2 group-hover:border-primary/80 lg:border-4 border-primary shadow-2xl transition-[border,shadow] duration-500 hover:shadow-primary/20">
-                  <div className="absolute w-full h-full z-10 group-hover:opacity-50 transition-opacity duration-300" />
-                  <Image
-                    src="./assets/images/jason.webp"
-                    alt="Jason Dagana - FullStack Developer"
-                    title="Jason Dagana | FullStack Developer"
-                    width={400}
-                    height={400}
-                    loading="eager"
-                    fetchPriority="high"
-                    className="w-full h-full object-cover object-[0_30%] transition-transform duration-500"
-                  />
+          <div className="hero-child hero-child--stats grid grid-cols-3 border-y border-white/10 py-5 text-left">
+            {[
+              { number: "05+", label: "Selected builds" },
+              { number: "07+", label: "Modern tools" },
+              { number: "1K+", label: "GitHub commits" },
+            ].map((stat, index) => (
+              <div
+                key={stat.label}
+                className={`group px-3 first:pl-0 sm:px-5 ${index > 0 ? "border-l border-white/10" : ""}`}
+              >
+                <div className="font-mono text-xl font-semibold tracking-[-0.06em] text-white transition-colors group-hover:text-primary sm:text-2xl">
+                  {stat.number}
+                </div>
+                <div className="mt-1 text-[0.58rem] uppercase tracking-[0.12em] text-slate-400 sm:text-[0.66rem]">
+                  {stat.label}
                 </div>
               </div>
-            </div>
+            ))}
+          </div>
+        </div>
 
-            {/* CTA Buttons */}
-            <div className="hero-child hero-child--cta flex flex-col sm:flex-row gap-5 justify-center lg:justify-start">
-              <Button
-                variant="default"
-                size="lg"
-                iconName="Terminal"
-                iconPosition="left"
-                asChild
-              >
-                <Link href="/projects">
-                  <span className="relative z-10 font-semibold">Explore My Projects</span>
-                </Link>
-              </Button>
-              <Button
-                variant="outline"
-                size="lg"
-                iconName={copied ? "Check" : "Copy"}
-                iconPosition="left"
-                onClick={handleCopy}
-                style={{ minWidth: "200px" }}
-                className={`flex items-center gap-2 px-6 py-3 rounded-lg border transition-all duration-200 ${
-                  copied
-                    ? "!border-green-500 text-green-500"
-                    : "!border-white/80 text-white hover:bg-white/5"
-                }`}
-              >
-                {copied ? "Copied!" : "Copy My Email"}
-              </Button>
+        <div className="hero-child hero-child--img-desktop relative mx-auto w-full max-w-[29rem] lg:ml-auto lg:mr-8">
+          <div className="absolute -inset-5 rounded-[46%_46%_2rem_2rem] border border-[#0095ff]/25" />
+          <div className="absolute -inset-9 rounded-[48%_48%_2.8rem_2.8rem] border border-dashed border-accent/35" />
+          <div className="group relative aspect-[0.79] overflow-hidden rounded-[44%_44%_1.8rem_1.8rem] border border-white/20 bg-[#0b1524] shadow-[0_40px_100px_-40px_rgba(0,0,0,0.9),0_0_80px_-30px_rgba(64,171,229,0.35)]">
+            <Image
+              src="./assets/images/jason.webp"
+              alt="Jason Dagana - FullStack Developer"
+              title="Jason Dagana | FullStack Developer"
+              width={800}
+              height={800}
+              loading="eager"
+              fetchPriority="high"
+              className="h-full w-full object-cover object-[center_30%] transition-transform duration-700 group-hover:scale-[1.035]"
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-[#07172d]/5 via-transparent to-[#06101f]/90" />
+            <div className="absolute inset-x-0 top-0 flex justify-between p-4 font-mono text-[0.56rem] uppercase tracking-[0.14em] text-white/80 sm:p-5">
+              <span>Jason Dagana</span>
+              <span>JD / 001</span>
             </div>
-
-            {/* Stats — hover scale removed to prevent repaint chains */}
-            <div className="hero-child hero-child--stats flex gap-8 justify-center lg:justify-start pt-3 sm:pt-8">
-              {[
-                { number: "5+", label: "Projects Completed", color: "text-white" },
-                { number: "7+", label: "Modern Tools & Frameworks", color: "text-white" },
-                { number: "1000+", label: "GitHub Contributions", color: "text-white" },
-              ].map((stat) => (
-                <div
-                  key={stat.label}
-                  className="text-center group cursor-pointer"
-                >
-                  <div
-                    className={`text-xl sm:text-2xl md:text-3xl font-bold ${stat.color} ${
-                      shouldAnimate
-                        ? "group-hover:animate-pulse group-hover:text-blue-200"
-                        : "group-hover:text-blue-200"
-                    }`}
-                  >
-                    {stat.number}
-                  </div>
-                  <div className="text-xs text-muted-foreground group-hover:text-blue-200 transition-colors duration-300">
-                    {stat.label}
-                  </div>
-                </div>
-              ))}
+            <div className="absolute bottom-0 inset-x-0 flex items-end justify-between gap-4 p-5 sm:p-7">
+              <div>
+                <p className="font-mono text-[0.58rem] uppercase tracking-[0.18em] text-primary">Design-minded engineer</p>
+                <p className="mt-2 text-xl font-medium tracking-[-0.04em] text-white sm:text-2xl">Making the web feel human.</p>
+              </div>
+              <div className="hidden h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/30 bg-[#172126] text-white sm:flex">
+                <Icon name="ArrowRight" size={18} className="-rotate-45" />
+              </div>
             </div>
           </div>
 
-          {/* Desktop image */}
-          <div className="hero-child hero-child--img-desktop lg:flex hidden justify-center lg:justify-end lg:mr-[20%]">
-            <div className="relative group cursor-pointer">
-              <div className="relative rounded-2xl lg:rounded-full w-[100%] aspect-square lg:aspect-auto overflow-hidden lg:group-hover:border-2 lg:border-[3px] border-primary shadow-2xl transition-[border,shadow] duration-500 hover:shadow-primary/20">
-                <Image
-                  src="./assets/images/jason.webp"
-                  alt="Jason Dagana - FullStack Developer"
-                  title="Jason Dagana | FullStack Developer"
-                  width={800}
-                  height={800}
-                  loading="eager"
-                  fetchPriority="high"
-                  className="w-full h-full hover:scale-105 object-cover object-center transition-transform duration-500"
-                />
-              </div>
-
-              {/* Orbit */}
-              <div className="absolute !rounded-full inset-0 w-[110%] flex items-center justify-center pointer-events-none">
-                <div
-                  className={`absolute !rounded-full inset-0 ${
-                    shouldAnimate ? "animate-spin-slow-1 will-change-transform" : ""
-                  }`}
-                >
-                  <div
-                    className={`absolute -right-5 w-8 sm:w-12 h-8 sm:h-12 bg-gradient-to-r from-primary to-blue-600 rounded-full flex items-center justify-center shadow-xl ${
-                      shouldAnimate ? "animate-pulse-slow-1" : ""
-                    }`}
-                  >
-                    <ReactIcon size={22} color="white" />
-                  </div>
-                  <div
-                    className={`absolute -left-5 w-8 sm:w-12 h-8 sm:h-12 bg-gradient-to-r from-gray-500 to-black rounded-full flex items-center justify-center shadow-xl ${
-                      shouldAnimate ? "animate-pulse-slow-2" : ""
-                    }`}
-                  >
-                    <NextJsIcon size={22} color="white" />
-                  </div>
-                </div>
-
-                <div
-                  className={`absolute inset-0 !rounded-full ${
-                    shouldAnimate ? "animate-spin-reverse will-change-transform" : ""
-                  }`}
-                >
-                  <div
-                    className={`absolute -left-5 w-8 sm:w-12 h-8 sm:h-12 bg-gradient-to-r from-sky-400 to-sky-600 rounded-full flex items-center justify-center shadow-xl ${
-                      shouldAnimate ? "animate-pulse-slow-3" : ""
-                    }`}
-                  >
-                    <TailwindIcon size={22} fill="white" />
-                  </div>
-                  <div
-                    className={`absolute -right-5 w-8 sm:w-12 h-8 sm:h-12 bg-gradient-to-r from-blue-500 to-blue-700 rounded-full flex items-center justify-center shadow-xl ${
-                      shouldAnimate ? "animate-pulse-slow-4" : ""
-                    }`}
-                  >
-                    <TypeScriptIcon size={22} fill="white" />
-                  </div>
-                </div>
-              </div>
-            </div>
+          <div className="absolute -right-5 top-[24%] flex h-12 w-12 items-center justify-center rounded-full border border-white/20 bg-[#07172d] shadow-[0_10px_30px_rgba(0,0,0,0.4)] sm:-right-7 sm:h-14 sm:w-14">
+            <ReactIcon size={25} color="white" />
+          </div>
+          <div className="absolute -left-5 bottom-[25%] flex h-12 w-12 items-center justify-center rounded-full border border-white/20 bg-[#07172d] shadow-[0_10px_30px_rgba(0,0,0,0.4)] sm:-left-7 sm:h-14 sm:w-14">
+            <NextJsIcon size={25} color="white" />
+          </div>
+          <div className="absolute -bottom-8 right-0 hidden items-center gap-2 font-mono text-[0.58rem] uppercase tracking-[0.16em] text-slate-400 sm:flex">
+            <span className="h-px w-8 bg-accent" />
+            Scroll to explore
           </div>
         </div>
       </div>
@@ -258,10 +162,10 @@ const HeroSection = () => {
             .getElementById("featuredProjects")
             ?.scrollIntoView({ behavior: "smooth" })
         }
-        className="hero-child hero-child--scroll absolute z-20 bottom-8 hidden sm:block left-1/2 -translate-x-1/2 cursor-pointer group"
+        className="hero-child hero-child--scroll absolute bottom-7 left-1/2 z-20 hidden -translate-x-1/2 cursor-pointer group text-cyan-100/70 sm:block"
       >
         <ChevronDown
-          className={`z-50 text-white size-6 ${shouldAnimate ? "animate-bounce" : ""}`}
+          className="z-50 text-white size-6"
         />
       </div>
     </section>

@@ -110,30 +110,24 @@ const ContactConnect = () => {
     <>
       <ToastContainer toasts={toasts} removeToast={removeToast} />
         <Header />
-        <main className="relative min-h-screen bg-gradient-to-br from-background via-card to-muted/20 overflow-hidden">
-          <div className="bg-background">
+        <main className="portfolio-canvas relative isolate min-h-screen overflow-hidden">
+          <div className="relative bg-transparent">
             {/* Hero Section */}
             <section className="">
               <GenericHeroSection
-                message="Hi there! Lets do something amazing together!"
                 image="bg-[url('/assets/images/contact-hero.jpg')]"
-                overlay="from-[#131426]/80 via-[#0f1115]/80 to-[#2a363c]/80"
+                overlay="from-[#07172d]/85 via-[#111322]/75 to-[#102b3c]/80"
                 title={"Contact Me"}
               />
             </section>
           </div>
           <section className="relative max-w-7xl mx-auto py-8 sm:py-14 lg:py-28 px-4 sm:px-6 z-20">
-            <div className="absolute inset-0 pointer-events-none -z-10">
-              <div className="absolute inset-0 bg-gradient-to-b from-[#2a363c]/90 via-[#131426] to-[#2a363c]/90 blur-[10px]" />
-              <div className="absolute inset-x-0 bg-gradient-to-b from-[#131426]/70 to-[#2a363c] h-20 blur-xl bottom-0 translate-y-4"></div>
-              <div className="absolute inset-x-0 bg-gradient-to-b from-[#131426]/90 via-[#2a363c] to-[#131426]/60 blur-[340px] h-20 -bottom-10 translate-y-14"></div>
-            </div>
             <div className="grid lg:grid-cols-2 gap-16 items-start">
               {/* Contact Info */}
               <div className="space-y-8">
                 <RevealSection direction="left">
                   <div>
-                    <div className="inline-flex items-center pl-0 md:pl-4 px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium mb-4">
+                    <div className="inline-flex items-center pl-0 md:pl-4 px-4 py-2 bg-accent/10 text-accent rounded-full text-sm font-medium mb-4">
                       <Icon name="MessageCircle" size={16} className="mr-2" />
                       Get In Touch
                     </div>
@@ -152,7 +146,7 @@ const ContactConnect = () => {
                   </div>
                   {/* Contact Methods */}
                   <div className="space-y-4">
-                    <div className="flex items-center space-x-4 p-4 bg-[#2a363c]/80  overflow-hidden rounded-lg border border-border">
+                    <div className="flex items-center space-x-4 p-4 bg-[#20252a]/80 overflow-hidden rounded-lg border border-primary/15 hover:border-primary/35 transition-colors">
                       <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
                         <Icon name="Mail" size={20} className="text-primary" />
                       </div>
@@ -166,7 +160,7 @@ const ContactConnect = () => {
                       </div>
                     </div>
 
-                    <div className="flex items-center space-x-4 p-4 bg-[#2a363c]/80  overflow-hidden rounded-lg border border-border">
+                    <div className="flex items-center space-x-4 p-4 bg-[#20252a]/80 overflow-hidden rounded-lg border border-primary/15 hover:border-primary/35 transition-colors">
                       <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
                         <Icon name="Phone" size={20} className="text-primary" />
                       </div>
@@ -180,7 +174,7 @@ const ContactConnect = () => {
                       </div>
                     </div>
 
-                    <div className="flex items-center space-x-4 p-4 bg-[#2a363c]/80  overflow-hidden rounded-lg border border-border">
+                    <div className="flex items-center space-x-4 p-4 bg-[#20252a]/80 overflow-hidden rounded-lg border border-primary/15 hover:border-primary/35 transition-colors">
                       <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
                         <Icon
                           name="MapPin"
@@ -213,7 +207,7 @@ const ContactConnect = () => {
                           href={social?.url}
                           // target="_blank"
                           // rel="noopener noreferrer"
-                          className="flex items-center space-x-3 p-3 bg-[#2a363c]/80 overflow-hidden rounded-lg border border-border hover:shadow-md transition-shadow duration-fast group"
+                          className="flex items-center space-x-3 p-3 bg-[#20252a]/80 overflow-hidden rounded-lg border border-primary/15 hover:border-primary/35 hover:shadow-md transition-shadow duration-fast group"
                         >
                           <Icon
                             name={social?.icon}
@@ -242,7 +236,7 @@ const ContactConnect = () => {
 
               {/* Contact Form */}
               <RevealSection direction="right">
-                <div className="bg-[#2a363c]/80 overflow-hidden relative z-[9999] rounded-xl border border-border px-4 py-8 sm:p-8 shadow-sm">
+                <div className="bg-[#20252a]/85 overflow-hidden relative z-[9999] rounded-xl border border-primary/20 px-4 py-8 sm:p-8 shadow-sm">
                   <h3 className="text-lg sm:text-xl font-semibold text-foreground mb-6">
                     Send a Message
                   </h3>

@@ -29,7 +29,7 @@ const DownloadResume = () => {
 };
 
   return (
-    <section ref={sectionRef} className="relative py-16 lg:py-24 bg-gradient-to-b from-[#2a363c] via-[#182330] to-muted/20 to-[#2a363c] border-blue-50/40 border-t-2">
+    <section ref={sectionRef} className="relative py-16 lg:py-24 border-accent/30 border-t-2">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center">
         <RevealSection active={active} direction="down">
           <h2 className="text-xl sm:text-2xl lg:text-4xl font-bold text-foreground mb-4">
@@ -41,7 +41,7 @@ const DownloadResume = () => {
           </p>
 
           {/* Resume Preview */}
-          <div className="relative bg-transparent border border-border rounded-xl p-4 pb-9 sm:p-8 mb-8 shadow-sm hover:shadow-md transition-shadow duration-300">
+          <div className="relative bg-white/[0.025] border border-accent/20 rounded-xl p-4 pb-9 sm:p-8 mb-8 shadow-sm hover:shadow-md transition-shadow duration-300">
             <div className="flex flex-col items-center justify-center space-y-4">
               <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center">
                 <Icon name="FileText" size={28} className="text-primary" />
@@ -73,7 +73,7 @@ const DownloadResume = () => {
 
         {/* Optional Call to Action */}
         <RevealSection active={active} direction="right">
-        <div className="bg-gradient-to-r from-primary/5 to-accent/5 rounded-xl p-6 border border-border">
+        <div className="bg-gradient-to-r from-accent/10 to-emerald-300/5 rounded-xl p-6 border border-accent/20">
           <p className="text-sm leading-loose sm:text-base text-muted-foreground mb-4">
             Want a version tailored to your company or project? I’d love to
             connect.
