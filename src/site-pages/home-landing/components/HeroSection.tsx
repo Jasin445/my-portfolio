@@ -49,7 +49,7 @@ const HeroSection = () => {
         <div className="space-y-8 text-center lg:text-left">
           <div className="hero-child hero-child--badge inline-flex items-center gap-3 font-mono text-[0.62rem] font-semibold uppercase tracking-[0.18em] text-cyan-100/80 sm:text-xs">
             <span className="h-2.5 w-2.5 rounded-full bg-accent shadow-[0_0_1rem_rgba(215,255,99,0.7)]" />
-            Independent developer <span className="text-accent">/</span> Abuja, Nigeria
+            Full-stack developer <span className="text-accent">/</span> Abuja, Nigeria
           </div>
 
           <div>
