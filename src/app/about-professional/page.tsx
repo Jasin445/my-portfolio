@@ -16,6 +16,7 @@ export const metadata = createPageMetadata({
     { url: "/assets/images/Jason_main2.webp", width: 1490, height: 886, alt: "Jason Dagana — developer profile" },
     { url: "/assets/images/Jason_philosophy.png", alt: "Jason Dagana's development philosophy" },
     { url: "/assets/images/Jason_interest.png", alt: "Jason Dagana's interests beyond code" },
+    { url: "/assets/images/about-hero.png", alt: "Digital systems and networks" },
   ],
 });
 
@@ -34,6 +35,7 @@ export default function AboutPage() {
         "https://jason-dagana.vercel.app/assets/images/Jason_main2.webp",
         "https://jason-dagana.vercel.app/assets/images/Jason_philosophy.png",
         "https://jason-dagana.vercel.app/assets/images/Jason_interest.png",
+        "https://jason-dagana.vercel.app/assets/images/about-hero.png",
       ],
       sameAs: [
         "https://github.com/Jasin445",

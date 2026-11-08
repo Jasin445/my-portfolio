@@ -1,11 +1,11 @@
 import { useEffect, useState, useRef } from "react";
-import { User, Lightbulb, Cpu } from "lucide-react";
+import { User, Lightbulb, Cpu, Heart } from "lucide-react";
 import AppIcon from "../../../components/AppIcon";
 import Image from "../../../components/AppImage";
 import { RevealSection } from "../../../utils/animation.utils";
 import type { ComponentType, ReactNode } from "react";
 
-type BioTab = "story" | "philosophy" | "interests";
+type BioTab = "story" | "philosophy" | "systems" | "interests";
 
 interface BioContent {
   title: string;
@@ -23,6 +23,7 @@ const ProfessionalBio = () => {
       "/assets/images/Jason_main2.webp",
       "/assets/images/Jason_philosophy.png",
       "/assets/images/Jason_interest.png",
+      "/assets/images/about-hero.png",
     ].forEach((src) => {
       const image = new window.Image();
       image.decoding = "async";
@@ -33,7 +34,8 @@ const ProfessionalBio = () => {
   const tabs: { id: BioTab; label: string; icon: ComponentType<{ size?: number }> }[] = [
     { id: "story", label: "My Story", icon: User },
     { id: "philosophy", label: "Philosophy", icon: Lightbulb },
-    { id: "interests", label: "Systems", icon: Cpu },
+    { id: "systems", label: "Systems", icon: Cpu },
+    { id: "interests", label: "Interests", icon: Heart },
   ];
 
   const content: Record<BioTab, BioContent> = {
@@ -59,7 +61,7 @@ AI is a technical collaborator in my process, not the authority on what should b
 I am still learning, so I do not expect to have every answer. I do expect to stay curious, make decisions deliberately, and take responsibility for the systems I help build.`,
       image: "/assets/images/Jason_philosophy.png",
     },
-    interests: {
+    systems: {
       title: "Systems & First Principles",
       content: `I am interested in the relationship between software and the systems that make it possible. I want to understand not only how to use an abstraction, but what happens underneath when I do.
 
@@ -68,6 +70,15 @@ That curiosity takes me from operating systems and Linux to computer architectur
 I am also drawn to the engineering thinking behind software: problem-solving, system design, debugging, and the reasons one architecture or integration makes more sense than another. For me, understanding the lower layers and making sound decisions at the application level are connected parts of the same practice.
 
 My master's degree in Information Management adds another perspective. Software systems collect, store, process, organize, and make information useful. I am interested in how computing principles meet information architecture, databases, organizations, and decision-making—and in continuing to explore that intersection.`,
+      image: "/assets/images/about-hero.png",
+    },
+    interests: {
+      title: "What I Enjoy Outside the Screen",
+      content: `Outside software, I enjoy activities that let me switch gears and make things with my hands. I love singing, art, and crafts, and I enjoy the energy and shared excitement of football.
+
+I also like fixing electronics. I enjoy taking a device apart, figuring out how it works, finding what has gone wrong, and putting it back together again.
+
+There is a common thread in those interests: I like figuring things out. Whether I am troubleshooting a device, working on something by hand, or following a game, I enjoy being curious, trying things, and seeing how they come together.`,
       image: "/assets/images/Jason_interest.png",
     },
   };
@@ -221,7 +232,8 @@ My master's degree in Information Management adds another perspective. Software 
                 <div className="absolute top-4 left-4 px-3 py-1.5 bg-[#d7ff63] text-[#10150b] text-xs font-semibold rounded-full border border-accent/30">
                   {activeTab === "story" && "Journey"}
                   {activeTab === "philosophy" && "Principles"}
-                  {activeTab === "interests" && "Under the surface"}
+                  {activeTab === "systems" && "Under the surface"}
+                  {activeTab === "interests" && "Passion"}
                 </div>
               </div>
 

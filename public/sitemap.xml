@@ -74,7 +74,8 @@
     <priority>0.8</priority>
     <image:image><image:loc>https://jason-dagana.vercel.app/assets/images/Jason_main2.webp</image:loc><image:title>Jason Dagana developer profile</image:title></image:image>
     <image:image><image:loc>https://jason-dagana.vercel.app/assets/images/Jason_philosophy.png</image:loc><image:title>Jason Dagana development philosophy</image:title></image:image>
-    <image:image><image:loc>https://jason-dagana.vercel.app/assets/images/Jason_interest.png</image:loc><image:title>Jason Dagana interests beyond code</image:title></image:image>
+    <image:image><image:loc>https://jason-dagana.vercel.app/assets/images/Jason_interest.png</image:loc><image:title>Jason Dagana interests and recreational activities</image:title></image:image>
+    <image:image><image:loc>https://jason-dagana.vercel.app/assets/images/about-hero.png</image:loc><image:title>Computing systems and networks</image:title></image:image>
   </url>
   <url><loc>https://jason-dagana.vercel.app/my-articles</loc><priority>0.8</priority></url>
   <url><loc>https://jason-dagana.vercel.app/contact-connect</loc><priority>0.6</priority></url>
