@@ -6,9 +6,8 @@ import {
   useMemo,
   useRef,
   useCallback,
-  lazy,
-  Suspense,
 } from "react";
+import { useRouter } from "next/navigation";
 import Header from "../../components/ui/Header";
 import ProjectCard from "./components/ProjectCard";
 import Icon from "../../components/AppIcon";
@@ -22,7 +21,6 @@ import { RevealSection, TiltCard } from "../../utils/animation.utils";
 import usePerformanceGuard from "../../hooks/usePerformanceGuard";
 import type { Project } from "../../types/project";
 
-const ProjectModal = lazy(() => import("./components/ProjectModal"));
 
 const PROJECTS_PER_PAGE = 6;
 
@@ -139,8 +137,7 @@ const SlotNumber = ({ page }: { page: number }) => (
 
 /* ════════════════════════════════════════════════════════════ */
 const PortfolioProjects = () => {
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const router = useRouter();
   const [activeFilter, setActiveFilter] = useState<ProjectFilter>("all");
   const [currentPage, setCurrentPage] = useState(1);
   const [openFilterDropdown, setOpenFilterDropdown] = useState(false);
@@ -172,39 +169,9 @@ const PortfolioProjects = () => {
     return filteredProjects.slice(start, start + PROJECTS_PER_PAGE);
   }, [filteredProjects, currentPage]);
 
-  // ── Single memo for all modal navigation state ────────────────
-  const { selectedIndex, hasNextProject, hasPrevProject } = useMemo(() => {
-    const i = selectedProject
-      ? filteredProjects.findIndex((p) => p?.id === selectedProject?.id)
-      : -1;
-    return {
-      selectedIndex: i,
-      hasNextProject: i >= 0 && i < filteredProjects.length - 1,
-      hasPrevProject: i > 0,
-    };
-  }, [selectedProject, filteredProjects]);
-
-  // ── Handlers ─────────────────────────────────────────────────
   const handleViewDetails = useCallback((project: Project) => {
-    setSelectedProject(project);
-    setIsModalOpen(true);
-  }, []);
-
-  const handleCloseModal = useCallback(() => {
-    setIsModalOpen(false);
-    setSelectedProject(null);
-  }, []);
-
-  const handleNavigateProject = useCallback(
-    (direction: "next" | "prev") => {
-      if (selectedIndex < 0) return;
-      const newIndex =
-        direction === "next" ? selectedIndex + 1 : selectedIndex - 1;
-      if (newIndex >= 0 && newIndex < filteredProjects.length)
-        setSelectedProject(filteredProjects[newIndex]);
-    },
-    [selectedIndex, filteredProjects]
-  );
+    router.push(`/projects/${project.id}`);
+  }, [router]);
 
   const handlePageChange = useCallback((page: number) => {
     setCurrentPage(page);
@@ -424,18 +391,6 @@ const PortfolioProjects = () => {
                 )}
               </div>
 
-              <Suspense fallback={null}>
-                {isModalOpen && (
-                  <ProjectModal
-                    project={selectedProject}
-                    isOpen={isModalOpen}
-                    onClose={handleCloseModal}
-                    onNavigate={handleNavigateProject}
-                    hasNext={hasNextProject}
-                    hasPrev={hasPrevProject}
-                  />
-                )}
-              </Suspense>
             </div>
           </div>
         </section>

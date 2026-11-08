@@ -1,4 +1,4 @@
-import Image from "./AppImage";
+import Image from "next/image";
 interface FooterProps {
   lightweight?: boolean;
 }
@@ -13,7 +13,7 @@ const Footer = ({ lightweight = false }: FooterProps) => {
         {/* Brand */}
         <div className="flex items-center space-x-2">
           <div className="w-8 h-8 bg-transparent border rounded-lg flex items-center justify-center">
-            <Image src="/assets/logo.png" alt="Jason Dagana logo" />
+            <Image src="/assets/logo.png" alt="Jason Dagana logo" width={32} height={32} />
           </div>
           <span className="text-sm font-medium text-muted-foreground">
             © {new Date().getFullYear()} Dagana Jason
@@ -44,7 +44,7 @@ const Footer = ({ lightweight = false }: FooterProps) => {
           <div className="space-y-4">
             <div className="flex items-center space-x-2">
               <div className="w-8 h-8 bg-transparent border rounded-lg flex items-center justify-center">
-                <Image src="/assets/logo.png" alt="Jason Dagana logo" />
+                <Image src="/assets/logo.png" alt="Jason Dagana logo" width={32} height={32} />
               </div>
               <span className="text-xl font-semibold text-foreground">
                 Jason Dagana
