@@ -57,11 +57,11 @@ const FeaturedProjects = () => {
       id="featuredProjects"
       className="scroll-mt-14 relative h-full overflow-hidden py-20 sm:py-28"
     >
-      <div className="relative max-w-6xl mx-auto px-4 sm:px-12 h-full">
+      <div className="relative mx-auto h-full w-full max-w-6xl px-4 sm:px-8 lg:px-12">
         <RevealSection direction="up">
           <div className="mb-10 flex flex-col gap-6 border-b border-white/10 pb-8 sm:mb-14 sm:flex-row sm:items-end sm:justify-between">
             <div className="max-w-2xl">
-              <p className="mb-4 flex items-center gap-2 font-mono text-[0.65rem] font-semibold uppercase tracking-[0.17em] text-primary">
+              <p className="mb-4 flex flex-wrap items-center gap-2 font-mono text-[0.58rem] font-semibold uppercase tracking-[0.12em] text-primary sm:text-[0.65rem] sm:tracking-[0.17em]">
                 <Icon name="Code" size={14} />
                 A few things I&apos;ve brought to life
               </p>
@@ -95,21 +95,21 @@ const FeaturedProjects = () => {
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-[#07101d] via-[#07101d]/5 to-[#07101d]/15" />
                       <div className="absolute inset-0 bg-[#06101f]/15 transition-colors duration-500 group-hover:bg-transparent" />
-                      <div className="absolute inset-x-0 top-0 flex items-center justify-between p-4 sm:p-5">
-                        <span className="border border-white/20 bg-[#06101f]/80 px-3 py-1.5 font-mono text-[0.58rem] uppercase tracking-[0.15em] text-white/85 backdrop-blur-sm">
+                      <div className="absolute inset-x-0 top-0 flex flex-wrap items-start justify-between gap-2 p-3 sm:p-5">
+                        <span className="max-w-full border border-white/20 bg-[#06101f]/80 px-2 py-1.5 font-mono text-[0.5rem] uppercase tracking-[0.1em] text-white/85 backdrop-blur-sm sm:px-3 sm:text-[0.58rem] sm:tracking-[0.15em]">
                           Selected work / {String(index + 1).padStart(2, "0")}
                         </span>
-                        <span className="flex items-center gap-2 border border-white/15 bg-[#06101f]/70 px-3 py-1.5 font-mono text-[0.58rem] uppercase tracking-[0.12em] text-white/80 backdrop-blur-sm">
+                        <span className="flex max-w-full items-center gap-2 border border-white/15 bg-[#06101f]/70 px-2 py-1.5 font-mono text-[0.5rem] uppercase tracking-[0.08em] text-white/80 backdrop-blur-sm sm:px-3 sm:text-[0.58rem] sm:tracking-[0.12em]">
                           <span className="h-1.5 w-1.5 rounded-full bg-accent" />
                           {project?.status}
                         </span>
                       </div>
-                      <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-5 sm:p-7">
+                      <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-3 p-4 sm:gap-4 sm:p-7">
                         <div>
                           <p className="mb-2 font-mono text-[0.58rem] uppercase tracking-[0.18em] text-[#7fcaff]">
                             Case study
                           </p>
-                          <h3 className="line-clamp-2 max-w-[24ch] text-2xl font-semibold leading-[1.02] tracking-[-0.055em] text-white sm:text-3xl">
+                          <h3 className="line-clamp-2 max-w-[24ch] text-xl font-semibold leading-[1.02] tracking-[-0.055em] text-white sm:text-3xl">
                             {project?.title}
                           </h3>
                         </div>
@@ -142,14 +142,14 @@ const FeaturedProjects = () => {
                         ))}
                       </div>
 
-                      <div className="mt-auto flex items-center justify-between border-t border-white/10 pt-4">
-                        <div className="flex flex-wrap gap-1">
+                      <div className="mt-auto flex flex-col items-start justify-between gap-3 border-t border-white/10 pt-4 sm:flex-row sm:items-center">
+                        <div className="flex w-full flex-wrap gap-1 sm:w-auto">
                           <Button
                             variant="ghost"
                             size="sm"
                             iconName="ArrowRight"
                             iconPosition="left"
-                            className="!px-2 text-xs !text-slate-200 hover:!text-primary"
+                            className="!px-2 text-[0.68rem] !text-slate-200 hover:!text-primary sm:text-xs"
                             onClick={() => handleOpenModal(project, index)}
                           >
                             Open case file

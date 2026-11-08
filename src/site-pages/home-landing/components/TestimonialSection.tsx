@@ -40,7 +40,7 @@ const TestimonialSection = () => {
 
   return (
     <section className="homepage-section-divider relative overflow-hidden py-16">
-      <div className="max-w-6xl mx-auto relative z-20">
+      <div className="relative z-20 mx-auto w-full max-w-6xl">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center h-full">
           <RevealSection direction="down">
             <div className="mb-8">
@@ -58,7 +58,7 @@ const TestimonialSection = () => {
             </div>
           </RevealSection>
 
-          <div className="grid xl:grid-cols-[33.3%_33.3%_33.3%] gap-8 max-w-xl mx-auto xl:ml-0 xl:max-w-full">
+          <div className="mx-auto grid max-w-xl gap-5 md:gap-6 xl:ml-0 xl:max-w-full xl:grid-cols-3">
             {testimonials.map((testimonial, idx) => (
               <RevealSection
                 className="h-full"
@@ -67,11 +67,11 @@ const TestimonialSection = () => {
                 key={testimonial.id}
               >
                 <TiltCard active={animationsActive}>
-                  <div className="project-art-card relative z-30 rounded-xl border border-white/10 p-8 shadow-xl transition hover:shadow-[0_0_32px_rgba(0,149,255,0.12)]">
+                  <div className="project-art-card relative z-30 rounded-xl border border-white/10 p-5 shadow-xl transition hover:shadow-[0_0_32px_rgba(0,149,255,0.12)] sm:p-8">
                     <p className="text-sm sm:text-lg text-muted-foreground mb-4 italic">
                       "{testimonial.quote}"
                     </p>
-                    <div className="flex justify-center sm:justify-end xl:justify-center items-center gap-4">
+                    <div className="flex min-w-0 items-center justify-center gap-3 sm:justify-end sm:gap-4 xl:justify-center">
                       {testimonial.image ? (
                         <Image
                           src={testimonial.image}

@@ -21,7 +21,7 @@ const Footer = ({ lightweight = false }: FooterProps) => {
         </div>
 
         {/* Contact Info */}
-        <div className="text-sm text-muted-foreground flex items-center gap-6">
+        <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-muted-foreground">
           <a href="mailto:daganajason72@gmail.com" className="hover:text-primary transition-colors">
             Email
           </a>

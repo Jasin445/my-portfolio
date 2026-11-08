@@ -50,7 +50,7 @@ const DownloadResume = () => {
                 Jason Dagana — FullStack Developer
               </h3>
               <p className="text-xs sm:text-sm text-muted-foreground">
-                Updated: July 2026 &middot; PDF &middot; 126 KB
+                Updated: October 2026 &middot; PDF &middot; 258 KB
               </p>
             </div>
 

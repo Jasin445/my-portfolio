@@ -68,14 +68,14 @@ const Header = () => {
   return (
     <>
       <header className={headerClass}>
-        <nav className="flex items-center justify-between h-16 px-4 sm:px-6 4xl:max-w-9xl 3xl:max-w-8xl max-w-7xl mx-auto">
+        <nav className="flex h-16 items-center justify-between gap-3 px-4 sm:px-6 4xl:max-w-9xl 3xl:max-w-8xl max-w-7xl mx-auto">
           {/* Logo */}
           <Link
             href="/"
-            className="flex items-center space-x-2 group"
+            className="flex min-w-0 items-center space-x-2 group"
             aria-label="Jason Dagana - Home"
           >
-            <div className="w-16 h-16 sm:w-20 sm:h-20 -ml-2 sm:ml-0 bg-transparent rounded-lg flex items-center justify-center group-hover:scale-105 transition-transform duration-fast">
+            <div className="-ml-2 flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-transparent transition-transform duration-fast group-hover:scale-105 sm:ml-0 sm:h-16 sm:w-16">
               <Image
                 src="/assets/logo.png"
                 alt="Jason Dagana logo"
@@ -86,7 +86,7 @@ const Header = () => {
                 className="h-full w-full object-contain"
               />
             </div>
-            <span className="text-[clamp(16px,6vw,22px)] sm:text-3xl font-semibold text-foreground group-hover:text-primary transition-colors duration-fast">
+            <span className="truncate text-[clamp(16px,5vw,22px)] font-semibold text-foreground transition-colors duration-fast group-hover:text-primary sm:text-3xl">
               Jason Dagana
             </span>
           </Link>
@@ -119,7 +119,7 @@ const Header = () => {
 
       {isMobileMenuOpen && (
         <div
-          className="fixed inset-0 bg-black z-40 lg:hidden"
+          className="fixed inset-0 bg-black/45 backdrop-blur-[2px] z-40 lg:hidden"
           onClick={toggleMobileMenu}
           aria-hidden="true"
         />
@@ -178,7 +178,7 @@ const MobileMenu = ({
   isActivePath: (path: string) => boolean;
 }) => (
   <div
-    className={`lg:hidden absolute top-full left-0 right-0 bg-background/85 backdrop-blur-sm border-b border-border shadow-lg transition duration-300 h-screen ${
+    className={`lg:hidden absolute top-full left-0 right-0 max-h-[calc(100dvh-5rem)] overflow-y-auto bg-background/95 backdrop-blur-sm border-b border-border shadow-lg transition duration-300 ${
       isOpen
         ? "opacity-100 translate-y-0 pointer-events-auto"
         : "opacity-0 -translate-y-2 pointer-events-none"

@@ -41,7 +41,7 @@ const Skills = () => {
       {/* RevealSection uses its own IntersectionObserver — no active prop needed */}
       <RevealSection className="h-full" direction="left">
         <TiltCard active={animationsActive}>
-          <div className="mx-auto max-w-5xl rounded-2xl border border-white/10 bg-[#172126] px-6 py-8 text-center shadow-[0_30px_90px_-40px_rgba(0,0,0,0.85)] transition-shadow hover:shadow-[0_0_50px_rgba(0,149,255,0.12)] sm:py-12 lg:px-8">
+          <div className="mx-auto max-w-5xl rounded-2xl border border-white/10 bg-[#172126] px-4 py-8 text-center shadow-[0_30px_90px_-40px_rgba(0,0,0,0.85)] transition-shadow hover:shadow-[0_0_50px_rgba(0,149,255,0.12)] sm:px-6 sm:py-12 lg:px-8">
             <h2 className="text-xl sm:text-3xl md:text-4xl font-bold text-foreground mb-2 sm:mb-6">
               Technical Skills
             </h2>
@@ -50,7 +50,7 @@ const Skills = () => {
               developer tools.
             </p>
 
-            <div className="grid grid-cols-3 sm:flex mt-11 md:mt-0 justify-center gap-12">
+            <div className="mt-8 grid grid-cols-3 justify-items-center gap-x-3 gap-y-7 sm:mt-0 sm:flex sm:flex-wrap sm:justify-center sm:gap-8 md:gap-12">
               {skills.map(
                 ({
                   icon: Icon,
@@ -61,7 +61,7 @@ const Skills = () => {
                 }) => (
                   <div
                     key={label}
-                    className={`flex flex-col items-center justify-center gap-6 ${hiddenOnMobile ? "md:flex hidden" : ""}`}
+                    className={`flex min-w-0 flex-col items-center justify-center gap-3 sm:gap-4 ${hiddenOnMobile ? "hidden md:flex" : ""}`}
                   >
                     <Icon
                       size={44}
