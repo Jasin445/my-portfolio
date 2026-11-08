@@ -35,6 +35,12 @@ const structuredData = {
       jobTitle: "Full-Stack Developer and Web Designer",
       description:
         "Full-stack developer specializing in React, Next.js, TypeScript, Node.js, and PostgreSQL.",
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Abuja",
+        addressRegion: "FCT",
+        addressCountry: "NG",
+      },
       sameAs: [
         "https://github.com/Jasin445",
         "https://ng.linkedin.com/in/dagana-jason-73a470317",
