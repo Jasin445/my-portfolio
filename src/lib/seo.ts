@@ -14,6 +14,7 @@ interface PageSeo {
   description: string;
   path: string;
   keywords?: string[];
+  images?: Array<{ url: string; width?: number; height?: number; alt: string }>;
 }
 
 export function createPageMetadata({
@@ -21,6 +22,7 @@ export function createPageMetadata({
   description,
   path,
   keywords,
+  images = [socialImage],
 }: PageSeo): Metadata {
   const url = new URL(path, siteUrl).toString();
   const pageTitle =
@@ -38,14 +40,14 @@ export function createPageMetadata({
       siteName,
       locale: "en_NG",
       type: "website",
-      images: [socialImage],
+      images,
     },
     twitter: {
       card: "summary_large_image",
       title: `${title} | ${siteName}`,
       description,
       creator: "@DaganaJason",
-      images: [socialImage],
+      images,
     },
   };
 }

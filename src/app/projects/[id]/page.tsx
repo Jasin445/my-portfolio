@@ -13,10 +13,16 @@ export async function generateMetadata({ params }: PageProps) {
   const { id } = await params;
   const project = mockProjects.find((item) => item.id === Number(id));
   if (!project) return createPageMetadata({ title: "Project not found", description: "This project could not be found.", path: `/projects/${id}` });
+  const projectImages = project.images?.length ? project.images : [project.image];
   return createPageMetadata({
     title: `${project.title} — Project Case Study`,
     description: project.description,
     path: `/projects/${project.id}`,
+    keywords: [project.title, ...project.technologies, "web development case study"],
+    images: projectImages.map((image, index) => ({
+      url: image.startsWith("/") ? image : `/${image}`,
+      alt: `${project.title} project preview ${index + 1}`,
+    })),
   });
 }
 
@@ -29,10 +35,31 @@ export default async function ProjectDetailPage({ params }: PageProps) {
   const index = mockProjects.findIndex((item) => item.id === project.id);
   const previous = mockProjects[index - 1];
   const next = mockProjects[index + 1];
+  const projectStructuredData = {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    name: project.title,
+    description: project.fullDescription || project.description,
+    url: `https://jason-dagana.vercel.app/projects/${project.id}`,
+    image: images.map((image) =>
+      new URL(image.startsWith("/") ? image : `/${image}`, "https://jason-dagana.vercel.app").toString(),
+    ),
+    creator: {
+      "@type": "Person",
+      name: "Jason Dagana",
+      url: "https://jason-dagana.vercel.app/about-professional",
+    },
+    keywords: project.technologies.join(", "),
+      ...(project.liveUrl ? { sameAs: project.liveUrl } : {}),
+  };
 
   return (
     <>
       <Header />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(projectStructuredData).replace(/</g, "\\u003c") }}
+      />
       <main className="portfolio-canvas relative isolate min-h-screen overflow-hidden pb-20">
         <div className="pointer-events-none absolute inset-x-0 top-0 h-[760px] bg-[radial-gradient(ellipse_at_50%_0%,rgba(0,149,255,0.16),transparent_68%)]" />
         <div className="relative mx-auto max-w-7xl px-4 pt-32 sm:px-8 sm:pt-40">

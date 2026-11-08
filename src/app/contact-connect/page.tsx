@@ -15,5 +15,32 @@ export const metadata = createPageMetadata({
 });
 
 export default function ContactPage() {
-  return <ContactConnect />;
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    name: "Contact Jason Dagana",
+    url: "https://jason-dagana.vercel.app/contact-connect",
+    mainEntity: {
+      "@type": "Person",
+      name: "Jason Dagana",
+      email: "mailto:daganajason72@gmail.com",
+      telephone: "+2349013642811",
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Abuja",
+        addressRegion: "FCT",
+        addressCountry: "NG",
+      },
+    },
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, "\\u003c") }}
+      />
+      <ContactConnect />
+    </>
+  );
 }

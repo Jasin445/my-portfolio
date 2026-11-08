@@ -1,5 +1,5 @@
-import { useState, useRef } from "react";
-import { User, Lightbulb, Heart } from "lucide-react";
+import { useEffect, useState, useRef } from "react";
+import { User, Lightbulb, Cpu } from "lucide-react";
 import AppIcon from "../../../components/AppIcon";
 import Image from "../../../components/AppImage";
 import { RevealSection } from "../../../utils/animation.utils";
@@ -18,51 +18,57 @@ const ProfessionalBio = () => {
   const [expanded, setExpanded] = useState(false);
   const expandRef = useRef<HTMLDivElement>(null);
 
+  useEffect(() => {
+    [
+      "/assets/images/Jason_main2.webp",
+      "/assets/images/Jason_philosophy.png",
+      "/assets/images/Jason_interest.png",
+    ].forEach((src) => {
+      const image = new window.Image();
+      image.decoding = "async";
+      image.src = src;
+    });
+  }, []);
+
   const tabs: { id: BioTab; label: string; icon: ComponentType<{ size?: number }> }[] = [
     { id: "story", label: "My Story", icon: User },
     { id: "philosophy", label: "Philosophy", icon: Lightbulb },
-    { id: "interests", label: "Interests", icon: Heart },
+    { id: "interests", label: "Systems", icon: Cpu },
   ];
 
   const content: Record<BioTab, BioContent> = {
     story: {
-      title: "The Journey So Far",
-      content: `My journey into the world of front-end development began during my NYSC, where I uncovered a profound passion for coding and web development. From a young age, I was always fascinated by technology and the endless possibilities it offers. This early enthusiasm naturally evolved into a deep-seated love for web development.
+      title: "Building with Intention",
+      content: `My work today brings together software engineering, independent building, and academic study. I work as a software engineer, build and contribute to projects outside work, and am pursuing a master's degree in Information Management.
 
-Over the past year, I've dedicated myself to mastering front-end technologies, and it has been a transformative experience. I've gained a solid understanding of frameworks, responsive design, and user experience, and I've seen significant growth in my skills and confidence. Each project has been a stepping stone, allowing me to explore innovative solutions and refine my craft.
+Much of what I build is AI-driven, using large language models such as GPT, Gemini, and others. I use AI to help with code writing, but the thinking and engineering decisions remain mine: I define the problem, shape the architecture, and decide whether a solution belongs in the system.
 
-After graduating in 2022, I ventured into various fields, including teaching and the transportation sector. However, my passion for technology and research remained unwavering. I realized that my true calling lies in the ever-evolving world of web development, where I can continuously learn and contribute.
+Over time, my focus has shifted from simply getting something to work toward understanding why it works and what happens underneath. I trace problems across layers, question the design, and consider whether a solution will make sense beyond the immediate task.
 
-With a blend of creativity, technical expertise, and a genuine enthusiasm for technology, I'm excited to continue this journey and contribute to innovative projects and dynamic teams.
-
-Today, I continue to push the boundaries of what's possible in frontend development, always staying curious and eager to learn new technologies while maintaining a strong foundation in proven methodologies.`,
-image: "/assets/images/Jason_main2.webp",
+Work gives me practical engineering problems to learn from, independent projects give me room to explore, and my master's studies broaden how I think about information and the systems that manage it. I am still learning, and that is part of the work I value: building more capable software while deepening my understanding of the technology behind it.`,
+      image: "/assets/images/Jason_main2.webp",
     },
     philosophy: {
-      title: "Development Philosophy",
-      content: `I believe that exceptional frontend development is built on three fundamental pillars: user empathy, technical excellence, and continuous learning.
+      title: "Think Before the Fix",
+      content: `I no longer judge a solution only by whether it produces the expected output. I want to understand why it works, what is happening beneath the surface, and whether the approach makes sense in the wider system.
 
-**User Empathy:** Every line of code I write serves a human being on the other side of the screen. I prioritize accessibility, performance, and intuitive design because technology should enhance lives, not complicate them. Before implementing any feature, I ask: "How will this improve the user's experience?" **Technical Excellence:** Clean, maintainable code isn't just a preference—it's a responsibility. I advocate for comprehensive testing, thoughtful architecture, and documentation that enables teams to move fast without breaking things. Code reviews aren't just about catching bugs; they're opportunities for knowledge sharing and collective improvement.
+That means tracing problems through the layers involved, examining assumptions, and weighing trade-offs before settling on a design. Architecture, data flow, APIs, security, performance, edge cases, and product behavior all matter. Which concern leads depends on the problem in front of me.
 
-**Continuous Learning:** The frontend landscape evolves rapidly, and staying current requires intentional effort. I dedicate time weekly to exploring new technologies, contributing to open source projects, and sharing knowledge with the community. Learning isn't just about keeping up—it's about pushing the industry forward.
+AI is a technical collaborator in my process, not the authority on what should be built. I use it to explore ideas and accelerate code writing, but I challenge its suggestions, ask it to explain its reasoning, and correct it when it misses context. If a solution works but I do not understand or agree with its approach, I keep investigating.
 
-I also believe in the power of collaboration. The best solutions emerge when designers, developers, and stakeholders work together with mutual respect and open communication. My role extends beyond writing code to being a bridge between technical possibilities and business objectives.`,
-image: "/assets/images/Jason_philosophy.png"
+I am still learning, so I do not expect to have every answer. I do expect to stay curious, make decisions deliberately, and take responsibility for the systems I help build.`,
+      image: "/assets/images/Jason_philosophy.png",
     },
     interests: {
-      title: "Beyond the Code",
-      content: `While I'm passionate about development, I believe that diverse interests make me a better developer and collaborator.
+      title: "Systems & First Principles",
+      content: `I am interested in the relationship between software and the systems that make it possible. I want to understand not only how to use an abstraction, but what happens underneath when I do.
 
-**Attention to Detail:** I have a keen eye for even the smallest details, ensuring that every aspect of my work is polished and precise.
+That curiosity takes me from operating systems and Linux to computer architecture, networking, databases, and the ways computers manage resources. These foundations shape how software behaves, how components communicate, and where constraints and trade-offs come from.
 
-**Love for Art:** My passion for art gives me a unique aesthetic perspective, enriching my front-end development with creativity and a distinct style.
+I am also drawn to the engineering thinking behind software: problem-solving, system design, debugging, and the reasons one architecture or integration makes more sense than another. For me, understanding the lower layers and making sound decisions at the application level are connected parts of the same practice.
 
-**Fitness & Mindfulness:** Regular exercise and meditation help me maintain focus and clarity, allowing me to approach challenges with a clear mind and creativity.
-
-**Mentorship:** I volunteer as a mentor for those new to web development and software engineering, sharing knowledge and reinforcing my own understanding in the process.
-
-These interests aren't separate from my professional life—they enrich and inform my approach to development, making me more creative, empathetic, and effective in my work.`,
-image: "/assets/images/Jason_interest.png"
+My master's degree in Information Management adds another perspective. Software systems collect, store, process, organize, and make information useful. I am interested in how computing principles meet information architecture, databases, organizations, and decision-making—and in continuing to explore that intersection.`,
+      image: "/assets/images/Jason_interest.png",
     },
   };
 
@@ -145,11 +151,11 @@ image: "/assets/images/Jason_interest.png"
               </div>
             </div>
             <h2 className="text-xl sm:text-3xl lg:text-4xl font-bold mb-2 sm:mb-6 py-2 bg-gradient-to-r from-white via-white to-white bg-clip-text text-transparent">
-              Getting to Know Me
+              How I Think, Build, and Learn
             </h2>
             <p className="text-sm sm:text-lg text-gray-400 max-w-2xl mx-auto leading-relaxed">
-              Beyond the technical skills and professional achievements, here's
-              what drives my passion for development
+              The systems I build, the decisions behind them, and the questions
+              that keep me learning
             </p>
           </div>
         </RevealSection>
@@ -215,7 +221,7 @@ image: "/assets/images/Jason_interest.png"
                 <div className="absolute top-4 left-4 px-3 py-1.5 bg-[#d7ff63] text-[#10150b] text-xs font-semibold rounded-full border border-accent/30">
                   {activeTab === "story" && "Journey"}
                   {activeTab === "philosophy" && "Principles"}
-                  {activeTab === "interests" && "Passion"}
+                  {activeTab === "interests" && "Under the surface"}
                 </div>
               </div>
 

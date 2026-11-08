@@ -12,6 +12,11 @@ export const metadata = createPageMetadata({
     "Next.js portfolio",
     "full-stack applications",
   ],
+  images: [
+    { url: "/assets/images/nrc-preview.webp", alt: "NRC project preview" },
+    { url: "/assets/images/newsbridge-preview.webp", alt: "NewsBridge project preview" },
+    { url: "/assets/images/datatechub-preview.png", alt: "DataTechHub project preview" },
+  ],
 });
 
 export default function ProjectsPage() {

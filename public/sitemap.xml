@@ -1,40 +1,81 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-  xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
-    <loc>https://jason-dagana.vercel.app</loc>
+    <loc>https://jason-dagana.vercel.app/</loc>
     <priority>1.0</priority>
-    <image:image>
-      <image:loc>https://jason-dagana.vercel.app/assets/images/jason.webp</image:loc>
-      <image:title>Jason Dagana, Full-Stack Developer</image:title>
-    </image:image>
+    <image:image><image:loc>https://jason-dagana.vercel.app/assets/images/jason.webp</image:loc><image:title>Jason Dagana, Full-Stack Developer</image:title></image:image>
   </url>
   <url>
     <loc>https://jason-dagana.vercel.app/projects</loc>
     <priority>0.9</priority>
-    <image:image>
-      <image:loc>https://jason-dagana.vercel.app/assets/images/nrc-preview.webp</image:loc>
-      <image:title>Nigerian Railway Corporation web application</image:title>
-    </image:image>
-    <image:image>
-      <image:loc>https://jason-dagana.vercel.app/assets/images/newsbridge-preview.webp</image:loc>
-      <image:title>NewsBridge citizen journalism platform</image:title>
-    </image:image>
-    <image:image>
-      <image:loc>https://jason-dagana.vercel.app/assets/images/olclare-preview.webp</image:loc>
-      <image:title>Olclare web project</image:title>
-    </image:image>
+    <image:image><image:loc>https://jason-dagana.vercel.app/assets/images/nrc-preview.webp</image:loc><image:title>Nigerian Railway Corporation web application</image:title></image:image>
+    <image:image><image:loc>https://jason-dagana.vercel.app/assets/images/newsbridge-preview.webp</image:loc><image:title>NewsBridge citizen journalism platform</image:title></image:image>
+    <image:image><image:loc>https://jason-dagana.vercel.app/assets/images/datatechub-preview.png</image:loc><image:title>DataTechHub learning platform</image:title></image:image>
+    <image:image><image:loc>https://jason-dagana.vercel.app/assets/images/noblewellnes-preview.webp</image:loc><image:title>Noble Wellness Store</image:title></image:image>
+    <image:image><image:loc>https://jason-dagana.vercel.app/assets/images/digital-banking-preview.png</image:loc><image:title>Digital Banking System</image:title></image:image>
+    <image:image><image:loc>https://jason-dagana.vercel.app/assets/images/library-management-preview.png</image:loc><image:title>School Library Management API</image:title></image:image>
+    <image:image><image:loc>https://jason-dagana.vercel.app/assets/images/reel-room-preview.png</image:loc><image:title>Reel Room video generation pipeline</image:title></image:image>
+    <image:image><image:loc>https://jason-dagana.vercel.app/assets/images/perfect-x.png</image:loc><image:title>W3Stores e-commerce project</image:title></image:image>
+    <image:image><image:loc>https://jason-dagana.vercel.app/assets/images/houseconnect.png</image:loc><image:title>HouseConnect property platform</image:title></image:image>
+    <image:image><image:loc>https://jason-dagana.vercel.app/assets/images/everything-gadgets.webp</image:loc><image:title>Everything Gadget Accessories Store</image:title></image:image>
+    <image:image><image:loc>https://jason-dagana.vercel.app/assets/images/downloadiui.webp</image:loc><image:title>Vidchill creator dashboard</image:title></image:image>
+    <image:image><image:loc>https://jason-dagana.vercel.app/assets/images/todo-img.png</image:loc><image:title>Dynamic To-Do List</image:title></image:image>
+  </url>
+  <url>
+    <loc>https://jason-dagana.vercel.app/projects/1</loc><priority>0.8</priority>
+    <image:image><image:loc>https://jason-dagana.vercel.app/assets/images/nrc-preview.webp</image:loc><image:title>NRC project case study</image:title></image:image>
+  </url>
+  <url>
+    <loc>https://jason-dagana.vercel.app/projects/2</loc><priority>0.8</priority>
+    <image:image><image:loc>https://jason-dagana.vercel.app/assets/images/newsbridge-preview.webp</image:loc><image:title>NewsBridge project case study</image:title></image:image>
+  </url>
+  <url>
+    <loc>https://jason-dagana.vercel.app/projects/13</loc><priority>0.8</priority>
+    <image:image><image:loc>https://jason-dagana.vercel.app/assets/images/datatechub-preview.png</image:loc><image:title>DataTechHub project case study</image:title></image:image>
+  </url>
+  <url>
+    <loc>https://jason-dagana.vercel.app/projects/4</loc><priority>0.8</priority>
+    <image:image><image:loc>https://jason-dagana.vercel.app/assets/images/noblewellnes-preview.webp</image:loc><image:title>Noble Wellness project case study</image:title></image:image>
+  </url>
+  <url>
+    <loc>https://jason-dagana.vercel.app/projects/14</loc><priority>0.8</priority>
+    <image:image><image:loc>https://jason-dagana.vercel.app/assets/images/digital-banking-preview.png</image:loc><image:title>Digital Banking project case study</image:title></image:image>
+  </url>
+  <url>
+    <loc>https://jason-dagana.vercel.app/projects/15</loc><priority>0.8</priority>
+    <image:image><image:loc>https://jason-dagana.vercel.app/assets/images/library-management-preview.png</image:loc><image:title>Library Management API case study</image:title></image:image>
+  </url>
+  <url>
+    <loc>https://jason-dagana.vercel.app/projects/16</loc><priority>0.8</priority>
+    <image:image><image:loc>https://jason-dagana.vercel.app/assets/images/reel-room-preview.png</image:loc><image:title>Reel Room project case study</image:title></image:image>
+  </url>
+  <url>
+    <loc>https://jason-dagana.vercel.app/projects/7</loc><priority>0.8</priority>
+    <image:image><image:loc>https://jason-dagana.vercel.app/assets/images/perfect-x.png</image:loc><image:title>W3Stores project case study</image:title></image:image>
+  </url>
+  <url>
+    <loc>https://jason-dagana.vercel.app/projects/5</loc><priority>0.8</priority>
+    <image:image><image:loc>https://jason-dagana.vercel.app/assets/images/houseconnect.png</image:loc><image:title>HouseConnect project case study</image:title></image:image>
+  </url>
+  <url>
+    <loc>https://jason-dagana.vercel.app/projects/12</loc><priority>0.8</priority>
+    <image:image><image:loc>https://jason-dagana.vercel.app/assets/images/everything-gadgets.webp</image:loc><image:title>Everything Gadgets project case study</image:title></image:image>
+  </url>
+  <url>
+    <loc>https://jason-dagana.vercel.app/projects/11</loc><priority>0.8</priority>
+    <image:image><image:loc>https://jason-dagana.vercel.app/assets/images/downloadiui.webp</image:loc><image:title>Vidchill project case study</image:title></image:image>
+  </url>
+  <url>
+    <loc>https://jason-dagana.vercel.app/projects/9</loc><priority>0.8</priority>
+    <image:image><image:loc>https://jason-dagana.vercel.app/assets/images/todo-img.png</image:loc><image:title>To-do List project case study</image:title></image:image>
   </url>
   <url>
     <loc>https://jason-dagana.vercel.app/about-professional</loc>
     <priority>0.8</priority>
+    <image:image><image:loc>https://jason-dagana.vercel.app/assets/images/Jason_main2.webp</image:loc><image:title>Jason Dagana developer profile</image:title></image:image>
+    <image:image><image:loc>https://jason-dagana.vercel.app/assets/images/Jason_philosophy.png</image:loc><image:title>Jason Dagana development philosophy</image:title></image:image>
+    <image:image><image:loc>https://jason-dagana.vercel.app/assets/images/Jason_interest.png</image:loc><image:title>Jason Dagana interests beyond code</image:title></image:image>
   </url>
-  <url>
-    <loc>https://jason-dagana.vercel.app/my-articles</loc>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://jason-dagana.vercel.app/contact-connect</loc>
-    <priority>0.6</priority>
-  </url>
+  <url><loc>https://jason-dagana.vercel.app/my-articles</loc><priority>0.8</priority></url>
+  <url><loc>https://jason-dagana.vercel.app/contact-connect</loc><priority>0.6</priority></url>
 </urlset>
