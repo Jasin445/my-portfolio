@@ -1,23 +1,34 @@
 import Image from "next/image";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import { ArrowLeft, ArrowUpRight, Check, Code2, ExternalLink, Github, Sparkles } from "lucide-react";
 import Header from "../../../components/ui/Header";
 import Footer from "../../../components/Footer";
 import { mockProjects } from "../../../data";
 import { createPageMetadata } from "../../../lib/seo";
+import { getProjectImages, getProjectSlug } from "../../../lib/projects";
 
 type PageProps = { params: Promise<{ id: string }> };
 
+export function generateStaticParams() {
+  return mockProjects.map((project) => ({ id: getProjectSlug(project) }));
+}
+
+function findProject(id: string) {
+  return mockProjects.find(
+    (project) => getProjectSlug(project) === id || String(project.id) === id,
+  );
+}
+
 export async function generateMetadata({ params }: PageProps) {
   const { id } = await params;
-  const project = mockProjects.find((item) => item.id === Number(id));
+  const project = findProject(id);
   if (!project) return createPageMetadata({ title: "Project not found", description: "This project could not be found.", path: `/projects/${id}` });
-  const projectImages = project.images?.length ? project.images : [project.image];
+  const projectImages = getProjectImages(project);
   return createPageMetadata({
-    title: `${project.title} — Project Case Study`,
+    title: `${project.title} — Case Study`,
     description: project.description,
-    path: `/projects/${project.id}`,
+    path: `/projects/${getProjectSlug(project)}`,
     keywords: [project.title, ...project.technologies, "web development case study"],
     images: projectImages.map((image, index) => ({
       url: image.startsWith("/") ? image : `/${image}`,
@@ -28,10 +39,12 @@ export async function generateMetadata({ params }: PageProps) {
 
 export default async function ProjectDetailPage({ params }: PageProps) {
   const { id } = await params;
-  const project = mockProjects.find((item) => item.id === Number(id));
+  const project = findProject(id);
   if (!project) notFound();
 
-  const images = project.images?.length ? project.images : [project.image];
+  if (/^\d+$/.test(id)) permanentRedirect(`/projects/${getProjectSlug(project)}`);
+
+  const images = getProjectImages(project);
   const index = mockProjects.findIndex((item) => item.id === project.id);
   const previous = mockProjects[index - 1];
   const next = mockProjects[index + 1];
@@ -40,7 +53,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
     "@type": "CreativeWork",
     name: project.title,
     description: project.fullDescription || project.description,
-    url: `https://jason-dagana.vercel.app/projects/${project.id}`,
+    url: `https://jason-dagana.vercel.app/projects/${getProjectSlug(project)}`,
     image: images.map((image) =>
       new URL(image.startsWith("/") ? image : `/${image}`, "https://jason-dagana.vercel.app").toString(),
     ),
@@ -123,8 +136,8 @@ export default async function ProjectDetailPage({ params }: PageProps) {
           </div>
 
           <nav className="mt-20 grid gap-4 border-t border-white/10 pt-6 sm:grid-cols-2">
-            {previous ? <Link href={`/projects/${previous.id}`} className="group rounded-2xl border border-white/10 p-5 transition hover:border-cyan-200/40"><span className="mb-3 block font-mono text-[0.58rem] uppercase tracking-[0.14em] text-slate-500">← Previous project</span><span className="text-lg font-medium text-white transition group-hover:text-cyan-100">{previous.title}</span></Link> : <span />}
-            {next && <Link href={`/projects/${next.id}`} className="group rounded-2xl border border-white/10 p-5 text-left transition hover:border-cyan-200/40 sm:text-right"><span className="mb-3 block font-mono text-[0.58rem] uppercase tracking-[0.14em] text-slate-500">Next project →</span><span className="text-lg font-medium text-white transition group-hover:text-cyan-100">{next.title}</span></Link>}
+            {previous ? <Link href={`/projects/${getProjectSlug(previous)}`} className="group rounded-2xl border border-white/10 p-5 transition hover:border-cyan-200/40"><span className="mb-3 block font-mono text-[0.58rem] uppercase tracking-[0.14em] text-slate-500">← Previous project</span><span className="text-lg font-medium text-white transition group-hover:text-cyan-100">{previous.title}</span></Link> : <span />}
+            {next && <Link href={`/projects/${getProjectSlug(next)}`} className="group rounded-2xl border border-white/10 p-5 text-left transition hover:border-cyan-200/40 sm:text-right"><span className="mb-3 block font-mono text-[0.58rem] uppercase tracking-[0.14em] text-slate-500">Next project →</span><span className="text-lg font-medium text-white transition group-hover:text-cyan-100">{next.title}</span></Link>}
           </nav>
         </div>
       </main>

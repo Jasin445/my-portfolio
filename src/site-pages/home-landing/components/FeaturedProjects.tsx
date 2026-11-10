@@ -3,6 +3,7 @@ import Button from "../../../components/ui/Button";
 import Image from "../../../components/AppImage";
 import Icon from "../../../components/AppIcon";
 import { mockProjects } from "../../../data";
+import { getProjectSlug } from "../../../lib/projects";
 import { useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { ArrowUpRight } from "lucide-react";
@@ -21,7 +22,7 @@ const FeaturedProjects = () => {
 
   const { animationsActive } = usePerformanceGuard();
 
-  const handleOpenProject = (projectId: number) => router.push(`/projects/${projectId}`);
+  const handleOpenProject = (projectSlug: string) => router.push(`/projects/${projectSlug}`);
 
   return (
     <section
@@ -87,7 +88,7 @@ const FeaturedProjects = () => {
                         <button
                           type="button"
                           aria-label={`View details for ${project?.title}`}
-                          onClick={() => handleOpenProject(project.id)}
+                          onClick={() => handleOpenProject(getProjectSlug(project))}
                           className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/30 bg-[#131b21] text-white transition duration-300 hover:rotate-45 hover:border-primary hover:bg-primary hover:text-primary-foreground"
                         >
                           <ArrowUpRight size={19} />
@@ -121,7 +122,7 @@ const FeaturedProjects = () => {
                             iconName="ArrowRight"
                             iconPosition="left"
                             className="!px-2 text-[0.68rem] !text-slate-200 hover:!text-primary sm:text-xs"
-                            onClick={() => handleOpenProject(project.id)}
+                            onClick={() => handleOpenProject(getProjectSlug(project))}
                           >
                             Open case file
                           </Button>

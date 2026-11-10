@@ -17,6 +17,7 @@ import SkillsOverview from "./components/SkillsOverview";
 import ContactCta from "./components/ContactCta";
 import GenericHeroSection from "./components/GenericHero";
 import { mockProjects } from "../../data";
+import { getProjectSlug } from "../../lib/projects";
 import { RevealSection, TiltCard } from "../../utils/animation.utils";
 import usePerformanceGuard from "../../hooks/usePerformanceGuard";
 import type { Project } from "../../types/project";
@@ -170,7 +171,7 @@ const PortfolioProjects = () => {
   }, [filteredProjects, currentPage]);
 
   const handleViewDetails = useCallback((project: Project) => {
-    router.push(`/projects/${project.id}`);
+    router.push(`/projects/${getProjectSlug(project)}`);
   }, [router]);
 
   const handlePageChange = useCallback((page: number) => {

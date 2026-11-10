@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://jason-dagana.vercel.app/sitemap.xml

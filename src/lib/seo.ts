@@ -25,11 +25,8 @@ export function createPageMetadata({
   images = [socialImage],
 }: PageSeo): Metadata {
   const url = new URL(path, siteUrl).toString();
-  const pageTitle =
-    path === "/" ? `${title} | ${siteName}` : title;
-
   return {
-    title: pageTitle,
+    title,
     description,
     ...(keywords ? { keywords } : {}),
     alternates: { canonical: url },

@@ -3,6 +3,7 @@ import type { Project } from "../types/project";
 export const mockProjects: Project[] = [
   {
     id: 1,
+    slug: "nrc-booking-dashboard",
     title: "NRC – Nigerian Railway Corporation Website & Admin Dashboard",
     description:
       "Contributed to the NRC public-facing website and internal admin dashboard through an internship placement, delivering independently under supervisorship. Architected the seat-holding countdown system, updated UI screens, and solely built the complete Booking Control module — from UI to full API integration.",
@@ -99,10 +100,17 @@ const useUpdateBookingConfig = () => {
 
   {
     id: 2,
+    slug: "newsbridge",
     title: "NewsBridge – AI-Powered Citizen Journalism Platform",
     description:
-      "Frontend lead on a Next.js platform connecting professional journalists with African communities. Implemented HTTP-only cookie authentication, integrated 95% of backend APIs with TanStack Query, and built the full client-side application architecture.",
-    fullDescription: `NewsBridge is a citizen journalism platform designed to bridge professional journalists with local communities across Africa. As the frontend lead, I architected the entire client-side application using Next.js App Router and TypeScript. I owned the authentication system end-to-end — implementing HTTP-only cookie-based auth to eliminate XSS risk — and integrated the vast majority of backend APIs using TanStack Query, managing caching, optimistic updates, and error states across the application. The platform integrates a WhatsApp chatbot for anonymous citizen reporting, with the frontend surfacing verified submissions to journalists in real time. This was my most significant frontend leadership role to date.`,
+      "Full-stack contributor on a Next.js and Django platform connecting professional journalists with African communities. Led the frontend through its first phase, then extended into the backend, where I created 40+ API endpoints, including targeted push notifications, a multilingual language-intelligence module, and the news signals module.",
+    fullDescription: `NewsBridge is a citizen journalism platform that connects professional journalists with local communities across Africa. Citizens report what they witness through a WhatsApp chatbot, and journalists review, verify and follow up on those reports through a web dashboard.
+
+I led the frontend through the first phase of the project, architecting the client application with Next.js App Router and TypeScript, owning the authentication system end to end (HTTP-only cookie auth, so tokens are never exposed to JavaScript), and integrating about 95% of the backend APIs available at that stage with TanStack Query. That work remains the foundation of the application.
+
+As the team grew, other developers joined the frontend, and my focus shifted to product modules. I designed and built the journalist dashboard and the claims module, and integrated the news signals module into the interface.
+
+I also work on the Django backend. I implemented targeted push notifications for approved journalists, built the Understand module (an LLM-powered feature that translates text and audio between languages and extracts claims, which can be saved for the user or sent to claim sourcing), and created the news signals module, which groups related citizen reports into signals. I also integrated that module into the frontend. In total, I created 40+ backend API endpoints.`,
     image: "/assets/images/newsbridge-preview.webp",
     images: ["/assets/images/newsbridge-preview.webp"],
     technologies: [
@@ -112,6 +120,12 @@ const useUpdateBookingConfig = () => {
       "TanStack Query",
       "HTTP-only Cookies",
       "Tailwind CSS",
+      "Django",
+      "Celery",
+      "Redis",
+      "PostgreSQL",
+      "Docker",
+      "LLM Integration",
       "WhatsApp Business API",
     ],
     status: "MVP completed",
@@ -119,19 +133,26 @@ const useUpdateBookingConfig = () => {
     duration: "7 months",
     featured: true,
     liveUrl: "https://newsbridgeai.com",
-    githubUrl: "https://github.com/Favisoki/Newsbridge-AI",
+    // githubUrl: "https://github.com/Favisoki/Newsbridge-AI",
     architecture:
-      "Next.js App Router application with server and client components. Authentication uses HTTP-only cookies set server-side to prevent XSS, with Next.js middleware validating sessions before protected page renders. TanStack Query manages all API data with query-key-based caching, automatic retries, and optimistic updates. TypeScript interfaces enforce consistent data shapes across components.",
+      "Frontend: Next.js App Router application with server and client components. Authentication uses HTTP-only cookies set server-side to prevent XSS, with Next.js middleware validating sessions before protected page renders. TanStack Query manages API data with query-key-based caching, automatic retries, and optimistic updates, and TypeScript interfaces enforce consistent data shapes across components. Backend: Django application with Celery workers (Redis broker) on PostgreSQL, run with Docker Compose. Citizen reports arrive through the WhatsApp chatbot, and Django signals trigger push notifications to approved journalists matched by coverage area, language and region. The Understand module calls an LLM to translate and review local-language text and voice notes and to extract claims, which are stored as reviewed sources and can be forwarded to claim sourcing. A news-signal service groups related reports and generates intelligence such as recurring claims, open unknowns and source independence.",
     keyFeatures: [
       "HTTP-only cookie authentication preventing XSS token theft",
       "Next.js middleware for server-side session validation on protected routes",
-      "TanStack Query integration across 95% of API endpoints",
+      "TanStack Query integration across about 95% of the API endpoints available in the first phase",
+      "Journalist dashboard and claims module, designed and built end to end",
+      "News signals module integrated into the journalist interface",
       "Optimistic updates for journalist story verification actions",
       "WhatsApp chatbot integration for anonymous citizen report submission",
       "Role-based UI rendering (Citizens, Journalists, Editors, Admins)",
       "AI-powered story categorization and relevance matching",
       "Advanced search and filtering for journalist story discovery",
       "Media upload support for images, video, and audio",
+      "Targeted push notifications to approved journalists by coverage, language and region",
+      "Understand module: LLM-assisted translation of text and audio between languages, with claim extraction",
+      "Extracted claims saved for the user or forwarded to claim sourcing",
+      "News signals module (backend) with intelligence on recurring claims, unknowns and source independence",
+      "40+ backend API endpoints designed and implemented in Django",
     ],
     codeSnippet: `// TanStack Query hook with optimistic story verification
 const useStories = (filters?: StoryFilters) => {
@@ -159,6 +180,29 @@ const { mutate: verifyStory } = useMutation({
     queryClient.setQueryData(['stories'], context?.previous);
   },
 });`,
+    backendCodeSnippet: `# Django: targeted push notification when a new citizen report is created
+@receiver(post_save, sender=Content)
+def notify_matching_journalists(sender, instance, created, **kwargs):
+    if not created:
+        return
+
+    journalists = (
+        Journalist.objects.filter(is_approved=True)
+        .filter(
+            Q(coverages__in=instance.coverages.all())
+            | Q(languages=instance.language)
+            | Q(regions=instance.region)
+        )
+        .distinct()
+    )
+
+    for journalist in journalists:
+        send_push_notification(
+            user=journalist.user,
+            title="New report in your coverage area",
+            body=instance.headline,
+            data={"content_id": str(instance.id)},
+        )`,
     challenges: [
       {
         problem:
@@ -168,9 +212,9 @@ const { mutate: verifyStory } = useMutation({
       },
       {
         problem:
-          "Managing API data from 95% of backend endpoints with consistent loading states, error handling, and cache invalidation without repeating boilerplate across every component.",
+          "Managing API data from the backend endpoints with consistent loading states, error handling, and cache invalidation without repeating boilerplate across every component.",
         solution:
-          "Built a typed API layer of custom TanStack Query hooks — one per resource domain — each encapsulating the query key, fetch function, and cache configuration. Components consume hooks without knowing fetch details, keeping UI code clean and making cache invalidation predictable.",
+          "Built a typed API layer of custom TanStack Query hooks — one per resource domain — each encapsulating the query key, fetch function, and cache configuration. Components consume hooks without knowing fetch details, keeping UI code clean and making cache invalidation predictable. As other developers joined, the same structure let them add features without changing the foundation.",
       },
       {
         problem:
@@ -178,10 +222,23 @@ const { mutate: verifyStory } = useMutation({
         solution:
           "Analyzed the desktop layout's visual intent and made the call to collapse the horizontal step flow into a vertical timeline on mobile, using a left-aligned connector line to preserve the sense of progression. Determined independently which decorative elements to hide at small breakpoints — spacing, icon sizing, and typography scaling — all without a reference mockup.",
       },
+      {
+        problem:
+          "Notifying only the journalists who can act on a new report, without adding another background job, and without letting organisation admins trigger app-wide broadcasts.",
+        solution:
+          "Implemented the matching inside the post-save signal on new content, selecting approved journalists whose coverage areas, languages or regions fit the report. Tightened the broadcast permission so organisation admins cannot send app-wide push notifications.",
+      },
+      {
+        problem:
+          "Making local-language text and voice reports usable for verification when reviewers may not speak the language they were submitted in.",
+        solution:
+          "Built the Understand module around an LLM that translates text and audio between languages and extracts discrete claims. Reviewed sources are saved, and extracted claims can be saved for the user or forwarded to claim sourcing, keeping a human review step before anything moves on.",
+      },
     ],
   },
   {
     id: 13,
+    slug: "datatechhub",
     title: "DataTechHub – Data & AI Learning Platform (LMS)",
     description:
       "Sole frontend developer on a complex LMS for a Nigerian data/AI education platform. Built quizzes, assignments, lecture video streaming, leaderboard ranking, course curriculum, and timetable systems using Next.js, TypeScript, and TanStack Query/Table.",
@@ -282,10 +339,11 @@ Juggling this level of complexity — the sheer number of distinct pages and use
   },
   {
     id: 4,
-    title: "Noble Wellness Store – Lumbar Gel Sales Page",
+    slug: "noble-wellness-store",
+    title: "Noble Wellness Store – Lumbar Gel & Shilajit Gummies",
     description:
-      "High-converting product sales page for a lumbar cold compress gel built with React and deployed on Hostinger. Features a dynamic multi-tier package selection system, client-side order form with validation, and Facebook Pixel purchase tracking.",
-    fullDescription: `A conversion-focused product sales page built for Noble Wellness Store to sell their Lumbar Cold Compress Gel — a topical cooling product for lower back pain and muscle relief. Built entirely with React and deployed as a production build on Hostinger, the page is structured around driving orders: a dynamic package selection system across four pricing tiers, a validated order form, a custom image slider, and a WhatsApp fallback for direct customer support. Facebook Pixel purchase events fire with the correct order value on successful submission, enabling accurate revenue tracking for marketing campaigns. This is a real client project with a live production URL.`,
+      "Two-product e-commerce store for Lumbar Cold Compress Gel and Pure Himalayan Shilajit Gummies, built with React and deployed on Hostinger. Features product-specific order flows, package selection, validated forms, and isolated Facebook Pixel tracking for each product.",
+    fullDescription: `A two-product e-commerce store for Noble Wellness Store, featuring Lumbar Cold Compress Gel and Pure Himalayan Shilajit Gummies. Built with React and deployed on Hostinger, the store provides separate product experiences with dynamic package selection, validated order flows, customer support options, and Facebook Pixel purchase tracking. Each product uses its own Pixel ID, keeping purchase events and campaign data isolated. The live store is available at https://www.noblewellnessstore.com/.`,
     image: "/assets/images/noblewellnes-preview.webp",
     images: ["/assets/images/noblewellnes-preview.webp"],
     technologies: [
@@ -300,57 +358,60 @@ Juggling this level of complexity — the sheer number of distinct pages and use
     completedDate: "Feb 2025",
     duration: "1 week",
     featured: true,
-    liveUrl: "https://noblewellnessstore.com/lumbar-gel",
+    liveUrl: "https://www.noblewellnessstore.com/",
     githubUrl: "",
     architecture:
-      "Single-page React application with component-driven interactivity. All package data lives in a centralized JavaScript object; radio inputs are generated dynamically at render time. Order form state, validation, and submission are managed in React. On successful submission, the resolved package price is read from state to fire the Facebook Pixel purchase event. The production build is hosted as static files on Hostinger.",
+      "React storefront deployed as static files on Hostinger, with separate product experiences and order flows. Product-specific configuration keeps package data, form behavior, and Facebook Pixel IDs isolated. On confirmed order submission, the corresponding product flow fires a Purchase event through that product's Pixel with the selected package value and NGN currency.",
     keyFeatures: [
-      "Dynamic package radio inputs generated from a tiered pricing data object",
-      "Six pricing categories — Starter, Relief, Combo, Family Pack and more",
-      "Custom image slider with dot navigation and mobile scroll-snap",
-      "Client-side form validation with error display on invalid fields",
-      "Facebook Pixel purchase event with accurate price on order success",
-      "WhatsApp fallback button for direct customer messaging",
-      "Fully responsive layout optimized for mobile-first traffic",
+      "Two product experiences: Lumbar Cold Compress Gel and Pure Himalayan Shilajit Gummies",
+      "Dynamic package selection for product-specific pricing tiers",
+      "Validated order forms and customer support options",
+      "Facebook Pixel purchase tracking isolated by product",
+      "Purchase events include the selected package value and NGN currency",
+      "Responsive layouts optimized for mobile traffic",
     ],
-    codeSnippet: `// Dynamic package selection with Pixel tracking
-const PACKAGES = [
-  { id: 'starter',      label: 'Starter Pack – 1 pack',          subtitle: 'Perfect for trying out',              price: 25500, originalPrice: 27500 },
-  { id: 'relief',       label: 'Relief Pack – 2 Packs',          subtitle: 'Save ₦4,000 • Best Value',            price: 48000, originalPrice: 52000 },
-  { id: 'maximum',      label: 'Maximum Savings Pack – 3 Packs', subtitle: 'Best for long term • 3 months supply', price: 71000, originalPrice: 77000 },
-  { id: 'combo',        label: 'Combo Pack – 4 Packs + 1 free',  subtitle: 'Stock up • Save more',                price: 102000, originalPrice: 110000 },
-  { id: 'super_combo',  label: 'Super Combo Pack – 5 Packs + 2 free', subtitle: 'Lower cost per pack • Bigger savings', price: 153000, originalPrice: 194000 },
-  { id: 'family',       label: 'Family Pack – 6 Packs + 4 free', subtitle: 'Max value for families',              price: 255000, originalPrice: 356000 },
-];
+    codeSnippet: `// Keep each product's Pixel ID and package data isolated
+const PRODUCTS = {
+  lumbarGel: {
+    pixelId: "LUMBAR_GEL_PIXEL_ID",
+    packages: LUMBAR_GEL_PACKAGES,
+  },
+  shilajitGummies: {
+    pixelId: "SHILAJIT_GUMMIES_PIXEL_ID",
+    packages: SHILAJIT_GUMMIES_PACKAGES,
+  },
+};
 
-// Fire Pixel with resolved price after confirmed order
-const handleOrderSuccess = (packageId) => {
-  const pkg = PACKAGES.find(p => p.id === packageId);
-  if (pkg && typeof fbq === 'function') {
-    fbq('track', 'Purchase', {
+// Resolve tracking from the product that received the order
+const handleOrderSuccess = (productKey, packageId) => {
+  const product = PRODUCTS[productKey];
+  const pkg = product?.packages.find((item) => item.id === packageId);
+
+  if (pkg && typeof window.fbq === "function") {
+    window.fbq("trackSingle", product.pixelId, "Purchase", {
       value: pkg.price,
-      currency: 'NGN',
+      currency: "NGN",
     });
   }
 };`,
     challenges: [
       {
         problem:
-          "The client needed to support four package categories with multiple quantity tiers each. Hardcoding each option in JSX would make any price update a risky, error-prone HTML edit.",
+          "The store expanded from a single product to two products with different packages, order flows, and marketing campaigns. Shared tracking risked sending purchase events to the wrong Facebook Pixel and mixing campaign data.",
         solution:
-          "Centralized all package data in a single JavaScript object keyed by category. React renders radio inputs by iterating over this object, so adding a new tier or changing a price requires a one-line change to the data object — no JSX edits needed.",
+          "Isolated each product's Pixel ID and package configuration. The order flow identifies the product associated with the confirmed order and uses Facebook's trackSingle event with that product's Pixel ID, so purchase events and revenue stay separated.",
       },
       {
         problem:
-          "The Facebook Pixel purchase event needed to fire with the exact price of the selected package, but the package selection had to be resolved from a nested data structure at submission time.",
+          "Each product has its own package tiers and prices, so purchase tracking must report the selected product's actual order value.",
         solution:
-          "Stored the selected category key and package ID in React state as the user selects a package. On successful order confirmation from the backend, looked up the matching price from the PACKAGES object using the stored keys and passed it directly to fbq — ensuring the tracked revenue matched the actual order value.",
+          "Resolved the package from the confirmed product and package IDs, then sent its price and NGN currency to that product's Pixel only after successful order confirmation.",
       },
     ],
   },
-
   {
     id: 14,
+    slug: "digital-banking",
     title: "Digital Banking System – Backend with NIBSS Integration",
     description:
       "A backend banking system built with Node.js, Express, and MongoDB, integrated with the NIBSS by Phoenix API for real identaltity verification (KYC) and interbank settlement — supporting registration, account creation, transfers, and transaction history.",
@@ -437,6 +498,7 @@ POST /api/transactions/transfer
 
   {
     id: 15,
+    slug: "library-management-api",
     title: "School Library Management API",
     description:
       "A RESTful API for managing a school library system — books, authors, students, and staff — built with Node.js, Express, and MongoDB as a backend development coursework assignment (TSAcademy, Novara Cohort).",
@@ -517,6 +579,7 @@ POST /api/books/:id/return
 
   {
     id: 16,
+    slug: "reel-room",
     title: "Reel Room – AI Pictorial Video Generation Pipeline",
     description:
       "A free-tier AI video generation tool that chains LLM script generation, TTS voiceover, AI-generated images, subtitles, and background music into a fully assembled video via FFmpeg — accessible through both an API and a CLI, with generation history and job-queue processing.",
@@ -628,6 +691,7 @@ Built and shipped as an MVP in two weeks, running entirely on free-tier hosting.
   },
   {
     id: 7,
+    slug: "w3stores",
     title: "W3Stores – WordPress E-commerce with Custom PHP & API Integration",
     description:
       "Extended a WordPress/WooCommerce e-commerce store with custom PHP backend logic, JavaScript order form handling, and email API integration — going beyond CMS configuration to implement real backend and frontend engineering.",
@@ -698,6 +762,7 @@ function handle_order_submission($form_data) {
   },
   {
     id: 5,
+    slug: "houseconnect",
     title: "HouseConnect – Property Listing & Roommate Matching Platform",
     description:
       "A full-stack platform connecting homeseekers with property agents and compatible roommates. Features a three-role user system, Paystack payment integration, and a contact-reveal system unlocked after payment verification.",
@@ -1008,6 +1073,7 @@ const handlePaystackWebhook = async (req, res) => {
 
   {
     id: 12,
+    slug: "everything-gadgets",
     title: "Everything Gadget Accessories Store",
     description:
       "Responsive e-commerce product page built from scratch with HTML and CSS, demonstrating clean layout structure, Flexbox-based grid systems, and mobile-first responsive design.",
@@ -1129,6 +1195,7 @@ const handlePaystackWebhook = async (req, res) => {
 
   {
     id: 11,
+    slug: "vidchill",
     title: "Vidchill Creator Dashboard",
     description:
       "A dashboard UI layout built with HTML and CSS, combining CSS Grid for page structure and Flexbox for component-level alignment",
@@ -1187,6 +1254,7 @@ const handlePaystackWebhook = async (req, res) => {
 
   {
     id: 9,
+    slug: "todo-list",
     title: "Dynamic To-Do List",
     description:
       "A fully functional task management app built with vanilla JavaScript, featuring task creation, completion toggling, deletion, and persistent localStorage storage.",
