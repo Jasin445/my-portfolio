@@ -162,13 +162,21 @@ interface CinematicCurtainProps {
 
 const CinematicCurtain = ({ done, setDone, handleFinish }: CinematicCurtainProps) => {
   const [lifting, setLifting] = useState(false);
+  const curtainTiles = [
+  { exit: "up-left", delay: 0 },
+  { exit: "up", delay: 140 },
+  { exit: "up-right", delay: 280 },
+  { exit: "bottom-left", delay: 1800 },   // was "down-right"
+  { exit: "down", delay: 2600 },
+  { exit: "down-left", delay: 700 },
+];
 
   useEffect(() => {
     setTimeout(() => setLifting(true), 3400); // wait for logo to breathe
     setTimeout(() => {
       setDone(true)
       handleFinish?.()
-    }, 4200);
+    }, 7800);
   }, []);
 
   if (done) return null
@@ -181,8 +189,7 @@ const CinematicCurtain = ({ done, setDone, handleFinish }: CinematicCurtainProps
           inset: 0,
           zIndex: 9999,
           pointerEvents: "none",
-          display: "flex",
-          flexDirection: "column",
+          display: "block",
         }}
       >
         {/* Logo + text centered between the two curtain halves */}
@@ -191,15 +198,18 @@ const CinematicCurtain = ({ done, setDone, handleFinish }: CinematicCurtainProps
             position: "absolute",
             inset: 0,
             zIndex: 10,
+          isolation: "isolate",
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
             gap: "0px",
           }}
+        className={`curtain-logo-stage${lifting ? " is-opening" : ""}`}
         >
           {/* Logo */}
           <div
+            className="curtain-logo-mark"
             style={{
               animation: "logoPulse 3.4s cubic-bezier(0.4,0,0.2,1) forwards",
             }}
@@ -214,6 +224,7 @@ const CinematicCurtain = ({ done, setDone, handleFinish }: CinematicCurtainProps
 
           {/* Glowing text */}
           <p
+            className="curtain-tagline"
             style={{
               color: "#6be6ff",
               fontSize: "clamp(10px, 3vw, 26px)",
@@ -229,27 +240,18 @@ const CinematicCurtain = ({ done, setDone, handleFinish }: CinematicCurtainProps
           </p>
         </div>
 
-        {/* Top curtain */}
-        <div
-          style={{
-            flex: 1,
-            background: "#0a0e1a",
-            animation: lifting
-              ? "curtainDown 1.4s cubic-bezier(0.22, 1, 0.36, 1) forwards"
-              : "none",
-          }}
-        />
-
-        {/* Bottom curtain */}
-        <div
-          style={{
-            flex: 1,
-            background: "#0a0e1a",
-            animation: lifting
-              ? "curtainUp 1.4s cubic-bezier(0.22, 1, 0.36, 1) forwards"
-              : "none",
-          }}
-        />
+        {/* Six panels peel away in a snaking sequence. */}
+        <div className={`curtain-mosaic${lifting ? " is-opening" : ""}`} aria-hidden="true">
+          {curtainTiles.map((tile) => (
+            <div
+              key={tile.exit}
+              className={`curtain-tile${tile.exit === "down" ? " curtain-tile--final" : ""}${lifting ? " is-opening" : ""}`}
+              data-exit={tile.exit}
+              style={{ transitionDelay: `${tile.delay}ms, ${tile.delay + 1100}ms` }}
+            />
+          ))}
+        </div>
+        <div className={`curtain-star-reveal${lifting ? " is-opening" : ""}`} aria-hidden="true" />
       </div>
     </>
   );

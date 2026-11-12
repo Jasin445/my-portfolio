@@ -219,16 +219,149 @@ body,
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* ─── Curtain transitions ────────────────────────────────────────────────────
-   scaleY on transform — GPU composited, no change needed. */
-@keyframes curtainUp {
-  from { transform: scaleY(1); transform-origin: bottom; }
-  to   { transform: scaleY(0); transform-origin: bottom; }
+/* ─── Six-panel curtain reveal ─────────────────────────────────────────────── */
+.curtain-mosaic {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  gap: 2px;
+  isolation: isolate;
 }
 
-@keyframes curtainDown {
-  from { transform: scaleY(1); transform-origin: top; }
-  to   { transform: scaleY(0); transform-origin: top; }
+.curtain-mosaic::before {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  background: #0a0e1a;
+  content: "";
+  opacity: 1;
+  pointer-events: none;
+  transition: opacity 1.6s ease;
+}
+
+.curtain-mosaic.is-opening::before {
+  opacity: 0;
+  transition-delay: 2600ms;
+}
+
+.curtain-tile {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  border: 1px solid rgb(132 207 255 / 0.1);
+  background:
+    radial-gradient(ellipse at 50% 42%, rgb(29 70 103 / 0.24), transparent 68%),
+    linear-gradient(145deg, #111a28 0%, #090d18 58%, #0c1421 100%);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.07),
+    inset 0 -1px 0 rgb(89 178 235 / 0.06);
+  transform: translate(0, 0);
+  transition:
+    transform 1.6s cubic-bezier(0.76, 0, 0.24, 1),
+    opacity 500ms ease;
+  will-change: transform;
+}
+
+.curtain-tile.is-opening {
+  transform: var(--curtain-exit);
+  opacity: 0;
+}
+.curtain-tile--final.is-opening { transform: translate3d(0, 110vh, 0); }
+.curtain-tile[data-exit="up-left"] { --curtain-exit: translate(-104%, -14%); }
+.curtain-tile[data-exit="up"] { --curtain-exit: translate(0, -108%); }
+.curtain-tile[data-exit="up-right"] { --curtain-exit: translate(104%, -14%); }
+/* .curtain-tile[data-exit="down-right"] { --curtain-exit: translate(104%, 14%); } */
+.curtain-tile[data-exit="down-left"] { --curtain-exit: translate(0, 108%); }
+
+.curtain-logo-stage::before {
+  position: absolute;
+  z-index: -1;
+  inset: 50% auto auto 50%;
+  width: min(82vw, 660px);
+  height: min(64vh, 520px);
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at center,
+    rgb(4 9 18 / 0.96) 0%,
+    rgb(4 9 18 / 0.88) 48%,
+    rgb(4 9 18 / 0.46) 68%,
+    transparent 100%
+  );
+  content: "";
+  opacity: 1;
+  pointer-events: none;
+  transition: opacity 700ms ease;
+  transform: translate(-50%, -50%);
+}
+
+.curtain-logo-stage.is-opening::before { opacity: 0; }
+
+.curtain-logo-mark img {
+  filter: drop-shadow(0 4px 24px rgb(0 0 0 / 0.72));
+}
+
+.curtain-tagline {
+  position: relative;
+  z-index: 1;
+  color: #b7f4ff !important;
+  text-shadow: 0 2px 14px rgb(0 0 0 / 0.95), 0 0 24px rgb(0 0 0 / 0.72);
+}
+.curtain-tile[data-exit="bottom-left"] { --curtain-exit: translate(0, 110vh); }
+
+@media (min-width: 641px) {
+  .curtain-tile[data-exit="bottom-left"] { --curtain-exit: translate(-104%, 104%); }
+  .curtain-tile[data-exit="down-left"] { --curtain-exit: translate(104%, 104%); }
+}
+
+@media (max-width: 640px) {
+  .curtain-mosaic {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(3, minmax(0, 1fr));
+    gap: 1px;
+  }
+
+  .curtain-logo-mark img {
+    width: clamp(7.5rem, 34vw, 13rem);
+    height: clamp(7.5rem, 34vw, 13rem);
+  }
+
+  .curtain-tagline {
+    max-width: calc(100vw - 2rem);
+    margin-inline: 1rem;
+    font-size: clamp(0.7rem, 3.7vw, 1rem) !important;
+    letter-spacing: 0.12em !important;
+    line-height: 1.5;
+    text-align: center;
+  }
+}
+
+@keyframes curtainStarReveal {
+  0%   { opacity: 0; transform: scale(0.12) rotate(-12deg); }
+  18%  { opacity: 0.95; transform: scale(0.58) rotate(-2deg); }
+  62%  { opacity: 0.85; transform: scale(0.82) rotate(3deg); }
+  100% { opacity: 0; transform: scale(1.15) rotate(8deg); }
+}
+
+.curtain-star-reveal {
+  position: absolute;
+  z-index: 5;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  background: repeating-conic-gradient(
+    from 0deg at 50% 50%,
+    rgb(107 230 255 / 0.58) 0deg 2.5deg,
+    transparent 2.5deg 13deg
+  );
+  mask-image: radial-gradient(ellipse at center, #000 0, transparent 48%);
+  -webkit-mask-image: radial-gradient(ellipse at center, #000 0, transparent 48%);
+}
+
+.curtain-star-reveal.is-opening {
+  animation: curtainStarReveal 3s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 /* ─── Logo pulse ─────────────────────────────────────────────────────────────
