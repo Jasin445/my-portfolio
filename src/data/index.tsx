@@ -261,7 +261,7 @@ Juggling this level of complexity — the sheer number of distinct pages and use
     completedDate: "March 2026",
     duration: "2 months",
     featured: true,
-    liveUrl: "https://datatech-rho.vercel.app",
+    liveUrl: "https://datatechhub.io",
     githubUrl: "",
     architecture:
       "Next.js application with TypeScript across the full LMS. TanStack Query manages all API interactions — course data, quizzes, assignments, leaderboard, timetable — with centralized loading and error-state handling so every view has a consistent fallback UI when the API fails or is slow. TanStack Table powers data-dense views like the leaderboard and assignment tracking, with sorting and filtering built in. Framer Motion handles page transitions and micro-interactions across the platform. Video streaming supports both live lecture playback and a full archive of past recordings, with dedicated buffering states for reliability across varying connection speeds.",
