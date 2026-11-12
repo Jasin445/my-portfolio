@@ -345,7 +345,7 @@ Juggling this level of complexity — the sheer number of distinct pages and use
       "Two-product e-commerce store for Lumbar Cold Compress Gel and Pure Himalayan Shilajit Gummies, built with React and deployed on Hostinger. Features product-specific order flows, package selection, validated forms, and isolated Facebook Pixel tracking for each product.",
     fullDescription: `A two-product e-commerce store for Noble Wellness Store, featuring Lumbar Cold Compress Gel and Pure Himalayan Shilajit Gummies. Built with React and deployed on Hostinger, the store provides separate product experiences with dynamic package selection, validated order flows, customer support options, and Facebook Pixel purchase tracking. Each product uses its own Pixel ID, keeping purchase events and campaign data isolated. The live store is available at https://www.noblewellnessstore.com/.`,
     image: "/assets/images/noblewellnes-preview.webp",
-    images: ["/assets/images/noblewellnes-preview.webp"],
+    images: ["/assets/images/noblewellnes-preview.webp", "/assets/images/noblewellnes-preview1.webp"],
     technologies: [
       "React",
       "CSS3",

@@ -45,6 +45,17 @@ export default async function ProjectDetailPage({ params }: PageProps) {
   if (/^\d+$/.test(id)) permanentRedirect(`/projects/${getProjectSlug(project)}`);
 
   const images = getProjectImages(project);
+
+
+  const galleryCss = images
+    .map(
+      (_, i) =>
+        `#project-gallery:has(#shot-${i}:checked) [data-shot="${i}"]{display:grid}` +
+        `#project-gallery:has(#shot-${i}:checked) [data-thumb="${i}"]{border-color:rgb(165 243 252 / .9);opacity:1}` +
+        `#project-gallery:has(#shot-${i}:focus-visible) [data-thumb="${i}"]{outline:2px solid rgb(165 243 252);outline-offset:2px}`,
+    )
+    .join("");
+
   const index = mockProjects.findIndex((item) => item.id === project.id);
   const previous = mockProjects[index - 1];
   const next = mockProjects[index + 1];
@@ -63,7 +74,6 @@ export default async function ProjectDetailPage({ params }: PageProps) {
       url: "https://jason-dagana.vercel.app/about-professional",
     },
     keywords: project.technologies.join(", "),
-      ...(project.liveUrl ? { sameAs: project.liveUrl } : {}),
   };
 
   return (
@@ -96,14 +106,63 @@ export default async function ProjectDetailPage({ params }: PageProps) {
             </div>
           </section>
 
-          <section className="relative mt-8 overflow-hidden rounded-[1.5rem] border border-white/10 bg-[#091117] shadow-[0_40px_120px_-55px_rgba(0,149,255,0.45)] sm:mt-12">
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_100%,rgba(0,149,255,0.13),transparent_60%)]" />
-            <div className="relative grid min-h-[320px] place-items-center p-5 sm:min-h-[500px] sm:p-10">
-              <Image src={images[0]} alt={`${project.title} preview`} width={1800} height={1100} priority className="max-h-[68vh] w-full rounded-lg object-contain" />
-              <span className="absolute bottom-4 left-4 border border-white/15 bg-[#081117]/80 px-3 py-2 font-mono text-[0.55rem] uppercase tracking-[0.15em] text-white/65 backdrop-blur">Product view / 01</span>
-            </div>
-            {images.length > 1 && <div className="relative flex gap-3 overflow-x-auto border-t border-white/10 p-4">{images.map((image, imageIndex) => <div key={image} className="relative h-20 w-32 shrink-0 overflow-hidden rounded border border-white/10 sm:h-24 sm:w-40"><Image src={image} alt={`${project.title} view ${imageIndex + 1}`} fill className="object-cover" /></div>)}</div>}
-          </section>
+          {images.length > 0 && (
+            <section id="project-gallery" className="relative mt-8 overflow-hidden rounded-[1.5rem] border border-white/10 bg-[#091117] shadow-[0_40px_120px_-55px_rgba(0,149,255,0.45)] sm:mt-12">
+              <style dangerouslySetInnerHTML={{ __html: galleryCss }} />
+              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_100%,rgba(0,149,255,0.13),transparent_60%)]" />
+
+              {/* Hidden radio buttons hold the selected image. The first one is checked by default. */}
+              {images.map((_, i) => (
+                <input
+                  key={`radio-${i}`}
+                  type="radio"
+                  name="project-gallery"
+                  id={`shot-${i}`}
+                  defaultChecked={i === 0}
+                  className="sr-only"
+                  aria-label={`Show ${project.title} view ${i + 1}`}
+                />
+              ))}
+
+              {/* Large images: all are in the HTML, CSS shows only the selected one. */}
+              {images.map((image, i) => (
+                <div
+                  key={`shot-${image}-${i}`}
+                  data-shot={i}
+                  className="relative hidden min-h-[320px] place-items-center p-5 sm:min-h-[500px] sm:p-10"
+                >
+                  <Image
+                    src={image}
+                    alt={`${project.title} preview ${i + 1}`}
+                    width={1800}
+                    height={1100}
+                    sizes="(max-width: 640px) calc(100vw - 2.5rem), (max-width: 1280px) calc(100vw - 4rem), 1200px"
+                    priority={i === 0}
+                    className="max-h-[68vh] w-full rounded-lg object-contain"
+                  />
+                  <span className="absolute bottom-4 left-4 border border-white/15 bg-[#081117]/80 px-3 py-2 font-mono text-[0.55rem] uppercase tracking-[0.15em] text-white/65 backdrop-blur">
+                    Product view / {String(i + 1).padStart(2, "0")}
+                  </span>
+                </div>
+              ))}
+
+              {/* Thumbnails: clicking one ticks its radio button. */}
+              {images.length > 1 && (
+                <div className="relative flex gap-3 overflow-x-auto border-t border-white/10 p-4">
+                  {images.map((image, i) => (
+                    <label
+                      key={`thumb-${image}-${i}`}
+                      htmlFor={`shot-${i}`}
+                      data-thumb={i}
+                      className="relative h-20 w-32 shrink-0 cursor-pointer overflow-hidden rounded border border-white/10 opacity-60 transition hover:opacity-100 sm:h-24 sm:w-40"
+                    >
+                      <Image src={image} alt={`${project.title} view ${i + 1}`} fill sizes="160px" className="object-cover" />
+                    </label>
+                  ))}
+                </div>
+              )}
+            </section>
+          )}
 
           <div className="mt-12 grid gap-12 lg:grid-cols-[minmax(0,1fr)_300px] lg:gap-20">
             <div className="space-y-14 sm:space-y-20">
